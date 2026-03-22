@@ -1,0 +1,373 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME — Custom design tokens
+═══════════════════════════════════════════════════════════════ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Primary color scale based on #2563eb */
+  --color-primary-50:  #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  /* Animations */
+  --animate-fade-in-up:      fadeInUp 0.8s ease forwards;
+  --animate-fade-in-left:    fadeInLeft 0.8s ease forwards;
+  --animate-fade-in-right:   fadeInRight 0.8s ease forwards;
+  --animate-float:           float 6s ease-in-out infinite;
+  --animate-pulse-soft:      pulse-soft 2s ease-in-out infinite;
+  --animate-gradient-shift:  gradient-shift 8s ease infinite;
+
+  /* Shadows */
+  --shadow-3xl: 0 35px 60px -15px rgb(0 0 0 / 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes bounce-dot {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATION UTILITY CLASSES
+═══════════════════════════════════════════════════════════════ */
+.animate-float {
+  animation: var(--animate-float);
+}
+
+.animate-pulse-soft {
+  animation: var(--animate-pulse-soft);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL ANIMATION SYSTEM
+═══════════════════════════════════════════════════════════════ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children in grids */
+.animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+.animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+.animate-on-scroll:nth-child(4) { transition-delay: 0.3s; }
+.animate-on-scroll:nth-child(5) { transition-delay: 0.4s; }
+.animate-on-scroll:nth-child(6) { transition-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASSMORPHISM
+═══════════════════════════════════════════════════════════════ */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO GRADIENT BACKGROUND
+═══════════════════════════════════════════════════════════════ */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    #1e3a8a 0%,
+    #1d4ed8 25%,
+    #2563eb 50%,
+    #3b82f6 75%,
+    #1e40af 100%
+  );
+  background-size: 300% 300%;
+  animation: gradient-shift 10s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FINAL CTA GRADIENT
+═══════════════════════════════════════════════════════════════ */
+.cta-gradient {
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e3a8a 40%,
+    #1d4ed8 70%,
+    #1e1b4b 100%
+  );
+  background-size: 200% 200%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVBAR — Sticky glass state
+═══════════════════════════════════════════════════════════════ */
+#navbar {
+  background: transparent;
+}
+
+#navbar.scrolled {
+  background: rgba(30, 58, 138, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE MENU TRANSITIONS
+═══════════════════════════════════════════════════════════════ */
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu.open {
+  max-height: 400px;
+}
+
+/* Override hidden attribute for animation */
+.mobile-menu[hidden] {
+  display: block !important;
+  max-height: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURE CARDS
+═══════════════════════════════════════════════════════════════ */
+.feature-card {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+}
+
+.feature-card:hover {
+  box-shadow:
+    0 20px 25px -5px rgb(37 99 235 / 0.08),
+    0 8px 10px -6px rgb(37 99 235 / 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   KANBAN MOCKUP
+═══════════════════════════════════════════════════════════════ */
+.kanban-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kanban-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRICING CARD
+═══════════════════════════════════════════════════════════════ */
+.pricing-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 25px 50px -12px rgb(37 99 235 / 0.2),
+    0 0 0 1px rgb(37 99 235 / 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STEP CARDS
+═══════════════════════════════════════════════════════════════ */
+.step-card {
+  padding: 2rem 1.5rem;
+  border-radius: 1.5rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.step-card:hover {
+  background-color: #f8fafc;
+  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.08);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FAQ ACCORDION
+═══════════════════════════════════════════════════════════════ */
+.faq-item {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq-item.open {
+  border-color: #bfdbfe;
+  box-shadow: 0 4px 20px rgb(37 99 235 / 0.06);
+}
+
+.faq-item.open .faq-btn {
+  background-color: #eff6ff;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+  color: #2563eb;
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-content.open {
+  max-height: 300px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM SCROLLBAR
+═══════════════════════════════════════════════════════════════ */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: #bfdbfe #f1f5f9;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bfdbfe;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TEXT SELECTION COLOR
+═══════════════════════════════════════════════════════════════ */
+::selection {
+  background-color: #bfdbfe;
+  color: #1e3a8a;
+}
+
+::-moz-selection {
+  background-color: #bfdbfe;
+  color: #1e3a8a;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SMOOTH FOCUS RING
+═══════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE TYPOGRAPHY SCALE
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .hero-gradient h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT STYLES
+═══════════════════════════════════════════════════════════════ */
+@media print {
+  #navbar,
+  .hero-gradient,
+  .cta-gradient {
+    display: none;
+  }
+}
