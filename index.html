@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Quotify — La piattaforma per freelancer in Regime Forfettario. Gestisci preventivi, fatture elettroniche SDI, pipeline progetti e assistente AI in un'unica app." />
+    <meta name="description" content="Quotify — La piattaforma per freelance in Regime Forfettario. Gestisci preventivi, fatture elettroniche SDI, pipeline progetti e assistente AI in un'unica app." />
     <meta name="theme-color" content="#2563eb" />
-    <title>Quotify — Gestione Freelancer in Regime Forfettario</title>
+    <title>Quotify — Gestione Freelance in Regime Forfettario</title>
     <link rel="icon" type="image/png" href="/pwa-192x192.png" />
     <link rel="apple-touch-icon" href="/pwa-192x192.png" />
     <meta property="og:image" content="/pwa-512x512.png" />
@@ -44,9 +44,10 @@
 
         <!-- Desktop CTA -->
         <div class="hidden lg:flex items-center gap-4">
-          <a href="#prezzi" class="text-white/80 hover:text-white text-sm font-medium transition-colors">Accedi</a>
+          <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white text-sm font-medium transition-colors">Accedi</a>
           <a
-            href="#prezzi"
+            href="https://app.quotify.it/register"
+            target="_blank" rel="noopener noreferrer"
             class="bg-white text-primary-600 hover:bg-primary-50 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
           >
             Prova Gratis
@@ -86,7 +87,7 @@
           <a href="#prezzi" class="mobile-nav-link text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-sm font-medium transition-colors">Prezzi</a>
           <a href="#faq" class="mobile-nav-link text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-sm font-medium transition-colors">FAQ</a>
           <div class="pt-2 border-t border-white/10 mt-2">
-            <a href="#prezzi" class="block w-full text-center bg-white text-primary-600 font-semibold px-5 py-3 rounded-lg text-sm transition-all hover:bg-primary-50">Prova Gratis</a>
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-white text-primary-600 font-semibold px-5 py-3 rounded-lg text-sm transition-all hover:bg-primary-50">Prova Gratis</a>
           </div>
         </div>
       </div>
@@ -97,84 +98,91 @@
       <!-- ═══════════════════════════════════════════════════════════
            HERO
       ═══════════════════════════════════════════════════════════ -->
-      <section
-        id="hero"
-        class="hero-gradient min-h-screen flex flex-col justify-center items-center relative overflow-hidden pt-16"
-        aria-labelledby="hero-heading"
-      >
-        <!-- Background decoration -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div class="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full bg-white/5 blur-3xl"></div>
-          <div class="absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] rounded-full bg-primary-400/10 blur-3xl"></div>
-          <div class="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full bg-indigo-400/10 blur-2xl animate-float"></div>
-        </div>
+      <section id="hero" class="hero-scroll-container">
+        <div class="hero-scroll-space" style="height: 400vh; position: relative;">
+          <div class="hero-sticky hero-gradient" style="height: 100vh; position: sticky; top: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 4rem;">
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <!-- Badge -->
-          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white/90 text-sm font-medium mb-8">
-            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse-soft"></span>
-            Disponibile in beta gratuita — Regime Forfettario
-          </div>
+            <!-- 3D Perspective Grid -->
+            <div class="hero-grid-bg" aria-hidden="true">
+              <div class="hero-grid-plane hero-grid-floor"></div>
+              <div class="hero-grid-plane hero-grid-ceiling"></div>
+            </div>
 
-          <!-- Headline -->
-          <h1
-            id="hero-heading"
-            class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mb-6 max-w-4xl mx-auto"
-          >
-            La gestione del tuo lavoro da freelancer,
-            <span class="text-primary-200"> finalmente semplice.</span>
-          </h1>
+            <!-- Background decoration -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+              <div class="hero-bg-circle absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full bg-white/5 blur-3xl"></div>
+              <div class="hero-bg-circle absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] rounded-full bg-primary-400/10 blur-3xl"></div>
+              <div class="hero-bg-circle absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full bg-indigo-400/10 blur-2xl animate-float"></div>
+            </div>
 
-          <!-- Subtitle -->
-          <p class="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Preventivi PDF, fatturazione elettronica SDI, pipeline Kanban e assistente AI.
-            Tutto in un'unica app pensata per i professionisti in Regime Forfettario.
-          </p>
-
-          <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a
-              href="#prezzi"
-              class="w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50 font-semibold text-base px-8 py-4 rounded-xl shadow-2xl shadow-primary-900/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-3xl"
-            >
-              Inizia Gratis
-            </a>
-            <a
-              href="#funzionalita"
-              class="w-full sm:w-auto glass text-white font-semibold text-base px-8 py-4 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200 flex items-center justify-center gap-2 group"
-            >
-              Scopri le Funzionalità
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="transition-transform group-hover:translate-x-1" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Stats -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div class="glass rounded-2xl p-5 border border-white/20">
-              <div class="text-3xl font-bold text-white mb-1">
-                <span class="stat-counter" data-target="500">0</span>+
+            <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+              <!-- Badge -->
+              <div class="hero-anim inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white/90 text-sm font-medium mb-5">
+                Disponibile in beta gratuita
               </div>
-              <div class="text-white/60 text-sm">Freelancer attivi</div>
-            </div>
-            <div class="glass rounded-2xl p-5 border border-white/20">
-              <div class="text-3xl font-bold text-white mb-1">
-                <span class="stat-counter" data-target="10000">0</span>+
-              </div>
-              <div class="text-white/60 text-sm">Fatture emesse</div>
-            </div>
-            <div class="glass rounded-2xl p-5 border border-white/20">
-              <div class="text-3xl font-bold text-white mb-1">99.9%</div>
-              <div class="text-white/60 text-sm">Uptime garantito</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float" aria-hidden="true">
-          <div class="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
-            <div class="w-1 h-2 bg-white/60 rounded-full animate-pulse-soft"></div>
+              <!-- Headline -->
+              <h1
+                id="hero-heading"
+                class="hero-anim hero-title text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4 max-w-4xl mx-auto"
+              >
+                La gestione del tuo lavoro da freelance,
+                <span class="text-primary-200"> finalmente semplice.</span>
+              </h1>
+
+              <!-- Subtitle -->
+              <p class="hero-anim hero-subtitle text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-6 leading-relaxed">
+                Preventivi PDF, fatturazione elettronica SDI, pipeline Kanban e assistente AI.
+                Tutto in un'unica app pensata per i professionisti in Regime Forfettario.
+              </p>
+
+              <!-- CTAs -->
+              <div class="hero-anim hero-ctas flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                <a
+                  href="https://app.quotify.it/register"
+                  target="_blank" rel="noopener noreferrer"
+                  class="w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50 font-semibold text-base px-8 py-4 rounded-xl shadow-2xl shadow-primary-900/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-3xl"
+                >
+                  Inizia Gratis
+                </a>
+                <a
+                  href="#funzionalita"
+                  class="w-full sm:w-auto glass text-white font-semibold text-base px-8 py-4 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200 flex items-center justify-center gap-2 group"
+                >
+                  Scopri le Funzionalità
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="transition-transform group-hover:translate-x-1" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Stats -->
+              <div class="hero-stats grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+                <div class="hero-stat stat-1 glass rounded-2xl p-5 border border-white/20">
+                  <div class="text-3xl font-bold text-white mb-1">
+                    <span class="stat-counter" data-target="500">0</span>+
+                  </div>
+                  <div class="text-white/60 text-sm">Freelance attivi</div>
+                </div>
+                <div class="hero-stat stat-2 glass rounded-2xl p-5 border border-white/20">
+                  <div class="text-3xl font-bold text-white mb-1">
+                    <span class="stat-counter" data-target="10000">0</span>+
+                  </div>
+                  <div class="text-white/60 text-sm">Fatture emesse</div>
+                </div>
+                <div class="hero-stat stat-3 glass rounded-2xl p-5 border border-white/20">
+                  <div class="text-3xl font-bold text-white mb-1">99.9%</div>
+                  <div class="text-white/60 text-sm">Uptime garantito</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2" aria-hidden="true">
+              <div class="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
+                <div class="w-1 h-2 bg-white/60 rounded-full animate-pulse-soft"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -201,15 +209,15 @@
               Tutto ciò di cui hai bisogno
             </h2>
             <p class="text-lg text-slate-500 max-w-2xl mx-auto">
-              Una suite completa pensata specificamente per i freelancer italiani in Regime Forfettario.
+              Una suite completa pensata specificamente per i freelance italiani in Regime Forfettario.
             </p>
           </div>
 
           <!-- Features Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-reveal-list>
 
             <!-- Feature 1: Pipeline Kanban -->
-            <article class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" aria-labelledby="feat-kanban">
+            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-kanban">
               <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary-100 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect x="3" y="3" width="5" height="18" rx="1" stroke="#2563eb" stroke-width="2"/>
@@ -222,7 +230,7 @@
             </article>
 
             <!-- Feature 2: Preventivi PDF -->
-            <article class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" aria-labelledby="feat-pdf">
+            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-pdf">
               <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-200 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -236,7 +244,7 @@
             </article>
 
             <!-- Feature 3: Fatturazione SDI -->
-            <article class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" aria-labelledby="feat-sdi">
+            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-sdi">
               <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-violet-200 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -248,7 +256,7 @@
             </article>
 
             <!-- Feature 4: AI Assistant -->
-            <article class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" aria-labelledby="feat-ai">
+            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-ai">
               <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-amber-200 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -262,7 +270,7 @@
             </article>
 
             <!-- Feature 5: Dashboard Fiscale -->
-            <article class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" aria-labelledby="feat-dashboard">
+            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-dashboard">
               <div class="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-rose-200 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <line x1="18" y1="20" x2="18" y2="10" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
@@ -276,7 +284,7 @@
             </article>
 
             <!-- Feature 6: PWA + Notifiche -->
-            <article class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" aria-labelledby="feat-pwa">
+            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-pwa">
               <div class="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-cyan-200 transition-colors">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M18 8h1a4 4 0 0 1 0 8h-1" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -640,16 +648,16 @@
               Come funziona
             </h2>
             <p class="text-lg text-slate-500 max-w-2xl mx-auto">
-              Tre passi per iniziare a gestire il tuo business da freelancer in modo professionale.
+              Tre passi per iniziare a gestire il tuo business da freelance in modo professionale.
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative" data-reveal-list>
             <!-- Connector line (desktop only) -->
             <div class="hidden md:block absolute top-8 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200" aria-hidden="true"></div>
 
             <!-- Step 1 -->
-            <div class="step-card animate-on-scroll text-center relative">
+            <div data-reveal-item class="step-card animate-on-scroll text-center relative">
               <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -664,7 +672,7 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="step-card animate-on-scroll text-center relative">
+            <div data-reveal-item class="step-card animate-on-scroll text-center relative">
               <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect x="3" y="3" width="5" height="18" rx="1" stroke="white" stroke-width="2"/>
@@ -680,7 +688,7 @@
             </div>
 
             <!-- Step 3 -->
-            <div class="step-card animate-on-scroll text-center relative">
+            <div data-reveal-item class="step-card animate-on-scroll text-center relative">
               <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -691,6 +699,58 @@
               <p class="text-slate-500 text-sm leading-relaxed">
                 Trasforma i preventivi in fatture elettroniche con un click. Monitora i pagamenti e la soglia forfettaria in tempo reale.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           GLOBE — La soluzione italiana
+      ═══════════════════════════════════════════════════════════ -->
+      <section
+        class="globe-section py-24 lg:py-32 bg-slate-950 relative overflow-hidden"
+        aria-labelledby="globe-heading"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <!-- Content -->
+            <div class="relative z-10">
+              <div data-reveal class="inline-flex items-center gap-2 bg-primary-500/10 text-primary-400 rounded-full px-4 py-1.5 text-sm font-semibold mb-6 border border-primary-500/20">
+                Made in Italy
+              </div>
+              <h2 data-reveal id="globe-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                La soluzione italiana per i freelance
+              </h2>
+              <p data-reveal class="text-lg text-slate-400 leading-relaxed mb-8">
+                Quotify è pensato, progettato e costruito specificamente per i professionisti italiani. Ogni funzionalità rispetta la normativa fiscale del nostro Paese.
+              </p>
+            </div>
+
+            <!-- Globe container -->
+            <div class="relative flex items-center justify-center" style="min-height: 450px;">
+              <canvas id="globe-canvas" class="globe-canvas" width="600" height="600" style="max-width: 100%; height: auto;"></canvas>
+
+              <!-- Floating widgets -->
+              <div class="globe-widget widget-1 glass rounded-xl px-4 py-3 border border-white/20 text-white text-xs font-medium shadow-lg">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                  500+ Freelance attivi
+                </div>
+              </div>
+              <div class="globe-widget widget-2 glass rounded-xl px-4 py-3 border border-white/20 shadow-lg">
+                <div class="text-white text-xs font-semibold">Fattura SDI inviata</div>
+                <div class="text-emerald-400 text-[10px] mt-0.5">Consegnata</div>
+              </div>
+              <div class="globe-widget widget-3 glass rounded-xl px-4 py-3 border border-white/20 shadow-lg">
+                <div class="text-white text-xs font-semibold">Regime Forfettario</div>
+                <div class="text-primary-300 text-[10px] mt-0.5">Art. 1 c. 54-89</div>
+              </div>
+              <div class="globe-widget widget-4 glass rounded-xl px-4 py-3 border border-white/20 shadow-lg">
+                <div class="flex items-center gap-2">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#34d399" stroke-width="2.5"/><polyline points="22,4 12,14.01 9,11.01" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-white text-xs font-medium">Conforme normativa</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -721,19 +781,15 @@
             </p>
           </div>
 
-          <div class="max-w-md mx-auto animate-on-scroll">
-            <div class="pricing-card bg-white rounded-3xl border-2 border-primary-200 shadow-2xl shadow-primary-100/50 p-8 relative overflow-hidden">
-              <!-- Popular badge -->
-              <div class="absolute top-0 right-8 bg-primary-600 text-white text-xs font-bold px-4 py-1.5 rounded-b-xl">
-                BETA GRATUITA
-              </div>
-              <!-- Background decoration -->
-              <div class="absolute top-0 right-0 w-48 h-48 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2" aria-hidden="true"></div>
+          <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
-              <div class="relative">
+            <!-- FREE PLAN -->
+            <div class="pricing-card animate-on-scroll bg-white rounded-3xl border-2 border-slate-200 shadow-lg p-8 relative overflow-hidden flex flex-col">
+              <div class="relative flex flex-col flex-1">
                 <div class="mb-6">
+                  <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Free</div>
                   <div class="text-5xl font-bold text-slate-900 mb-1">€ 0<span class="text-xl font-normal text-slate-400">/mese</span></div>
-                  <p class="text-slate-500 text-sm">Per tutta la durata della beta — poi sceglierai tu.</p>
+                  <p class="text-slate-500 text-sm">Per iniziare senza pensieri.</p>
                 </div>
 
                 <ul class="space-y-3 mb-8" role="list">
@@ -743,39 +799,95 @@
                   </li>
                   <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Preventivi PDF — 3 template inclusi</span>
+                    <span class="text-slate-700 text-sm">Preventivi PDF — creazione e download</span>
                   </li>
                   <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Fatturazione Elettronica SDI — illimitata</span>
+                    <span class="text-slate-700 text-sm">Creazione fatture elettroniche (XML)</span>
                   </li>
                   <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">AI Assistant Claude — 100 richieste/mese</span>
+                    <span class="text-slate-700 text-sm">Dashboard fiscale</span>
                   </li>
                   <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Dashboard Fiscale con soglia forfettaria</span>
+                    <span class="text-slate-700 text-sm">QuotifAI — 3 messaggi al mese</span>
                   </li>
                   <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">PWA installabile + Notifiche Push</span>
+                    <span class="text-slate-700 text-sm">Notifiche Push e promemoria automatici</span>
                   </li>
                   <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Supporto via email prioritario</span>
+                    <span class="text-slate-700 text-sm">App nativa iOS + PWA installabile</span>
                   </li>
                 </ul>
 
-                <a
-                  href="#"
-                  class="block w-full text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 rounded-2xl text-base transition-all duration-200 hover:shadow-xl hover:shadow-primary-200 hover:-translate-y-0.5"
-                >
-                  Inizia Gratis — Nessuna carta richiesta
-                </a>
-                <p class="text-center text-xs text-slate-400 mt-3">Già in beta? <a href="#" class="text-primary-600 hover:underline font-medium">Accedi al tuo account</a></p>
+                <div class="mt-auto pt-8">
+                  <a
+                    href="https://app.quotify.it/register"
+                    target="_blank" rel="noopener noreferrer"
+                    class="block w-full text-center bg-slate-900 hover:bg-slate-800 text-white font-semibold py-4 rounded-2xl text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
+                  >
+                    Inizia Gratis
+                  </a>
+                  <p class="text-center text-xs text-slate-400 mt-3">Già registrato? <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline font-medium">Accedi al tuo account</a></p>
+                </div>
               </div>
             </div>
+
+            <!-- PRO PLAN -->
+            <div class="pricing-card animate-on-scroll bg-white rounded-3xl border-2 border-primary-200 shadow-2xl shadow-primary-100/50 p-8 relative overflow-hidden flex flex-col">
+              <!-- Background decoration -->
+              <div class="absolute top-0 right-0 w-48 h-48 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2" aria-hidden="true"></div>
+              <!-- Badge -->
+              <div class="absolute top-0 right-8 bg-primary-600 text-white text-xs font-bold px-4 py-1.5 rounded-b-xl z-10">
+                CONSIGLIATO
+              </div>
+
+              <div class="relative flex flex-col flex-1">
+                <div class="mb-6">
+                  <div class="text-sm font-semibold text-primary-600 uppercase tracking-wide mb-2">Pro</div>
+                  <div class="text-5xl font-bold text-slate-900 mb-1">€ 6,99<span class="text-xl font-normal text-slate-400">/mese</span></div>
+                  <p class="text-slate-500 text-sm">Per chi vuole il massimo dal proprio business.</p>
+                </div>
+
+                <ul class="space-y-3 mb-8" role="list">
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="text-slate-700 text-sm font-medium">Tutto quello del piano Free, più:</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="text-slate-700 text-sm">Invio fatture al SDI direttamente dall'app</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="text-slate-700 text-sm">QuotifAI illimitato</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="text-slate-700 text-sm">Branding personalizzato — logo e colori su PDF</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="text-slate-700 text-sm">Supporto prioritario</span>
+                  </li>
+                </ul>
+
+                <div class="mt-auto pt-8">
+                  <a
+                    href="https://app.quotify.it/register"
+                    target="_blank" rel="noopener noreferrer"
+                    class="block w-full text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 rounded-2xl text-base transition-all duration-200 hover:shadow-xl hover:shadow-primary-200 hover:-translate-y-0.5"
+                  >
+                    Prova Pro Gratis — 14 giorni
+                  </a>
+                  <p class="text-center text-xs text-slate-400 mt-3">Già in beta? <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline font-medium">Accedi al tuo account</a></p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -798,7 +910,7 @@
               Domande frequenti
             </h2>
             <p class="text-lg text-slate-500">
-              Hai altre domande? <a href="mailto:ciao@quotify.it" class="text-primary-600 hover:underline font-medium">Scrivici</a>
+              Hai altre domande? <a href="mailto:info@alessandroterracciano.com" class="text-primary-600 hover:underline font-medium">Scrivici</a>
             </p>
           </div>
 
@@ -819,7 +931,7 @@
               <div id="faq-1-content" class="faq-content" role="region" aria-hidden="true">
                 <div class="px-6 pb-5">
                   <p class="text-slate-500 text-sm leading-relaxed">
-                    Sì, Quotify è progettato e ottimizzato specificamente per i freelancer in Regime Forfettario. Ogni funzionalità — dalla dicitura corretta in fattura all'esenzione IVA, dal calcolo dell'imposta sostitutiva al monitoraggio della soglia degli 85.000€ — è calibrata su questo regime fiscale. Se sei in regime ordinario, Quotify non fa per te (ancora).
+                    Sì, Quotify è progettato e ottimizzato specificamente per i freelance in Regime Forfettario. Ogni funzionalità — dalla dicitura corretta in fattura all'esenzione IVA, dal calcolo dell'imposta sostitutiva al monitoraggio della soglia degli 85.000€ — è calibrata su questo regime fiscale. Se sei in regime ordinario, Quotify non fa per te (ancora).
                   </p>
                 </div>
               </div>
@@ -933,21 +1045,22 @@
               Accesso beta aperto ora
             </div>
             <h2 id="final-cta-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Pronto a semplificare il tuo lavoro da freelancer?
+              Pronto a semplificare il tuo lavoro da freelance?
             </h2>
             <p class="text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Unisciti a centinaia di freelancer italiani che usano già Quotify per gestire la loro attività.
+              Unisciti a centinaia di freelance italiani che usano già Quotify per gestire la loro attività.
               Gratis durante la beta, senza carta di credito.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="#"
+                href="https://app.quotify.it/register"
+                target="_blank" rel="noopener noreferrer"
                 class="w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50 font-semibold text-base px-10 py-4 rounded-xl shadow-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-3xl"
               >
                 Inizia Gratis Adesso
               </a>
               <a
-                href="mailto:ciao@quotify.it"
+                href="mailto:info@alessandroterracciano.com"
                 class="w-full sm:w-auto glass text-white font-semibold text-base px-8 py-4 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200"
               >
                 Hai domande? Scrivici
@@ -958,6 +1071,19 @@
       </section>
 
     </main>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-700 px-4 py-4 sm:py-3 transition-transform duration-300 translate-y-full" hidden>
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-sm text-slate-300 text-center sm:text-left">
+          Questo sito utilizza solo cookie tecnici necessari al funzionamento. Nessun dato viene usato per profilazione o pubblicità.
+          <a href="/cookie.html" class="text-primary-400 hover:underline">Scopri di più</a>
+        </p>
+        <button id="cookie-accept" class="shrink-0 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
+          OK, ho capito
+        </button>
+      </div>
+    </div>
 
     <!-- ═══════════════════════════════════════════════════════════
          FOOTER
@@ -973,10 +1099,10 @@
               Quotify
             </a>
             <p class="text-sm leading-relaxed mb-5">
-              La piattaforma per freelancer italiani in Regime Forfettario. Preventivi, fatture elettroniche e pipeline — tutto in uno.
+              La piattaforma per freelance italiani in Regime Forfettario. Preventivi, fatture elettroniche e pipeline — tutto in uno.
             </p>
             <div class="text-xs text-slate-500">
-              <div>P.IVA: 12345678901</div>
+              <div>P.IVA: 10838411212</div>
               <div class="mt-1">Milano, Italia</div>
             </div>
           </div>
@@ -1009,11 +1135,12 @@
           <div>
             <h3 class="text-white font-semibold text-sm mb-4">Legale e Contatti</h3>
             <ul class="space-y-3" role="list">
-              <li><a href="#" class="text-sm hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" class="text-sm hover:text-white transition-colors">Termini di Servizio</a></li>
-              <li><a href="#" class="text-sm hover:text-white transition-colors">Cookie Policy</a></li>
+              <li><a href="/privacy.html" class="text-sm hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="/termini.html" class="text-sm hover:text-white transition-colors">Termini di Servizio</a></li>
+              <li><a href="/cookie.html" class="text-sm hover:text-white transition-colors">Cookie Policy</a></li>
+              <li><a href="/assistenza.html" class="text-sm hover:text-white transition-colors">Assistenza</a></li>
               <li>
-                <a href="mailto:segnala@quotify.it" class="text-sm hover:text-white transition-colors flex items-center gap-2 group">
+                <a href="mailto:info@alessandroterracciano.com" class="text-sm hover:text-white transition-colors flex items-center gap-2 group">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0" aria-hidden="true">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1022,12 +1149,12 @@
                 </a>
               </li>
               <li>
-                <a href="mailto:ciao@quotify.it" class="text-sm hover:text-white transition-colors flex items-center gap-2 group">
+                <a href="mailto:info@alessandroterracciano.com" class="text-sm hover:text-white transition-colors flex items-center gap-2 group">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0" aria-hidden="true">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  ciao@quotify.it
+                  info@alessandroterracciano.com
                 </a>
               </li>
             </ul>
@@ -1040,7 +1167,7 @@
             © 2026 Quotify. Tutti i diritti riservati.
           </p>
           <p class="text-xs text-slate-600">
-            Fatto con cura per i freelancer italiani
+            Fatto con cura per i freelance italiani
           </p>
         </div>
       </div>

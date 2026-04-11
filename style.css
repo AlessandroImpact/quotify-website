@@ -232,6 +232,11 @@
     0 8px 10px -6px rgb(37 99 235 / 0.06);
 }
 
+/* Remove CSS transform transition after reveal so GSAP hover works */
+.feature-card.revealed {
+  transition: box-shadow 0.3s ease !important;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    KANBAN MOCKUP
 ═══════════════════════════════════════════════════════════════ */
@@ -369,5 +374,308 @@
   .hero-gradient,
   .cta-gradient {
     display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LENIS SMOOTH SCROLL
+═══════════════════════════════════════════════════════════════ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VIEW-ITEM REVEAL SYSTEM
+═══════════════════════════════════════════════════════════════ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal-item] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[data-reveal-item].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3D PERSPECTIVE GRID (Hero Background)
+═══════════════════════════════════════════════════════════════ */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.hero-grid-plane {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+.hero-grid-floor {
+  bottom: -50%;
+  transform-origin: center top;
+  transform: rotateX(65deg);
+}
+
+.hero-grid-ceiling {
+  top: -50%;
+  transform-origin: center bottom;
+  transform: rotateX(-65deg);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .hero-grid-bg {
+    display: none;
+  }
+  .hero-scroll-space {
+    height: auto !important;
+  }
+  .hero-sticky {
+    position: relative !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  /* Shrink decorative blobs on mobile */
+  .hero-bg-circle {
+    width: 300px !important;
+    height: 300px !important;
+  }
+  .hero-stats {
+    gap: 0.5rem;
+    grid-template-columns: repeat(3, 1fr) !important;
+    max-width: 100% !important;
+  }
+  .hero-stat {
+    padding: 0.6rem 0.5rem;
+  }
+  .hero-stat .text-3xl {
+    font-size: 1.25rem;
+  }
+  .hero-stat .text-sm {
+    font-size: 0.65rem;
+  }
+  .hero-scroll-indicator {
+    display: none;
+  }
+  .hero-content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .hero-title {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-ctas {
+    margin-bottom: 1rem !important;
+  }
+  .hero-ctas a {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THREE.JS GLOBE SECTION
+═══════════════════════════════════════════════════════════════ */
+.globe-canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.globe-widget {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 10;
+}
+
+.globe-section.in-view .globe-widget {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.globe-section.in-view .widget-1 {
+  top: 5%;
+  left: -5%;
+  transition-delay: 0.1s;
+}
+
+.globe-section.in-view .widget-2 {
+  top: 20%;
+  right: -5%;
+  transition-delay: 0.3s;
+}
+
+.globe-section.in-view .widget-3 {
+  bottom: 25%;
+  left: -5%;
+  transition-delay: 0.5s;
+}
+
+.globe-section.in-view .widget-4 {
+  bottom: 10%;
+  right: -5%;
+  transition-delay: 0.7s;
+}
+
+/* Globe mobile: show smaller globe + widgets below */
+@media (max-width: 1024px) {
+  .globe-canvas {
+    max-width: 300px !important;
+    height: auto !important;
+  }
+  .globe-section .relative.flex {
+    min-height: auto !important;
+    flex-direction: column;
+    align-items: center;
+  }
+  .globe-widget {
+    position: relative !important;
+    display: inline-flex !important;
+    margin: 0.25rem;
+  }
+  .globe-section.in-view .widget-1,
+  .globe-section.in-view .widget-2,
+  .globe-section.in-view .widget-3,
+  .globe-section.in-view .widget-4 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+}
+@media (max-width: 640px) {
+  .globe-canvas {
+    max-width: 260px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE GLOBAL REFINEMENTS
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Tighter section padding */
+  section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Feature cards: less gap */
+  .feature-card {
+    padding: 1.25rem;
+  }
+
+  /* Showcase mockups: prevent overflow */
+  .kanban-col {
+    width: 120px !important;
+  }
+  .kanban-card {
+    padding: 0.5rem !important;
+  }
+  .kanban-card .text-xs {
+    font-size: 0.6rem;
+  }
+
+  /* Pricing cards */
+  .pricing-card {
+    padding: 1.5rem;
+  }
+
+  /* Step cards */
+  .step-card {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Cookie banner: smaller padding, always above fold */
+  #cookie-banner {
+    padding: 0.75rem 1rem;
+  }
+  #cookie-banner p {
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+  #cookie-banner button {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+  }
+
+  /* CTA section */
+  .cta-gradient {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* FAQ items tighter */
+  .faq-btn {
+    padding: 1rem 1.25rem;
+  }
+
+  /* Footer grid: single column tighter */
+  footer .grid {
+    gap: 2rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal],
+  [data-reveal-item],
+  .animate-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-scroll-space {
+    height: auto !important;
+  }
+
+  .hero-sticky {
+    position: relative !important;
   }
 }

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Assistenza Quotify — Contattaci per ricevere supporto sul tuo account." />
+    <title>Assistenza — Quotify</title>
+    <link rel="icon" type="image/png" href="/pwa-192x192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="font-sans antialiased bg-white text-slate-900">
+
+    <!-- Navbar -->
+    <header class="bg-primary-900 text-white">
+      <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="/" class="flex items-center gap-2 font-bold text-xl">
+          <img src="/pwa-192x192.png" alt="" class="w-8 h-8 rounded-lg" />
+          Quotify
+        </a>
+        <a href="/" class="text-white/80 hover:text-white text-sm font-medium transition-colors">&larr; Torna alla Home</a>
+      </nav>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-100 text-primary-600 mb-6">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Assistenza</h1>
+        <p class="text-slate-500 text-lg">Hai bisogno di aiuto? Compila il form e ti risponderemo il prima possibile.</p>
+      </div>
+
+      <!-- Form -->
+      <form id="support-form" class="space-y-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Nome e Cognome</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+            placeholder="Mario Rossi"
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email associata all'account Quotify</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="mario@esempio.it"
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-slate-700 mb-2">Messaggio</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="6"
+            placeholder="Descrivi il problema o la tua richiesta..."
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-y"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 rounded-xl text-base transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+        >
+          Invia richiesta
+        </button>
+      </form>
+
+      <!-- Success message (hidden by default) -->
+      <div id="success-msg" class="hidden mt-8 text-center p-8 bg-green-50 border border-green-200 rounded-2xl">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600 mb-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="text-xl font-semibold text-green-900 mb-2">Richiesta inviata!</h2>
+        <p class="text-green-700">Ti risponderemo il prima possibile all'indirizzo email indicato.</p>
+      </div>
+
+      <!-- Error message (hidden by default) -->
+      <div id="error-msg" class="hidden mt-8 text-center p-8 bg-red-50 border border-red-200 rounded-2xl">
+        <h2 class="text-xl font-semibold text-red-900 mb-2">Errore nell'invio</h2>
+        <p class="text-red-700">Si è verificato un problema. Riprova oppure scrivici direttamente a <a href="mailto:info@alessandroterracciano.com" class="underline">info@alessandroterracciano.com</a></p>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-sm text-slate-400">Puoi anche scriverci direttamente a <a href="mailto:info@alessandroterracciano.com" class="text-primary-600 hover:underline">info@alessandroterracciano.com</a></p>
+      </div>
+    </main>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-700 px-4 py-4 sm:py-3 transition-transform duration-300 translate-y-full" hidden>
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-sm text-slate-300 text-center sm:text-left">
+          Questo sito utilizza solo cookie tecnici necessari al funzionamento. Nessun dato viene usato per profilazione o pubblicità.
+          <a href="/cookie.html" class="text-primary-400 hover:underline">Scopri di più</a>
+        </p>
+        <button id="cookie-accept" class="shrink-0 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
+          OK, ho capito
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+        <p>&copy; 2026 Quotify — Alessandro Terracciano. P.IVA 10838411212</p>
+        <div class="flex gap-6">
+          <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="/cookie.html" class="hover:text-white transition-colors">Cookie Policy</a>
+          <a href="/termini.html" class="hover:text-white transition-colors">Termini di Servizio</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+    <script>
+      document.getElementById("support-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+
+        if (!name || !email || !message) return;
+
+        const subject = encodeURIComponent("Richiesta assistenza Quotify — " + name);
+        const body = encodeURIComponent(
+          "Nome: " + name + "\nEmail account: " + email + "\n\n" + message
+        );
+
+        window.location.href = "mailto:info@alessandroterracciano.com?subject=" + subject + "&body=" + body;
+
+        form.classList.add("hidden");
+        document.getElementById("success-msg").classList.remove("hidden");
+      });
+    </script>
+  </body>
+</html>
