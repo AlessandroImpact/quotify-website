@@ -1,0 +1,40 @@
+# Cloudflare Pages — https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
+  ! Access-Control-Allow-Origin
+
+# Asset con hash nel nome: immutabili, cache lunga
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Immagini e icone: cache lunga lato edge, revalidate settimanale lato browser
+/*.png
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+
+/*.svg
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+
+/*.webp
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+
+# HTML: il browser rivalida sempre, l'edge di Cloudflare tiene la copia 1 ora.
+# Senza s-maxage ogni richiesta arriva all'origine (era lo 0,04% di cache hit).
+/*.html
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=3600, s-maxage=3600
+  Content-Type: text/plain; charset=utf-8
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600, s-maxage=3600
+  Content-Type: application/xml; charset=utf-8
