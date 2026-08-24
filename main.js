@@ -111,6 +111,159 @@ function initHeroScrollDriven() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   LIQUID GRADIENT BLOB — WebGL Shader
+═══════════════════════════════════════════════════════════════ */
+function initLiquidGradient() {
+  const canvas = document.getElementById('liquid-canvas')
+  if (!canvas || prefersReducedMotion) return
+
+  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false })
+  if (!gl) return
+
+  const vertSrc = `attribute vec2 a_pos; void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }`
+  const fragSrc = `
+    precision mediump float;
+    uniform float u_time;
+    uniform vec2 u_res;
+
+    // Simplex-ish noise
+    vec3 mod289(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+    vec2 mod289(vec2 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+    vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+    float snoise(vec2 v) {
+      const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+      vec2 i = floor(v + dot(v, C.yy));
+      vec2 x0 = v - i + dot(i, C.xx);
+      vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+      vec4 x12 = x0.xyxy + C.xxzz;
+      x12.xy -= i1;
+      i = mod289(i);
+      vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+      vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+      m = m * m; m = m * m;
+      vec3 x_ = 2.0 * fract(p * C.www) - 1.0;
+      vec3 h = abs(x_) - 0.5;
+      vec3 a0 = x_ - floor(x_ + 0.5);
+      m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+      vec3 g;
+      g.x = a0.x * x0.x + h.x * x0.y;
+      g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+      return 130.0 * dot(m, g);
+    }
+
+    void main() {
+      vec2 uv = gl_FragCoord.xy / u_res;
+      float t = u_time * 0.15;
+
+      // Multiple noise layers for organic feel
+      float n1 = snoise(uv * 2.0 + vec2(t, t * 0.7)) * 0.5;
+      float n2 = snoise(uv * 3.5 - vec2(t * 0.8, t * 0.5)) * 0.3;
+      float n3 = snoise(uv * 1.2 + vec2(t * 0.3, -t * 0.6)) * 0.4;
+      float n = n1 + n2 + n3;
+
+      // Quotify blue palette
+      vec3 c1 = vec3(30.0/255.0, 58.0/255.0, 138.0/255.0);   // primary-900
+      vec3 c2 = vec3(37.0/255.0, 99.0/255.0, 235.0/255.0);    // primary-600
+      vec3 c3 = vec3(99.0/255.0, 102.0/255.0, 241.0/255.0);   // indigo-500
+      vec3 c4 = vec3(59.0/255.0, 130.0/255.0, 246.0/255.0);   // primary-400
+
+      vec3 color = mix(c1, c2, smoothstep(-0.5, 0.3, n));
+      color = mix(color, c3, smoothstep(0.1, 0.6, n + uv.y * 0.3));
+      color = mix(color, c4, smoothstep(0.3, 0.8, n - uv.x * 0.2));
+
+      float alpha = 0.35 + n * 0.15;
+      gl_FragColor = vec4(color, alpha);
+    }
+  `
+
+  function createShader(type, src) {
+    const s = gl.createShader(type)
+    gl.shaderSource(s, src)
+    gl.compileShader(s)
+    return s
+  }
+
+  const prog = gl.createProgram()
+  gl.attachShader(prog, createShader(gl.VERTEX_SHADER, vertSrc))
+  gl.attachShader(prog, createShader(gl.FRAGMENT_SHADER, fragSrc))
+  gl.linkProgram(prog)
+  gl.useProgram(prog)
+
+  const buf = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf)
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW)
+  const posLoc = gl.getAttribLocation(prog, 'a_pos')
+  gl.enableVertexAttribArray(posLoc)
+  gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0)
+
+  const uTime = gl.getUniformLocation(prog, 'u_time')
+  const uRes = gl.getUniformLocation(prog, 'u_res')
+
+  gl.enable(gl.BLEND)
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio, 1.5)
+    canvas.width = canvas.clientWidth * dpr
+    canvas.height = canvas.clientHeight * dpr
+    gl.viewport(0, 0, canvas.width, canvas.height)
+  }
+  resize()
+  window.addEventListener('resize', resize, { passive: true })
+
+  let animId
+  function render(time) {
+    animId = requestAnimationFrame(render)
+    gl.uniform1f(uTime, time * 0.001)
+    gl.uniform2f(uRes, canvas.width, canvas.height)
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+  }
+
+  // Only run when hero visible
+  const heroSection = document.getElementById('hero')
+  const obs = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { render(performance.now()) }
+    else { cancelAnimationFrame(animId) }
+  }, { threshold: 0.05 })
+  obs.observe(heroSection)
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   IPHONE 3D — Scroll-driven rotation
+═══════════════════════════════════════════════════════════════ */
+function initIPhoneShowcase() {
+  if (prefersReducedMotion) return
+  const section = document.querySelector('.iphone-section')
+  const device = document.querySelector('.iphone-device')
+  const text = document.querySelector('.iphone-text')
+  if (!section || !device || !text) return
+
+  // Start: phone rotated, text visible
+  gsap.set(device, { rotateY: -45, rotateX: 10, scale: 0.9 })
+
+  // Single timeline scrubbed to scroll
+  const phoneTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 0.5
+    }
+  })
+
+  phoneTl
+    // 0→20%: text fades, phone starts rotating
+    .to(text, { opacity: 0, y: -30, duration: 0.2, ease: 'none' }, 0)
+    .to(device, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.3, ease: 'power1.out' }, 0)
+    // 30→70%: phone holds front-facing
+    .to(device, { rotateY: 5, duration: 0.4, ease: 'none' })
+    // 70→100%: phone tilts gently away
+    .to(device, { rotateY: 30, rotateX: -10, scale: 0.85, duration: 0.3, ease: 'none' })
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
    HERO ENTRANCE ANIMATION
 ═══════════════════════════════════════════════════════════════ */
 function initHeroAnimation() {
@@ -651,8 +804,10 @@ function init() {
   initSmoothScroll()
   initStatsCounters()
   initActiveNavHighlight()
+  initLiquidGradient()
   initHeroAnimation()
   initHeroScrollDriven()
+  initIPhoneShowcase()
   initHoverInertia()
   initGlobe()
   initCookieBanner()

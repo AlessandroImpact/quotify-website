@@ -99,8 +99,11 @@
            HERO
       ═══════════════════════════════════════════════════════════ -->
       <section id="hero" class="hero-scroll-container">
-        <div class="hero-scroll-space" style="height: 400vh; position: relative;">
+        <div class="hero-scroll-space" style="height: 250vh; position: relative;">
           <div class="hero-sticky hero-gradient" style="height: 100vh; position: sticky; top: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 4rem;">
+
+            <!-- Liquid Gradient Blob -->
+            <canvas id="liquid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true"></canvas>
 
             <!-- 3D Perspective Grid -->
             <div class="hero-grid-bg" aria-hidden="true">
@@ -631,16 +634,101 @@
       </section>
 
       <!-- ═══════════════════════════════════════════════════════════
+           IPHONE 3D SHOWCASE — Scroll-driven rotation
+      ═══════════════════════════════════════════════════════════ -->
+      <section id="iphone-showcase" class="iphone-section relative overflow-hidden bg-slate-950" style="height: 120vh;">
+        <div class="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden bg-slate-950">
+          <!-- Ambient glow -->
+          <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary-600/20 blur-[120px]"></div>
+          </div>
+
+          <!-- Text ABOVE phone -->
+          <div class="iphone-text relative z-20 text-center px-4 max-w-2xl mb-8">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
+              L'app che lavora <span class="text-primary-400">per te.</span>
+            </h2>
+            <p class="text-white/50 text-base">Gestisci tutto dal tuo iPhone</p>
+          </div>
+
+          <!-- iPhone 3D -->
+          <div class="iphone-scene" style="perspective: 1200px;">
+            <div class="iphone-device">
+              <!-- iPhone frame -->
+              <div class="iphone-frame">
+                <!-- Notch -->
+                <div class="iphone-notch"></div>
+                <!-- Screen -->
+                <div class="iphone-screen">
+                  <!-- App screenshot mockup -->
+                  <div class="iphone-app bg-white h-full w-full overflow-hidden">
+                    <!-- Status bar -->
+                    <div class="bg-primary-600 px-4 py-2 flex items-center justify-between">
+                      <span class="text-white text-[10px] font-semibold">9:41</span>
+                      <span class="text-white text-[10px] font-bold">Quotify</span>
+                      <div class="flex gap-1">
+                        <div class="w-3 h-2 border border-white/80 rounded-sm"><div class="w-1.5 h-full bg-white/80"></div></div>
+                      </div>
+                    </div>
+                    <!-- Dashboard preview -->
+                    <div class="p-3 space-y-2">
+                      <div class="text-[10px] font-bold text-slate-800">Dashboard</div>
+                      <div class="grid grid-cols-2 gap-1.5">
+                        <div class="bg-primary-50 rounded-lg p-2">
+                          <div class="text-[8px] text-primary-600">Fatturato</div>
+                          <div class="text-[12px] font-bold text-primary-700">€ 42.300</div>
+                        </div>
+                        <div class="bg-emerald-50 rounded-lg p-2">
+                          <div class="text-[8px] text-emerald-600">Incassato</div>
+                          <div class="text-[12px] font-bold text-emerald-700">€ 38.100</div>
+                        </div>
+                      </div>
+                      <div class="bg-slate-50 rounded-lg p-2">
+                        <div class="text-[8px] text-slate-500 mb-1">Soglia Forfettaria</div>
+                        <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                          <div class="h-full bg-primary-500 rounded-full" style="width: 49%"></div>
+                        </div>
+                        <div class="text-[7px] text-slate-400 mt-0.5">€ 42.300 / € 85.000</div>
+                      </div>
+                      <div class="space-y-1">
+                        <div class="text-[8px] font-semibold text-slate-700">Ultime fatture</div>
+                        <div class="bg-white border border-slate-100 rounded-lg p-1.5 flex justify-between items-center">
+                          <div>
+                            <div class="text-[8px] font-medium text-slate-700">Acme Srl</div>
+                            <div class="text-[7px] text-slate-400">FT-2026-042</div>
+                          </div>
+                          <div class="text-[9px] font-bold text-emerald-600">€ 2.500</div>
+                        </div>
+                        <div class="bg-white border border-slate-100 rounded-lg p-1.5 flex justify-between items-center">
+                          <div>
+                            <div class="text-[8px] font-medium text-slate-700">Beta Studio</div>
+                            <div class="text-[7px] text-slate-400">FT-2026-041</div>
+                          </div>
+                          <div class="text-[9px] font-bold text-primary-600">€ 1.800</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Home indicator -->
+                <div class="iphone-home-indicator"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
            HOW IT WORKS
       ═══════════════════════════════════════════════════════════ -->
       <section
         id="come-funziona"
-        class="py-24 lg:py-32 bg-white"
+        class="pt-10 pb-20 lg:pt-12 lg:pb-24 bg-white"
         aria-labelledby="how-heading"
         data-animate
       >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16 animate-on-scroll">
+          <div class="text-center mb-10">
             <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
               Semplice da subito
             </div>
@@ -653,9 +741,6 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative" data-reveal-list>
-            <!-- Connector line (desktop only) -->
-            <div class="hidden md:block absolute top-8 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200" aria-hidden="true"></div>
-
             <!-- Step 1 -->
             <div data-reveal-item class="step-card animate-on-scroll text-center relative">
               <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
