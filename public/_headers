@@ -1,4 +1,13 @@
 # Cloudflare Pages — https://developers.cloudflare.com/pages/configuration/headers/
+#
+# ATTENZIONE: Pages CONCATENA gli header quando più regole matchano lo stesso
+# path, non li sovrascrive. Due regole con Cache-Control producono
+# "max-age=0, ..., max-age=31536000" e vince il primo valore letto.
+# Quindi ogni path deve matchare UNA SOLA regola di Cache-Control:
+# su /* stanno solo gli header di sicurezza.
+#
+# Le pagine sono servite come URL puliti (/privacy, non /privacy.html),
+# perciò vanno elencate una per una.
 
 /*
   X-Frame-Options: DENY
@@ -9,32 +18,42 @@
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
   ! Access-Control-Allow-Origin
 
-# Asset con hash nel nome: immutabili, cache lunga
+# ── HTML: browser rivalida, edge Cloudflare tiene 1 ora ──
+/
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+/privacy
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+/cookie
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+/termini
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+/assistenza
+  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+
+# ── Asset con hash nel nome: immutabili ──
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Immagini e icone: cache lunga lato edge, revalidate settimanale lato browser
+# ── Script senza hash ──
+/assistenza.js
+  Cache-Control: public, max-age=86400, s-maxage=604800
+
+# ── Immagini ──
 /*.png
   Cache-Control: public, max-age=604800, s-maxage=2592000
 
 /*.svg
   Cache-Control: public, max-age=604800, s-maxage=2592000
 
-/*.webp
-  Cache-Control: public, max-age=604800, s-maxage=2592000
-
-# HTML: il browser rivalida sempre, l'edge di Cloudflare tiene la copia 1 ora.
-# Senza s-maxage ogni richiesta arriva all'origine (era lo 0,04% di cache hit).
-/*.html
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
-
-/
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
-
+# ── Metadati crawler ──
 /robots.txt
-  Cache-Control: public, max-age=3600, s-maxage=3600
   Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, s-maxage=3600
 
 /sitemap.xml
-  Cache-Control: public, max-age=3600, s-maxage=3600
   Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600, s-maxage=3600
