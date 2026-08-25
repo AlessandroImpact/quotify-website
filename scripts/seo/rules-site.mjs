@@ -3,6 +3,7 @@
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { CONFIG, locSitemap, urlToFileCandidati, esito } from './lib.mjs';
+import { verifica as verificaRobots } from './robots.mjs';
 
 const E = 'error';
 const W = 'warn';
@@ -87,6 +88,21 @@ export function controllaSito(distDir, pagine, tuttiIFile, ctx) {
     const kb = statSync(join(distDir, rel)).size / 1024;
     if (kb > CONFIG.assetMaxKB) {
       f.push(esito(W, 'asset-pesante', rel, null, `${kb.toFixed(0)} KB non compressi (soglia ${CONFIG.assetMaxKB} KB)`));
+    }
+  }
+
+  // ── robots.txt: esprime davvero la politica decisa? ──────────────────────
+  if (!esiste.has('robots.txt')) {
+    f.push(esito(E, 'robots-mancante', 'robots.txt', null, 'robots.txt assente da dist/'));
+  } else {
+    for (const b of verificaRobots(readFileSync(join(distDir, 'robots.txt'), 'utf8'))) {
+      f.push(b.problema === 'politica'
+        ? esito(E, 'robots-politica', 'robots.txt', null,
+            `${b.ua}: atteso ${b.atteso ? 'ammesso' : 'vietato'}, il file dice ${b.rfc ? 'ammesso' : 'vietato'}`,
+            'La politica è in scripts/seo/robots.mjs (POLITICA).')
+        : esito(E, 'robots-ordine', 'robots.txt', null,
+            `${b.ua}: un crawler conforme a RFC 9309 legge "${b.rfc ? 'ammesso' : 'vietato'}", uno ingenuo "${b.ingenuo ? 'ammesso' : 'vietato'}"`,
+            'Spostare il gruppo più specifico PRIMA di quello più generico.'));
     }
   }
 
