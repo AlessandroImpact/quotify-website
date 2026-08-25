@@ -18,21 +18,25 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
   ! Access-Control-Allow-Origin
 
-# ── HTML: browser rivalida, edge Cloudflare tiene 1 ora ──
+# ── HTML: browser rivalida sempre, edge Cloudflare tiene 5 minuti ──
+# NON alzare s-maxage senza aggiungere un purge al deploy: la Cache Rule
+# 'cache-html-landing' è impostata su "rispetta l'origine", quindi è QUESTO valore
+# a decidere per quanto un deploy resta invisibile. Con 3600 il sito continuava a
+# servire la versione precedente per un'ora dopo ogni deploy.
 /
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
 /privacy
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
 /cookie
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
 /termini
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
 /assistenza
-  Cache-Control: public, max-age=0, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
 # ── Asset con hash nel nome: immutabili ──
 /assets/*
