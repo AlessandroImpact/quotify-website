@@ -113,16 +113,63 @@ non "0 impression".
 Stato: proprietà **Dominio** `quotify.it` verificata via record TXT ("Provider del nome di
 dominio"); sitemap inviata e letta lo stesso giorno, stato **Riuscita**, 5 URL rilevate.
 
-⚠️ **All'atto della verifica: 0 pagine indicizzate, 1 pagina non indicizzata**, su un sito online
-dal 22 marzo 2026 (commit `032fddb`). Non è un blocco tecnico — verificato che Googlebot e
-Google-InspectionTool ricevono HTTP 200 con i 87726 byte completi, e che non esistono
-`X-Robots-Tag` né `<meta name="robots">`. La spiegazione residua è che il sito non è mai stato
-segnalato a Google: dominio nuovo, nessun link in entrata, sitemap mai inviata fino a oggi.
+### ⚠️ Falso allarme: "0 pagine indicizzate"
 
-**Conseguenza sull'ordine di lavoro**: il problema non è il posizionamento, è l'indicizzazione.
-Fino a che le pagine non sono indicizzate, le Fasi 5-8 non hanno niente da misurare.
+Subito dopo la verifica la schermata Introduzione mostrava **0 pagine indicizzate, 1 non
+indicizzata**. Ne è stata tratta la conclusione che il sito fosse invisibile a Google. **Era
+sbagliata.** Il report Indicizzazione → Pagine, aperto poco dopo, dichiarava
+*"Elaborazione dei dati in corso"*: quegli zeri erano un report non ancora elaborato, non una
+misura.
 
-Resta da fare: Controllo URL + "Richiedi indicizzazione" sulle 5 URL.
+**Stato reale**, accertato con Controllo URL (che interroga l'indice in diretta e funziona subito):
+
+| URL | Stato | Rilevata tramite |
+|---|---|---|
+| `/` | **indicizzata** — ultima scansione 25/08 13:41, Googlebot per smartphone | link esterni |
+| `/cookie` | Rilevata, non ancora indicizzata | `quotify.it/sitemap.xml` |
+| `/termini` | Rilevata, non ancora indicizzata | `quotify.it/sitemap.xml` |
+| `/privacy` | sconosciuta a Google | — |
+| `/assistenza` | sconosciuta a Google | — |
+
+`Scansione consentita? Sì` · `Recupero pagina: Esito positivo` · `Indicizzazione consentita? Sì`.
+Nessun ostacolo tecnico, in nessuna delle cinque.
+
+**"Rilevata, ma attualmente non indicizzata"** è la diagnosi benigna: Google sa che esistono e non
+ci è ancora andato. Non è *"Sottoposta a scansione: attualmente non indicizzata"*, che avrebbe
+significato una valutazione negativa sul contenuto. E il campo Sitemap è passato da
+*"Errore temporaneo di elaborazione"* (home, ore 13:41) a `quotify.it/sitemap.xml` (cookie e
+termini, ore 14:20): **la sitemap sta propagando mentre la si guarda**.
+
+**Conclusione**: non esisteva nessun problema di indicizzazione. C'era un sito nuovo che nessuno
+aveva mai presentato a Google. Il lavoro tecnico di §4 resta valido, ma va inquadrato come
+fondamenta messe a posto prima che servissero, non come un incendio spento.
+
+### Come Google ha trovato il sito: solo link spam
+
+Le pagine di referral della home sono `saint-laser.com/lasernews/...`,
+`allbusinesdirectory.com/most-visited-website-list-...` e
+`strawbird.org/quotesAbout/?genre=health` — due directory automatiche e un aggregatore di
+citazioni che ha probabilmente agganciato il dominio per assonanza con "quotes".
+
+**Non esiste un solo link in entrata legittimo.** Non è un danno (Google ignora questa roba, non
+serve disconoscerla), ma fissa un vincolo per il piano: **zero autorità in entrata**, e nessuna
+ottimizzazione tecnica la sostituisce.
+
+### ⚠️ Il backfill di Search Console resta da verificare
+
+Più sopra questo piano afferma che Search Console non ha storico precedente alla verifica.
+**L'affermazione non è stata verificata** e va trattata come non confermata: al 25/08 sia
+Rendimento sia Indicizzazione → Pagine rispondono *"Elaborazione dei dati in corso.
+Ricontrolla tra un giorno o due"*. La risposta arriva quando i report si popolano.
+Se compariranno dati precedenti al 25/08, l'affermazione era falsa e va corretta.
+
+L'urgenza di verificare la proprietà restava comunque giustificata, ma per un motivo più debole
+di quello dichiarato.
+
+### Il dato ancora mancante
+
+**Impression e query della home negli ultimi 3 mesi.** È l'unica cosa che decide se il collo di
+bottiglia è la copertura di contenuto (§14.9) o altro. Non disponibile prima del 26-27/08.
 
 ---
 
