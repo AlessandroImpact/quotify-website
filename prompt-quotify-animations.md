@@ -13,10 +13,10 @@ Voglio portare su Quotify alcune animazioni ispirate a FacilPay.io (un sito prem
 - **Font:** Inter (Google Fonts)
 - **Framework:** HTML statico + JS vanilla (NO React, NO Next.js, NO Astro)
 - **Colori principali:**
-  - Blu primario: `#2563eb` (blue-600)
+  - Blu primario: `#236CEF` (blue-600)
   - Blu scuro: `#1e3a8a` (blue-900)
   - Blu navy: `#1d4ed8` (blue-700)
-  - Hero gradient: `linear-gradient(135deg, #1e3a8a, #1d4ed8, #2563eb, #3b82f6, #1e40af)`
+  - Hero gradient: `linear-gradient(135deg, #1e3a8a, #1d4ed8, #236CEF, #3b82f6, #1e40af)`
   - CTA gradient: `linear-gradient(135deg, #0f172a, #1e3a8a 40%, #1d4ed8, #1e1b4b)`
   - Glassmorphism: `bg-white/10 backdrop-blur-sm border-white/20`
 - **Sezioni del sito (dall'alto in basso):**
@@ -236,7 +236,7 @@ const material = new THREE.ShaderMaterial({
       float t = (y + 1.0) / 2.0;
       // Palette Quotify: blu scuro -> blu primario -> blu chiaro
       vec3 top = vec3(59.0/255.0, 130.0/255.0, 246.0/255.0);    // #3b82f6
-      vec3 mid = vec3(37.0/255.0, 99.0/255.0, 235.0/255.0);     // #2563eb
+      vec3 mid = vec3(37.0/255.0, 99.0/255.0, 235.0/255.0);     // #236CEF
       vec3 bottom = vec3(29.0/255.0, 78.0/255.0, 216.0/255.0);   // #1d4ed8
       if (t < 0.6) return mix(top, mid, t / 0.6);
       return mix(mid, bottom, (t - 0.6) / 0.4);

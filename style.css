@@ -6,14 +6,14 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Primary color scale based on #2563eb */
+  /* Primary color scale based on #236CEF */
   --color-primary-50:  #eff6ff;
   --color-primary-100: #dbeafe;
   --color-primary-200: #bfdbfe;
   --color-primary-300: #93c5fd;
   --color-primary-400: #60a5fa;
   --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
+  --color-primary-600: #236CEF;
   --color-primary-700: #1d4ed8;
   --color-primary-800: #1e40af;
   --color-primary-900: #1e3a8a;
@@ -162,7 +162,7 @@
     135deg,
     #1e3a8a 0%,
     #1d4ed8 25%,
-    #2563eb 50%,
+    #236CEF 50%,
     #3b82f6 75%,
     #1e40af 100%
   );
@@ -228,8 +228,8 @@
 
 .feature-card:hover {
   box-shadow:
-    0 20px 25px -5px rgb(37 99 235 / 0.08),
-    0 8px 10px -6px rgb(37 99 235 / 0.06);
+    0 20px 25px -5px rgb(35 108 239 / 0.08),
+    0 8px 10px -6px rgb(35 108 239 / 0.06);
 }
 
 /* Remove CSS transform transition after reveal so GSAP hover works */
@@ -259,8 +259,8 @@
 .pricing-card:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 25px 50px -12px rgb(37 99 235 / 0.2),
-    0 0 0 1px rgb(37 99 235 / 0.1);
+    0 25px 50px -12px rgb(35 108 239 / 0.2),
+    0 0 0 1px rgb(35 108 239 / 0.1);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -274,7 +274,7 @@
 
 .step-card:hover {
   background-color: #f8fafc;
-  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.08);
+  box-shadow: 0 10px 25px -5px rgb(35 108 239 / 0.08);
   transform: translateY(-2px);
 }
 
@@ -287,7 +287,7 @@
 
 .faq-item.open {
   border-color: #bfdbfe;
-  box-shadow: 0 4px 20px rgb(37 99 235 / 0.06);
+  box-shadow: 0 4px 20px rgb(35 108 239 / 0.06);
 }
 
 .faq-item.open .faq-btn {
@@ -296,7 +296,7 @@
 
 .faq-item.open .faq-icon {
   transform: rotate(180deg);
-  color: #2563eb;
+  color: #236CEF;
 }
 
 .faq-content {
@@ -332,7 +332,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
+  background: #236CEF;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -352,7 +352,7 @@
    SMOOTH FOCUS RING
 ═══════════════════════════════════════════════════════════════ */
 :focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid #236CEF;
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -613,7 +613,7 @@ html.lenis body {
   padding: 8px;
   box-shadow:
     0 0 0 2px rgba(255,255,255,0.15),
-    0 0 60px rgba(37, 99, 235, 0.3),
+    0 0 60px rgba(35, 108, 239, 0.3),
     0 40px 80px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.15);
   position: relative;

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, follow" />
     <title>Pagina non trovata — Quotify</title>
-    <link rel="icon" type="image/png" href="/pwa-192x192.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <style>
       *, *::before, *::after { box-sizing: border-box; }
       :root {
         --primary-400: #60a5fa;
-        --primary-600: #2563eb;
+        --primary-600: #236CEF;
         --primary-50:  #eff6ff;
         --ink:         #0f172a;
         --muted:       #64748b;
@@ -41,7 +42,7 @@
         position: fixed; top: 50%; left: 50%;
         width: min(38rem, 100vw); aspect-ratio: 1;
         transform: translate(-50%, -50%);
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.13), transparent 62%);
+        background: radial-gradient(circle, rgba(35, 108, 239, 0.13), transparent 62%);
         pointer-events: none; z-index: 0;
       }
       .wrap > * { position: relative; z-index: 1; }
@@ -69,9 +70,9 @@
       .btn:hover { transform: translateY(-1px); }
       .btn-primary {
         background: var(--primary-600); color: #fff;
-        box-shadow: 0 4px 14px rgba(37, 99, 235, .3);
+        box-shadow: 0 4px 14px rgba(35, 108, 239, .3);
       }
-      .btn-primary:hover { background: #1d4ed8; box-shadow: 0 6px 20px rgba(37, 99, 235, .38); }
+      .btn-primary:hover { background: #1d4ed8; box-shadow: 0 6px 20px rgba(35, 108, 239, .38); }
       .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
       .btn-ghost:hover { background: var(--primary-50); }
       .links {
