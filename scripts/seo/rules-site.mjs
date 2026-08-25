@@ -91,6 +91,36 @@ export function controllaSito(distDir, pagine, tuttiIFile, ctx) {
     }
   }
 
+  // ── codice inline vietato dalla CSP ──────────────────────────────────────
+  // Un onclick="" con una CSP senza 'unsafe-inline' non dà errore in fase di
+  // build e non si vede rileggendo il markup: semplicemente non parte mai.
+  if (esiste.has('_headers')) {
+    const headers = readFileSync(join(distDir, '_headers'), 'utf8');
+    const csp = (headers.match(/Content-Security-Policy:\s*([^\n]+)/i) || [])[1] || '';
+    const scriptSrc = (csp.match(/script-src([^;]*)/i) || [])[1] || '';
+    if (csp && !scriptSrc.includes("'unsafe-inline'")) {
+      for (const p of pagine) {
+        for (const el of p.root.querySelectorAll('*')) {
+          const inline = Object.keys(el.attributes || {}).filter((a) => /^on[a-z]+$/i.test(a));
+          for (const attr of inline) {
+            f.push(esito(E, 'inline-bloccato-da-csp', p.file, null,
+              `<${el.rawTagName} ${attr}="…"> non verrà mai eseguito: la CSP non consente 'unsafe-inline'`,
+              'Sostituire con un id e un addEventListener in main.js.'));
+          }
+        }
+        for (const sc of p.root.querySelectorAll('script')) {
+          const tipo = (sc.getAttribute('type') || '').toLowerCase();
+          const eDato = tipo && !/javascript|module/.test(tipo); // es. application/ld+json
+          if (!sc.getAttribute('src') && sc.text.trim() && !eDato) {
+            f.push(esito(E, 'inline-bloccato-da-csp', p.file, null,
+              '<script> inline senza src non verrà mai eseguito: la CSP non consente \'unsafe-inline\'',
+              'Spostare il codice in un file servito dall\'origine.'));
+          }
+        }
+      }
+    }
+  }
+
   // ── robots.txt: esprime davvero la politica decisa? ──────────────────────
   if (!esiste.has('robots.txt')) {
     f.push(esito(E, 'robots-mancante', 'robots.txt', null, 'robots.txt assente da dist/'));

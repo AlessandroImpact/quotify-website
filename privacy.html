@@ -51,7 +51,7 @@
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Privacy Policy</h1>
-      <p class="text-sm text-slate-500 mb-10">Ultimo aggiornamento: 22 marzo 2026</p>
+      <p class="text-sm text-slate-500 mb-10">Ultimo aggiornamento: 25 agosto 2026</p>
 
       <div class="prose prose-slate max-w-none space-y-8 text-slate-700 leading-relaxed">
 
@@ -115,6 +115,11 @@
             <li><strong>Agenzia delle Entrate / SDI:</strong> per la trasmissione delle fatture elettroniche.</li>
             <li><strong>Provider di hosting e infrastruttura:</strong> Cloudflare (CDN e hosting), con server ubicati nell'UE.</li>
             <li><strong>Servizi di AI:</strong> Anthropic (Claude), per l'elaborazione delle richieste all'assistente AI. I dati inviati non vengono utilizzati per l'addestramento dei modelli.</li>
+            <li><strong>Meta Platforms Ireland Ltd.:</strong> solo se hai acconsentito ai cookie di marketing, per la
+            misurazione delle campagne pubblicitarie su Facebook e Instagram tramite Meta Pixel. Il trattamento avviene
+            in contitolarità limitatamente alla raccolta e trasmissione dei dati; il trasferimento negli Stati Uniti si
+            fonda sulle Clausole Contrattuali Standard e sul Data Privacy Framework UE-USA. Vedi la
+            <a href="/cookie" class="text-primary-600 hover:underline">Cookie Policy</a> per revocare il consenso.</li>
           </ul>
           <p>I dati personali non vengono venduti a terzi.</p>
         </section>
@@ -158,12 +163,18 @@
     <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-700 px-4 py-4 sm:py-3 transition-transform duration-300 translate-y-full" hidden>
       <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
         <p class="text-sm text-slate-300 text-center sm:text-left">
-          Questo sito utilizza solo cookie tecnici necessari al funzionamento. Nessun dato viene usato per profilazione o pubblicità.
-          <a href="/cookie" class="text-primary-400 hover:underline">Scopri di più</a>
+          Usiamo cookie tecnici, necessari al funzionamento del sito, e — solo con il tuo consenso — cookie di
+          marketing di Meta per misurare i risultati delle campagne. Puoi rifiutare senza perdere nessuna funzionalità.
+          <a href="/cookie" class="text-primary-400 hover:underline">Cookie Policy</a>
         </p>
-        <button id="cookie-accept" class="shrink-0 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
-          OK, ho capito
-        </button>
+        <div class="flex items-center gap-3 shrink-0">
+          <button id="cookie-reject" class="text-slate-300 hover:text-white text-sm font-semibold px-5 py-2 rounded-lg border border-slate-600 hover:border-slate-400 transition-colors">
+            Rifiuta
+          </button>
+          <button id="cookie-accept" class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
+            Accetta
+          </button>
+        </div>
       </div>
     </div>
 

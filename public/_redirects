@@ -1,0 +1,16 @@
+# Cloudflare Pages — redirect brevi per i canali social
+# https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# Servono a due cose: tenere pulito il link visibile (in bio Instagram si legge
+# "quotify.it/beta", non una stringa con quattro parametri UTM) e sapere da quale
+# canale arriva ogni registrazione.
+#
+# /beta è il link della BIO INSTAGRAM: è l'unico punto in cui l'URL è visibile
+# all'utente, quindi ha il path che si legge meglio.
+
+/beta   https://app.quotify.it/register?utm_source=instagram&utm_medium=bio&utm_campaign=beta        302
+/ig     https://app.quotify.it/register?utm_source=instagram&utm_medium=bio&utm_campaign=beta        302
+/fb     https://app.quotify.it/register?utm_source=facebook&utm_medium=cta&utm_campaign=beta         302
+/tt     https://app.quotify.it/register?utm_source=tiktok&utm_medium=bio&utm_campaign=beta           302
+/li     https://app.quotify.it/register?utm_source=linkedin&utm_medium=bio&utm_campaign=beta         302
+/yt     https://app.quotify.it/register?utm_source=youtube&utm_medium=descrizione&utm_campaign=beta  302

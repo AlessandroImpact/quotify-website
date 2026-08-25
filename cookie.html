@@ -51,7 +51,7 @@
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Cookie Policy</h1>
-      <p class="text-sm text-slate-500 mb-10">Ultimo aggiornamento: 22 marzo 2026</p>
+      <p class="text-sm text-slate-500 mb-10">Ultimo aggiornamento: 25 agosto 2026</p>
 
       <div class="prose prose-slate max-w-none space-y-8 text-slate-700 leading-relaxed">
 
@@ -93,9 +93,9 @@
                   <td class="px-4 py-3">Sessione</td>
                 </tr>
                 <tr>
-                  <td class="px-4 py-3 font-mono text-xs">cookie_consent</td>
-                  <td class="px-4 py-3">Memorizza le preferenze sui cookie</td>
-                  <td class="px-4 py-3">12 mesi</td>
+                  <td class="px-4 py-3 font-mono text-xs">quotify_cookie_consent</td>
+                  <td class="px-4 py-3">Memorizza la tua scelta sui cookie di marketing (localStorage, non è un cookie inviato al server)</td>
+                  <td class="px-4 py-3">Fino a revoca</td>
                 </tr>
               </tbody>
             </table>
@@ -104,7 +104,41 @@
           <h3 class="text-lg font-medium text-slate-800 mt-6 mb-2">3.2 Cookie Analitici</h3>
           <p>Utilizzati per raccogliere informazioni aggregate e anonime sull'utilizzo del sito, al fine di migliorare il servizio. Quotify utilizza Cloudflare Web Analytics, che non utilizza cookie lato client e rispetta la privacy degli utenti.</p>
 
-          <h3 class="text-lg font-medium text-slate-800 mt-6 mb-2">3.3 Cookie di Terze Parti</h3>
+          <h3 class="text-lg font-medium text-slate-800 mt-6 mb-2">3.3 Cookie di Marketing (soggetti a consenso)</h3>
+          <p>
+            Questi cookie vengono installati <strong>solo se acconsenti</strong> tramite il banner. Se rifiuti, non
+            vengono caricati e il sito funziona esattamente allo stesso modo. Puoi cambiare idea in qualsiasi momento
+            dal pulsante in fondo a questa pagina.
+          </p>
+          <div class="overflow-x-auto my-4">
+            <table class="min-w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold text-slate-700">Strumento</th>
+                  <th class="px-4 py-3 text-left font-semibold text-slate-700">Finalità</th>
+                  <th class="px-4 py-3 text-left font-semibold text-slate-700">Durata</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-4 py-3 font-mono text-xs">Meta Pixel (_fbp)</td>
+                  <td class="px-4 py-3">
+                    Misura l'efficacia delle campagne pubblicitarie su Facebook e Instagram e consente di mostrare
+                    annunci a chi ha già visitato il sito. Titolare congiunto per questa finalità: Meta Platforms
+                    Ireland Ltd.
+                    <a href="https://www.facebook.com/privacy/policy" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Informativa di Meta</a>.
+                  </td>
+                  <td class="px-4 py-3">3 mesi</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm text-slate-600">
+            I dati raccolti dal pixel possono essere trasferiti negli Stati Uniti da Meta Platforms Ireland Ltd., sulla
+            base delle Clausole Contrattuali Standard della Commissione Europea e del Data Privacy Framework UE-USA.
+          </p>
+
+          <h3 class="text-lg font-medium text-slate-800 mt-6 mb-2">3.4 Cookie di Terze Parti</h3>
           <p>Il sito potrebbe includere contenuti o servizi di terze parti che possono impostare i propri cookie:</p>
           <ul class="list-disc pl-6 space-y-1">
             <li><strong>Google Fonts:</strong> per il caricamento dei font tipografici. <a href="https://policies.google.com/privacy" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Privacy Policy di Google</a>.</li>
@@ -124,15 +158,22 @@
             <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Safari</a></li>
             <li><a href="https://support.microsoft.com/it-it/windows/gestire-i-cookie-in-microsoft-edge-visualizzare-consentire-bloccare-eliminare-e-usare-168dab11-0753-043d-7c16-ede5947fc64d" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
           </ul>
-          <p class="mt-3">La disattivazione dei cookie tecnici potrebbe compromettere il corretto funzionamento del sito.</p>
+          <h3 class="text-lg font-medium text-slate-800 mt-6 mb-2">Dal banner di Quotify</h3>
+          <p>Puoi revocare o concedere il consenso ai cookie di marketing quando vuoi, senza alcuna conseguenza:</p>
+          <p class="mt-3">
+            <button type="button" id="cookie-manage" class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+              Gestisci le preferenze sui cookie
+            </button>
+          </p>
+          <p class="mt-4">La disattivazione dei cookie tecnici potrebbe compromettere il corretto funzionamento del sito.</p>
         </section>
 
         <section>
           <h2 class="text-xl font-semibold text-slate-900 mb-3">5. Base Giuridica</h2>
           <ul class="list-disc pl-6 space-y-1">
             <li><strong>Cookie tecnici:</strong> non richiedono consenso (art. 122, comma 1, D.Lgs. 196/2003 e Provvedimento del Garante n. 229/2014).</li>
-            <li><strong>Cookie analitici anonimizzati:</strong> non richiedono consenso se i dati sono aggregati e anonimizzati.</li>
-            <li><strong>Cookie di profilazione:</strong> Quotify non utilizza cookie di profilazione.</li>
+            <li><strong>Cookie analitici anonimizzati:</strong> non richiedono consenso se i dati sono aggregati e anonimizzati. Cloudflare Web Analytics non installa cookie sul dispositivo.</li>
+            <li><strong>Cookie di marketing e profilazione:</strong> richiedono il tuo <strong>consenso preventivo, libero e revocabile</strong> (art. 6.1.a GDPR e art. 122 D.Lgs. 196/2003). Non vengono caricati prima che tu abbia cliccato "Accetta", e rifiutare non limita in alcun modo l'uso del sito.</li>
           </ul>
         </section>
 
@@ -149,12 +190,18 @@
     <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-700 px-4 py-4 sm:py-3 transition-transform duration-300 translate-y-full" hidden>
       <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
         <p class="text-sm text-slate-300 text-center sm:text-left">
-          Questo sito utilizza solo cookie tecnici necessari al funzionamento. Nessun dato viene usato per profilazione o pubblicità.
-          <a href="/cookie" class="text-primary-400 hover:underline">Scopri di più</a>
+          Usiamo cookie tecnici, necessari al funzionamento del sito, e — solo con il tuo consenso — cookie di
+          marketing di Meta per misurare i risultati delle campagne. Puoi rifiutare senza perdere nessuna funzionalità.
+          <a href="/cookie" class="text-primary-400 hover:underline">Cookie Policy</a>
         </p>
-        <button id="cookie-accept" class="shrink-0 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
-          OK, ho capito
-        </button>
+        <div class="flex items-center gap-3 shrink-0">
+          <button id="cookie-reject" class="text-slate-300 hover:text-white text-sm font-semibold px-5 py-2 rounded-lg border border-slate-600 hover:border-slate-400 transition-colors">
+            Rifiuta
+          </button>
+          <button id="cookie-accept" class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
+            Accetta
+          </button>
+        </div>
       </div>
     </div>
 

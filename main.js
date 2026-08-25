@@ -777,23 +777,112 @@ function initGlobe() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   COOKIE BANNER
+   CONSENSO COOKIE + META PIXEL
+
+   Il pixel di Meta è un cookie di profilazione di terza parte:
+   viene caricato SOLO dopo un consenso esplicito e affermativo.
+   Cloudflare Web Analytics resta sempre attivo perché è cookieless.
 ═══════════════════════════════════════════════════════════════ */
+const META_PIXEL_ID = '1474396618080757'
+const CONSENT_KEY = 'quotify_cookie_consent'
+
+function readConsent() {
+  try {
+    return localStorage.getItem(CONSENT_KEY)
+  } catch {
+    return null
+  }
+}
+
+function writeConsent(value) {
+  try {
+    localStorage.setItem(CONSENT_KEY, value)
+  } catch {
+    /* storage non disponibile: il consenso vale per la sessione corrente */
+  }
+}
+
+function trackRegistrationClicks() {
+  document.querySelectorAll('a[href*="app.quotify.it/register"]').forEach((a) => {
+    if (a.dataset.fbTracked) return
+    a.dataset.fbTracked = '1'
+    a.addEventListener('click', () => {
+      if (window.fbq) window.fbq('track', 'Lead', { content_name: 'cta_registrazione_sito' })
+    })
+  })
+}
+
+function loadMetaPixel() {
+  if (window.fbq) return
+  /* eslint-disable */
+  !(function (f, b, e, v, n, t, s) {
+    if (f.fbq) return
+    n = f.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+    }
+    if (!f._fbq) f._fbq = n
+    n.push = n
+    n.loaded = !0
+    n.version = '2.0'
+    n.queue = []
+    t = b.createElement(e)
+    t.async = !0
+    t.src = v
+    s = b.getElementsByTagName(e)[0]
+    s.parentNode.insertBefore(t, s)
+  })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
+  /* eslint-enable */
+  window.fbq('init', META_PIXEL_ID)
+  window.fbq('track', 'PageView')
+  trackRegistrationClicks()
+}
+
 function initCookieBanner() {
+  const consent = readConsent()
+  if (consent === 'accepted') loadMetaPixel()
+
+  // Permette di riaprire il banner dalla Cookie Policy.
+  // Agganciato con un listener, non con onclick="" nel markup: la CSP del sito
+  // non consente 'unsafe-inline' negli script, quindi un handler inline sarebbe
+  // silenziosamente inerte — e la revoca del consenso è un obbligo, non un extra.
+  const resetConsent = () => {
+    try {
+      localStorage.removeItem(CONSENT_KEY)
+    } catch {
+      /* niente da rimuovere */
+    }
+    location.reload()
+  }
+  window.quotifyResetCookieConsent = resetConsent
+  document.getElementById('cookie-manage')?.addEventListener('click', resetConsent)
+
   const banner = document.getElementById('cookie-banner')
   const acceptBtn = document.getElementById('cookie-accept')
-  if (!banner || !acceptBtn) return
-  if (localStorage.getItem('cookie_consent')) return
+  const rejectBtn = document.getElementById('cookie-reject')
+  if (!banner || !acceptBtn || !rejectBtn) return
+  if (consent) return
 
   banner.removeAttribute('hidden')
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => { banner.classList.remove('translate-y-full') })
+    requestAnimationFrame(() => {
+      banner.classList.remove('translate-y-full')
+    })
   })
 
-  acceptBtn.addEventListener('click', () => {
-    localStorage.setItem('cookie_consent', 'accepted')
+  const closeBanner = () => {
     banner.classList.add('translate-y-full')
     setTimeout(() => banner.setAttribute('hidden', ''), 300)
+  }
+
+  acceptBtn.addEventListener('click', () => {
+    writeConsent('accepted')
+    loadMetaPixel()
+    closeBanner()
+  })
+
+  rejectBtn.addEventListener('click', () => {
+    writeConsent('rejected')
+    closeBanner()
   })
 }
 

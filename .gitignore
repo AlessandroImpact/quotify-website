@@ -3,3 +3,5 @@ dist/
 .DS_Store
 .wrangler/
 .playwright-mcp/
+
+_to_delete/
