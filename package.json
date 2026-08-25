@@ -4,11 +4,13 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node scripts/seo/jsonld.mjs dist && node scripts/seo/llms.mjs dist && node scripts/seo/gate.mjs dist",
+    "preview": "vite preview",
+    "seo": "node scripts/seo/gate.mjs dist"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",
+    "node-html-parser": "^9.0.1",
     "tailwindcss": "^4.2.1",
     "vite": "^7.3.1"
   },

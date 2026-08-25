@@ -443,9 +443,15 @@ function initStatsCounters() {
 
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
 
+  const preferisceMenoMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
   const animateCounter = (el) => {
     const target = parseInt(el.getAttribute('data-target'), 10)
     if (isNaN(target)) return
+    // Il valore finale è già nell'HTML (lo leggono i crawler): si azzera solo ora,
+    // un attimo prima di animarlo. Senza JS, o senza movimento, resta il numero giusto.
+    if (preferisceMenoMovimento) return
+    el.textContent = '0'
     const duration = 1800
     const startTime = performance.now()
 

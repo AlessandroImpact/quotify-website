@@ -15,7 +15,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   Strict-Transport-Security: max-age=31536000
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
   ! Access-Control-Allow-Origin
 
 # ── HTML: browser rivalida, edge Cloudflare tiene 1 ora ──
@@ -43,6 +43,9 @@
   Cache-Control: public, max-age=86400, s-maxage=604800
 
 # ── Immagini ──
+/*.jpg
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+
 /*.png
   Cache-Control: public, max-age=604800, s-maxage=2592000
 
@@ -56,4 +59,9 @@
 
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+# ── llms.txt: generato dal build (scripts/seo/llms.mjs) ──
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=3600, s-maxage=3600
