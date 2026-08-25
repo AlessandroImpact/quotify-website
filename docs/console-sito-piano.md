@@ -153,7 +153,34 @@ Passi:
 La console serve a **trovare** problemi. Questi li abbiamo già trovati (§14): correggerli prima
 significa che il primo snapshot del crawler sarà una baseline pulita e non un muro di rosso.
 
-### 4.1 ✅ Decisione presa: gli AI crawler — citazione sì, training no (2026-08-25)
+### 4.1 ✅ RISOLTO il 2026-08-25 — gli AI crawler
+
+**Stato finale, verificato sul file servito da quotify.it:** blocco managed Cloudflare **assente**,
+`Content-Signal: search=yes, ai-input=yes, ai-train=no`, 27 crawler verificati con 0 discrepanze.
+
+L'interruttore **non era dove indicava la documentazione**. Security Settings → Traffico bot
+conteneva altro: le nuove policy AI (Ricerca / Agente / Addestramento) erano tutte su
+"Consenti", e l'impostazione legacy "Blocca i bot IA" era già disattivata. Nessuna delle due
+bloccava. Il responsabile era un terzo interruttore, **AI Crawl Control → Panoramica →
+"Robots.txt gestito"**, in una pagina diversa. Vale la pena annotarlo: seguendo la
+documentazione si sarebbe spenta la cosa sbagliata.
+
+#### Il difetto emerso solo dopo
+
+Con il file finalmente servito, `Applebot-Extended` risultava **ammesso** nonostante il
+`Disallow: /`. Causa: un parser che fa match per sottostringa incontra prima il gruppo
+`Applebot` (che è `Allow`) e si ferma, perché `"applebot"` è contenuto in
+`"applebot-extended"`. RFC 9309 impone il match più specifico e non avrebbe sbagliato, ma non
+tutti i crawler sono conformi — e `Applebot-Extended` è proprio l'opt-out di Apple
+dall'addestramento: sarebbe stato l'unico buco nella politica.
+
+Corretto riordinando i gruppi (specifici prima dei generici) e **blindato nel gate**:
+`scripts/seo/robots.mjs` dichiara la politica attesa crawler per crawler e la verifica con due
+letture, RFC 9309 e ingenua. Il build fallisce se una si discosta dalla politica **o se le due
+divergono fra loro** — è la divergenza a rivelare il problema di ordine, che nessuna delle due
+letture da sola segnalerebbe. Collaudato reintroducendo il bug: il build si ferma.
+
+### 4.1b La decisione originale (per riferimento)
 
 In produzione Cloudflare blocca ClaudeBot, GPTBot, Google-Extended, CCBot, Bytespider,
 meta-externalagent, Amazonbot, Applebot-Extended. **Finché resta così, il punto GEO del brief è
@@ -197,12 +224,13 @@ Vincolo tecnico da verificare in fase di esecuzione: il blocco managed viene **a
 | 5 | Link morti | ✅ 8 → 0: loghi → `/`, colonna "Risorse" e Changelog rimossi (footer da 4 a 3 colonne) |
 | 6 | Stat leggibili dai crawler | ✅ valore finale nell'HTML, il JS azzera solo un attimo prima di animare; rispetta `prefers-reduced-motion` |
 | 7 | Numeri non verificabili | ⏳ **decisione tua**, §10.3 |
-| 8 | Cloudflare Web Analytics | ⏳ CSP pronta (`static.cloudflareinsights.com` + `cloudflareinsights.com`), resta da attivare nel dashboard |
-| 9 | Email obfuscation | ⏳ dashboard |
-| 10 | Browser Cache TTL | ⏳ dashboard |
+| 8 | Cloudflare Web Analytics | ✅ beacon installato nel repo. Il sito era registrato dal 31/03 con `auto_install: true` e l'iniezione non è **mai** avvenuta: 5 mesi in cui `cookie.html` dichiarava un analytics inesistente. Resta da spegnere `auto_install` (non modificabile via API) |
+| 9 | Email obfuscation | ✅ risolto togliendo `/cdn-cgi/` dal `Disallow` invece di spegnere l'offuscamento: Googlebot decodifica, gli harvester ingenui no |
+| 10 | Browser Cache TTL | ✅ `browser_cache_ttl: 14400 → 0` via API. Verificato: `/` ora serve `max-age=0`, `llms/robots/sitemap` `max-age=3600` |
 | 11 | `llms.txt` | ✅ **generato dal build**, 3823 byte |
-| 12 | `always_use_https` | ⏳ dashboard |
-| 13 | WAF `not cf.client.bot` | ⏳ dashboard |
+| 12 | `always_use_https` | ✅ `off → on` via API |
+| 13 | WAF `not cf.client.bot` | ✅ espressione ora `(http.host eq "quotify.it" and ip.src.country eq "NL" and not cf.client.bot)`. Nota: al momento la regola intercetta **2 richieste / 0,0%** contro le 1,64k / 41,3% stimate alla creazione — l'ondata olandese era con ogni probabilità PetalBot, sparito da solo dopo il `Disallow` del 24/08 |
+| 14 | `favicon.ico` e `apple-touch-icon.png` | ✅ erano 404. AI Crawl Control ne segnalava 88 in 24 ore. Creati; il gate ora avvisa se mancano |
 
 Inoltre: `_headers` con `Content-Type` e cache per `/llms.txt` e `/*.jpg`; `lastmod` della sitemap
 portato a `2026-08-25`.
@@ -783,6 +811,25 @@ oggi funziona lo stesso perché lo fa Pages, ma non è la zona a garantirlo.
 nessun match, serve `CF_ACCOUNT=personale source ~/vault/bin/cf-env.sh` a ogni deploy.
 Il token caricato ha scope per Pages e per le impostazioni di zona in lettura, **non** per DNS
 né per WAF/Bot Management.
+
+### Traffico crawler reale (AI Crawl Control, 24 ore al 2026-08-25)
+
+222 richieste da AI crawler, −52,4% sul periodo precedente. 125 consentite, 97 non riuscite.
+**88 crawl finiti in HTTP 404.** `quotify.it/sitemap.xml` è il percorso più crawlato.
+
+| Crawler | Richieste consentite |
+|---|---|
+| PetalBot (Huawei) | 69 |
+| **Claude-SearchBot** | **40** |
+| Googlebot | 13 |
+| BingBot | 2 |
+| Baidu | 1 |
+| ChatGPT-User, Applebot, PerplexityBot, CCBot, Bytespider | 0 |
+
+Due osservazioni. **Claude-SearchBot fa 40 richieste** mentre il `robots.txt` gli diceva
+`Disallow: /` — sta ignorando la direttiva, ed è la dimostrazione pratica della differenza fra
+*esprimere* una preferenza e *imporla* (§4.1). **PetalBot da solo era il 72%** del traffico
+crawler pur essendo vietato dal 24/08.
 
 ### Cosa funziona già
 
