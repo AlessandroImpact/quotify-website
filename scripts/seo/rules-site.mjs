@@ -90,6 +90,15 @@ export function controllaSito(distDir, pagine, tuttiIFile, ctx) {
     }
   }
 
+  // ── file richiesti d'ufficio da browser e crawler ────────────────────────
+  // Nessuno li dichiara, tutti li chiedono: se mancano sono 404 puri nei log.
+  for (const atteso of ['favicon.ico', 'apple-touch-icon.png']) {
+    if (!esiste.has(atteso)) {
+      f.push(esito(W, 'file-atteso-mancante', atteso, null,
+        `${atteso} assente: browser e crawler lo richiedono comunque, genera un 404`));
+    }
+  }
+
   // ── segreti finiti nel build (docs/console-sito-piano.md §13) ─────────────
   const spie = [
     [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, 'chiave privata'],
