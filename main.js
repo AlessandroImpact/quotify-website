@@ -149,9 +149,15 @@ function initHero() {
     let attivo = 0
     captions.forEach((cap, i) => {
       const [a, b] = HERO_WINDOWS[i] || [0, 1]
-      const inF = seg(p, a - 0.05, a + 0.04)
-      const outF = i === HERO_WINDOWS.length - 1 ? 0 : seg(p, b - 0.02, b + 0.05)
-      const o = Math.max(0, Math.min(i === 0 ? 1 : inF, 1 - outF))
+      // Le finestre della specifica si sovrappongono (la 02 chiude a 0.60, la 03
+      // apre a 0.62, ma entrambe dissolvono su 0.07-0.09): due blocchi di testo
+      // restano insieme al 50% e si leggono uno sopra l'altro. Qui la dissolvenza
+      // in entrata parte esattamente dove finisce quella in uscita precedente:
+      // stesso ritmo, nessuna sovrapposizione.
+      const prevB = i > 0 ? HERO_WINDOWS[i - 1][1] : 0
+      const inF = i === 0 ? 1 : seg(p, prevB, prevB + 0.035)
+      const outF = i === HERO_WINDOWS.length - 1 ? 0 : seg(p, b - 0.035, b)
+      const o = Math.max(0, Math.min(inF, 1 - outF))
       cap.style.opacity = o
       const base = cap.hasAttribute('data-stage') ? 'translateX(-50%) ' : ''
       cap.style.transform = `${base}translateY(${(1 - o) * 18}px)`

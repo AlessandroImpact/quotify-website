@@ -902,3 +902,39 @@ Suggerimento di sequenza: implementare prima le sezioni non-pinned (banco, numer
 footer, navbar) — sono HTML e Tailwind ordinari e portano già l'80% del salto visivo. Poi hero e
 carosello, che sono i due unici pezzi con coreografia, dietro un singolo modulo JS con il loop
 descritto sopra.
+
+---
+
+## Scostamenti in fase di implementazione (2026-08-26)
+
+Tutto il resto è stato implementato con i numeri di questo documento. Un solo
+scostamento, e la ragione.
+
+### Finestre di visibilità delle didascalie hero (§1)
+
+Le finestre della specifica producono una **dissolvenza incrociata**: la 02
+chiude a `0.60`, la 03 apre a `0.62`, ma dissolvono rispettivamente su `0.07` e
+`0.09` di progresso. Risultato: a `p=0.62` la 02 è a `0.43` e la 03 a `0.56`
+**contemporaneamente**, e i due blocchi di testo — che occupano la stessa
+posizione e hanno lo stesso piano sfocato dietro — si leggono uno sopra l'altro.
+Verificato in produzione con uno screenshot: illeggibile.
+
+Misurato su 1000 campioni di scroll:
+
+| | didascalie sovrapposte (>0.15) | nessuna didascalia |
+|---|---|---|
+| formula della specifica | 108 / 1000 | 81 / 1000 |
+| formula adottata | **0 / 1000** | **4 / 1000** |
+
+La formula adottata fa partire la dissolvenza in entrata esattamente dove
+finisce quella in uscita precedente:
+
+```js
+const prevB = i > 0 ? HERO_WINDOWS[i - 1][1] : 0
+const inF  = i === 0 ? 1 : seg(p, prevB, prevB + 0.035)
+const outF = isLast ? 0 : seg(p, b - 0.035, b)
+const o    = Math.max(0, Math.min(inF, 1 - outF))
+```
+
+Le finestre `HERO_WINDOWS` restano quelle della specifica: cambia solo il modo
+in cui si entra e si esce.
