@@ -22,11 +22,14 @@ Entrambi collegati fra loro e dentro il portfolio business **Quotify**.
 | ✅ | Contatto business IG | `support@quotify.it` |
 | ✅ | Collegamento IG ↔ Pagina | fatto, con accesso ai DM da Business Suite |
 | ✅ | Portfolio business | **Quotify** (già esistente) — contiene ora Pagina + IG |
+| ⚠️ | **Claim in homepage ancora online** | 500+ / 10.000+ / 99.9% — vedi sotto |
 | ⬜ | **Link in bio IG** | il web non lo consente: **da fare dall'app sul telefono** |
 | ⬜ | **Nome IG** → `Quotify · Regime forfettario` | idem, campo modificabile solo da app |
 | ⬜ | Storie in evidenza | richiedono di pubblicare prima le storie: da app |
 | ✅ | Portfolio business corretto | **Quotify** (`1583718346730435`) — separato dal tuo personale |
-| ✅ | Dominio quotify.it aggiunto | meta-tag già in `index.html`, verifica dopo il deploy |
+| ✅ | **Dominio quotify.it VERIFICATO** | confermato da Meta il 25/08/2026 |
+| ✅ | Redirect `quotify.it/beta` | attivo in produzione |
+| ✅ | Pixel testato in produzione | prima del consenso: 0 script Meta; dopo "Accetta": `fbq` attivo e `_fbp` scritto |
 | ✅ | Cookie banner a consenso preventivo | Rifiuta / Accetta, su tutte e 5 le pagine |
 | ✅ | Pixel `1474396618080757` | installato, si carica solo dopo il consenso |
 | ✅ | CSP aggiornata | senza, il pixel sarebbe stato bloccato |

@@ -1,783 +1,549 @@
-/**
- * main.js — Quotify Landing Page (Premium Animations)
- * Lenis smooth scroll, GSAP ScrollTrigger, Three.js globe,
- * scroll-driven hero, view-item reveals, hover inertia.
- */
+/* ═══════════════════════════════════════════════════════════════
+   Quotify — homepage 3D scroll-driven
+   Riferimento: docs/redesign-3d-handoff.md
 
+   Un solo loop di animazione, nessuna libreria 3D: tutta la grafica
+   è CSS. Three.js e GSAP sono stati rimossi con il redesign.
+═══════════════════════════════════════════════════════════════ */
 import Lenis from '@studio-freight/lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import * as THREE from 'three'
 
-gsap.registerPlugin(ScrollTrigger)
+/* ── helper ────────────────────────────────────────────────── */
+const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v)
+const ease = (t) => 1 - Math.pow(1 - t, 3)
+const smooth = (t) => t * t * (3 - 2 * t)
+const seg = (p, a, b) => clamp01((p - a) / (b - a))
+const $ = (s, r = document) => r.querySelector(s)
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s))
 
-/* ═══════════════════════════════════════════════════════════════
-   REDUCED MOTION CHECK
-═══════════════════════════════════════════════════════════════ */
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-const isMobile = window.innerWidth < 768
+/** Raggruppa le migliaia a mano: toLocaleString('it-IT') non è
+ *  affidabile in tutti i runtime e produrrebbe "2000" accanto a
+ *  valori raggruppati scritti a mano. */
+const eur = (n) => '€ ' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 
-/* ═══════════════════════════════════════════════════════════════
-   LENIS SMOOTH SCROLL
-═══════════════════════════════════════════════════════════════ */
-let lenis
+const ridotto = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function initLenis() {
-  if (prefersReducedMotion) return
+/* ── il loop ───────────────────────────────────────────────── */
+const ticks = []
+const onTick = (fn) => ticks.push(fn)
+let last = performance.now()
 
-  lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-  })
+function loop() {
+  // Riprogrammare PRIMA del lavoro: così un'eccezione non spegne
+  // l'animazione per sempre. Nessun latch "frame in coda": se quel
+  // frame non arriva (tab in background) la pagina resterebbe ferma.
+  requestAnimationFrame(loop)
+  if (document.hidden) { last = performance.now(); return }
+  const now = performance.now()
+  const dt = Math.min((now - last) / 1000, 0.25)
+  last = now
+  for (const fn of ticks) {
+    try { fn(dt, now) } catch (err) { console.warn('tick', err) }
+  }
+}
 
-  lenis.on('scroll', ScrollTrigger.update)
-  gsap.ticker.add((time) => lenis.raf(time * 1000))
-  gsap.ticker.lagSmoothing(0)
+/* ── progresso di una sezione pinned ───────────────────────── */
+function progresso(section) {
+  const rect = section.getBoundingClientRect()
+  const total = Math.max(section.offsetHeight - window.innerHeight, 1)
+  return clamp01(-rect.top / total)
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   HERO SCROLL-DRIVEN ANIMATIONS
+   1. HERO
 ═══════════════════════════════════════════════════════════════ */
-function initHeroScrollDriven() {
-  if (prefersReducedMotion || isMobile) return
+const CHIP_SEEDS = [
+  [-0.80, -0.46, -260, -18],
+  [ 0.82, -0.52, -420,  14],
+  [-0.86,  0.18, -180,  10],
+  [ 0.84,  0.30, -340, -12],
+  [-0.52,  0.66, -520,  16],
+  [ 0.56,  0.70, -240, -20],
+  [-0.16, -0.52, -600,   8],
+  [ 0.20,  0.62, -140,  -8],
+]
+const HERO_WINDOWS = [[0, 0.06], [0.24, 0.42], [0.46, 0.60], [0.62, 0.74], [0.80, 1.001]]
 
-  const scrollSpace = document.querySelector('.hero-scroll-space')
-  if (!scrollSpace) return
+function initHero() {
+  const section = $('#top')
+  if (!section) return
+  const stage = $('[data-hero]', section)
+  const halo = $('[data-hero-halo]', stage)
+  const chips = $$('[data-chip]', stage)
+  const fit = $('[data-hero-fit]', stage)
+  const card = $('[data-hero-card]', stage)
+  const stamp = $('[data-hero-stamp]', stage)
+  const dash = $('[data-hero-dash]', stage)
+  const captions = $$('[data-caption]', stage)
+  const rails = $$('[data-rail]', stage)
+  if (!card || !fit) return
 
-  // Stat cards spread outward
-  gsap.fromTo('.stat-1',
-    { x: 0, y: 0, scale: 1 },
-    {
-      x: '-35vw', y: '8vh', scale: 0.85, ease: 'none',
-      scrollTrigger: { trigger: scrollSpace, start: 'top top', end: '40% top', scrub: true }
-    }
-  )
-  gsap.fromTo('.stat-2',
-    { x: 0, y: 0, scale: 1 },
-    {
-      x: 0, y: '28vh', scale: 0.85, ease: 'none',
-      scrollTrigger: { trigger: scrollSpace, start: 'top top', end: '40% top', scrub: true }
-    }
-  )
-  gsap.fromTo('.stat-3',
-    { x: 0, y: 0, scale: 1 },
-    {
-      x: '35vw', y: '8vh', scale: 0.85, ease: 'none',
-      scrollTrigger: { trigger: scrollSpace, start: 'top top', end: '40% top', scrub: true }
-    }
-  )
+  chips.forEach((c) => (c.style.willChange = 'transform, opacity'))
+  ;[card, dash, fit].forEach((e) => (e.style.willChange = 'transform'))
 
-  // Title fade + subtle scale
-  gsap.fromTo('.hero-title',
-    { opacity: 1, scale: 1 },
-    {
-      opacity: 0.2, scale: 1.05, ease: 'none',
-      scrollTrigger: { trigger: scrollSpace, start: '20% top', end: '60% top', scrub: true }
-    }
-  )
-
-  // Subtitle + CTAs fade
-  gsap.to('.hero-subtitle', {
-    opacity: 0, ease: 'none',
-    scrollTrigger: { trigger: scrollSpace, start: '15% top', end: '45% top', scrub: true }
-  })
-  gsap.to('.hero-ctas', {
-    opacity: 0, ease: 'none',
-    scrollTrigger: { trigger: scrollSpace, start: '10% top', end: '35% top', scrub: true }
-  })
-
-  // Scroll indicator fades
-  gsap.to('.hero-scroll-indicator', {
-    opacity: 0, ease: 'none',
-    scrollTrigger: { trigger: scrollSpace, start: 'top top', end: '10% top', scrub: true }
-  })
-
-  // Background circles parallax
-  gsap.to('.hero-bg-circle', {
-    y: '-30%', ease: 'none',
-    scrollTrigger: { trigger: scrollSpace, start: 'top top', end: 'bottom top', scrub: true }
-  })
-
-  // 3D Grid parallax
-  gsap.to('.hero-grid-floor', {
-    backgroundPositionY: '-20rem', ease: 'none',
-    scrollTrigger: { trigger: scrollSpace, start: 'top top', end: 'bottom top', scrub: true }
-  })
-  gsap.to('.hero-grid-ceiling', {
-    backgroundPositionY: '20rem', ease: 'none',
-    scrollTrigger: { trigger: scrollSpace, start: 'top top', end: 'bottom top', scrub: true }
-  })
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   LIQUID GRADIENT BLOB — WebGL Shader
-═══════════════════════════════════════════════════════════════ */
-function initLiquidGradient() {
-  const canvas = document.getElementById('liquid-canvas')
-  if (!canvas || prefersReducedMotion) return
-
-  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false })
-  if (!gl) return
-
-  const vertSrc = `attribute vec2 a_pos; void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }`
-  const fragSrc = `
-    precision mediump float;
-    uniform float u_time;
-    uniform vec2 u_res;
-
-    // Simplex-ish noise
-    vec3 mod289(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
-    vec2 mod289(vec2 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
-    vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
-    float snoise(vec2 v) {
-      const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-      vec2 i = floor(v + dot(v, C.yy));
-      vec2 x0 = v - i + dot(i, C.xx);
-      vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-      vec4 x12 = x0.xyxy + C.xxzz;
-      x12.xy -= i1;
-      i = mod289(i);
-      vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-      vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-      m = m * m; m = m * m;
-      vec3 x_ = 2.0 * fract(p * C.www) - 1.0;
-      vec3 h = abs(x_) - 0.5;
-      vec3 a0 = x_ - floor(x_ + 0.5);
-      m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-      vec3 g;
-      g.x = a0.x * x0.x + h.x * x0.y;
-      g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-      return 130.0 * dot(m, g);
-    }
-
-    void main() {
-      vec2 uv = gl_FragCoord.xy / u_res;
-      float t = u_time * 0.15;
-
-      // Multiple noise layers for organic feel
-      float n1 = snoise(uv * 2.0 + vec2(t, t * 0.7)) * 0.5;
-      float n2 = snoise(uv * 3.5 - vec2(t * 0.8, t * 0.5)) * 0.3;
-      float n3 = snoise(uv * 1.2 + vec2(t * 0.3, -t * 0.6)) * 0.4;
-      float n = n1 + n2 + n3;
-
-      // Quotify blue palette
-      vec3 c1 = vec3(30.0/255.0, 58.0/255.0, 138.0/255.0);   // primary-900
-      vec3 c2 = vec3(37.0/255.0, 99.0/255.0, 235.0/255.0);    // primary-600
-      vec3 c3 = vec3(99.0/255.0, 102.0/255.0, 241.0/255.0);   // indigo-500
-      vec3 c4 = vec3(59.0/255.0, 130.0/255.0, 246.0/255.0);   // primary-400
-
-      vec3 color = mix(c1, c2, smoothstep(-0.5, 0.3, n));
-      color = mix(color, c3, smoothstep(0.1, 0.6, n + uv.y * 0.3));
-      color = mix(color, c4, smoothstep(0.3, 0.8, n - uv.x * 0.2));
-
-      float alpha = 0.35 + n * 0.15;
-      gl_FragColor = vec4(color, alpha);
-    }
-  `
-
-  function createShader(type, src) {
-    const s = gl.createShader(type)
-    gl.shaderSource(s, src)
-    gl.compileShader(s)
-    return s
+  // Adatta documento e dashboard alla banda libera fra il bordo alto
+  // e le didascalie ancorate in basso. Su finestre basse, senza questo,
+  // la card finisce sopra il testo.
+  let fitOk = false
+  function fitHero() {
+    const cap = captions[1]
+    if (!cap) return
+    const cr = cap.getBoundingClientRect()
+    const fr = fit.getBoundingClientRect()
+    if (!cr.height || !fr.height) return          // nodi non ancora misurabili: riprova al prossimo frame
+    const capTop = cr.top - fr.top
+    const bandTop = 82
+    const bandBottom = capTop + 56
+    const H = card.offsetHeight || 530
+    const s = Math.max(0.8, Math.min(1, (bandBottom - bandTop) / H))
+    const shift = (bandTop + bandBottom) / 2 - window.innerHeight / 2
+    fit.style.transform = `translateY(${shift}px) scale(${s})`
+    fitOk = true
   }
+  fitHero()
+  window.addEventListener('resize', () => { fitOk = false; fitHero() })
 
-  const prog = gl.createProgram()
-  gl.attachShader(prog, createShader(gl.VERTEX_SHADER, vertSrc))
-  gl.attachShader(prog, createShader(gl.FRAGMENT_SHADER, fragSrc))
-  gl.linkProgram(prog)
-  gl.useProgram(prog)
+  onTick(() => {
+    if (!fitOk) fitHero()                          // un fit fallito e mai ripetuto lascia la scena storta
+    const p = progresso(section)
+    const vw = window.innerWidth
+    const vh = window.innerHeight
 
-  const buf = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, buf)
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW)
-  const posLoc = gl.getAttribLocation(prog, 'a_pos')
-  gl.enableVertexAttribArray(posLoc)
-  gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0)
+    if (halo) halo.style.opacity = 0.55 + 0.45 * Math.sin(p * Math.PI)
 
-  const uTime = gl.getUniformLocation(prog, 'u_time')
-  const uRes = gl.getUniformLocation(prog, 'u_res')
+    const gather = ease(seg(p, 0, 0.2))
+    const f = 1 - gather
+    chips.forEach((chip, i) => {
+      const [sx, sy, z, rot] = CHIP_SEEDS[i % CHIP_SEEDS.length]
+      const pz = (1500 + Math.abs(z) * f) / 1500
+      chip.style.opacity = Math.max(0, 0.75 - gather * 0.9)
+      chip.style.transform =
+        `translate3d(${sx * vw * 0.46 * f * pz}px, ${sy * vh * 0.44 * f * pz}px, ${z * f}px)` +
+        ` rotate(${rot * f}deg) scale(${0.7 + 0.3 * f})`
+    })
 
-  gl.enable(gl.BLEND)
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+    const inP = ease(seg(p, 0.02, 0.26))
+    const ft = seg(p, 0.405, 0.475)
+    const flip = smooth(ft)                        // smoothstep: attraversa i 90° in fretta
+    const shrink = ease(seg(p, 0.72, 0.9))
+    const rotY = -42 + 42 * inP + 180 * flip
+    const rotX = 16 - 16 * inP
+    const scale = (0.62 + 0.38 * inP) * (1 - 0.32 * shrink)
+    const tz = (-420 + 420 * inP) - 260 * shrink
+    card.style.transform =
+      `translate3d(${-44 * shrink}%, 0, ${tz}px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`
+    card.style.opacity = 0.1 + 0.9 * ease(seg(p, 0.07, 0.24))
 
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio, 1.5)
-    canvas.width = canvas.clientWidth * dpr
-    canvas.height = canvas.clientHeight * dpr
-    gl.viewport(0, 0, canvas.width, canvas.height)
-  }
-  resize()
-  window.addEventListener('resize', resize, { passive: true })
-
-  let animId
-  function render(time) {
-    animId = requestAnimationFrame(render)
-    gl.uniform1f(uTime, time * 0.001)
-    gl.uniform2f(uRes, canvas.width, canvas.height)
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-  }
-
-  // Only run when hero visible
-  const heroSection = document.getElementById('hero')
-  const obs = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { render(performance.now()) }
-    else { cancelAnimationFrame(animId) }
-  }, { threshold: 0.05 })
-  obs.observe(heroSection)
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   IPHONE 3D — Scroll-driven rotation
-═══════════════════════════════════════════════════════════════ */
-function initIPhoneShowcase() {
-  if (prefersReducedMotion) return
-  const section = document.querySelector('.iphone-section')
-  const device = document.querySelector('.iphone-device')
-  const text = document.querySelector('.iphone-text')
-  if (!section || !device || !text) return
-
-  // Start: phone rotated, text visible
-  gsap.set(device, { rotateY: -45, rotateX: 10, scale: 0.9 })
-
-  // Single timeline scrubbed to scroll
-  const phoneTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 0.5
+    if (stamp) {
+      const sp = ease(seg(p, 0.56, 0.68))
+      stamp.style.opacity = sp
+      stamp.style.transform = `translateY(${(1 - sp) * 14}px) scale(${0.92 + 0.08 * sp})`
     }
-  })
 
-  phoneTl
-    // 0→20%: text fades, phone starts rotating
-    .to(text, { opacity: 0, y: -30, duration: 0.2, ease: 'none' }, 0)
-    .to(device, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.3, ease: 'power1.out' }, 0)
-    // 30→70%: phone holds front-facing
-    .to(device, { rotateY: 5, duration: 0.4, ease: 'none' })
-    // 70→100%: phone tilts gently away
-    .to(device, { rotateY: 30, rotateX: -10, scale: 0.85, duration: 0.3, ease: 'none' })
-}
+    if (dash) {
+      const dp = ease(seg(p, 0.76, 0.94))
+      dash.style.opacity = dp
+      dash.style.transform =
+        `translate3d(${26 + (1 - dp) * 60}%, -50%, ${120 * dp}px) rotateY(${-14 * (1 - dp)}deg) scale(${0.9 + 0.1 * dp})`
+    }
 
-
-
-/* ═══════════════════════════════════════════════════════════════
-   HERO ENTRANCE ANIMATION
-═══════════════════════════════════════════════════════════════ */
-function initHeroAnimation() {
-  const animatables = document.querySelectorAll('.hero-anim')
-  if (!animatables.length) return
-
-  if (prefersReducedMotion) {
-    animatables.forEach(el => { el.style.opacity = '1' })
-    return
-  }
-
-  animatables.forEach((el, i) => {
-    el.style.opacity = '0'
-    el.style.transform = 'translateY(24px)'
-    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease'
-    el.style.transitionDelay = `${i * 0.12}s`
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        el.style.opacity = '1'
-        el.style.transform = 'translateY(0)'
-      })
+    let attivo = 0
+    captions.forEach((cap, i) => {
+      const [a, b] = HERO_WINDOWS[i] || [0, 1]
+      const inF = seg(p, a - 0.05, a + 0.04)
+      const outF = i === HERO_WINDOWS.length - 1 ? 0 : seg(p, b - 0.02, b + 0.05)
+      const o = Math.max(0, Math.min(i === 0 ? 1 : inF, 1 - outF))
+      cap.style.opacity = o
+      const base = cap.hasAttribute('data-stage') ? 'translateX(-50%) ' : ''
+      cap.style.transform = `${base}translateY(${(1 - o) * 18}px)`
+      cap.style.pointerEvents = o > 0.5 ? 'auto' : 'none'
+      if (o > 0.5) attivo = i
+    })
+    rails.forEach((r, i) => {
+      r.style.width = i === attivo ? '22px' : '10px'
+      r.style.background = i === attivo ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.16)'
     })
   })
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   STICKY NAVBAR — Glass effect on scroll
+   2. CAROSELLO CILINDRICO
 ═══════════════════════════════════════════════════════════════ */
-function initStickyNavbar() {
-  const navbar = document.getElementById('navbar')
-  if (!navbar) return
+function initRing() {
+  const section = $('#sistema')
+  if (!section) return
+  const stage = $('[data-ring-stage]', section)
+  const ring = $('[data-ring]', stage)
+  const panels = $$('[data-panel]', stage)
+  const caps = $$('[data-ring-caption]', stage)
+  const dots = $$('[data-ring-dot]', stage)
+  const heading = $('[data-ring-heading]', stage)
+  const capWrap = $('[data-ring-captions]', stage)
+  if (!ring || !panels.length) return
 
-  let lastScrollY = 0
-  let ticking = false
+  ring.style.willChange = 'transform'
+  let radius = 0
+  let fitScale = 1
+  let shift = 0
 
-  const handleScroll = () => {
-    lastScrollY = window.scrollY
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        if (lastScrollY > 50) {
-          navbar.classList.add('scrolled')
-        } else {
-          navbar.classList.remove('scrolled')
-        }
-        ticking = false
-      })
-      ticking = true
-    }
-  }
-
-  window.addEventListener('scroll', handleScroll, { passive: true })
-  handleScroll()
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   MOBILE MENU TOGGLE
-═══════════════════════════════════════════════════════════════ */
-function initMobileMenu() {
-  const btn = document.getElementById('mobile-menu-btn')
-  const menu = document.getElementById('mobile-menu')
-  const hamburgerIcon = document.getElementById('hamburger-icon')
-  const closeIcon = document.getElementById('close-icon')
-
-  if (!btn || !menu) return
-
-  let isOpen = false
-
-  const openMenu = () => {
-    isOpen = true
-    menu.removeAttribute('hidden')
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => { menu.classList.add('open') })
+  function layout() {
+    radius = Math.max(300, Math.min(window.innerWidth * 0.58, 560))
+    panels.forEach((el, i) => {
+      el.style.transform = `rotateY(${i * 60}deg) translateZ(${radius}px)`
     })
-    hamburgerIcon.classList.add('hidden')
-    closeIcon.classList.remove('hidden')
-    btn.setAttribute('aria-expanded', 'true')
+    // Il translateZ in avanti ingrandisce il pannello frontale: senza
+    // compensare, esce sopra il titolo e la didascalia.
+    const bandTop = heading ? heading.offsetTop + heading.offsetHeight + 14 : 120
+    const bandBottom = capWrap ? capWrap.offsetTop - 14 : window.innerHeight - 160
+    const band = Math.max(bandBottom - bandTop, 200)
+    const H = panels[0].offsetHeight || 420
+    const persp = 1200
+    const k = 0.18 * radius
+    fitScale = Math.min(1, (band * persp) / (H * persp + band * k))
+    shift = (bandTop + bandBottom) / 2 - window.innerHeight / 2
   }
+  layout()
+  window.addEventListener('resize', layout)
 
-  const closeMenu = () => {
-    isOpen = false
-    menu.classList.remove('open')
-    hamburgerIcon.classList.remove('hidden')
-    closeIcon.classList.add('hidden')
-    btn.setAttribute('aria-expanded', 'false')
-    const onTransitionEnd = () => {
-      if (!isOpen) menu.setAttribute('hidden', '')
-      menu.removeEventListener('transitionend', onTransitionEnd)
-    }
-    menu.addEventListener('transitionend', onTransitionEnd)
-  }
+  let turn = 0
+  onTick((dt) => {
+    const p = progresso(section)
+    const u = p * 5
+    const i = Math.min(4, Math.floor(u))
+    const t = u - i
+    const dwell = 0.34
+    const tt = clamp01((t - dwell) / (1 - dwell * 2))
+    const target = (i + smooth(tt)) * 60
 
-  btn.addEventListener('click', () => { isOpen ? closeMenu() : openMenu() })
-  menu.querySelectorAll('.mobile-nav-link').forEach((link) => {
-    link.addEventListener('click', () => closeMenu())
-  })
-  document.addEventListener('click', (e) => {
-    if (isOpen && !menu.contains(e.target) && !btn.contains(e.target)) closeMenu()
-  })
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1024 && isOpen) closeMenu()
-  }, { passive: true })
-}
+    // inseguimento smorzato indipendente dal frame rate
+    const k = 1 - Math.exp(-dt / 0.11)
+    turn += (target - turn) * k
+    if (Math.abs(target - turn) < 0.05) turn = target
 
-/* ═══════════════════════════════════════════════════════════════
-   FAQ ACCORDION
-═══════════════════════════════════════════════════════════════ */
-function initFaqAccordion() {
-  const faqItems = document.querySelectorAll('.faq-item')
+    ring.style.transform =
+      `translateY(${shift}px) scale(${fitScale}) translateZ(${-radius * 0.82}px) rotateY(${-turn}deg)`
 
-  faqItems.forEach((item) => {
-    const btn = item.querySelector('.faq-btn')
-    const content = item.querySelector('.faq-content')
-    if (!btn || !content) return
-
-    btn.addEventListener('click', () => {
-      const isCurrentlyOpen = item.classList.contains('open')
-      faqItems.forEach((otherItem) => {
-        if (otherItem !== item && otherItem.classList.contains('open')) closeFaqItem(otherItem)
-      })
-      isCurrentlyOpen ? closeFaqItem(item) : openFaqItem(item)
+    // stato derivato dalla rotazione, non da p: così opacità e
+    // didascalie arrivano insieme al movimento
+    const activeF = turn / 60
+    const near = Math.round(activeF)
+    panels.forEach((el, idx) => {
+      const d = Math.abs(activeF - idx)
+      el.style.opacity = Math.max(0.1, 1 - d * 0.8)
+      el.style.filter = d > 0.5 ? 'blur(3px)' : 'none'
+    })
+    caps.forEach((el, idx) => {
+      const o = clamp01(1 - Math.abs(activeF - idx) * 1.7)
+      el.style.opacity = o
+      el.style.transform = `translateY(${(1 - o) * 14}px)`
+    })
+    dots.forEach((el, idx) => {
+      el.style.width = idx === near ? '20px' : '8px'
+      el.style.background = idx === near ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.16)'
     })
   })
 }
 
-function openFaqItem(item) {
-  const btn = item.querySelector('.faq-btn')
-  const content = item.querySelector('.faq-content')
-  item.classList.add('open')
-  content.classList.add('open')
-  btn.setAttribute('aria-expanded', 'true')
-  content.setAttribute('aria-hidden', 'false')
-}
-
-function closeFaqItem(item) {
-  const btn = item.querySelector('.faq-btn')
-  const content = item.querySelector('.faq-content')
-  item.classList.remove('open')
-  content.classList.remove('open')
-  btn.setAttribute('aria-expanded', 'false')
-  content.setAttribute('aria-hidden', 'true')
-}
-
 /* ═══════════════════════════════════════════════════════════════
-   SMOOTH SCROLL — Anchor links
+   3. IL BANCO DI LAVORO
 ═══════════════════════════════════════════════════════════════ */
-function initSmoothScroll() {
-  const anchorLinks = document.querySelectorAll('a[href^="#"]')
-  const navbar = document.getElementById('navbar')
+const SERVICES = [
+  { id: 0, name: 'Sviluppo sito web — 20h', price: 2000 },
+  { id: 1, name: 'Logo e brand identity', price: 450 },
+  { id: 2, name: 'Consulenza UX — 5h', price: 500 },
+  { id: 3, name: 'App mobile', price: 4800 },
+  { id: 4, name: 'Newsletter mensile', price: 600 },
+]
+const DEFAULT_SELECTED = [0, 2]
 
-  anchorLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href')
-      if (!href || href === '#') return
-      const target = document.querySelector(href)
-      if (!target) return
-      e.preventDefault()
-      const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 64
-      const targetTop = target.getBoundingClientRect().top + window.scrollY - navbarHeight - 16
+const FLOW = [
+  { tipo: 'Preventivo', numero: 'PR-2026-0118', badge: 'Bozza',              bg: '#f6f8fc', bd: '#e6ecf5', dot: '#94a3b8', fg: '#64748b', cta: 'Genera il PDF' },
+  { tipo: 'Preventivo', numero: 'PR-2026-0118', badge: 'PDF generato',       bg: '#eef4ff', bd: '#bfdbfe', dot: '#236CEF', fg: '#1d4ed8', cta: 'Trasforma in fattura XML' },
+  { tipo: 'Fattura elettronica', numero: 'FT-2026-0042', badge: 'XML pronto', bg: '#eef4ff', bd: '#bfdbfe', dot: '#236CEF', fg: '#1d4ed8', cta: 'Invia al SDI' },
+  { tipo: 'Fattura elettronica', numero: 'FT-2026-0042', badge: 'Consegnata dal SDI', bg: '#ecfdf5', bd: '#a7f3d0', dot: '#10b981', fg: '#047857', cta: 'Fatto. Tutto risolto ✓' },
+]
 
-      if (lenis) {
-        lenis.scrollTo(targetTop, { duration: 1.2 })
-      } else {
-        window.scrollTo({ top: targetTop, behavior: 'smooth' })
+function initBench() {
+  const root = $('#banco')
+  if (!root) return
+  const listaEl = $('[data-bench-services]', root)
+  const righeEl = $('[data-bench-rows]', root)
+  const doc = $('[data-bench-doc]', root)
+  if (!listaEl || !righeEl) return
+
+  let selected = [...DEFAULT_SELECTED]
+  let flow = 0
+
+  function bottone(s, on) {
+    return `<button type="button" data-service="${s.id}" aria-pressed="${on}"
+      class="w-full flex items-center gap-3 rounded-[14px] px-[1.125rem] py-[0.9375rem] text-left transition-[background,border-color,transform] duration-200 hover:translate-x-[3px]"
+      style="background:${on ? 'rgba(35,108,239,0.14)' : 'rgba(255,255,255,0.025)'};border:1px solid ${on ? 'rgba(96,165,250,0.45)' : 'rgba(255,255,255,0.08)'}">
+      <span class="w-[22px] h-[22px] rounded-md grid place-items-center text-[0.75rem] font-bold shrink-0"
+            style="background:${on ? '#236CEF' : 'rgba(255,255,255,0.07)'};color:${on ? '#fff' : 'rgba(232,237,247,0.4)'}">${on ? '✓' : '+'}</span>
+      <span class="flex-1 text-[0.875rem]" style="color:${on ? '#ffffff' : 'rgba(232,237,247,0.65)'}">${s.name}</span>
+      <span class="text-[0.875rem] font-semibold tnum" style="color:${on ? '#ffffff' : 'rgba(232,237,247,0.4)'}">${eur(s.price)}</span>
+    </button>`
+  }
+
+  function render() {
+    listaEl.innerHTML = SERVICES.map((s) => bottone(s, selected.includes(s.id))).join('')
+
+    const scelti = SERVICES.filter((s) => selected.includes(s.id))
+    righeEl.innerHTML = scelti.length
+      ? scelti.map((s) => `<div class="flex items-center justify-between px-3 py-2.5" style="border-top:1px solid #f4f7fc">
+          <span class="text-[0.8125rem]" style="color:#475569">${s.name}</span>
+          <span class="text-[0.8125rem] font-semibold tnum" style="color:#0f172a">${eur(s.price)}</span></div>`).join('')
+      : `<div class="px-3 py-8 text-center text-[0.8125rem]" style="color:#94a3b8">Aggiungi una voce a sinistra</div>`
+
+    const tot = scelti.reduce((a, s) => a + s.price, 0)
+    const reddito = tot * 0.78
+    const imposta = reddito * 0.05
+    const inps = reddito * 0.2623
+    const netto = tot - imposta - inps
+    const pct = Math.min(100, (tot / 85000) * 100)
+
+    const set = (sel, v) => { const el = $(sel, root); if (el) el.textContent = v }
+    set('[data-bench-reddito]', eur(reddito))
+    set('[data-bench-imposta]', eur(imposta))
+    set('[data-bench-inps]', eur(inps))
+    set('[data-bench-netto]', eur(Math.max(0, netto)))
+    set('[data-bench-tot]', eur(tot))
+    set('[data-bench-totale]', eur(tot))
+    const bar = $('[data-bench-bar]', root)
+    if (bar) bar.style.width = pct + '%'
+    const xmlTot = $('[data-bench-xml-tot]', root)
+    if (xmlTot) xmlTot.textContent = tot.toFixed(2)
+
+    // stato del documento
+    const f = FLOW[flow]
+    set('[data-doc-tipo]', f.tipo)
+    set('[data-doc-numero]', f.numero)
+    set('[data-doc-badge-text]', f.badge)
+    const badge = $('[data-doc-badge]', root)
+    if (badge) { badge.style.background = f.bg; badge.style.borderColor = f.bd }
+    const bdot = $('[data-doc-badge-dot]', root)
+    if (bdot) bdot.style.background = f.dot
+    const btxt = $('[data-doc-badge-text]', root)
+    if (btxt) btxt.style.color = f.fg
+    const cta = $('[data-bench-cta]', root)
+    if (cta) {
+      cta.textContent = f.cta
+      cta.style.background = flow === 3 ? '#059669' : '#236CEF'
+      cta.disabled = flow === 3 || !scelti.length
+      cta.style.opacity = scelti.length ? '1' : '0.45'
+    }
+    const xml = $('[data-bench-xml]', root)
+    if (xml) xml.classList.toggle('hidden', flow < 2)
+
+    $$('[data-step]', root).forEach((st, i) => {
+      const dot = $('[data-step-dot]', st)
+      const lab = $('[data-step-label]', st)
+      const done = i < flow, cur = i === flow
+      if (dot) {
+        dot.style.background = done ? '#10b981' : cur ? '#236CEF' : '#eef2f8'
+        dot.style.color = done || cur ? '#fff' : '#94a3b8'
+        dot.textContent = done ? '✓' : String(i + 1)
       }
-      history.pushState(null, '', href)
+      if (lab) lab.style.color = cur ? '#0f172a' : done ? '#059669' : '#94a3b8'
     })
+  }
+
+  listaEl.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-service]')
+    if (!b) return
+    const id = Number(b.dataset.service)
+    selected = selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id]
+    flow = 0                                   // toccare le voci riporta il documento in bozza
+    render()
+  })
+  $('[data-bench-cta]', root)?.addEventListener('click', () => { if (flow < 3) { flow++; render() } })
+  $('[data-bench-reset]', root)?.addEventListener('click', () => { flow = 0; selected = [...DEFAULT_SELECTED]; render() })
+
+  render()
+
+  /* Inclinazione al mouse — solo rotazioni, mai translateZ: facendo
+     avanzare la card sotto il puntatore i bottoni entrano ed escono
+     da sotto il cursore e i click si perdono. */
+  if (doc && !ridotto) {
+    doc.style.willChange = 'transform'
+    let tx = -7, ty = 3, cx = -7, cy = 3
+    window.addEventListener('mousemove', (e) => {
+      if (doc.contains(e.target)) { tx = -7; ty = 3; return }   // dentro la card: torna a riposo
+      const rect = root.getBoundingClientRect()
+      const nx = (e.clientX / window.innerWidth - 0.5) * 2
+      const ny = ((e.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2
+      tx = -7 + nx * 6
+      ty = 3 - ny * 4
+    })
+    onTick((dt) => {
+      const k = 1 - Math.exp(-dt / 0.11)
+      cx += (tx - cx) * k
+      cy += (ty - cy) * k
+      doc.style.transform = `rotateY(${cx}deg) rotateX(${cy}deg)`
+    })
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4. TITOLO A RIEMPIMENTO LIQUIDO + NUMERI
+═══════════════════════════════════════════════════════════════ */
+function initLiquid() {
+  const head = $('[data-liquid]')
+  if (!head || ridotto) return
+  // Le proprietà di clipping si aggiungono da JS: così senza JS il
+  // titolo resta un testo leggibile invece che trasparente.
+  head.style.webkitBackgroundClip = 'text'
+  head.style.backgroundClip = 'text'
+  head.style.webkitTextFillColor = 'transparent'
+  head.style.backgroundRepeat = 'no-repeat'
+  onTick(() => {
+    const r = head.getBoundingClientRect()
+    const f = clamp01((window.innerHeight * 0.86 - r.top) / (r.height + window.innerHeight * 0.28)) * 100
+    head.style.backgroundImage =
+      `linear-gradient(to top, #236CEF 0%, #4d8bf5 ${Math.max(0, f - 4)}%, #7fb0f9 ${f}%,` +
+      ` rgba(232,237,247,0.16) ${Math.min(100, f + 3)}%, rgba(232,237,247,0.16) 100%)`
+  })
+}
+
+function initNumeri() {
+  const section = $('[data-numeri]')
+  if (!section) return
+  const nums = $$('[data-num]', section)
+  const bars = $$('[data-num-bar]', section)
+  if (!nums.length || ridotto) return
+
+  const fmt = (v, tipo) => {
+    if (tipo === 'thousands') return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    if (tipo === 'pct2') return v.toFixed(2).replace('.', ',') + '%'
+    return Math.round(v) + '%'
+  }
+
+  let start = 0
+  let fatto = false
+  onTick((dt, now) => {
+    if (fatto) return
+    if (!start) {
+      if (section.getBoundingClientRect().top < window.innerHeight * 0.8) start = now
+      else return
+    }
+    const t = clamp01((now - start) / 1600)
+    nums.forEach((el, i) => {
+      const e = ease(clamp01((t - i * 0.09) / 0.7))
+      el.textContent = fmt(Number(el.dataset.target) * e, el.dataset.format)
+      el.style.opacity = 0.15 + 0.85 * e
+      el.style.transform = `translateY(${(1 - e) * 16}px)`
+      const bar = bars[i]
+      if (bar) bar.style.width = Number(bar.dataset.bar) * e + '%'
+    })
+    if (t >= 1) fatto = true
   })
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   STATS COUNTER ANIMATION
-═══════════════════════════════════════════════════════════════ */
-function initStatsCounters() {
-  const counters = document.querySelectorAll('.stat-counter')
-  if (!counters.length) return
-
-  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
-
-  const preferisceMenoMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  const animateCounter = (el) => {
-    const target = parseInt(el.getAttribute('data-target'), 10)
-    if (isNaN(target)) return
-    // Il valore finale è già nell'HTML (lo leggono i crawler): si azzera solo ora,
-    // un attimo prima di animarlo. Senza JS, o senza movimento, resta il numero giusto.
-    if (preferisceMenoMovimento) return
-    el.textContent = '0'
-    const duration = 1800
-    const startTime = performance.now()
-
-    const tick = (currentTime) => {
-      const elapsed = currentTime - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const easedProgress = easeOutCubic(progress)
-      const currentValue = Math.floor(easedProgress * target)
-      el.textContent = target >= 1000 ? currentValue.toLocaleString('it-IT') : currentValue
-      if (progress < 1) {
-        requestAnimationFrame(tick)
-      } else {
-        el.textContent = target >= 1000 ? target.toLocaleString('it-IT') : target
-      }
-    }
-    requestAnimationFrame(tick)
-  }
-
-  const counterObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target)
-          counterObserver.unobserve(entry.target)
-        }
-      })
-    },
-    { threshold: 0.5 }
-  )
-  counters.forEach((counter) => counterObserver.observe(counter))
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   VIEW-ITEM REVEAL ANIMATIONS
+   5. INTERFACCIA — reveal, tilt, FAQ, menu, navbar, CTA
 ═══════════════════════════════════════════════════════════════ */
 function initReveals() {
-  if (prefersReducedMotion) {
-    document.querySelectorAll('[data-reveal], [data-reveal-item]').forEach(el => {
-      el.classList.add('revealed')
-    })
-    return
+  const items = $$('.reveal')
+  if (!items.length || ridotto) return
+  // Il contenuto parte visibile; la classe che lo nasconde viene messa
+  // solo ora, quando sappiamo che il JS gira. Nessun contenuto può
+  // restare invisibile per colpa di un observer che non scatta.
+  document.documentElement.classList.add('js-motion')
+  const check = () => {
+    let vivi = 0
+    for (const el of items) {
+      if (el.classList.contains('is-in')) continue
+      vivi++
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add('is-in')
+    }
+    return vivi
+  }
+  check()
+  onTick(check)
+}
+
+function initTilt() {
+  if (ridotto) return
+  $$('[data-tilt]').forEach((wrap) => {
+    const inner = $('[data-tilt-inner]', wrap)
+    if (!inner) return
+    const deg = Number(wrap.dataset.tilt) || 0
+    const riposo = `rotateY(${deg}deg)`
+    inner.style.transform = riposo
+    wrap.addEventListener('mouseenter', () => { inner.style.transform = 'rotateY(0deg) translateZ(40px)' })
+    wrap.addEventListener('mouseleave', () => { inner.style.transform = riposo })
+  })
+}
+
+function initFaq() {
+  const items = $$('.faq-item')
+
+  const setOpen = (item, open) => {
+    const btn = $('[data-faq-btn]', item)
+    const panel = $('[data-faq-panel]', item)
+    const plus = $('[data-faq-plus]', item)
+    const idx = $('[data-faq-idx]', item)
+    if (!btn || !panel) return
+    panel.style.height = open ? panel.scrollHeight + 'px' : '0px'
+    btn.setAttribute('aria-expanded', String(open))
+    item.style.background = open ? 'rgba(35,108,239,0.06)' : 'transparent'
+    if (plus) {
+      plus.style.transform = open ? 'rotate(45deg)' : 'rotate(0deg)'
+      plus.style.color = open ? '#60a5fa' : 'rgba(232,237,247,0.3)'
+    }
+    if (idx) idx.style.color = open ? '#60a5fa' : 'rgba(147,197,253,0.4)'
   }
 
-  // Single reveals
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed')
-          revealObserver.unobserve(entry.target)
-        }
-      })
-    },
-    { threshold: 0.15 }
-  )
-  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el))
-
-  // Staggered reveals for lists
-  document.querySelectorAll('[data-reveal-list]').forEach(list => {
-    const items = list.querySelectorAll('[data-reveal-item]')
-    const listObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          items.forEach((item, i) => {
-            setTimeout(() => item.classList.add('revealed'), i * 100)
-          })
-          listObserver.unobserve(list)
-        }
-      },
-      { threshold: 0.15 }
-    )
-    listObserver.observe(list)
-  })
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   SCROLL ANIMATION — IntersectionObserver (existing)
-═══════════════════════════════════════════════════════════════ */
-function initScrollAnimations() {
-  const animateElements = document.querySelectorAll('.animate-on-scroll')
-  if (!animateElements.length) return
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-          observer.unobserve(entry.target)
-        }
-      })
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-  )
-  animateElements.forEach((el) => observer.observe(el))
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ACTIVE NAV LINK HIGHLIGHTING
-═══════════════════════════════════════════════════════════════ */
-function initActiveNavHighlight() {
-  const sections = document.querySelectorAll('section[id]')
-  const navLinks = document.querySelectorAll('header nav a[href^="#"], #mobile-menu a[href^="#"]')
-  if (!sections.length || !navLinks.length) return
-
-  const sectionObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id')
-          navLinks.forEach((link) => {
-            const href = link.getAttribute('href')
-            if (href === `#${id}`) {
-              link.style.color = 'white'
-              link.style.fontWeight = '600'
-            } else {
-              link.style.color = ''
-              link.style.fontWeight = ''
-            }
-          })
-        }
-      })
-    },
-    { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' }
-  )
-  sections.forEach((section) => sectionObserver.observe(section))
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   GSAP HOVER INERTIA — Feature Cards
-═══════════════════════════════════════════════════════════════ */
-function initHoverInertia() {
-  if (prefersReducedMotion || isMobile) return
-
-  let mouseVelX = 0, mouseVelY = 0, prevX = 0, prevY = 0
-  document.addEventListener('mousemove', (e) => {
-    mouseVelX = e.clientX - prevX
-    mouseVelY = e.clientY - prevY
-    prevX = e.clientX
-    prevY = e.clientY
-  })
-
-  document.querySelectorAll('.feature-card').forEach(card => {
-    let tl
-    card.addEventListener('mouseenter', () => {
-      if (tl) tl.kill()
-      tl = gsap.timeline()
-      tl.to(card, {
-        x: mouseVelX * 0.4,
-        y: mouseVelY * 0.4,
-        rotation: (Math.random() - 0.5) * 6,
-        duration: 0.3,
-        ease: 'power2.out'
-      })
-      tl.to(card, {
-        x: 0, y: 0, rotation: 0,
-        duration: 0.8,
-        ease: 'elastic.out(1, 0.4)',
-      })
-    })
-    card.addEventListener('mouseleave', () => {
-      if (tl) tl.kill()
-      gsap.to(card, { x: 0, y: 0, rotation: 0, duration: 0.4, ease: 'power2.out' })
+  items.forEach((item) => {
+    const btn = $('[data-faq-btn]', item)
+    if (!btn) return
+    btn.addEventListener('click', () => {
+      const eraAperto = btn.getAttribute('aria-expanded') === 'true'
+      items.forEach((o) => setOpen(o, false))   // un solo pannello aperto alla volta
+      if (!eraAperto) setOpen(item, true)
     })
   })
-}
 
-/* ═══════════════════════════════════════════════════════════════
-   THREE.JS GLOBE
-═══════════════════════════════════════════════════════════════ */
-function initGlobe() {
-  const canvas = document.getElementById('globe-canvas')
-  if (!canvas) return
-
-  const size = Math.min(isMobile ? 300 : 600, canvas.parentElement.clientWidth)
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  renderer.setSize(size, size)
-
-  const scene = new THREE.Scene()
-  const camera = new THREE.OrthographicCamera(-1.2, 1.2, 1.2, -1.2, 0, 3)
-  camera.position.z = 1.5
-
-  // Globe group (for mouse interaction)
-  const globeGroup = new THREE.Group()
-  scene.add(globeGroup)
-
-  // Globe geometry with gradient shader
-  const geometry = new THREE.IcosahedronGeometry(1, 22)
-  const material = new THREE.ShaderMaterial({
-    vertexShader: `
-      varying vec3 v_normal;
-      void main() {
-        v_normal = normalize(normal);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: `
-      varying vec3 v_normal;
-      void main() {
-        float t = (v_normal.y + 1.0) / 2.0;
-        vec3 top = vec3(59.0/255.0, 130.0/255.0, 246.0/255.0);
-        vec3 mid = vec3(37.0/255.0, 99.0/255.0, 235.0/255.0);
-        vec3 bottom = vec3(29.0/255.0, 78.0/255.0, 216.0/255.0);
-        vec3 color = t < 0.6 ? mix(top, mid, t / 0.6) : mix(mid, bottom, (t - 0.6) / 0.4);
-        gl_FragColor = vec4(color, 1.0);
-      }
-    `,
-    side: THREE.DoubleSide
-  })
-
-  const globe = new THREE.Mesh(geometry, material)
-  globeGroup.add(globe)
-
-  // Load earth map for dot placement
-  new THREE.TextureLoader().load('/images/earth-map-colored.png', (mask) => {
-    const canvas2 = document.createElement('canvas')
-    const ctx = canvas2.getContext('2d')
-    const w = mask.image.width, h = mask.image.height
-    canvas2.width = w; canvas2.height = h
-    ctx.drawImage(mask.image, 0, 0)
-    const pixels = ctx.getImageData(0, 0, w, h).data
-
-    const dotGeo = new THREE.CircleGeometry(0.012, 16)
-    const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
-    const matrices = []
-    const dummy = new THREE.Object3D()
-
-    const step = isMobile ? 3.5 : 2.5
-    for (let lat = -90; lat <= 90; lat += step) {
-      for (let lon = -180; lon <= 180; lon += step) {
-        const px = Math.floor(((lon + 180) / 360) * w)
-        const py = Math.floor(((90 - lat) / 180) * h)
-        const idx = (py * w + px) * 4
-        if ((pixels[idx] / 255) < 0.2) continue
-
-        const phi = (90 - lat) * (Math.PI / 180)
-        const theta = (lon + 180) * (Math.PI / 180)
-        const x = -1.01 * Math.sin(phi) * Math.cos(theta)
-        const y = 1.01 * Math.cos(phi)
-        const z = 1.01 * Math.sin(phi) * Math.sin(theta)
-
-        dummy.position.set(x, y, z)
-        dummy.lookAt(0, 0, 0)
-        dummy.updateMatrix()
-        matrices.push(dummy.matrix.clone())
-      }
-    }
-
-    const dots = new THREE.InstancedMesh(dotGeo, dotMat, matrices.length)
-    matrices.forEach((m, i) => dots.setMatrixAt(i, m))
-    globeGroup.add(dots)
-  })
-
-  // Initial rotation centered on Italy
-  globeGroup.rotation.x = 0.3
-  globeGroup.rotation.y = -0.2
-
-  // Mouse drag interaction
-  let isDragging = false
-  let dragStartX = 0, dragStartY = 0
-  let rotStartX = 0, rotStartY = 0
-  let autoRotateSpeed = 0.003
-
-  canvas.addEventListener('mousedown', (e) => {
-    isDragging = true
-    dragStartX = e.clientX
-    dragStartY = e.clientY
-    rotStartX = globeGroup.rotation.y
-    rotStartY = globeGroup.rotation.x
-    autoRotateSpeed = 0 // pause auto-rotate during drag
-    canvas.style.cursor = 'grabbing'
-  })
-
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return
-    const dx = (e.clientX - dragStartX) * 0.005
-    const dy = (e.clientY - dragStartY) * 0.005
-    globeGroup.rotation.y = rotStartX + dx
-    globeGroup.rotation.x = Math.max(-0.8, Math.min(0.8, rotStartY + dy))
-  })
-
-  window.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false
-      canvas.style.cursor = 'grab'
-      // Resume auto-rotate after a short delay
-      setTimeout(() => { autoRotateSpeed = 0.003 }, 1500)
-    }
-  })
-
-  canvas.style.cursor = 'grab'
-
-  let animId
-  let isVisible = false
-  const animate = () => {
-    animId = requestAnimationFrame(animate)
-    if (!isDragging) {
-      globeGroup.rotation.y += autoRotateSpeed
-    }
-    renderer.render(scene, camera)
-  }
-
-  // Only animate when visible
-  const globeSection = document.querySelector('.globe-section')
-  const globeObserver = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && !isVisible) {
-      isVisible = true
-      animate()
-      globeSection.classList.add('in-view')
-    } else if (!entry.isIntersecting && isVisible) {
-      isVisible = false
-      cancelAnimationFrame(animId)
-    }
-  }, { threshold: 0.1 })
-  globeObserver.observe(globeSection)
-
-  // Resize
+  // Se la finestra cambia larghezza il testo si riflow: l'altezza fissa
+  // del pannello aperto va ricalcolata, altrimenti taglia o avanza.
   window.addEventListener('resize', () => {
-    const mobile = window.innerWidth < 768
-    const newSize = Math.min(mobile ? 300 : 600, canvas.parentElement.clientWidth)
-    renderer.setSize(newSize, newSize)
-  }, { passive: true })
+    items.forEach((item) => {
+      const btn = $('[data-faq-btn]', item)
+      if (btn && btn.getAttribute('aria-expanded') === 'true') setOpen(item, true)
+    })
+  })
+}
+
+function initMenu() {
+  const btn = $('#menu-toggle')
+  const menu = $('#mobile-menu')
+  if (!btn || !menu) return
+  const chiudi = () => {
+    menu.classList.remove('open')
+    btn.setAttribute('aria-expanded', 'false')
+    btn.setAttribute('aria-label', 'Apri il menu')
+  }
+  btn.addEventListener('click', () => {
+    const aperto = menu.classList.toggle('open')
+    btn.setAttribute('aria-expanded', String(aperto))
+    btn.setAttribute('aria-label', aperto ? 'Chiudi il menu' : 'Apri il menu')
+  })
+  $$('a', menu).forEach((a) => a.addEventListener('click', chiudi))
+}
+
+function initCtaGlow() {
+  const section = $('[data-cta]')
+  const glow = $('[data-cta-glow]', section || document)
+  if (!section || !glow || ridotto) return
+  glow.style.willChange = 'transform'
+  onTick(() => {
+    const rect = section.getBoundingClientRect()
+    const p = clamp01(1 - rect.top / window.innerHeight)
+    glow.style.transform = `translateX(-50%) translateY(${-p * 90}px) scale(${0.85 + p * 0.3})`
+  })
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CONSENSO COOKIE + META PIXEL
+   6. CONSENSO COOKIE + META PIXEL
 
    Il pixel di Meta è un cookie di profilazione di terza parte:
    viene caricato SOLO dopo un consenso esplicito e affermativo.
@@ -787,23 +553,14 @@ const META_PIXEL_ID = '1474396618080757'
 const CONSENT_KEY = 'quotify_cookie_consent'
 
 function readConsent() {
-  try {
-    return localStorage.getItem(CONSENT_KEY)
-  } catch {
-    return null
-  }
+  try { return localStorage.getItem(CONSENT_KEY) } catch { return null }
 }
-
 function writeConsent(value) {
-  try {
-    localStorage.setItem(CONSENT_KEY, value)
-  } catch {
-    /* storage non disponibile: il consenso vale per la sessione corrente */
-  }
+  try { localStorage.setItem(CONSENT_KEY, value) } catch { /* storage non disponibile */ }
 }
 
 function trackRegistrationClicks() {
-  document.querySelectorAll('a[href*="app.quotify.it/register"]').forEach((a) => {
+  $$('a[href*="app.quotify.it/register"]').forEach((a) => {
     if (a.dataset.fbTracked) return
     a.dataset.fbTracked = '1'
     a.addEventListener('click', () => {
@@ -821,15 +578,9 @@ function loadMetaPixel() {
       n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
     }
     if (!f._fbq) f._fbq = n
-    n.push = n
-    n.loaded = !0
-    n.version = '2.0'
-    n.queue = []
-    t = b.createElement(e)
-    t.async = !0
-    t.src = v
-    s = b.getElementsByTagName(e)[0]
-    s.parentNode.insertBefore(t, s)
+    n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []
+    t = b.createElement(e); t.async = !0; t.src = v
+    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
   /* eslint-enable */
   window.fbq('init', META_PIXEL_ID)
@@ -841,75 +592,63 @@ function initCookieBanner() {
   const consent = readConsent()
   if (consent === 'accepted') loadMetaPixel()
 
-  // Permette di riaprire il banner dalla Cookie Policy.
-  // Agganciato con un listener, non con onclick="" nel markup: la CSP del sito
-  // non consente 'unsafe-inline' negli script, quindi un handler inline sarebbe
-  // silenziosamente inerte — e la revoca del consenso è un obbligo, non un extra.
+  // Revoca dalla Cookie Policy. Agganciata con un listener, non con
+  // onclick="" nel markup: la CSP non consente 'unsafe-inline', quindi
+  // un handler inline sarebbe silenziosamente inerte — e la revoca del
+  // consenso è un obbligo, non un extra.
   const resetConsent = () => {
-    try {
-      localStorage.removeItem(CONSENT_KEY)
-    } catch {
-      /* niente da rimuovere */
-    }
+    try { localStorage.removeItem(CONSENT_KEY) } catch { /* niente da rimuovere */ }
     location.reload()
   }
   window.quotifyResetCookieConsent = resetConsent
-  document.getElementById('cookie-manage')?.addEventListener('click', resetConsent)
+  $('#cookie-manage')?.addEventListener('click', resetConsent)
 
-  const banner = document.getElementById('cookie-banner')
-  const acceptBtn = document.getElementById('cookie-accept')
-  const rejectBtn = document.getElementById('cookie-reject')
+  const banner = $('#cookie-banner')
+  const acceptBtn = $('#cookie-accept')
+  const rejectBtn = $('#cookie-reject')
   if (!banner || !acceptBtn || !rejectBtn) return
   if (consent) return
 
   banner.removeAttribute('hidden')
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      banner.classList.remove('translate-y-full')
-    })
+    requestAnimationFrame(() => banner.classList.remove('translate-y-full'))
   })
 
   const closeBanner = () => {
     banner.classList.add('translate-y-full')
     setTimeout(() => banner.setAttribute('hidden', ''), 300)
   }
-
-  acceptBtn.addEventListener('click', () => {
-    writeConsent('accepted')
-    loadMetaPixel()
-    closeBanner()
-  })
-
-  rejectBtn.addEventListener('click', () => {
-    writeConsent('rejected')
-    closeBanner()
-  })
+  acceptBtn.addEventListener('click', () => { writeConsent('accepted'); loadMetaPixel(); closeBanner() })
+  rejectBtn.addEventListener('click', () => { writeConsent('rejected'); closeBanner() })
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   INIT
+   AVVIO
 ═══════════════════════════════════════════════════════════════ */
 function init() {
-  initLenis()
-  initStickyNavbar()
-  initMobileMenu()
-  initScrollAnimations()
-  initReveals()
-  initFaqAccordion()
-  initSmoothScroll()
-  initStatsCounters()
-  initActiveNavHighlight()
-  initLiquidGradient()
-  initHeroAnimation()
-  initHeroScrollDriven()
-  initIPhoneShowcase()
-  initHoverInertia()
-  initGlobe()
   initCookieBanner()
+  initMenu()
+  initFaq()
+
+  if (!ridotto) {
+    const lenis = new Lenis({ duration: 1.05, smoothWheel: true })
+    onTick((dt, now) => lenis.raf(now))
+  }
+
+  initReveals()
+  initTilt()
+  initHero()
+  initRing()
+  initBench()
+  initLiquid()
+  initNumeri()
+  initCtaGlow()
+
+  requestAnimationFrame(loop)
+  // Il tick gira anche sullo scroll, per reattività immediata quando
+  // il browser limita i frame.
+  window.addEventListener('scroll', () => { for (const fn of ticks) { try { fn(0, performance.now()) } catch {} } }, { passive: true })
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init)
-} else {
-  init()
-}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init)
+else init()

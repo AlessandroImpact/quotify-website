@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="facebook-domain-verification" content="rwagxwxwkjaf9z5zuksut181376hse" />
     <meta name="description" content="Quotify — La piattaforma per freelance in Regime Forfettario. Gestisci preventivi, fatture elettroniche SDI, pipeline progetti e assistente AI in un'unica app." />
-    <meta name="theme-color" content="#236CEF" />
+    <meta name="theme-color" content="#04060d" />
     <title>Quotify — Gestione Freelance in Regime Forfettario</title>
 
     <link rel="canonical" href="https://quotify.it/" />
@@ -28,1251 +28,782 @@
     <meta name="twitter:title" content="Quotify — Gestione Freelance in Regime Forfettario" />
     <meta name="twitter:description" content="Quotify — La piattaforma per freelance in Regime Forfettario. Gestisci preventivi, fatture elettroniche SDI, pipeline progetti e assistente AI in un&#x27;unica app." />
     <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+
+    <link rel="icon" type="image/png" href="/pwa-192x192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
     <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
   </head>
-  <body class="font-sans antialiased bg-white text-slate-900">
+  <body class="font-sans bg-ink-900 text-foam">
 
-    <!-- ═══════════════════════════════════════════════════════════
-         NAVBAR
-    ═══════════════════════════════════════════════════════════ -->
-    <header
-      id="navbar"
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      role="banner"
-    >
-      <nav
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-18"
-        aria-label="Navigazione principale"
-      >
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-2 text-white font-bold text-xl group" aria-label="Quotify — torna alla home">
-          <img src="/pwa-192x192.png" alt="" class="w-8 h-8 rounded-lg" aria-hidden="true" />
-          Quotify
+    <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+    <header class="fixed top-0 inset-x-0 z-[90] h-16 bg-[rgba(4,6,13,0.5)] backdrop-blur-[18px] border-b border-white/[0.06]" role="banner">
+      <nav class="max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+        <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+          <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+          <span class="text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
         </a>
 
-        <!-- Desktop Nav Links -->
-        <ul class="hidden lg:flex items-center gap-8" role="list">
-          <li><a href="#funzionalita" class="text-white/80 hover:text-white text-sm font-medium transition-colors">Funzionalità</a></li>
-          <li><a href="#come-funziona" class="text-white/80 hover:text-white text-sm font-medium transition-colors">Come Funziona</a></li>
-          <li><a href="#prezzi" class="text-white/80 hover:text-white text-sm font-medium transition-colors">Prezzi</a></li>
-          <li><a href="#faq" class="text-white/80 hover:text-white text-sm font-medium transition-colors">FAQ</a></li>
+        <ul class="hidden md:flex items-center gap-8" role="list">
+          <li><a href="#sistema" class="text-[0.8125rem] font-medium text-foam/55 hover:text-foam transition-colors">Il sistema</a></li>
+          <li><a href="#banco" class="text-[0.8125rem] font-medium text-foam/55 hover:text-foam transition-colors">Provalo</a></li>
+          <li><a href="#prezzi" class="text-[0.8125rem] font-medium text-foam/55 hover:text-foam transition-colors">Prezzi</a></li>
         </ul>
 
-        <!-- Desktop CTA -->
-        <div class="hidden lg:flex items-center gap-4">
-          <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white text-sm font-medium transition-colors">Accedi</a>
-          <a
-            href="https://app.quotify.it/register"
-            target="_blank" rel="noopener noreferrer"
-            class="bg-white text-primary-600 hover:bg-primary-50 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-          >
-            Prova Gratis
-          </a>
+        <div class="flex items-center gap-3">
+          <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="hidden sm:block text-[0.8125rem] font-medium text-foam/55 hover:text-foam transition-colors">Accedi</a>
+          <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-colors">Prova gratis</a>
+          <button id="menu-toggle" type="button" class="md:hidden w-9 h-9 grid place-items-center rounded-lg border border-white/10 text-foam/70" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobile-menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
         </div>
-
-        <!-- Mobile Hamburger -->
-        <button
-          id="mobile-menu-btn"
-          class="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
-          aria-label="Apri menu di navigazione"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-        >
-          <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <svg id="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" class="hidden" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
       </nav>
 
-      <!-- Mobile Menu -->
-      <div
-        id="mobile-menu"
-        class="mobile-menu lg:hidden bg-primary-900/95 backdrop-blur-lg border-t border-white/10"
-        aria-label="Menu mobile"
-        hidden
-      >
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-          <a href="#funzionalita" class="mobile-nav-link text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-sm font-medium transition-colors">Funzionalità</a>
-          <a href="#come-funziona" class="mobile-nav-link text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-sm font-medium transition-colors">Come Funziona</a>
-          <a href="#prezzi" class="mobile-nav-link text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-sm font-medium transition-colors">Prezzi</a>
-          <a href="#faq" class="mobile-nav-link text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-lg text-sm font-medium transition-colors">FAQ</a>
-          <div class="pt-2 border-t border-white/10 mt-2">
-            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-white text-primary-600 font-semibold px-5 py-3 rounded-lg text-sm transition-all hover:bg-primary-50">Prova Gratis</a>
-          </div>
-        </div>
+      <div id="mobile-menu" class="mobile-menu md:hidden border-t border-white/[0.06]" hidden>
+        <ul class="px-[clamp(1.25rem,5vw,3rem)] py-4 space-y-1" role="list">
+          <li><a href="#sistema" class="block py-2.5 text-sm text-foam/70 hover:text-foam">Il sistema</a></li>
+          <li><a href="#banco" class="block py-2.5 text-sm text-foam/70 hover:text-foam">Provalo</a></li>
+          <li><a href="#prezzi" class="block py-2.5 text-sm text-foam/70 hover:text-foam">Prezzi</a></li>
+          <li><a href="#faq" class="block py-2.5 text-sm text-foam/70 hover:text-foam">FAQ</a></li>
+        </ul>
       </div>
     </header>
 
     <main>
 
-      <!-- ═══════════════════════════════════════════════════════════
-           HERO
-      ═══════════════════════════════════════════════════════════ -->
-      <section id="hero" class="hero-scroll-container">
-        <div class="hero-scroll-space" style="height: 250vh; position: relative;">
-          <div class="hero-sticky hero-gradient" style="height: 100vh; position: sticky; top: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 4rem;">
+    <!-- ═══════════════════════════ 1. HERO — #top ═══════════════════════════ -->
+    <section id="top" class="pinned h-[460vh]" aria-labelledby="hero-heading">
+      <div class="pinned-stage" data-hero>
 
-            <!-- Liquid Gradient Blob -->
-            <canvas id="liquid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true"></canvas>
+        <!-- 1. fondo radiale -->
+        <div class="absolute inset-0" style="background: radial-gradient(120% 90% at 50% 0%, #0d1b3e 0%, #05080f 55%, #04060d 100%)"></div>
 
-            <!-- 3D Perspective Grid -->
-            <div class="hero-grid-bg" aria-hidden="true">
-              <div class="hero-grid-plane hero-grid-floor"></div>
-              <div class="hero-grid-plane hero-grid-ceiling"></div>
-            </div>
+        <!-- 2. alone -->
+        <div data-hero-halo class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+             style="width:min(120vw,1100px);height:min(120vw,1100px);filter:blur(20px);background:radial-gradient(circle, rgba(35,108,239,0.30) 0%, rgba(35,108,239,0.05) 45%, transparent 70%)"></div>
 
-            <!-- Background decoration -->
-            <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-              <div class="hero-bg-circle absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full bg-white/5 blur-3xl"></div>
-              <div class="hero-bg-circle absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] rounded-full bg-primary-400/10 blur-3xl"></div>
-              <div class="hero-bg-circle absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full bg-indigo-400/10 blur-2xl animate-float"></div>
-            </div>
+        <!-- 3. griglia -->
+        <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(70% 60% at 50% 45%, #000 0%, transparent 100%);mask-image:radial-gradient(70% 60% at 50% 45%, #000 0%, transparent 100%)"></div>
 
-            <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-              <!-- Badge -->
-              <div class="hero-anim inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white/90 text-sm font-medium mb-5">
-                Disponibile in beta gratuita
-              </div>
+        <!-- 4. scena 3D -->
+        <div class="absolute inset-0" style="perspective:1500px;perspective-origin:50% 45%">
+          <div data-hero-scene class="absolute inset-0" style="transform-style:preserve-3d">
 
-              <!-- Headline -->
-              <h1
-                id="hero-heading"
-                class="hero-anim hero-title text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mb-4 max-w-4xl mx-auto"
-              >
-                La gestione del tuo lavoro da freelance,
-                <span class="text-primary-200"> finalmente semplice.</span>
-              </h1>
+            <!-- chip di burocrazia -->
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">Codice destinatario</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">XML FatturaPA 1.2.2</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">Coefficiente 78%</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">Soglia € 85.000</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">Contributi INPS</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">Art. 1 c. 54-89</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">PEC del cliente</span></div>
+            <div data-chip class="absolute top-1/2 left-1/2" style="transform-style:preserve-3d"><span class="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[0.6875rem] font-semibold" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:rgba(232,237,247,0.72)">Imposta sostitutiva</span></div>
 
-              <!-- Subtitle -->
-              <p class="hero-anim hero-subtitle text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-6 leading-relaxed">
-                Preventivi PDF, fatturazione elettronica SDI, pipeline Kanban e assistente AI.
-                Tutto in un'unica app pensata per i professionisti in Regime Forfettario.
-              </p>
+            <!-- documento + dashboard, scalati insieme -->
+            <div data-hero-fit class="absolute inset-0" style="transform-style:preserve-3d">
 
-              <!-- CTAs -->
-              <div class="hero-anim hero-ctas flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-                <a
-                  href="https://app.quotify.it/register"
-                  target="_blank" rel="noopener noreferrer"
-                  class="w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50 font-semibold text-base px-8 py-4 rounded-xl shadow-2xl shadow-primary-900/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-3xl"
-                >
-                  Inizia Gratis
-                </a>
-                <a
-                  href="#funzionalita"
-                  class="w-full sm:w-auto glass text-white font-semibold text-base px-8 py-4 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200 flex items-center justify-center gap-2 group"
-                >
-                  Scopri le Funzionalità
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="transition-transform group-hover:translate-x-1" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-              </div>
-
-              <!-- Stats -->
-              <div class="hero-stats grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-                <div class="hero-stat stat-1 glass rounded-2xl p-5 border border-white/20">
-                  <div class="text-3xl font-bold text-white mb-1">
-                    <span class="stat-counter" data-target="500">500</span>+
-                  </div>
-                  <div class="text-white/60 text-sm">Freelance attivi</div>
+              <!-- dashboard fiscale -->
+              <div data-hero-dash class="absolute top-1/2 left-1/2 rounded-[18px] p-4"
+                   style="width:min(78vw,320px);margin-left:-6vw;background:rgba(10,16,32,0.86);border:1px solid rgba(147,197,253,0.18);backdrop-filter:blur(14px);opacity:0">
+                <div class="text-[0.5625rem] font-bold tracking-[0.16em] uppercase text-primary-400/70 mb-3">Dashboard fiscale</div>
+                <div class="rounded-xl p-3 mb-2" style="background:rgba(35,108,239,0.14)">
+                  <div class="text-[0.625rem] text-foam/45 mb-0.5">Fatturato</div>
+                  <div class="text-lg font-extrabold tnum">€ 62.400</div>
                 </div>
-                <div class="hero-stat stat-2 glass rounded-2xl p-5 border border-white/20">
-                  <div class="text-3xl font-bold text-white mb-1">
-                    <span class="stat-counter" data-target="10000">10.000</span>+
-                  </div>
-                  <div class="text-white/60 text-sm">Fatture emesse</div>
+                <div class="rounded-xl p-3 mb-3" style="background:rgba(16,185,129,0.12)">
+                  <div class="text-[0.625rem] text-foam/45 mb-0.5">Da versare</div>
+                  <div class="text-lg font-extrabold tnum text-emerald-300">€ 2.433</div>
                 </div>
-                <div class="hero-stat stat-3 glass rounded-2xl p-5 border border-white/20">
-                  <div class="text-3xl font-bold text-white mb-1">99.9%</div>
-                  <div class="text-white/60 text-sm">Uptime garantito</div>
+                <div class="h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.07)">
+                  <div class="h-full rounded-full" style="width:73%;background:linear-gradient(90deg,#236CEF,#60a5fa)"></div>
                 </div>
+                <div class="mt-2 text-[0.625rem] text-foam/35 tnum">€ 62.400 / € 85.000</div>
               </div>
-            </div>
 
-            <!-- Scroll indicator -->
-            <div class="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2" aria-hidden="true">
-              <div class="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
-                <div class="w-1 h-2 bg-white/60 rounded-full animate-pulse-soft"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              <!-- card documento, due facce -->
+              <div data-hero-card class="absolute top-1/2 left-1/2"
+                   style="width:min(84vw,400px);height:min(112vw,530px);margin-left:calc(min(84vw,400px) / -2);margin-top:calc(min(112vw,530px) / -2);transform-style:preserve-3d">
 
-      <!-- ═══════════════════════════════════════════════════════════
-           FEATURES GRID
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        id="funzionalita"
-        class="py-24 lg:py-32 bg-white"
-        aria-labelledby="features-heading"
-        data-animate
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <!-- Section Header -->
-          <div class="text-center mb-16 animate-on-scroll">
-            <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#236CEF" stroke-width="2" fill="#236CEF"/>
-              </svg>
-              Funzionalità
-            </div>
-            <h2 id="features-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Tutto ciò di cui hai bisogno
-            </h2>
-            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
-              Una suite completa pensata specificamente per i freelance italiani in Regime Forfettario.
-            </p>
-          </div>
-
-          <!-- Features Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-reveal-list>
-
-            <!-- Feature 1: Pipeline Kanban -->
-            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-kanban">
-              <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary-100 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="3" y="3" width="5" height="18" rx="1" stroke="#236CEF" stroke-width="2"/>
-                  <rect x="10" y="3" width="5" height="12" rx="1" stroke="#236CEF" stroke-width="2"/>
-                  <rect x="17" y="3" width="5" height="15" rx="1" stroke="#236CEF" stroke-width="2"/>
-                </svg>
-              </div>
-              <h3 id="feat-kanban" class="text-lg font-bold text-slate-900 mb-2">Pipeline Kanban</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">Visualizza e gestisci tutti i tuoi progetti con drag&amp;drop. Da "In Trattativa" a "Completato" in un click.</p>
-            </article>
-
-            <!-- Feature 2: Preventivi PDF -->
-            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-pdf">
-              <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-200 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <polyline points="14,2 14,8 20,8" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <line x1="16" y1="13" x2="8" y2="13" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="16" y1="17" x2="8" y2="17" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3 id="feat-pdf" class="text-lg font-bold text-slate-900 mb-2">Preventivi PDF</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">3 template professionali pronti all'uso. Genera preventivi in PDF con un click e inviali direttamente al cliente.</p>
-            </article>
-
-            <!-- Feature 3: Fatturazione SDI -->
-            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-sdi">
-              <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-violet-200 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <polyline points="22,4 12,14.01 9,11.01" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <h3 id="feat-sdi" class="text-lg font-bold text-slate-900 mb-2">Fatturazione Elettronica SDI</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">Emetti fatture elettroniche in formato XML e inviale al Sistema di Interscambio. Tutto conforme alla normativa italiana.</p>
-            </article>
-
-            <!-- Feature 4: AI Assistant -->
-            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-ai">
-              <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-amber-200 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="9" cy="10" r="1" fill="#d97706"/>
-                  <circle cx="12" cy="10" r="1" fill="#d97706"/>
-                  <circle cx="15" cy="10" r="1" fill="#d97706"/>
-                </svg>
-              </div>
-              <h3 id="feat-ai" class="text-lg font-bold text-slate-900 mb-2">AI Assistant Claude</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">Il tuo consulente fiscale virtuale. Risponde a domande su regime forfettario, contributi, detrazioni e scadenze.</p>
-            </article>
-
-            <!-- Feature 5: Dashboard Fiscale -->
-            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-dashboard">
-              <div class="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-rose-200 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <line x1="18" y1="20" x2="18" y2="10" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="12" y1="20" x2="12" y2="4" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="6" y1="20" x2="6" y2="14" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="2" y1="20" x2="22" y2="20" stroke="#e11d48" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3 id="feat-dashboard" class="text-lg font-bold text-slate-900 mb-2">Dashboard Fiscale</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">Monitora fatturato, soglia forfettaria, imposte stimate e contributi INPS in tempo reale. Niente brutte sorprese.</p>
-            </article>
-
-            <!-- Feature 6: PWA + Notifiche -->
-            <article data-reveal-item class="feature-card animate-on-scroll group bg-white border border-slate-100 rounded-2xl p-7 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="feat-pwa">
-              <div class="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-cyan-200 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M18 8h1a4 4 0 0 1 0 8h-1" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <line x1="6" y1="1" x2="6" y2="4" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="10" y1="1" x2="10" y2="4" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="14" y1="1" x2="14" y2="4" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3 id="feat-pwa" class="text-lg font-bold text-slate-900 mb-2">PWA + Notifiche Push</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">Installa Quotify come app sul tuo dispositivo. Ricevi notifiche per scadenze fatture, nuovi pagamenti e aggiornamenti SDI.</p>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════════════════════════════════════════════════
-           FEATURE SHOWCASE 1 — Pipeline Kanban
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        class="py-24 lg:py-32 bg-slate-50 overflow-hidden"
-        aria-labelledby="showcase-kanban-heading"
-        data-animate
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            <!-- Content -->
-            <div class="animate-on-scroll">
-              <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-6">
-                Pipeline Progetti
-              </div>
-              <h2 id="showcase-kanban-heading" class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 leading-tight">
-                Il tuo lavoro, sempre sotto controllo con la vista Kanban
-              </h2>
-              <p class="text-slate-500 text-lg leading-relaxed mb-8">
-                Trascina i tuoi progetti tra le colonne e monitora ogni fase del tuo workflow.
-                Da "Da preparare" ad "Accettato" — non perderai mai il filo di un progetto.
-              </p>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-primary-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Drag &amp; drop intuitivo tra colonne personalizzabili</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-primary-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Collega preventivi e fatture direttamente al progetto</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-primary-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Importo totale e stato pagamento visibili a colpo d'occhio</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Kanban Mockup -->
-            <div class="animate-on-scroll">
-              <div class="bg-white rounded-2xl shadow-2xl shadow-slate-200 p-5 border border-slate-100">
-                <!-- Mockup Header -->
-                <div class="flex items-center gap-2 mb-4 pb-4 border-b border-slate-100">
-                  <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                  <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                  <span class="ml-2 text-xs text-slate-400 font-medium">Pipeline Progetti</span>
-                </div>
-                <!-- Kanban Board -->
-                <div class="flex gap-3 overflow-x-auto pb-2">
-                  <!-- Column 1: Da preparare -->
-                  <div class="kanban-col shrink-0 w-40">
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Da preparare</span>
-                      <span class="text-xs bg-slate-100 text-slate-500 rounded-full px-1.5 py-0.5">2</span>
-                    </div>
-                    <div class="kanban-card bg-slate-50 border border-slate-200 rounded-lg p-3 mb-2 cursor-grab">
-                      <div class="text-xs font-semibold text-slate-700 mb-1">Sito Web Studio</div>
-                      <div class="text-xs text-slate-400">€ 1.200</div>
-                    </div>
-                    <div class="kanban-card bg-slate-50 border border-slate-200 rounded-lg p-3 cursor-grab">
-                      <div class="text-xs font-semibold text-slate-700 mb-1">Logo Brand</div>
-                      <div class="text-xs text-slate-400">€ 450</div>
-                    </div>
-                  </div>
-                  <!-- Column 2: In attesa -->
-                  <div class="kanban-col shrink-0 w-40">
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="text-xs font-semibold text-primary-600 uppercase tracking-wide">In attesa</span>
-                      <span class="text-xs bg-primary-100 text-primary-600 rounded-full px-1.5 py-0.5">3</span>
-                    </div>
-                    <div class="kanban-card bg-primary-50 border border-primary-200 rounded-lg p-3 mb-2 cursor-grab">
-                      <div class="text-xs font-semibold text-primary-700 mb-1">App Mobile</div>
-                      <div class="text-xs text-primary-500">€ 4.800</div>
-                    </div>
-                    <div class="kanban-card bg-primary-50 border border-primary-200 rounded-lg p-3 mb-2 cursor-grab">
-                      <div class="text-xs font-semibold text-primary-700 mb-1">E-commerce</div>
-                      <div class="text-xs text-primary-500">€ 3.200</div>
-                    </div>
-                    <div class="kanban-card bg-primary-50 border border-primary-200 rounded-lg p-3 cursor-grab">
-                      <div class="text-xs font-semibold text-primary-700 mb-1">Newsletter</div>
-                      <div class="text-xs text-primary-500">€ 600</div>
-                    </div>
-                  </div>
-                  <!-- Column 3: Completato -->
-                  <div class="kanban-col shrink-0 w-40">
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wide">Accettato</span>
-                      <span class="text-xs bg-emerald-100 text-emerald-600 rounded-full px-1.5 py-0.5">1</span>
-                    </div>
-                    <div class="kanban-card bg-emerald-50 border border-emerald-200 rounded-lg p-3 cursor-grab">
-                      <div class="text-xs font-semibold text-emerald-700 mb-1">Dashboard Admin</div>
-                      <div class="flex items-center gap-1 mt-1">
-                        <div class="text-xs text-emerald-500">€ 2.100</div>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" class="text-emerald-500" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="3"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════════════════════════════════════════════════
-           FEATURE SHOWCASE 2 — Fatturazione Elettronica (reversed)
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        class="py-24 lg:py-32 bg-white overflow-hidden"
-        aria-labelledby="showcase-invoice-heading"
-        data-animate
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            <!-- Invoice Mockup (first on desktop) -->
-            <div class="animate-on-scroll lg:order-1 order-2">
-              <div class="bg-white rounded-2xl shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
-                <!-- Mockup Header -->
-                <div class="bg-primary-700 px-6 py-4 flex items-center justify-between">
-                  <div>
-                    <div class="text-white font-bold text-sm">Fattura Elettronica</div>
-                    <div class="text-primary-200 text-xs">FT-2026-0042</div>
-                  </div>
-                  <div class="flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-400/30 rounded-full px-3 py-1">
-                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                    <span class="text-emerald-300 text-xs font-medium">Inviata a SDI</span>
-                  </div>
-                </div>
-                <div class="p-6">
-                  <!-- Parties -->
-                  <div class="grid grid-cols-2 gap-4 mb-5">
-                    <div class="bg-slate-50 rounded-xl p-3">
-                      <div class="text-xs text-slate-400 mb-1">Cedente</div>
-                      <div class="text-sm font-semibold text-slate-700">Mario Rossi</div>
-                      <div class="text-xs text-slate-500">P.IVA 12345678901</div>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-3">
-                      <div class="text-xs text-slate-400 mb-1">Cliente</div>
-                      <div class="text-sm font-semibold text-slate-700">Acme Srl</div>
-                      <div class="text-xs text-slate-500">P.IVA 09876543210</div>
-                    </div>
-                  </div>
-                  <!-- Line items -->
-                  <div class="border border-slate-100 rounded-xl overflow-hidden mb-4">
-                    <div class="bg-slate-50 px-4 py-2 grid grid-cols-3 gap-2">
-                      <div class="text-xs font-semibold text-slate-400 col-span-2">Descrizione</div>
-                      <div class="text-xs font-semibold text-slate-400 text-right">Totale</div>
-                    </div>
-                    <div class="px-4 py-2.5 grid grid-cols-3 gap-2 border-t border-slate-100">
-                      <div class="text-xs text-slate-600 col-span-2">Sviluppo Web — 20h</div>
-                      <div class="text-xs font-medium text-slate-700 text-right">€ 2.000</div>
-                    </div>
-                    <div class="px-4 py-2.5 grid grid-cols-3 gap-2 border-t border-slate-100">
-                      <div class="text-xs text-slate-600 col-span-2">Consulenza UX — 5h</div>
-                      <div class="text-xs font-medium text-slate-700 text-right">€ 500</div>
-                    </div>
-                  </div>
-                  <!-- Total -->
-                  <div class="flex justify-between items-center bg-primary-50 rounded-xl px-4 py-3">
+                <!-- faccia A — preventivo -->
+                <div class="absolute inset-0 rounded-[18px] p-6 flex flex-col"
+                     style="background:#fbfcfe;backface-visibility:hidden;box-shadow:0 40px 100px -30px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.12)">
+                  <div class="flex items-start justify-between mb-5">
                     <div>
-                      <div class="text-xs text-primary-500">Regime Forfettario — IVA esente</div>
-                      <div class="text-xs text-primary-400">Art. 1 c. 54-89 L. 190/2014</div>
+                      <div class="text-[0.5625rem] font-bold tracking-[0.16em] text-primary-600">PREVENTIVO</div>
+                      <div class="text-[1.0625rem] font-bold text-slate-900 tnum">PR-2026-0118</div>
                     </div>
-                    <div class="text-right">
-                      <div class="text-xs text-primary-500 mb-0.5">Totale</div>
-                      <div class="text-xl font-bold text-primary-700">€ 2.500</div>
+                    <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="26" height="26" class="w-[26px] h-[26px] rounded-md" />
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 mb-5">
+                    <div class="rounded-[10px] p-2.5" style="background:#f4f7fc">
+                      <div class="text-[0.5625rem] font-semibold tracking-wider text-slate-400 uppercase">Da</div>
+                      <div class="text-[0.8125rem] font-semibold text-slate-800">Mario Rossi</div>
+                    </div>
+                    <div class="rounded-[10px] p-2.5" style="background:#f4f7fc">
+                      <div class="text-[0.5625rem] font-semibold tracking-wider text-slate-400 uppercase">A</div>
+                      <div class="text-[0.8125rem] font-semibold text-slate-800">Acme Srl</div>
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between py-2.5" style="border-bottom:1px solid #eef2f8">
+                      <span class="text-[0.8125rem] text-slate-600">Sviluppo web — 20h</span>
+                      <span class="text-[0.8125rem] font-semibold text-slate-900 tnum">€ 2.000</span>
+                    </div>
+                    <div class="flex items-center justify-between py-2.5" style="border-bottom:1px solid #eef2f8">
+                      <span class="text-[0.8125rem] text-slate-600">Consulenza UX — 5h</span>
+                      <span class="text-[0.8125rem] font-semibold text-slate-900 tnum">€ 500</span>
+                    </div>
+                  </div>
+                  <div class="rounded-xl p-3.5 flex items-end justify-between" style="background:#eef4ff">
+                    <div class="text-[0.5625rem] leading-snug text-primary-500">Regime forfettario<br />IVA esente — Art. 1 c. 54-89</div>
+                    <div class="text-[1.375rem] font-extrabold text-primary-700 tnum">€ 2.500</div>
+                  </div>
+                </div>
+
+                <!-- faccia B — XML -->
+                <div class="absolute inset-0 rounded-[18px] p-6 flex flex-col"
+                     style="background:#070c18;border:1px solid rgba(96,165,250,0.28);backface-visibility:hidden;transform:rotateY(180deg);box-shadow:0 40px 100px -30px rgba(0,0,0,0.85)">
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="text-[0.5625rem] font-bold tracking-[0.16em] text-primary-400">FATTURA ELETTRONICA</div>
+                    <div class="flex items-center gap-1.5 rounded-full px-2 py-1" style="background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.35)">
+                      <span class="w-1.5 h-1.5 rounded-full" style="background:#34d399"></span>
+                      <span class="text-[0.5625rem] font-semibold text-emerald-300">SDI</span>
+                    </div>
+                  </div>
+                  <div class="flex-1 font-mono text-[0.5625rem]" style="line-height:1.85;color:rgba(147,197,253,0.72)">
+                    <div>&lt;FatturaElettronica versione="FPR12"&gt;</div>
+                    <div class="pl-3">&lt;CodiceDestinatario&gt;M5UXCR1</div>
+                    <div class="pl-3">&lt;PrezzoTotale&gt;2500.00</div>
+                    <div class="pl-3">&lt;Natura&gt;<span style="color:#6ee7b7">N2.2</span></div>
+                    <div>&lt;/FatturaElettronica&gt;</div>
+                  </div>
+                  <div data-hero-stamp class="rounded-xl p-3 flex items-center gap-2.5" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);opacity:0">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div>
+                      <div class="text-[0.6875rem] font-semibold text-emerald-300">Consegnata dal SDI</div>
+                      <div class="text-[0.5625rem] text-emerald-400/60 tnum">18/01/2026 — 14:32</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Content (second on desktop) -->
-            <div class="animate-on-scroll lg:order-2 order-1">
-              <div class="inline-flex items-center gap-2 bg-violet-50 text-violet-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-6">
-                Fatturazione SDI
-              </div>
-              <h2 id="showcase-invoice-heading" class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 leading-tight">
-                Fatturazione elettronica conforme, senza complessità
-              </h2>
-              <p class="text-slate-500 text-lg leading-relaxed mb-8">
-                Genera fatture elettroniche in formato XML FatturaPA e inviale al Sistema di Interscambio direttamente da Quotify.
-                Con la dicitura corretta per il Regime Forfettario, sempre.
-              </p>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-violet-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Formato XML FatturaPA 1.2.2 — sempre aggiornato</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-violet-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Codice SDI, PEC e Codice Destinatario gestiti automaticamente</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-violet-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Notifica in tempo reale dello stato di consegna SDI</span>
-                </li>
-              </ul>
-            </div>
-
           </div>
         </div>
-      </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
-           FEATURE SHOWCASE 3 — AI Assistant
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        class="py-24 lg:py-32 bg-slate-50 overflow-hidden"
-        aria-labelledby="showcase-ai-heading"
-        data-animate
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- didascalie -->
+        <div class="absolute inset-0 pointer-events-none">
+          <!-- 0 — titolo -->
+          <div data-caption class="absolute inset-x-0 top-1/2 -translate-y-1/2 px-[clamp(1.25rem,5vw,3rem)] text-center">
+            <span class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-5 text-[0.6875rem] font-semibold" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7">
+              <span class="w-1.5 h-1.5 rounded-full" style="background:#34d399"></span> Beta gratuita
+            </span>
+            <h1 id="hero-heading" class="font-extrabold mx-auto" style="font-size:clamp(2.25rem,7.5vw,4.5rem);line-height:1.02;letter-spacing:-0.035em;text-wrap:balance;max-width:16ch">
+              La burocrazia italiana<br />in un solo oggetto.
+            </h1>
+            <p class="mx-auto mt-5 text-foam/[0.58]" style="font-size:clamp(1rem,2.6vw,1.25rem);max-width:34rem">
+              Preventivo, fattura elettronica, SDI, tasse. Scorri e guardalo risolversi da solo.
+            </p>
+          </div>
 
-            <!-- Content -->
-            <div class="animate-on-scroll">
-              <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-6">
-                AI Assistant
+          <!-- 1..4 — stage -->
+          <div data-caption data-stage class="absolute left-1/2 rounded-[20px] px-[1.375rem] py-[1.125rem] text-center opacity-0" style="bottom:clamp(2rem,8vh,5rem);width:min(92vw,520px);background:rgba(4,6,13,0.72);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.07)">
+            <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-primary-400 mb-2">01 — Preventivo</div>
+            <h2 class="font-bold" style="font-size:clamp(1.375rem,4.5vw,2rem);letter-spacing:-0.02em">Un documento, non venti campi</h2>
+            <p class="mt-2 text-[0.9375rem] text-foam/50">Righe, cliente, totale. La dicitura del forfettario è già dentro, sempre corretta.</p>
+          </div>
+
+          <div data-caption data-stage class="absolute left-1/2 rounded-[20px] px-[1.375rem] py-[1.125rem] text-center opacity-0" style="bottom:clamp(2rem,8vh,5rem);width:min(92vw,520px);background:rgba(4,6,13,0.72);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.07)">
+            <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-primary-400 mb-2">02 — XML FatturaPA</div>
+            <h2 class="font-bold" style="font-size:clamp(1.375rem,4.5vw,2rem);letter-spacing:-0.02em">Lo stesso documento, girato</h2>
+            <p class="mt-2 text-[0.9375rem] text-foam/50">Nessuna riscrittura. Il preventivo diventa XML 1.2.2 conforme, con natura N2.2 già impostata.</p>
+          </div>
+
+          <div data-caption data-stage class="absolute left-1/2 rounded-[20px] px-[1.375rem] py-[1.125rem] text-center opacity-0" style="bottom:clamp(2rem,8vh,5rem);width:min(92vw,520px);background:rgba(4,6,13,0.72);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.07)">
+            <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase mb-2" style="color:#6ee7b7">03 — Sistema di Interscambio</div>
+            <h2 class="font-bold" style="font-size:clamp(1.375rem,4.5vw,2rem);letter-spacing:-0.02em">Consegnata. Senza altri portali</h2>
+            <p class="mt-2 text-[0.9375rem] text-foam/50">Invio, ricevuta e notifica in tempo reale. Non apri più il sito dell'Agenzia.</p>
+          </div>
+
+          <div data-caption data-stage class="absolute left-1/2 rounded-[20px] px-[1.375rem] py-[1.125rem] text-center opacity-0" style="bottom:clamp(2rem,8vh,5rem);width:min(92vw,520px);background:rgba(4,6,13,0.72);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.07)">
+            <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-primary-400 mb-2">04 — Tasse</div>
+            <h2 class="font-bold" style="font-size:clamp(1.375rem,4.5vw,2rem);letter-spacing:-0.02em">Sai già quanto ti resta</h2>
+            <p class="mt-2 text-[0.9375rem] text-foam/50">Imposta sostitutiva, contributi INPS e soglia degli 85.000 € aggiornati a ogni fattura.</p>
+          </div>
+        </div>
+
+        <!-- rail di stage -->
+        <div class="absolute top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none" style="right:clamp(0.75rem,3vw,2rem)" aria-hidden="true">
+          <span data-rail class="block h-0.5 rounded-full transition-[width,background] duration-[350ms] ease-out" style="width:22px;background:rgba(255,255,255,0.55)"></span>
+          <span data-rail class="block h-0.5 rounded-full transition-[width,background] duration-[350ms] ease-out" style="width:10px;background:rgba(255,255,255,0.16)"></span>
+          <span data-rail class="block h-0.5 rounded-full transition-[width,background] duration-[350ms] ease-out" style="width:10px;background:rgba(255,255,255,0.16)"></span>
+          <span data-rail class="block h-0.5 rounded-full transition-[width,background] duration-[350ms] ease-out" style="width:10px;background:rgba(255,255,255,0.16)"></span>
+          <span data-rail class="block h-0.5 rounded-full transition-[width,background] duration-[350ms] ease-out" style="width:10px;background:rgba(255,255,255,0.16)"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ 2. TICKER ═══════════════════════════ -->
+    <div class="overflow-hidden border-y border-white/[0.07] py-[1.125rem]" aria-hidden="true">
+      <div class="marquee-track">
+        <ul class="flex items-center gap-10 pr-10 text-xs font-medium uppercase tracking-[0.22em] text-foam/[0.28]" role="list">
+          <li class="hover:text-white hover:font-extrabold transition-colors">Preventivo</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Fattura XML</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Invio SDI</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Imposta sostitutiva</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Contributi INPS</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Soglia 85.000</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Pipeline</li><li class="text-primary-600">◆</li>
+        </ul>
+        <ul class="flex items-center gap-10 pr-10 text-xs font-medium uppercase tracking-[0.22em] text-foam/[0.28]" role="list">
+          <li class="hover:text-white hover:font-extrabold transition-colors">Preventivo</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Fattura XML</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Invio SDI</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Imposta sostitutiva</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Contributi INPS</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Soglia 85.000</li><li class="text-primary-600">◆</li>
+          <li class="hover:text-white hover:font-extrabold transition-colors">Pipeline</li><li class="text-primary-600">◆</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ 3. IL SISTEMA — #sistema ═══════════════════ -->
+    <section id="sistema" class="pinned h-[420vh]" aria-labelledby="sistema-heading">
+      <div class="pinned-stage" data-ring-stage>
+        <div class="absolute inset-0" style="background: radial-gradient(80% 70% at 50% 55%, #0a142c 0%, #04060d 70%)"></div>
+        <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);background-size:34px 34px;-webkit-mask-image:radial-gradient(60% 55% at 50% 50%, #000, transparent);mask-image:radial-gradient(60% 55% at 50% 50%, #000, transparent)"></div>
+
+        <div data-ring-heading class="absolute inset-x-0 z-[3] px-[clamp(1.25rem,5vw,3rem)] text-center" style="top:clamp(4.5rem,12vh,7rem)">
+          <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-primary-400 mb-3">Il sistema</div>
+          <h2 id="sistema-heading" class="font-extrabold mx-auto" style="font-size:clamp(1.5rem,4.5vw,2.5rem);letter-spacing:-0.03em;max-width:22ch">Sei moduli, un solo dato</h2>
+        </div>
+
+        <div class="absolute inset-0" style="perspective:1200px;perspective-origin:50% 50%">
+          <div data-ring class="absolute top-1/2 left-1/2 w-0 h-0" style="transform-style:preserve-3d">
+
+            <!-- 01 Pipeline -->
+            <div data-panel class="absolute top-0 left-0" style="width:min(74vw,340px);height:min(94vw,420px);margin-left:calc(min(74vw,340px) / -2);margin-top:calc(min(94vw,420px) / -2)">
+              <div class="w-full h-full box-border rounded-[22px] p-[1.375rem] flex flex-col" style="background:rgba(9,15,30,0.92);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);box-shadow:0 50px 90px -40px rgba(0,0,0,0.95)">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300/60">Pipeline</span>
+                  <span class="font-mono text-[0.6875rem] text-white/[0.22]">01</span>
+                </div>
+                <div class="space-y-2 flex-1">
+                  <div class="rounded-xl p-3" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+                    <div class="text-[0.8125rem] font-semibold">Sito Acme Srl</div>
+                    <div class="flex items-center justify-between mt-1"><span class="text-[0.625rem] text-foam/35">In corso</span><span class="text-[0.75rem] font-semibold tnum text-primary-300">€ 2.500</span></div>
+                  </div>
+                  <div class="rounded-xl p-3" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+                    <div class="text-[0.8125rem] font-semibold">Brand identity</div>
+                    <div class="flex items-center justify-between mt-1"><span class="text-[0.625rem] text-foam/35">Da preparare</span><span class="text-[0.75rem] font-semibold tnum text-primary-300">€ 450</span></div>
+                  </div>
+                  <div class="rounded-xl p-3" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25)">
+                    <div class="text-[0.8125rem] font-semibold">App mobile</div>
+                    <div class="flex items-center justify-between mt-1"><span class="text-[0.625rem] text-emerald-300/70">Accettato</span><span class="text-[0.75rem] font-semibold tnum text-emerald-300">€ 4.800</span></div>
+                  </div>
+                  <div class="rounded-xl p-3 text-center text-[0.6875rem] text-foam/25" style="border:1px dashed rgba(255,255,255,0.14)">Trascina qui</div>
+                </div>
               </div>
-              <h2 id="showcase-ai-heading" class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 leading-tight">
-                Il tuo consulente fiscale sempre disponibile, 24/7
-              </h2>
-              <p class="text-slate-500 text-lg leading-relaxed mb-8">
-                Grazie all'integrazione con Claude AI, hai un assistente esperto di Regime Forfettario sempre a portata di mano.
-                Fai domande in linguaggio naturale e ottieni risposte precise e contestualizzate ai tuoi dati.
-              </p>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-amber-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Calcolo contributi INPS e imposte stimate in tempo reale</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-amber-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Consigli su scadenze fiscali, detrazioni e aggiornamenti normativi</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-amber-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-slate-600 text-sm">Accesso diretto ai tuoi dati fatturazione per risposte personalizzate</span>
-                </li>
-              </ul>
             </div>
 
-            <!-- Chat Mockup -->
-            <div class="animate-on-scroll">
-              <div class="bg-white rounded-2xl shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
-                <!-- Chat Header -->
-                <div class="bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-4 flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+            <!-- 02 Preventivi PDF -->
+            <div data-panel class="absolute top-0 left-0" style="width:min(74vw,340px);height:min(94vw,420px);margin-left:calc(min(74vw,340px) / -2);margin-top:calc(min(94vw,420px) / -2)">
+              <div class="w-full h-full box-border rounded-[22px] p-[1.375rem] flex flex-col" style="background:rgba(9,15,30,0.92);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);box-shadow:0 50px 90px -40px rgba(0,0,0,0.95)">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300/60">Preventivi PDF</span>
+                  <span class="font-mono text-[0.6875rem] text-white/[0.22]">02</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 flex-1">
+                  <div class="rounded-lg p-2 flex flex-col gap-1" style="background:#fbfcfe">
+                    <div class="h-1.5 rounded-full w-2/3" style="background:#236CEF"></div>
+                    <div class="h-1 rounded-full" style="background:#e6ecf5"></div><div class="h-1 rounded-full w-4/5" style="background:#e6ecf5"></div>
+                    <div class="mt-auto h-2 rounded-full w-1/2" style="background:#bfdbfe"></div>
                   </div>
+                  <div class="rounded-lg p-2 flex flex-col gap-1" style="background:#f6f8fc">
+                    <div class="h-1.5 rounded-full w-1/2" style="background:#0f172a"></div>
+                    <div class="h-1 rounded-full" style="background:#e6ecf5"></div><div class="h-1 rounded-full w-3/4" style="background:#e6ecf5"></div>
+                    <div class="mt-auto h-2 rounded-full w-1/2" style="background:#cbd5e1"></div>
+                  </div>
+                  <div class="rounded-lg p-2 flex flex-col gap-1" style="background:#fbfcfe">
+                    <div class="h-1.5 rounded-full w-3/5" style="background:#10b981"></div>
+                    <div class="h-1 rounded-full" style="background:#e6ecf5"></div><div class="h-1 rounded-full w-2/3" style="background:#e6ecf5"></div>
+                    <div class="mt-auto h-2 rounded-full w-1/2" style="background:#a7f3d0"></div>
+                  </div>
+                </div>
+                <div class="mt-4 text-[0.6875rem] text-foam/35">Tre template, il tuo logo, invio diretto.</div>
+              </div>
+            </div>
+
+            <!-- 03 Fattura SDI -->
+            <div data-panel class="absolute top-0 left-0" style="width:min(74vw,340px);height:min(94vw,420px);margin-left:calc(min(74vw,340px) / -2);margin-top:calc(min(94vw,420px) / -2)">
+              <div class="w-full h-full box-border rounded-[22px] p-[1.375rem] flex flex-col" style="background:rgba(7,12,24,0.95);border:1px solid rgba(96,165,250,0.24);backdrop-filter:blur(10px);box-shadow:0 50px 90px -40px rgba(0,0,0,0.95)">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300/60">Fattura SDI</span>
+                  <span class="font-mono text-[0.6875rem] text-white/[0.22]">03</span>
+                </div>
+                <div class="flex-1 font-mono text-[0.625rem] leading-[1.9]" style="color:rgba(147,197,253,0.72)">
+                  <div>&lt;FatturaElettronica</div>
+                  <div class="pl-2">versione="FPR12"&gt;</div>
+                  <div class="pl-2">&lt;CodiceDestinatario&gt;</div>
+                  <div class="pl-4 text-primary-200">M5UXCR1</div>
+                  <div class="pl-2">&lt;Natura&gt;<span style="color:#6ee7b7">N2.2</span></div>
+                  <div class="pl-2">&lt;PrezzoTotale&gt;2500.00</div>
+                </div>
+                <div class="rounded-xl p-3 flex items-center gap-2" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3)">
+                  <span class="w-1.5 h-1.5 rounded-full" style="background:#34d399"></span>
+                  <span class="text-[0.6875rem] font-semibold text-emerald-300">Consegnata — ricevuta SDI</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 04 QuotifAI -->
+            <div data-panel class="absolute top-0 left-0" style="width:min(74vw,340px);height:min(94vw,420px);margin-left:calc(min(74vw,340px) / -2);margin-top:calc(min(94vw,420px) / -2)">
+              <div class="w-full h-full box-border rounded-[22px] p-[1.375rem] flex flex-col" style="background:rgba(9,15,30,0.92);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);box-shadow:0 50px 90px -40px rgba(0,0,0,0.95)">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300/60">QuotifAI</span>
+                  <span class="font-mono text-[0.6875rem] text-white/[0.22]">04</span>
+                </div>
+                <div class="flex-1 space-y-2.5">
+                  <div class="ml-auto max-w-[80%] rounded-2xl rounded-br-md px-3 py-2 text-[0.75rem]" style="background:rgba(35,108,239,0.22)">Quanto devo accantonare questo mese?</div>
+                  <div class="max-w-[85%] rounded-2xl rounded-bl-md px-3 py-2 text-[0.75rem] text-foam/70" style="background:rgba(255,255,255,0.05)">Hai fatturato € 5.400. Accantona <strong class="text-emerald-300">€ 1.379</strong>: € 210 di imposta e € 1.169 di INPS.</div>
+                  <div class="max-w-[70%] rounded-2xl rounded-bl-md px-3 py-2 text-[0.75rem] text-foam/70" style="background:rgba(255,255,255,0.05)">Sei al 63% della soglia.</div>
+                </div>
+                <div class="mt-3 rounded-xl px-3 py-2.5 text-[0.75rem] text-foam/25" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">Chiedi qualcosa…</div>
+              </div>
+            </div>
+
+            <!-- 05 Dashboard fiscale -->
+            <div data-panel class="absolute top-0 left-0" style="width:min(74vw,340px);height:min(94vw,420px);margin-left:calc(min(74vw,340px) / -2);margin-top:calc(min(94vw,420px) / -2)">
+              <div class="w-full h-full box-border rounded-[22px] p-[1.375rem] flex flex-col" style="background:rgba(9,15,30,0.92);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);box-shadow:0 50px 90px -40px rgba(0,0,0,0.95)">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300/60">Dashboard fiscale</span>
+                  <span class="font-mono text-[0.6875rem] text-white/[0.22]">05</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 mb-3">
+                  <div class="rounded-xl p-2.5" style="background:rgba(35,108,239,0.14)">
+                    <div class="text-[0.5625rem] text-foam/40">Fatturato</div><div class="text-[0.9375rem] font-extrabold tnum">€ 62.400</div>
+                  </div>
+                  <div class="rounded-xl p-2.5" style="background:rgba(16,185,129,0.12)">
+                    <div class="text-[0.5625rem] text-foam/40">Da versare</div><div class="text-[0.9375rem] font-extrabold tnum text-emerald-300">€ 2.433</div>
+                  </div>
+                </div>
+                <div class="h-1.5 rounded-full overflow-hidden mb-1" style="background:rgba(255,255,255,0.07)">
+                  <div class="h-full rounded-full" style="width:73%;background:linear-gradient(90deg,#236CEF,#60a5fa)"></div>
+                </div>
+                <div class="text-[0.625rem] text-foam/35 tnum mb-4">73% della soglia</div>
+                <div class="flex items-end gap-1.5 flex-1">
+                  <div class="flex-1 rounded-t" style="height:38%;background:rgba(35,108,239,0.35)"></div>
+                  <div class="flex-1 rounded-t" style="height:56%;background:rgba(35,108,239,0.45)"></div>
+                  <div class="flex-1 rounded-t" style="height:44%;background:rgba(35,108,239,0.4)"></div>
+                  <div class="flex-1 rounded-t" style="height:78%;background:rgba(35,108,239,0.6)"></div>
+                  <div class="flex-1 rounded-t" style="height:62%;background:rgba(35,108,239,0.5)"></div>
+                  <div class="flex-1 rounded-t" style="height:92%;background:#236CEF"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 06 App iOS + PWA -->
+            <div data-panel class="absolute top-0 left-0" style="width:min(74vw,340px);height:min(94vw,420px);margin-left:calc(min(74vw,340px) / -2);margin-top:calc(min(94vw,420px) / -2)">
+              <div class="w-full h-full box-border rounded-[22px] p-[1.375rem] flex flex-col" style="background:rgba(9,15,30,0.92);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);box-shadow:0 50px 90px -40px rgba(0,0,0,0.95)">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300/60">App iOS + PWA</span>
+                  <span class="font-mono text-[0.6875rem] text-white/[0.22]">06</span>
+                </div>
+                <div class="space-y-2.5 flex-1">
+                  <div class="rounded-2xl p-3 flex items-start gap-2.5" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(8px)">
+                    <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="24" height="24" class="w-6 h-6 rounded-md shrink-0" />
+                    <div><div class="text-[0.6875rem] font-semibold">Fattura consegnata</div><div class="text-[0.625rem] text-foam/40">FT-2026-0042 accettata dal SDI</div></div>
+                  </div>
+                  <div class="rounded-2xl p-3 flex items-start gap-2.5" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(8px)">
+                    <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="24" height="24" class="w-6 h-6 rounded-md shrink-0" />
+                    <div><div class="text-[0.6875rem] font-semibold">Scadenza F24</div><div class="text-[0.625rem] text-foam/40">Tra 3 giorni — € 2.433</div></div>
+                  </div>
+                  <div class="rounded-2xl p-3 flex items-start gap-2.5" style="background:rgba(255,255,255,0.06);backdrop-filter:blur(8px)">
+                    <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="24" height="24" class="w-6 h-6 rounded-md shrink-0" />
+                    <div><div class="text-[0.6875rem] font-semibold">Preventivo accettato</div><div class="text-[0.625rem] text-foam/40">Acme Srl — € 2.500</div></div>
+                  </div>
+                </div>
+                <div class="mt-3 text-[0.6875rem] text-foam/35">Installala dal browser, senza App Store.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- didascalie del carosello -->
+        <div data-ring-captions class="absolute inset-x-0 px-[clamp(1.25rem,5vw,3rem)]" style="bottom:clamp(2rem,8vh,4.5rem)">
+          <div class="relative mx-auto h-[4.5rem]" style="max-width:620px">
+            <div data-ring-caption class="absolute inset-0 text-center opacity-0"><h3 class="font-bold" style="font-size:clamp(1.125rem,3.5vw,1.625rem);letter-spacing:-0.02em">Pipeline Kanban</h3><p class="mt-1.5 text-[0.9375rem] text-foam/50">Progetti illimitati. Trascini, e importo e stato pagamento seguono.</p></div>
+            <div data-ring-caption class="absolute inset-0 text-center opacity-0"><h3 class="font-bold" style="font-size:clamp(1.125rem,3.5vw,1.625rem);letter-spacing:-0.02em">Preventivi PDF</h3><p class="mt-1.5 text-[0.9375rem] text-foam/50">Tre template professionali, il tuo logo, invio diretto al cliente.</p></div>
+            <div data-ring-caption class="absolute inset-0 text-center opacity-0"><h3 class="font-bold" style="font-size:clamp(1.125rem,3.5vw,1.625rem);letter-spacing:-0.02em">Fatturazione SDI</h3><p class="mt-1.5 text-[0.9375rem] text-foam/50">XML FatturaPA 1.2.2, codice destinatario e PEC gestiti da noi.</p></div>
+            <div data-ring-caption class="absolute inset-0 text-center opacity-0"><h3 class="font-bold" style="font-size:clamp(1.125rem,3.5vw,1.625rem);letter-spacing:-0.02em">QuotifAI</h3><p class="mt-1.5 text-[0.9375rem] text-foam/50">Il consulente fiscale che legge i tuoi dati e risponde in italiano.</p></div>
+            <div data-ring-caption class="absolute inset-0 text-center opacity-0"><h3 class="font-bold" style="font-size:clamp(1.125rem,3.5vw,1.625rem);letter-spacing:-0.02em">Dashboard fiscale</h3><p class="mt-1.5 text-[0.9375rem] text-foam/50">Fatturato, soglia, imposte e contributi. In tempo reale, senza sorprese.</p></div>
+            <div data-ring-caption class="absolute inset-0 text-center opacity-0"><h3 class="font-bold" style="font-size:clamp(1.125rem,3.5vw,1.625rem);letter-spacing:-0.02em">App iOS + PWA</h3><p class="mt-1.5 text-[0.9375rem] text-foam/50">Installala sul telefono. Notifiche push per scadenze e stati SDI.</p></div>
+          </div>
+          <div class="flex items-center justify-center gap-2 mt-6" aria-hidden="true">
+            <span data-ring-dot class="block h-0.5 rounded-full transition-[width,background] duration-[350ms]" style="width:20px;background:rgba(255,255,255,0.55)"></span>
+            <span data-ring-dot class="block h-0.5 rounded-full transition-[width,background] duration-[350ms]" style="width:8px;background:rgba(255,255,255,0.16)"></span>
+            <span data-ring-dot class="block h-0.5 rounded-full transition-[width,background] duration-[350ms]" style="width:8px;background:rgba(255,255,255,0.16)"></span>
+            <span data-ring-dot class="block h-0.5 rounded-full transition-[width,background] duration-[350ms]" style="width:8px;background:rgba(255,255,255,0.16)"></span>
+            <span data-ring-dot class="block h-0.5 rounded-full transition-[width,background] duration-[350ms]" style="width:8px;background:rgba(255,255,255,0.16)"></span>
+            <span data-ring-dot class="block h-0.5 rounded-full transition-[width,background] duration-[350ms]" style="width:8px;background:rgba(255,255,255,0.16)"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ 4. IL BANCO DI LAVORO — #banco ═══════════════════ -->
+    <section id="banco" class="relative py-[clamp(5rem,16vh,10rem)] px-[clamp(1.25rem,5vw,3rem)]" style="background:linear-gradient(180deg,#04060d 0%,#060b18 45%,#04060d 100%)" aria-labelledby="banco-heading">
+      <div class="absolute inset-x-0 top-0 h-96 pointer-events-none" style="background:radial-gradient(ellipse at 50% 0%, rgba(35,108,239,0.22) 0%, transparent 65%)"></div>
+
+      <div class="relative max-w-[1320px] mx-auto">
+        <div class="text-center mb-[clamp(2.5rem,6vh,4rem)] reveal">
+          <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-primary-400 mb-3">Il banco di lavoro</div>
+          <h2 id="banco-heading" class="font-extrabold mx-auto" style="font-size:clamp(1.875rem,6vw,3.25rem);letter-spacing:-0.035em;text-wrap:balance;max-width:20ch">Fai un preventivo adesso. Senza registrarti</h2>
+          <p class="mx-auto mt-4 text-foam/50" style="font-size:clamp(1rem,2.4vw,1.125rem);max-width:38rem">Aggiungi le voci e guarda il forfettario ricalcolarsi. Poi mandalo al SDI.</p>
+        </div>
+
+        <div class="grid gap-[clamp(1.5rem,4vw,3.5rem)] items-start" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+
+          <!-- ── colonna sinistra ── -->
+          <div class="reveal">
+            <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">01 — Scegli le voci</div>
+            <div class="space-y-2.5 mb-10" data-bench-services></div>
+
+            <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">02 — Il forfettario, calcolato</div>
+            <div>
+              <div class="flex items-center justify-between py-3.5" style="border-bottom:1px solid rgba(255,255,255,0.06)">
+                <span class="text-[0.8125rem] text-foam/50">Imponibile <span class="text-foam/[0.28]">— coeff. 78%</span></span>
+                <span class="text-[1.0625rem] font-semibold tnum" data-bench-reddito>€ 1.950</span>
+              </div>
+              <div class="flex items-center justify-between py-3.5" style="border-bottom:1px solid rgba(255,255,255,0.06)">
+                <span class="text-[0.8125rem] text-foam/50">Imposta sostitutiva <span class="text-foam/[0.28]">— 5%</span></span>
+                <span class="text-[1.0625rem] font-semibold tnum" data-bench-imposta>€ 98</span>
+              </div>
+              <div class="flex items-center justify-between py-3.5" style="border-bottom:1px solid rgba(255,255,255,0.06)">
+                <span class="text-[0.8125rem] text-foam/50">Contributi INPS <span class="text-foam/[0.28]">— 26,23%</span></span>
+                <span class="text-[1.0625rem] font-semibold tnum" data-bench-inps>€ 511</span>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <div class="text-[0.6875rem] font-bold tracking-[0.18em] uppercase mb-2" style="color:rgba(110,231,183,0.7)">Ti resta in tasca</div>
+              <div class="font-extrabold tnum" style="font-size:clamp(2.5rem,9vw,4rem);letter-spacing:-0.04em" data-bench-netto>€ 1.891</div>
+              <div class="mt-5 h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.07)">
+                <div class="h-full rounded-full transition-[width] duration-[550ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style="width:2.9%;background:linear-gradient(90deg,#236CEF,#60a5fa)" data-bench-bar></div>
+              </div>
+              <div class="mt-2 text-[0.75rem] text-foam/35 tnum"><span data-bench-tot>€ 2.500</span> su € 85.000 di soglia annua</div>
+            </div>
+          </div>
+
+          <!-- ── colonna destra: il documento ── -->
+          <div class="reveal" style="perspective:1500px;perspective-origin:50% 40%">
+            <div data-bench-doc class="rounded-[22px] overflow-hidden" style="background:#fbfcfe;transform-style:preserve-3d;box-shadow:0 70px 120px -50px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.14), 0 0 90px -30px rgba(35,108,239,0.5)">
+
+              <!-- stepper -->
+              <div class="flex items-center gap-1 px-5 py-4" style="border-bottom:1px solid #eef2f8">
+                <div class="flex items-center gap-2 flex-1" data-step="0">
+                  <span class="w-5 h-5 rounded-full grid place-items-center text-[0.625rem] font-bold shrink-0" data-step-dot style="background:#236CEF;color:#fff">1</span>
+                  <span class="text-[0.6875rem] font-semibold truncate" data-step-label style="color:#0f172a">Preventivo</span>
+                </div>
+                <div class="flex items-center gap-2 flex-1" data-step="1">
+                  <span class="w-5 h-5 rounded-full grid place-items-center text-[0.625rem] font-bold shrink-0" data-step-dot style="background:#eef2f8;color:#94a3b8">2</span>
+                  <span class="text-[0.6875rem] font-semibold truncate" data-step-label style="color:#94a3b8">PDF firmato</span>
+                </div>
+                <div class="flex items-center gap-2 flex-1" data-step="2">
+                  <span class="w-5 h-5 rounded-full grid place-items-center text-[0.625rem] font-bold shrink-0" data-step-dot style="background:#eef2f8;color:#94a3b8">3</span>
+                  <span class="text-[0.6875rem] font-semibold truncate" data-step-label style="color:#94a3b8">XML FatturaPA</span>
+                </div>
+                <div class="flex items-center gap-2 flex-1" data-step="3">
+                  <span class="w-5 h-5 rounded-full grid place-items-center text-[0.625rem] font-bold shrink-0" data-step-dot style="background:#eef2f8;color:#94a3b8">4</span>
+                  <span class="text-[0.6875rem] font-semibold truncate" data-step-label style="color:#94a3b8">Consegnata SDI</span>
+                </div>
+              </div>
+
+              <div class="p-[clamp(1.25rem,3vw,1.75rem)]">
+                <div class="flex items-start justify-between mb-5">
                   <div>
-                    <div class="text-white font-semibold text-sm">Assistente Quotify</div>
-                    <div class="flex items-center gap-1.5">
-                      <div class="w-1.5 h-1.5 rounded-full bg-green-300"></div>
-                      <span class="text-white/70 text-xs">Online</span>
-                    </div>
+                    <div class="text-[0.5625rem] font-bold tracking-[0.16em] uppercase text-primary-600" data-doc-tipo>Preventivo</div>
+                    <div class="text-[1.0625rem] font-bold text-slate-900 tnum" data-doc-numero>PR-2026-0118</div>
+                  </div>
+                  <div class="flex items-center gap-1.5 rounded-full px-2.5 py-1" data-doc-badge style="background:#f6f8fc;border:1px solid #e6ecf5">
+                    <span class="w-1.5 h-1.5 rounded-full" data-doc-badge-dot style="background:#94a3b8"></span>
+                    <span class="text-[0.625rem] font-semibold" data-doc-badge-text style="color:#64748b">Bozza</span>
                   </div>
                 </div>
 
-                <!-- Chat Messages -->
-                <div class="p-5 space-y-4 bg-slate-50">
-                  <!-- User message -->
-                  <div class="flex justify-end">
-                    <div class="bg-primary-600 text-white text-xs rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[70%] leading-relaxed">
-                      Quanto mi rimane prima di superare il limite forfettario quest'anno?
-                    </div>
+                <div class="grid grid-cols-2 gap-2 mb-5">
+                  <div class="rounded-xl p-3" style="background:#f6f8fc">
+                    <div class="text-[0.5625rem] font-semibold tracking-wider uppercase" style="color:#94a3b8">Cedente</div>
+                    <div class="text-[0.8125rem] font-semibold" style="color:#0f172a">Mario Rossi</div>
+                    <div class="text-[0.625rem] tnum" style="color:#64748b">P.IVA 12345678901</div>
                   </div>
-                  <!-- AI response -->
-                  <div class="flex justify-start gap-2">
-                    <div class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
-                      </svg>
-                    </div>
-                    <div class="bg-white border border-slate-200 text-slate-700 text-xs rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%] leading-relaxed shadow-sm">
-                      Hai fatturato <strong>€ 62.400</strong> su un limite di <strong>€ 85.000</strong>.
-                      Ti rimangono ancora <span class="text-emerald-600 font-semibold">€ 22.600</span> — circa il <strong>26%</strong> della soglia annuale. Sei nei tempi!
-                    </div>
-                  </div>
-                  <!-- User message 2 -->
-                  <div class="flex justify-end">
-                    <div class="bg-primary-600 text-white text-xs rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[70%] leading-relaxed">
-                      Quando scadono i contributi INPS del prossimo trimestre?
-                    </div>
-                  </div>
-                  <!-- AI typing indicator -->
-                  <div class="flex justify-start gap-2">
-                    <div class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
-                      </svg>
-                    </div>
-                    <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
-                      <div class="flex items-center gap-1">
-                        <div class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0ms"></div>
-                        <div class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 150ms"></div>
-                        <div class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 300ms"></div>
-                      </div>
-                    </div>
+                  <div class="rounded-xl p-3" style="background:#f6f8fc">
+                    <div class="text-[0.5625rem] font-semibold tracking-wider uppercase" style="color:#94a3b8">Cliente</div>
+                    <div class="text-[0.8125rem] font-semibold" style="color:#0f172a">Acme Srl</div>
+                    <div class="text-[0.625rem] tnum" style="color:#64748b">SDI M5UXCR1</div>
                   </div>
                 </div>
 
-                <!-- Chat Input -->
-                <div class="p-4 border-t border-slate-100 bg-white flex items-center gap-3">
-                  <div class="flex-1 bg-slate-100 rounded-xl px-4 py-2.5 text-xs text-slate-400">
-                    Scrivi un messaggio...
+                <div class="rounded-xl overflow-hidden mb-4" style="border:1px solid #f4f7fc">
+                  <div class="flex items-center justify-between px-3 py-2" style="background:#fbfcfe">
+                    <span class="text-[0.625rem] font-bold tracking-[0.1em] uppercase" style="color:#94a3b8">Descrizione</span>
+                    <span class="text-[0.625rem] font-bold tracking-[0.1em] uppercase" style="color:#94a3b8">Importo</span>
                   </div>
-                  <button class="w-8 h-8 bg-primary-600 rounded-xl flex items-center justify-center hover:bg-primary-700 transition-colors" aria-label="Invia messaggio">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <line x1="22" y1="2" x2="11" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                      <polygon points="22,2 15,22 11,13 2,9 22,2" stroke="white" stroke-width="2" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                  </button>
+                  <div data-bench-rows></div>
                 </div>
-              </div>
-            </div>
 
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════════════════════════════════════════════════
-           IPHONE 3D SHOWCASE — Scroll-driven rotation
-      ═══════════════════════════════════════════════════════════ -->
-      <section id="iphone-showcase" class="iphone-section relative overflow-hidden bg-slate-950" style="height: 120vh;">
-        <div class="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden bg-slate-950">
-          <!-- Ambient glow -->
-          <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary-600/20 blur-[120px]"></div>
-          </div>
-
-          <!-- Text ABOVE phone -->
-          <div class="iphone-text relative z-20 text-center px-4 max-w-2xl mb-8">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
-              L'app che lavora <span class="text-primary-400">per te.</span>
-            </h2>
-            <p class="text-white/50 text-base">Gestisci tutto dal tuo iPhone</p>
-          </div>
-
-          <!-- iPhone 3D -->
-          <div class="iphone-scene" style="perspective: 1200px;">
-            <div class="iphone-device">
-              <!-- iPhone frame -->
-              <div class="iphone-frame">
-                <!-- Notch -->
-                <div class="iphone-notch"></div>
-                <!-- Screen -->
-                <div class="iphone-screen">
-                  <!-- App screenshot mockup -->
-                  <div class="iphone-app bg-white h-full w-full overflow-hidden">
-                    <!-- Status bar -->
-                    <div class="bg-primary-600 px-4 py-2 flex items-center justify-between">
-                      <span class="text-white text-[10px] font-semibold">9:41</span>
-                      <span class="text-white text-[10px] font-bold">Quotify</span>
-                      <div class="flex gap-1">
-                        <div class="w-3 h-2 border border-white/80 rounded-sm"><div class="w-1.5 h-full bg-white/80"></div></div>
-                      </div>
-                    </div>
-                    <!-- Dashboard preview -->
-                    <div class="p-3 space-y-2">
-                      <div class="text-[10px] font-bold text-slate-800">Dashboard</div>
-                      <div class="grid grid-cols-2 gap-1.5">
-                        <div class="bg-primary-50 rounded-lg p-2">
-                          <div class="text-[8px] text-primary-600">Fatturato</div>
-                          <div class="text-[12px] font-bold text-primary-700">€ 42.300</div>
-                        </div>
-                        <div class="bg-emerald-50 rounded-lg p-2">
-                          <div class="text-[8px] text-emerald-600">Incassato</div>
-                          <div class="text-[12px] font-bold text-emerald-700">€ 38.100</div>
-                        </div>
-                      </div>
-                      <div class="bg-slate-50 rounded-lg p-2">
-                        <div class="text-[8px] text-slate-500 mb-1">Soglia Forfettaria</div>
-                        <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                          <div class="h-full bg-primary-500 rounded-full" style="width: 49%"></div>
-                        </div>
-                        <div class="text-[7px] text-slate-400 mt-0.5">€ 42.300 / € 85.000</div>
-                      </div>
-                      <div class="space-y-1">
-                        <div class="text-[8px] font-semibold text-slate-700">Ultime fatture</div>
-                        <div class="bg-white border border-slate-100 rounded-lg p-1.5 flex justify-between items-center">
-                          <div>
-                            <div class="text-[8px] font-medium text-slate-700">Acme Srl</div>
-                            <div class="text-[7px] text-slate-400">FT-2026-042</div>
-                          </div>
-                          <div class="text-[9px] font-bold text-emerald-600">€ 2.500</div>
-                        </div>
-                        <div class="bg-white border border-slate-100 rounded-lg p-1.5 flex justify-between items-center">
-                          <div>
-                            <div class="text-[8px] font-medium text-slate-700">Beta Studio</div>
-                            <div class="text-[7px] text-slate-400">FT-2026-041</div>
-                          </div>
-                          <div class="text-[9px] font-bold text-primary-600">€ 1.800</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div data-bench-xml class="rounded-[14px] p-3 mb-4 font-mono text-[0.6875rem] hidden" style="background:#070c18;color:rgba(147,197,253,0.72);line-height:1.8">
+                  <div>&lt;FatturaElettronica versione="FPR12"&gt;</div>
+                  <div class="pl-3">&lt;ImportoTotaleDocumento&gt;<span data-bench-xml-tot>2500.00</span></div>
+                  <div class="pl-3">&lt;Natura&gt;<span style="color:#6ee7b7">N2.2</span></div>
                 </div>
-                <!-- Home indicator -->
-                <div class="iphone-home-indicator"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
-           HOW IT WORKS
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        id="come-funziona"
-        class="pt-10 pb-20 lg:pt-12 lg:pb-24 bg-white"
-        aria-labelledby="how-heading"
-        data-animate
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-10">
-            <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
-              Semplice da subito
-            </div>
-            <h2 id="how-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Come funziona
-            </h2>
-            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
-              Tre passi per iniziare a gestire il tuo business da freelance in modo professionale.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative" data-reveal-list>
-            <!-- Step 1 -->
-            <div data-reveal-item class="step-card animate-on-scroll text-center relative">
-              <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="12" cy="7" r="4" stroke="white" stroke-width="2"/>
-                </svg>
-              </div>
-              <div class="absolute -top-3 -left-0 md:left-1/2 md:-translate-x-1/2 w-7 h-7 rounded-full bg-white border-2 border-primary-200 flex items-center justify-center text-xs font-bold text-primary-500 z-20">1</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-3">Crea il tuo account</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">
-                Registrati gratuitamente in 30 secondi. Inserisci la tua P.IVA, il coefficiente di redditività e sei pronto.
-              </p>
-            </div>
-
-            <!-- Step 2 -->
-            <div data-reveal-item class="step-card animate-on-scroll text-center relative">
-              <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="3" y="3" width="5" height="18" rx="1" stroke="white" stroke-width="2"/>
-                  <rect x="10" y="3" width="5" height="12" rx="1" stroke="white" stroke-width="2"/>
-                  <rect x="17" y="3" width="5" height="15" rx="1" stroke="white" stroke-width="2"/>
-                </svg>
-              </div>
-              <div class="absolute -top-3 -left-0 md:left-1/2 md:-translate-x-1/2 w-7 h-7 rounded-full bg-white border-2 border-primary-200 flex items-center justify-center text-xs font-bold text-primary-500 z-20">2</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-3">Aggiungi i tuoi clienti</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">
-                Importa i dati dei tuoi clienti e crea il primo preventivo. Quotify recupera automaticamente i dati fiscali dalla P.IVA.
-              </p>
-            </div>
-
-            <!-- Step 3 -->
-            <div data-reveal-item class="step-card animate-on-scroll text-center relative">
-              <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200 relative z-10">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div class="absolute -top-3 -left-0 md:left-1/2 md:-translate-x-1/2 w-7 h-7 rounded-full bg-white border-2 border-primary-200 flex items-center justify-center text-xs font-bold text-primary-500 z-20">3</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-3">Gestisci e fattura</h3>
-              <p class="text-slate-500 text-sm leading-relaxed">
-                Trasforma i preventivi in fatture elettroniche con un click. Monitora i pagamenti e la soglia forfettaria in tempo reale.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════════════════════════════════════════════════
-           GLOBE — La soluzione italiana
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        class="globe-section py-24 lg:py-32 bg-slate-950 relative overflow-hidden"
-        aria-labelledby="globe-heading"
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <!-- Content -->
-            <div class="relative z-10">
-              <div data-reveal class="inline-flex items-center gap-2 bg-primary-500/10 text-primary-400 rounded-full px-4 py-1.5 text-sm font-semibold mb-6 border border-primary-500/20">
-                Made in Italy
-              </div>
-              <h2 data-reveal id="globe-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                La soluzione italiana per i freelance
-              </h2>
-              <p data-reveal class="text-lg text-slate-400 leading-relaxed mb-8">
-                Quotify è pensato, progettato e costruito specificamente per i professionisti italiani. Ogni funzionalità rispetta la normativa fiscale del nostro Paese.
-              </p>
-            </div>
-
-            <!-- Globe container -->
-            <div class="relative flex items-center justify-center" style="min-height: 450px;">
-              <canvas id="globe-canvas" class="globe-canvas" width="600" height="600" style="max-width: 100%; height: auto;"></canvas>
-
-              <!-- Floating widgets -->
-              <div class="globe-widget widget-1 glass rounded-xl px-4 py-3 border border-white/20 text-white text-xs font-medium shadow-lg">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-green-400"></span>
-                  500+ Freelance attivi
+                <div class="rounded-[14px] p-4 flex items-end justify-between mb-5" style="background:#eef4ff">
+                  <div class="text-[0.625rem] leading-snug" style="color:#3b82f6">Regime forfettario — IVA esente<br />Art. 1 c. 54-89 L. 190/2014</div>
+                  <div class="font-extrabold tnum" style="font-size:clamp(1.5rem,4vw,1.875rem);color:#1d4ed8" data-bench-totale>€ 2.500</div>
                 </div>
-              </div>
-              <div class="globe-widget widget-2 glass rounded-xl px-4 py-3 border border-white/20 shadow-lg">
-                <div class="text-white text-xs font-semibold">Fattura SDI inviata</div>
-                <div class="text-emerald-400 text-[10px] mt-0.5">Consegnata</div>
-              </div>
-              <div class="globe-widget widget-3 glass rounded-xl px-4 py-3 border border-white/20 shadow-lg">
-                <div class="text-white text-xs font-semibold">Regime Forfettario</div>
-                <div class="text-primary-300 text-[10px] mt-0.5">Art. 1 c. 54-89</div>
-              </div>
-              <div class="globe-widget widget-4 glass rounded-xl px-4 py-3 border border-white/20 shadow-lg">
-                <div class="flex items-center gap-2">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#34d399" stroke-width="2.5"/><polyline points="22,4 12,14.01 9,11.01" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="text-white text-xs font-medium">Conforme normativa</span>
+
+                <div class="flex flex-col sm:flex-row gap-2.5">
+                  <button type="button" data-bench-cta class="flex-1 text-white text-[0.875rem] font-semibold rounded-[14px] px-5 py-3.5 transition-transform hover:-translate-y-0.5" style="background:#236CEF;box-shadow:0 14px 30px -14px rgba(35,108,239,0.8)">Genera il PDF</button>
+                  <button type="button" data-bench-reset class="text-[0.875rem] font-semibold rounded-[14px] px-5 py-3.5 transition-colors" style="background:#fff;border:1px solid #e6ecf5;color:#64748b">Ricomincia</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
-           PRICING
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        id="prezzi"
-        class="py-24 lg:py-32 bg-gradient-to-b from-slate-50 to-white"
-        aria-labelledby="pricing-heading"
-        data-animate
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16 animate-on-scroll">
-            <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#059669" stroke-width="2"/>
-              </svg>
-              Beta Gratuita
-            </div>
-            <h2 id="pricing-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Prezzi trasparenti
-            </h2>
-            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
-              Durante la fase beta, Quotify è completamente gratuito. Nessuna carta di credito richiesta.
-            </p>
+    <!-- ═══════════════════ 5. I NUMERI DEL FORFETTARIO ═══════════════════ -->
+    <section class="py-[clamp(5rem,16vh,10rem)] px-[clamp(1.25rem,5vw,3rem)]" aria-labelledby="numeri-heading" data-numeri>
+      <div class="max-w-[1320px] mx-auto">
+        <h2 id="numeri-heading" data-liquid class="font-extrabold mb-[clamp(2.5rem,6vh,4rem)]" style="font-size:clamp(1.875rem,6vw,3.25rem);letter-spacing:-0.035em;text-wrap:balance;max-width:24ch;color:rgba(232,237,247,0.16)">Quattro numeri che decidono il tuo anno. Quotify li tiene tutti</h2>
+
+        <div class="grid gap-px" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));background:rgba(255,255,255,0.08)">
+          <div class="bg-ink-900 hover:bg-ink-700 transition-colors duration-[350ms] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(1.75rem,4vw,2.5rem)]">
+            <div class="flex items-center gap-2 mb-4"><span class="font-mono text-[0.6875rem] text-white/25">01</span><span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/35">Soglia annuale</span></div>
+            <div class="font-extrabold tnum" style="font-size:clamp(2.25rem,7vw,3.375rem);letter-spacing:-0.04em" data-num data-target="85000" data-format="thousands">85.000</div>
+            <div class="h-[3px] rounded-full mt-4 mb-4" style="background:rgba(255,255,255,0.08)"><div class="h-full rounded-full" style="width:73%;background:#236CEF" data-num-bar data-bar="73"></div></div>
+            <p class="text-[0.8125rem] text-foam/45">Superarla ti butta fuori dal regime: Quotify ti avvisa prima.</p>
           </div>
-
-          <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-
-            <!-- FREE PLAN -->
-            <div class="pricing-card animate-on-scroll bg-white rounded-3xl border-2 border-slate-200 shadow-lg p-8 relative overflow-hidden flex flex-col">
-              <div class="relative flex flex-col flex-1">
-                <div class="mb-6">
-                  <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Free</div>
-                  <div class="text-5xl font-bold text-slate-900 mb-1">€ 0<span class="text-xl font-normal text-slate-400">/mese</span></div>
-                  <p class="text-slate-500 text-sm">Per iniziare senza pensieri.</p>
-                </div>
-
-                <ul class="space-y-3 mb-8" role="list">
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Pipeline Kanban — progetti illimitati</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Preventivi PDF — creazione e download</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Creazione fatture elettroniche (XML)</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Dashboard fiscale</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">QuotifAI — 3 messaggi al mese</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Notifiche Push e promemoria automatici</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">App nativa iOS + PWA installabile</span>
-                  </li>
-                </ul>
-
-                <div class="mt-auto pt-8">
-                  <a
-                    href="https://app.quotify.it/register"
-                    target="_blank" rel="noopener noreferrer"
-                    class="block w-full text-center bg-slate-900 hover:bg-slate-800 text-white font-semibold py-4 rounded-2xl text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
-                  >
-                    Inizia Gratis
-                  </a>
-                  <p class="text-center text-xs text-slate-400 mt-3">Già registrato? <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline font-medium">Accedi al tuo account</a></p>
-                </div>
-              </div>
-            </div>
-
-            <!-- PRO PLAN -->
-            <div class="pricing-card animate-on-scroll bg-white rounded-3xl border-2 border-primary-200 shadow-2xl shadow-primary-100/50 p-8 relative overflow-hidden flex flex-col">
-              <!-- Background decoration -->
-              <div class="absolute top-0 right-0 w-48 h-48 bg-primary-50 rounded-full -translate-y-1/2 translate-x-1/2" aria-hidden="true"></div>
-              <!-- Badge -->
-              <div class="absolute top-0 right-8 bg-primary-600 text-white text-xs font-bold px-4 py-1.5 rounded-b-xl z-10">
-                CONSIGLIATO
-              </div>
-
-              <div class="relative flex flex-col flex-1">
-                <div class="mb-6">
-                  <div class="text-sm font-semibold text-primary-600 uppercase tracking-wide mb-2">Pro</div>
-                  <div class="text-5xl font-bold text-slate-900 mb-1">€ 6,99<span class="text-xl font-normal text-slate-400">/mese</span></div>
-                  <p class="text-slate-500 text-sm">Per chi vuole il massimo dal proprio business.</p>
-                </div>
-
-                <ul class="space-y-3 mb-8" role="list">
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm font-medium">Tutto quello del piano Free, più:</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Invio fatture al SDI direttamente dall'app</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">QuotifAI illimitato</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Branding personalizzato — logo e colori su PDF</span>
-                  </li>
-                  <li class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-primary-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="text-slate-700 text-sm">Supporto prioritario</span>
-                  </li>
-                </ul>
-
-                <div class="mt-auto pt-8">
-                  <a
-                    href="https://app.quotify.it/register"
-                    target="_blank" rel="noopener noreferrer"
-                    class="block w-full text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 rounded-2xl text-base transition-all duration-200 hover:shadow-xl hover:shadow-primary-200 hover:-translate-y-0.5"
-                  >
-                    Prova Pro Gratis — 14 giorni
-                  </a>
-                  <p class="text-center text-xs text-slate-400 mt-3">Già in beta? <a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline font-medium">Accedi al tuo account</a></p>
-                </div>
-              </div>
-            </div>
-
+          <div class="bg-ink-900 hover:bg-ink-700 transition-colors duration-[350ms] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(1.75rem,4vw,2.5rem)]">
+            <div class="flex items-center gap-2 mb-4"><span class="font-mono text-[0.6875rem] text-white/25">02</span><span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/35">Coefficiente</span></div>
+            <div class="font-extrabold tnum" style="font-size:clamp(2.25rem,7vw,3.375rem);letter-spacing:-0.04em" data-num data-target="78" data-format="pct">78%</div>
+            <div class="h-[3px] rounded-full mt-4 mb-4" style="background:rgba(255,255,255,0.08)"><div class="h-full rounded-full" style="width:78%;background:#236CEF" data-num-bar data-bar="78"></div></div>
+            <p class="text-[0.8125rem] text-foam/45">La redditività della tua attività, applicata a ogni fattura.</p>
+          </div>
+          <div class="bg-ink-900 hover:bg-ink-700 transition-colors duration-[350ms] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(1.75rem,4vw,2.5rem)]">
+            <div class="flex items-center gap-2 mb-4"><span class="font-mono text-[0.6875rem] text-white/25">03</span><span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/35">Imposta</span></div>
+            <div class="font-extrabold tnum" style="font-size:clamp(2.25rem,7vw,3.375rem);letter-spacing:-0.04em" data-num data-target="5" data-format="pct">5%</div>
+            <div class="h-[3px] rounded-full mt-4 mb-4" style="background:rgba(255,255,255,0.08)"><div class="h-full rounded-full" style="width:5%;background:#236CEF" data-num-bar data-bar="5"></div></div>
+            <p class="text-[0.8125rem] text-foam/45">Sostitutiva dei primi cinque anni. Poi 15%, e il calcolo cambia da solo.</p>
+          </div>
+          <div class="bg-ink-900 hover:bg-ink-700 transition-colors duration-[350ms] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(1.75rem,4vw,2.5rem)]">
+            <div class="flex items-center gap-2 mb-4"><span class="font-mono text-[0.6875rem] text-white/25">04</span><span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/35">Contributi</span></div>
+            <div class="font-extrabold tnum" style="font-size:clamp(2.25rem,7vw,3.375rem);letter-spacing:-0.04em" data-num data-target="26.23" data-format="pct2">26,23%</div>
+            <div class="h-[3px] rounded-full mt-4 mb-4" style="background:rgba(255,255,255,0.08)"><div class="h-full rounded-full" style="width:26.23%;background:#236CEF" data-num-bar data-bar="26.23"></div></div>
+            <p class="text-[0.8125rem] text-foam/45">INPS gestione separata, accantonati fattura per fattura.</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
-           FAQ
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        id="faq"
-        class="py-24 lg:py-32 bg-white"
-        aria-labelledby="faq-heading"
-        data-animate
-      >
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16 animate-on-scroll">
-            <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
-              FAQ
-            </div>
-            <h2 id="faq-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Domande frequenti
-            </h2>
-            <p class="text-lg text-slate-500">
-              Hai altre domande? <a href="mailto:info@alessandroterracciano.com" class="text-primary-600 hover:underline font-medium">Scrivici</a>
-            </p>
-          </div>
-
-          <div class="space-y-3 animate-on-scroll" role="list" aria-label="Domande frequenti">
-
-            <!-- FAQ 1 -->
-            <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden" role="listitem">
-              <button
-                class="faq-btn w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
-                aria-expanded="false"
-                aria-controls="faq-1-content"
-              >
-                <span class="text-slate-900 font-semibold text-sm leading-relaxed">Quotify è davvero solo per il Regime Forfettario?</span>
-                <svg class="faq-icon w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div id="faq-1-content" class="faq-content" role="region" aria-hidden="true">
-                <div class="px-6 pb-5">
-                  <p class="text-slate-500 text-sm leading-relaxed">
-                    Sì, Quotify è progettato e ottimizzato specificamente per i freelance in Regime Forfettario. Ogni funzionalità — dalla dicitura corretta in fattura all'esenzione IVA, dal calcolo dell'imposta sostitutiva al monitoraggio della soglia degli 85.000€ — è calibrata su questo regime fiscale. Se sei in regime ordinario, Quotify non fa per te (ancora).
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden" role="listitem">
-              <button
-                class="faq-btn w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
-                aria-expanded="false"
-                aria-controls="faq-2-content"
-              >
-                <span class="text-slate-900 font-semibold text-sm leading-relaxed">Come funziona la fatturazione elettronica e l'invio al SDI?</span>
-                <svg class="faq-icon w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div id="faq-2-content" class="faq-content" role="region" aria-hidden="true">
-                <div class="px-6 pb-5">
-                  <p class="text-slate-500 text-sm leading-relaxed">
-                    Quotify genera il file XML in formato FatturaPA 1.2.2 e lo invia al Sistema di Interscambio dell'Agenzia delle Entrate. Gestisce automaticamente il Codice Destinatario o la PEC del cliente, include la dicitura di esenzione IVA obbligatoria per il Regime Forfettario e ti notifica in tempo reale quando la fattura viene consegnata o rifiutata. Non dovrai mai aprire un altro portale.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden" role="listitem">
-              <button
-                class="faq-btn w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
-                aria-expanded="false"
-                aria-controls="faq-3-content"
-              >
-                <span class="text-slate-900 font-semibold text-sm leading-relaxed">I miei dati fiscali e le fatture sono al sicuro?</span>
-                <svg class="faq-icon w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div id="faq-3-content" class="faq-content" role="region" aria-hidden="true">
-                <div class="px-6 pb-5">
-                  <p class="text-slate-500 text-sm leading-relaxed">
-                    Assolutamente sì. Quotify usa Cloudflare D1 con crittografia a riposo, autenticazione JWT sicura e trasmissione HTTPS end-to-end. Le tue credenziali sono hashate con bcrypt e non vengono mai memorizzate in chiaro. I dati fiscali non sono condivisi con terze parti se non per l'invio obbligatorio al SDI tramite le API ufficiali.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden" role="listitem">
-              <button
-                class="faq-btn w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
-                aria-expanded="false"
-                aria-controls="faq-4-content"
-              >
-                <span class="text-slate-900 font-semibold text-sm leading-relaxed">Posso usare Quotify sul telefono? È davvero un'app?</span>
-                <svg class="faq-icon w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div id="faq-4-content" class="faq-content" role="region" aria-hidden="true">
-                <div class="px-6 pb-5">
-                  <p class="text-slate-500 text-sm leading-relaxed">
-                    Sì! Quotify è una Progressive Web App (PWA): puoi installarla sul tuo iPhone o Android dal browser in pochi secondi, senza passare dall'App Store. Una volta installata si comporta esattamente come un'app nativa — icona sulla schermata home, apertura standalone e notifiche push per scadenze e aggiornamenti SDI.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="faq-item border border-slate-200 rounded-2xl overflow-hidden" role="listitem">
-              <button
-                class="faq-btn w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
-                aria-expanded="false"
-                aria-controls="faq-5-content"
-              >
-                <span class="text-slate-900 font-semibold text-sm leading-relaxed">Quanto costerà Quotify dopo la beta? Posso bloccare il prezzo?</span>
-                <svg class="faq-icon w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <div id="faq-5-content" class="faq-content" role="region" aria-hidden="true">
-                <div class="px-6 pb-5">
-                  <p class="text-slate-500 text-sm leading-relaxed">
-                    Il prezzo definitivo non è ancora stato annunciato, ma sarà competitivo — nell'ordine di pochi euro al mese. Gli utenti beta riceveranno in anticipo il piano prezzi e avranno accesso a un'offerta di lancio riservata. Iscrivendoti ora garantisci il prezzo più basso possibile quando usciremo dalla beta.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════════════════════════════════════════════════
-           FINAL CTA
-      ═══════════════════════════════════════════════════════════ -->
-      <section
-        class="py-24 lg:py-32 cta-gradient relative overflow-hidden"
-        aria-labelledby="final-cta-heading"
-        data-animate
-      >
-        <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] rounded-full bg-white/5 blur-3xl"></div>
-          <div class="absolute -bottom-1/2 -left-1/4 w-[400px] h-[400px] rounded-full bg-indigo-400/10 blur-2xl"></div>
+    <!-- ═══════════════════════════ 6. PREZZI — #prezzi ═══════════════════════════ -->
+    <section id="prezzi" class="py-[clamp(5rem,16vh,10rem)] px-[clamp(1.25rem,5vw,3rem)]" aria-labelledby="prezzi-heading">
+      <div class="mx-auto" style="max-width:980px">
+        <div class="text-center mb-[clamp(2.5rem,6vh,4rem)] reveal">
+          <span class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-5 text-[0.625rem] font-bold tracking-[0.12em] uppercase" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7">Beta gratuita</span>
+          <h2 id="prezzi-heading" class="font-extrabold" style="font-size:clamp(1.875rem,6vw,3.25rem);letter-spacing:-0.035em;text-wrap:balance">Due piani, nessuna carta di credito</h2>
+          <p class="mx-auto mt-4 text-foam/50" style="font-size:clamp(1rem,2.4vw,1.125rem);max-width:36rem">Durante la beta il piano Free è completo. Il Pro lo provi 14 giorni.</p>
         </div>
 
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div class="animate-on-scroll">
-            <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-white/80 text-sm font-medium mb-8">
-              <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse-soft"></span>
-              Accesso beta aperto ora
+        <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));perspective:1600px">
+
+          <div class="pricing-card reveal" data-plan data-tilt="6">
+            <div class="h-full rounded-[24px] p-[clamp(1.75rem,4vw,2.5rem)] flex flex-col transition-[transform,border-color] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09)" data-tilt-inner>
+              <div class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/40 mb-3" data-plan-name>Free</div>
+              <div class="font-extrabold tnum" style="font-size:clamp(2.5rem,8vw,3.25rem);letter-spacing:-0.04em"><span data-plan-price>€ 0</span><span class="text-base font-normal text-foam/35">/mese</span></div>
+              <p class="mt-2 mb-7 text-[0.9375rem] text-foam/50" data-plan-claim>Per iniziare senza pensieri.</p>
+              <ul class="space-y-3 flex-1 mb-8" role="list">
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Pipeline Kanban — progetti illimitati</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Preventivi PDF — creazione e download</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Creazione fatture elettroniche (XML)</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dashboard fiscale</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>QuotifAI — 3 messaggi al mese</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Notifiche push e promemoria automatici</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>App nativa iOS + PWA installabile</li>
+              </ul>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="block text-center text-[0.9375rem] font-semibold rounded-[14px] px-5 py-3.5 transition-colors" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14)">Inizia gratis</a>
             </div>
-            <h2 id="final-cta-heading" class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Pronto a semplificare il tuo lavoro da freelance?
-            </h2>
-            <p class="text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Unisciti a centinaia di freelance italiani che usano già Quotify per gestire la loro attività.
-              Gratis durante la beta, senza carta di credito.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="https://app.quotify.it/register"
-                target="_blank" rel="noopener noreferrer"
-                class="w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50 font-semibold text-base px-10 py-4 rounded-xl shadow-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-3xl"
-              >
-                Inizia Gratis Adesso
-              </a>
-              <a
-                href="mailto:info@alessandroterracciano.com"
-                class="w-full sm:w-auto glass text-white font-semibold text-base px-8 py-4 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200"
-              >
-                Hai domande? Scrivici
-              </a>
+          </div>
+
+          <div class="pricing-card reveal relative" data-plan data-tilt="-6">
+            <div class="h-full rounded-[24px] p-[clamp(1.75rem,4vw,2.5rem)] flex flex-col relative transition-[transform,border-color] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style="background:linear-gradient(180deg, rgba(35,108,239,0.18) 0%, rgba(35,108,239,0.04) 100%);border:1px solid rgba(96,165,250,0.35);box-shadow:0 60px 110px -60px rgba(35,108,239,1)" data-tilt-inner>
+              <span class="absolute top-0 right-6 px-2.5 py-1 text-[0.625rem] font-bold tracking-[0.12em] uppercase text-white" style="background:#236CEF;border-radius:0 0 10px 10px">Consigliato</span>
+              <div class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-primary-300 mb-3" data-plan-name>Pro</div>
+              <div class="font-extrabold tnum" style="font-size:clamp(2.5rem,8vw,3.25rem);letter-spacing:-0.04em"><span data-plan-price>€ 6,99</span><span class="text-base font-normal text-foam/35">/mese</span></div>
+              <p class="mt-2 mb-7 text-[0.9375rem] text-foam/50" data-plan-claim>Per chi vuole il massimo dal proprio business.</p>
+              <ul class="space-y-3 flex-1 mb-8" role="list">
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam font-medium"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tutto quello del piano Free, più:</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Invio fatture al SDI direttamente dall'app</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>QuotifAI illimitato</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Branding personalizzato — logo e colori su PDF</li>
+                <li class="flex items-start gap-2.5 text-[0.875rem] text-foam/70"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Supporto prioritario</li>
+              </ul>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="block text-center text-white text-[0.9375rem] font-semibold rounded-[14px] px-5 py-3.5 transition-colors" style="background:#236CEF">Prova Pro gratis — 14 giorni</a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ 7. FAQ — #faq ═══════════════════════════ -->
+    <section id="faq" class="py-[clamp(5rem,16vh,10rem)] px-[clamp(1.25rem,5vw,3rem)]" style="background:linear-gradient(180deg,#04060d 0%,#04060d 70%,#050912 100%)" aria-labelledby="faq-heading">
+      <div class="mx-auto" style="max-width:880px">
+        <h2 id="faq-heading" class="font-extrabold text-center mb-[clamp(2rem,5vh,3rem)] reveal" style="font-size:clamp(1.875rem,6vw,3.25rem);letter-spacing:-0.035em">Domande frequenti</h2>
+
+        <div role="list">
+          <div class="faq-item border-t border-white/[0.09]" data-faq role="listitem">
+            <button type="button" class="w-full flex items-start gap-4 text-left px-2 py-6 transition-colors" data-faq-btn aria-expanded="false">
+              <span class="font-mono text-[0.6875rem] text-primary-300/40 mt-1 shrink-0 transition-colors" data-faq-idx>01</span>
+              <span class="flex-1 font-semibold" style="font-size:clamp(1rem,2.6vw,1.1875rem)" data-faq-q>Quotify è davvero solo per il Regime Forfettario?</span>
+              <span class="text-xl leading-none text-foam/30 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-plus aria-hidden="true">+</span>
+            </button>
+            <div class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-panel style="height:0">
+              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Sì. Ogni funzionalità — dalla dicitura in fattura all'esenzione IVA, dal calcolo dell'imposta sostitutiva al monitoraggio della soglia degli 85.000 € — è calibrata su questo regime. Se sei in regime ordinario, Quotify non fa per te (ancora).</p>
+            </div>
+          </div>
+
+          <div class="faq-item border-t border-white/[0.09]" data-faq role="listitem">
+            <button type="button" class="w-full flex items-start gap-4 text-left px-2 py-6 transition-colors" data-faq-btn aria-expanded="false">
+              <span class="font-mono text-[0.6875rem] text-primary-300/40 mt-1 shrink-0 transition-colors" data-faq-idx>02</span>
+              <span class="flex-1 font-semibold" style="font-size:clamp(1rem,2.6vw,1.1875rem)" data-faq-q>Come funziona l'invio al SDI?</span>
+              <span class="text-xl leading-none text-foam/30 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-plus aria-hidden="true">+</span>
+            </button>
+            <div class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-panel style="height:0">
+              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Quotify genera il file XML in formato FatturaPA 1.2.2 e lo invia al Sistema di Interscambio dell'Agenzia delle Entrate. Gestisce codice destinatario o PEC, include la dicitura di esenzione IVA obbligatoria e ti notifica in tempo reale quando la fattura viene consegnata o rifiutata.</p>
+            </div>
+          </div>
+
+          <div class="faq-item border-t border-white/[0.09]" data-faq role="listitem">
+            <button type="button" class="w-full flex items-start gap-4 text-left px-2 py-6 transition-colors" data-faq-btn aria-expanded="false">
+              <span class="font-mono text-[0.6875rem] text-primary-300/40 mt-1 shrink-0 transition-colors" data-faq-idx>03</span>
+              <span class="flex-1 font-semibold" style="font-size:clamp(1rem,2.6vw,1.1875rem)" data-faq-q>I miei dati fiscali sono al sicuro?</span>
+              <span class="text-xl leading-none text-foam/30 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-plus aria-hidden="true">+</span>
+            </button>
+            <div class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-panel style="height:0">
+              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Sì. Cloudflare D1 con crittografia a riposo, autenticazione JWT, trasmissione HTTPS end-to-end e credenziali hashate con bcrypt. I dati fiscali non sono condivisi con terze parti se non per l'invio obbligatorio al SDI tramite le API ufficiali.</p>
+            </div>
+          </div>
+
+          <div class="faq-item border-t border-white/[0.09]" data-faq role="listitem">
+            <button type="button" class="w-full flex items-start gap-4 text-left px-2 py-6 transition-colors" data-faq-btn aria-expanded="false">
+              <span class="font-mono text-[0.6875rem] text-primary-300/40 mt-1 shrink-0 transition-colors" data-faq-idx>04</span>
+              <span class="flex-1 font-semibold" style="font-size:clamp(1rem,2.6vw,1.1875rem)" data-faq-q>Posso usarlo dal telefono?</span>
+              <span class="text-xl leading-none text-foam/30 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-plus aria-hidden="true">+</span>
+            </button>
+            <div class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-panel style="height:0">
+              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Sì. Quotify è una Progressive Web App: la installi su iPhone o Android dal browser in pochi secondi, senza App Store. Si comporta come un'app nativa, con icona sulla home e notifiche push per scadenze e aggiornamenti SDI.</p>
+            </div>
+          </div>
+
+          <div class="faq-item border-y border-white/[0.09]" data-faq role="listitem">
+            <button type="button" class="w-full flex items-start gap-4 text-left px-2 py-6 transition-colors" data-faq-btn aria-expanded="false">
+              <span class="font-mono text-[0.6875rem] text-primary-300/40 mt-1 shrink-0 transition-colors" data-faq-idx>05</span>
+              <span class="flex-1 font-semibold" style="font-size:clamp(1rem,2.6vw,1.1875rem)" data-faq-q>Quanto costerà dopo la beta?</span>
+              <span class="text-xl leading-none text-foam/30 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-plus aria-hidden="true">+</span>
+            </button>
+            <div class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-panel style="height:0">
+              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Il piano Free resterà gratuito. Il Pro è a 6,99 €/mese e chi entra durante la beta mantiene il prezzo di lancio.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-10 text-center text-[0.9375rem] text-foam/45">Hai altre domande? <a href="mailto:info@alessandroterracciano.com" class="text-primary-400 hover:text-primary-300 underline underline-offset-4">Scrivici</a></p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ 8. CTA FINALE ═══════════════════════════ -->
+    <section class="relative overflow-hidden text-center px-[clamp(1.25rem,5vw,3rem)] py-[clamp(9rem,26vh,15rem)]"
+             style="background:linear-gradient(180deg,#04060d 0%,rgba(4,6,13,0.85) 12%,rgba(4,6,13,0) 34%,rgba(4,6,13,0) 62%,rgba(4,6,13,0.7) 84%,#04060d 100%),radial-gradient(85% 95% at 50% 78%, #16409c 0%, #0a1c46 45%, #071026 70%, #04060d 100%)"
+             aria-labelledby="cta-heading" data-cta>
+      <div data-cta-glow class="absolute left-1/2 -translate-x-1/2 pointer-events-none" style="bottom:-20%;width:min(90vw,760px);height:min(90vw,760px);background:radial-gradient(circle, rgba(35,108,239,0.35) 0%, transparent 65%);filter:blur(40px)"></div>
+
+      <div class="orbit-ring absolute left-1/2 top-1/2 rounded-full pointer-events-none" style="width:min(90vw,620px);height:min(90vw,620px);border:1px solid rgba(147,197,253,0.12)" aria-hidden="true">
+        <img src="/pwa-192x192.png" alt="" width="28" height="28" class="absolute w-7 h-7 rounded-lg" style="top:-14px;left:50%;margin-left:-14px;opacity:0.75" />
+      </div>
+
+      <div class="relative max-w-[1320px] mx-auto">
+        <h2 id="cta-heading" class="font-extrabold mx-auto" style="font-size:clamp(2.25rem,9vw,4.75rem);line-height:1;letter-spacing:-0.045em;text-wrap:balance;max-width:16ch">Dal preventivo alle tasse, risolto.</h2>
+        <p class="mx-auto mt-6 text-foam/55" style="font-size:clamp(1rem,2.4vw,1.125rem)">Gratis durante la beta, senza carta di credito.</p>
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-white font-semibold text-base px-8 py-4 rounded-[14px] transition-transform hover:-translate-y-0.5" style="background:#1d4ed8;box-shadow:0 20px 45px -20px rgba(35,108,239,0.9)">Inizia gratis adesso</a>
+          <a href="/assistenza" class="w-full sm:w-auto font-semibold text-base px-8 py-4 rounded-[14px] transition-colors" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2)">Hai domande? Scrivici</a>
+        </div>
+      </div>
+    </section>
 
     </main>
 
-    <!-- Cookie Banner -->
-    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-700 px-4 py-4 sm:py-3 transition-transform duration-300 translate-y-full" hidden>
+    <!-- ═══════════════════════════ 9. FOOTER ═══════════════════════════ -->
+    <footer class="px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" style="background:linear-gradient(180deg,#05080f 0%,#04060d 40%)" role="contentinfo">
+      <div class="max-w-[1320px] mx-auto">
+        <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+          <div>
+            <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+              <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+              <span class="text-[1.0625rem] font-bold">Quotify</span>
+            </a>
+            <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+            <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+            <ul class="space-y-3" role="list">
+              <li><a href="#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+              <li><a href="#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+              <li><a href="#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+              <li><a href="#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+            <ul class="space-y-3" role="list">
+              <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+              <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+              <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+              <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+              <li><a href="mailto:info@alessandroterracciano.com" class="text-sm text-foam/60 hover:text-foam transition-colors">info@alessandroterracciano.com</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+          <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+          <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ═══════════════════════════ BANNER COOKIE ═══════════════════════════ -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[100] bg-[rgba(4,6,13,0.95)] backdrop-blur-lg border-t border-white/10 px-4 py-4 sm:py-3 transition-transform duration-300 translate-y-full no-print" hidden>
       <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="text-sm text-slate-300 text-center sm:text-left">
+        <p class="text-sm text-foam/70 text-center sm:text-left">
           Usiamo cookie tecnici, necessari al funzionamento del sito, e — solo con il tuo consenso — cookie di
           marketing di Meta per misurare i risultati delle campagne. Puoi rifiutare senza perdere nessuna funzionalità.
           <a href="/cookie" class="text-primary-400 hover:underline">Cookie Policy</a>
         </p>
         <div class="flex items-center gap-3 shrink-0">
-          <button id="cookie-reject" class="text-slate-300 hover:text-white text-sm font-semibold px-5 py-2 rounded-lg border border-slate-600 hover:border-slate-400 transition-colors">
-            Rifiuta
-          </button>
-          <button id="cookie-accept" class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
-            Accetta
-          </button>
+          <button id="cookie-reject" class="text-foam/70 hover:text-white text-sm font-semibold px-5 py-2 rounded-lg border border-white/15 hover:border-white/35 transition-colors">Rifiuta</button>
+          <button id="cookie-accept" class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">Accetta</button>
         </div>
       </div>
     </div>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         FOOTER
-    ═══════════════════════════════════════════════════════════ -->
-    <footer class="bg-slate-950 text-slate-400" role="contentinfo">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 mb-12">
-
-          <!-- Brand Column -->
-          <div class="lg:col-span-1">
-            <a href="/" class="flex items-center gap-2 text-white font-bold text-xl mb-4 group" aria-label="Quotify — torna alla home">
-              <img src="/pwa-192x192.png" alt="" class="w-8 h-8 rounded-lg" aria-hidden="true" />
-              Quotify
-            </a>
-            <p class="text-sm leading-relaxed mb-5">
-              La piattaforma per freelance italiani in Regime Forfettario. Preventivi, fatture elettroniche e pipeline — tutto in uno.
-            </p>
-            <div class="text-xs text-slate-500">
-              <div>P.IVA: 10838411212</div>
-              <div class="mt-1">Milano, Italia</div>
-            </div>
-          </div>
-
-          <!-- Product Links -->
-          <div>
-            <h3 class="text-white font-semibold text-sm mb-4">Prodotto</h3>
-            <ul class="space-y-3" role="list">
-              <li><a href="#funzionalita" class="text-sm hover:text-white transition-colors">Funzionalità</a></li>
-              <li><a href="#come-funziona" class="text-sm hover:text-white transition-colors">Come Funziona</a></li>
-              <li><a href="#prezzi" class="text-sm hover:text-white transition-colors">Prezzi</a></li>
-              <li><a href="#faq" class="text-sm hover:text-white transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-          <!-- Legal + Contact Links -->
-          <div>
-            <h3 class="text-white font-semibold text-sm mb-4">Legale e Contatti</h3>
-            <ul class="space-y-3" role="list">
-              <li><a href="/privacy" class="text-sm hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="/termini" class="text-sm hover:text-white transition-colors">Termini di Servizio</a></li>
-              <li><a href="/cookie" class="text-sm hover:text-white transition-colors">Cookie Policy</a></li>
-              <li><a href="/assistenza" class="text-sm hover:text-white transition-colors">Assistenza</a></li>
-              <li>
-                <a href="mailto:info@alessandroterracciano.com" class="text-sm hover:text-white transition-colors flex items-center gap-2 group">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0" aria-hidden="true">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Segnala un problema
-                </a>
-              </li>
-              <li>
-                <a href="mailto:info@alessandroterracciano.com" class="text-sm hover:text-white transition-colors flex items-center gap-2 group">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0" aria-hidden="true">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  info@alessandroterracciano.com
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Footer Bottom -->
-        <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p class="text-xs text-slate-500">
-            © 2026 Quotify. Tutti i diritti riservati.
-          </p>
-          <p class="text-xs text-slate-600">
-            Fatto con cura per i freelance italiani
-          </p>
-        </div>
-      </div>
-    </footer>
 
     <script type="module" src="/main.js"></script>
   </body>

@@ -24,20 +24,20 @@ function fatale(msg) {
 }
 
 // ── FAQ ──────────────────────────────────────────────────────────────────────
-const faq = root.querySelectorAll('.faq-item').map((item) => ({
-  domanda: pulisci(item.querySelector('.faq-btn span')?.structuredText),
-  risposta: pulisci(item.querySelector('.faq-content p')?.structuredText),
+const faq = root.querySelectorAll('[data-faq]').map((item) => ({
+  domanda: pulisci(item.querySelector('[data-faq-q]')?.structuredText),
+  risposta: pulisci(item.querySelector('[data-faq-a]')?.structuredText),
 }));
-if (!faq.length || faq.some((f) => !f.domanda || !f.risposta)) fatale('FAQ non estraibili da .faq-item');
+if (!faq.length || faq.some((f) => !f.domanda || !f.risposta)) fatale('FAQ non estraibili da [data-faq]');
 
 // ── Prezzi ───────────────────────────────────────────────────────────────────
-const piani = root.querySelectorAll('.pricing-card').map((card) => {
-  const nome = pulisci(card.querySelector('.uppercase')?.structuredText);
-  const grezzo = pulisci(card.querySelector('.text-5xl')?.structuredText); // es. "€ 6,99/mese"
+const piani = root.querySelectorAll('[data-plan]').map((card) => {
+  const nome = pulisci(card.querySelector('[data-plan-name]')?.structuredText);
+  const grezzo = pulisci(card.querySelector('[data-plan-price]')?.structuredText); // es. "€ 6,99"
   const m = grezzo.match(/€\s*([\d.,]+)/);
   return { nome, prezzo: m ? m[1].replace(/\./g, '').replace(',', '.') : null };
 });
-if (!piani.length || piani.some((p) => !p.nome || p.prezzo === null)) fatale('prezzi non estraibili da .pricing-card');
+if (!piani.length || piani.some((p) => !p.nome || p.prezzo === null)) fatale('prezzi non estraibili da [data-plan]');
 
 // ── Grafo ────────────────────────────────────────────────────────────────────
 const grafo = [

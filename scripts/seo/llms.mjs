@@ -17,14 +17,14 @@ const home = pagine.find((p) => p.url === '/');
 if (!home) { console.error('❌ llms: dist/index.html non trovato'); process.exit(1); }
 
 // Prezzi e FAQ dal DOM, come per il JSON-LD: una sola fonte di verità.
-const piani = home.root.querySelectorAll('.pricing-card').map((c) => ({
-  nome: pulisci(c.querySelector('.uppercase')?.structuredText),
-  prezzo: pulisci(c.querySelector('.text-5xl')?.structuredText),
-  claim: pulisci(c.querySelector('p.text-slate-500')?.structuredText),
+const piani = home.root.querySelectorAll('[data-plan]').map((c) => ({
+  nome: pulisci(c.querySelector('[data-plan-name]')?.structuredText),
+  prezzo: pulisci(c.querySelector('[data-plan-price]')?.structuredText) + '/mese',
+  claim: pulisci(c.querySelector('[data-plan-claim]')?.structuredText),
 }));
-const faq = home.root.querySelectorAll('.faq-item').map((i) => ({
-  d: pulisci(i.querySelector('.faq-btn span')?.structuredText),
-  r: pulisci(i.querySelector('.faq-content p')?.structuredText),
+const faq = home.root.querySelectorAll('[data-faq]').map((i) => ({
+  d: pulisci(i.querySelector('[data-faq-q]')?.structuredText),
+  r: pulisci(i.querySelector('[data-faq-a]')?.structuredText),
 }));
 
 const indicizzabili = pagine
