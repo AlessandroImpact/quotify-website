@@ -129,9 +129,16 @@ function initHero() {
     const rotX = 16 - 16 * inP
     const scale = (0.62 + 0.38 * inP) * (1 - 0.32 * shrink)
     const tz = (-420 + 420 * inP) - 260 * shrink
+
+    // Su schermo stretto card e dashboard NON si separano in orizzontale: i
+    // valori del design (-44% e +26%) presuppongono spazio laterale che a 390px
+    // non c'è, e l'ultimo stage finiva mezzo fuori schermo. Qui la card sfuma
+    // mentre la dashboard arriva al centro: stessa lettura, senza uscite.
+    const stretto = vw < 720
+    const cardX = stretto ? 0 : -44 * shrink
     card.style.transform =
-      `translate3d(${-44 * shrink}%, 0, ${tz}px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`
-    card.style.opacity = 0.1 + 0.9 * ease(seg(p, 0.07, 0.24))
+      `translate3d(${cardX}%, 0, ${tz}px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`
+    card.style.opacity = (0.1 + 0.9 * ease(seg(p, 0.07, 0.24))) * (stretto ? 1 - shrink * 0.92 : 1)
 
     if (stamp) {
       const sp = ease(seg(p, 0.56, 0.68))
@@ -141,9 +148,13 @@ function initHero() {
 
     if (dash) {
       const dp = ease(seg(p, 0.76, 0.94))
+      const stretta = vw < 720
+      dash.style.marginLeft = stretta ? '0px' : '-6vw'
+      const dashX = stretta ? -50 : 26          // centrata su mobile, a destra su desktop
       dash.style.opacity = dp
       dash.style.transform =
-        `translate3d(${26 + (1 - dp) * 60}%, -50%, ${120 * dp}px) rotateY(${-14 * (1 - dp)}deg) scale(${0.9 + 0.1 * dp})`
+        `translate3d(${dashX + (1 - dp) * (stretta ? 24 : 60)}%, -50%, ${120 * dp}px)` +
+        ` rotateY(${-14 * (1 - dp)}deg) scale(${0.9 + 0.1 * dp})`
     }
 
     let attivo = 0
@@ -316,6 +327,11 @@ function initBench() {
     set('[data-bench-totale]', eur(tot))
     const bar = $('[data-bench-bar]', root)
     if (bar) bar.style.width = pct + '%'
+
+    const rv = $('[data-recap-voci]'), rt = $('[data-recap-tot]'), rn = $('[data-recap-netto]')
+    if (rv) rv.textContent = scelti.length === 1 ? '1 voce' : `${scelti.length} voci`
+    if (rt) rt.textContent = eur(tot)
+    if (rn) rn.textContent = eur(Math.max(0, netto))
     const xmlTot = $('[data-bench-xml-tot]', root)
     if (xmlTot) xmlTot.textContent = tot.toFixed(2)
 
@@ -365,6 +381,29 @@ function initBench() {
   $('[data-bench-reset]', root)?.addEventListener('click', () => { flow = 0; selected = [...DEFAULT_SELECTED]; render() })
 
   render()
+
+  /* Barra di riepilogo: compare quando la sezione è a schermo ma il totale del
+     documento non lo è ancora. Sparisce appena il documento è visibile — a quel
+     punto il riscontro ce l'hai già davanti e la barra sarebbe solo ingombro. */
+  const recap = $('[data-bench-recap]')
+  const totaleDoc = $('[data-bench-totale]', root)
+  if (recap && totaleDoc) {
+    recap.addEventListener('click', () => {
+      doc?.scrollIntoView({ behavior: ridotto ? 'auto' : 'smooth', block: 'center' })
+    })
+    let mostrata = null
+    onTick(() => {
+      const sez = root.getBoundingClientRect()
+      const tot = totaleDoc.getBoundingClientRect()
+      const sezioneInVista = sez.top < window.innerHeight * 0.6 && sez.bottom > 120
+      const totaleGiaVisibile = tot.top < window.innerHeight - 96 && tot.bottom > 0
+      const vuole = sezioneInVista && !totaleGiaVisibile
+      if (vuole === mostrata) return
+      mostrata = vuole
+      recap.classList.toggle('translate-y-full', !vuole)
+      recap.setAttribute('aria-hidden', String(!vuole))
+    })
+  }
 
   /* Inclinazione al mouse — solo rotazioni, mai translateZ: facendo
      avanzare la card sotto il puntatore i bottoni entrano ed escono

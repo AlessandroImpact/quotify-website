@@ -938,3 +938,46 @@ const o    = Math.max(0, Math.min(inF, 1 - outF))
 
 Le finestre `HERO_WINDOWS` restano quelle della specifica: cambia solo il modo
 in cui si entra e si esce.
+
+### Comportamento mobile del banco di lavoro (§4)
+
+Il design mette i controlli a sinistra e il documento a destra. Su una colonna
+sola questo diventa: voci → calcoli → documento, e misurato a 390×844 il totale
+del documento finiva **1134px sotto** la lista dei servizi. Toccare una voce non
+produceva **nessun riscontro visibile**: la sezione promette "guarda il
+forfettario ricalcolarsi" e su telefono non manteneva la promessa.
+
+Due interventi, entrambi solo sotto i 1024px:
+
+1. **Ordine**: voci → **documento** → calcoli. Il documento passa da 336px sotto
+   il bordo a 94px sopra: è già a schermo mentre scegli. Nel DOM resta dopo i
+   calcoli (su desktop occupa la colonna destra su due righe) e viene riportato
+   al suo posto con `order`.
+2. **Barra di riepilogo** agganciata in basso, con numero di voci, totale e
+   "ti resta". Si aggiorna nell'istante del tocco e sparisce da sola appena il
+   totale del documento entra in vista.
+
+È l'unica media query del sito. Il design non ne aveva perché il layout è fluido
+per costruzione; qui però non è una questione di dimensioni ma di **ordine**, e
+non esiste modo di esprimerlo senza un punto di rottura.
+
+### Stage finale dell'hero su schermo stretto (§1)
+
+`shrink` sposta la card di `-44%` e la dashboard di `+26%`: separazione
+orizzontale che presuppone spazio laterale. A 390px la dashboard finiva a
+`x=606`, cioè **216px fuori schermo**, e l'ultimo stage — il pagamento di tutta
+la sequenza — era per metà invisibile.
+
+Sotto i 720px la separazione orizzontale è disattivata: la card resta centrata e
+sfuma (`opacity × (1 - shrink·0.92)`) mentre la dashboard arriva al centro.
+Stessa lettura, niente che esce. Misurato dopo: dashboard da 31 a 361 su 390.
+
+### `minmax(0, 1fr)` e non `1fr`
+
+Trappola di CSS Grid trovata riscrivendo la griglia del banco: `1fr` vale
+`minmax(auto, 1fr)` e `auto` come minimo è **min-content**. Lo stepper del
+documento ha quattro etichette che non vanno a capo, quindi la colonna si
+allargava a 447px dentro un contenitore da 350 e la pagina scorreva in
+orizzontale. La griglia originale del design usava
+`minmax(min(100%, 340px), 1fr)`, che il minimo lo limitava — sostituendola con
+`1fr` si perdeva quella protezione senza che fosse evidente.

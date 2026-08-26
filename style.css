@@ -103,6 +103,42 @@
 .orbit-ring { animation: orbit 40s linear infinite; will-change: transform; }
 
 /* ═══════════════════════════════════════════════════════════════
+   IL BANCO DI LAVORO — ordine dei blocchi
+
+   Unica media query del sito, e c'è una ragione. Il design non ne aveva
+   perché il layout è fluido per costruzione; qui però non si tratta di
+   dimensioni ma di ORDINE: su una colonna sola il documento deve stare
+   FRA le voci e i calcoli, altrimenti toccare un servizio produce un
+   aggiornamento a 1100px di distanza — misurato — e la sezione non
+   mantiene la sua promessa.
+═══════════════════════════════════════════════════════════════ */
+/* minmax(0, 1fr) e non 1fr: `1fr` vale `minmax(auto, 1fr)` e `auto` come minimo
+   è min-content — lo stepper del documento ha quattro etichette che non vanno a
+   capo, quindi la colonna si allargava a 447px dentro un contenitore da 350 e
+   la pagina scorreva in orizzontale. */
+.banco-grid { grid-template-columns: minmax(0, 1fr); }
+
+/* Su una colonna: voci → DOCUMENTO → calcoli.
+   Nel DOM il documento sta dopo i calcoli perché su desktop occupa la colonna
+   destra su due righe; qui `order` lo riporta dove serve al dito. */
+.banco-servizi { order: 1; }
+.banco-doc     { order: 2; }
+.banco-calcoli { order: 3; }
+
+@media (min-width: 1024px) {
+  .banco-grid    { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .banco-servizi { grid-column: 1; grid-row: 1; }
+  .banco-calcoli { grid-column: 1; grid-row: 2; }
+  .banco-doc     { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+/* Su desktop le voci hanno bisogno di stacco dai calcoli sotto */
+@media (min-width: 1024px) { .banco-servizi { margin-bottom: 2.5rem; } }
+
+/* La barra di riepilogo esiste solo dove serve */
+@media (min-width: 1024px) { [data-bench-recap] { display: none !important; } }
+
+/* ═══════════════════════════════════════════════════════════════
    MENU MOBILE — riusato dal sito precedente, ricolorato su ink-900
 ═══════════════════════════════════════════════════════════════ */
 .mobile-menu {

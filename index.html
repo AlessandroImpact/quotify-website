@@ -465,13 +465,16 @@
           <p class="mx-auto mt-4 text-foam/50" style="font-size:clamp(1rem,2.4vw,1.125rem);max-width:38rem">Aggiungi le voci e guarda il forfettario ricalcolarsi. Poi mandalo al SDI.</p>
         </div>
 
-        <div class="grid gap-[clamp(1.5rem,4vw,3.5rem)] items-start" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+        <div class="banco-grid grid gap-[clamp(1.5rem,4vw,3.5rem)] items-start">
 
-          <!-- ── colonna sinistra ── -->
-          <div class="reveal">
+          <!-- ── 01 · le voci ── -->
+          <div class="banco-servizi reveal">
             <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">01 — Scegli le voci</div>
-            <div class="space-y-2.5 mb-10" data-bench-services></div>
+            <div class="space-y-2.5" data-bench-services></div>
+          </div>
 
+          <!-- ── 02 · il forfettario ── -->
+          <div class="banco-calcoli reveal">
             <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">02 — Il forfettario, calcolato</div>
             <div>
               <div class="flex items-center justify-between py-3.5" style="border-bottom:1px solid rgba(255,255,255,0.06)">
@@ -498,8 +501,8 @@
             </div>
           </div>
 
-          <!-- ── colonna destra: il documento ── -->
-          <div class="reveal" style="perspective:1500px;perspective-origin:50% 40%">
+          <!-- ── il documento ── -->
+          <div class="banco-doc reveal" style="perspective:1500px;perspective-origin:50% 40%">
             <div data-bench-doc class="rounded-[22px] overflow-hidden" style="background:#fbfcfe;transform-style:preserve-3d;box-shadow:0 70px 120px -50px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.14), 0 0 90px -30px rgba(35,108,239,0.5)">
 
               <!-- stepper -->
@@ -576,6 +579,22 @@
         </div>
       </div>
     </section>
+
+    <!-- Riepilogo agganciato in basso: su mobile il documento è troppo sotto
+         perché il tocco su una voce dia un riscontro visibile. Questa barra
+         aggiorna i due numeri che contano nell'istante del tocco, e portarla
+         al documento è un tap. -->
+    <button type="button" data-bench-recap
+            class="fixed inset-x-0 bottom-0 z-40 w-full text-left px-4 py-3 border-t border-white/10 backdrop-blur-lg transition-transform duration-300 translate-y-full no-print"
+            style="background:rgba(4,6,13,0.94)" aria-live="polite">
+      <span class="max-w-[1320px] mx-auto flex items-center justify-between gap-3">
+        <span class="min-w-0">
+          <span class="block text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/35"><span data-recap-voci>2 voci</span> — preventivo</span>
+          <span class="block text-[1.0625rem] font-bold tnum truncate"><span data-recap-tot>€ 2.500</span> <span class="font-normal text-foam/35">·</span> ti resta <span class="text-emerald-300" data-recap-netto>€ 1.891</span></span>
+        </span>
+        <span class="shrink-0 text-[0.75rem] font-semibold rounded-lg px-3 py-2" style="background:rgba(35,108,239,0.18);border:1px solid rgba(96,165,250,0.4)">Vedi&nbsp;il&nbsp;documento</span>
+      </span>
+    </button>
 
     <!-- ═══════════════════ 5. I NUMERI DEL FORFETTARIO ═══════════════════ -->
     <section class="py-[clamp(5rem,16vh,10rem)] px-[clamp(1.25rem,5vw,3rem)]" aria-labelledby="numeri-heading" data-numeri>
