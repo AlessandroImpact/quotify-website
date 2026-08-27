@@ -1053,3 +1053,45 @@ Salto massimo fra pixel adiacenti, misurato su 8 bordi × 6 posizioni orizzontal
 
 Due livelli sommati su R+G+B, cioè meno di uno per canale: sotto la soglia di
 percezione e dentro il rumore di quantizzazione a 8 bit.
+
+### Testata integrata e menu a sipario (2026-08-27)
+
+Sostituisce la navbar del design — barra fissa con sfondo, sfocatura e
+`border-bottom` — che si leggeva come un elemento incollato sopra la hero.
+
+**La testata** non ha più niente di suo: solo una velatura in `::before` che
+scende dall'alto (`rgba(4,6,13,0.62)` → trasparente su 3,5rem oltre l'altezza
+della barra) e si spegne. Restano logo, CTA e innesco.
+
+**Il sipario** sostituisce sia i tre link desktop sia il vecchio `.mobile-menu`:
+un meccanismo solo invece di due. Un `clip-path: circle()` si apre dal centro
+dell'innesco — `--cx`, `--cy` e `--r` calcolati in JS, il raggio è la distanza
+dall'innesco all'angolo più lontano — in 0,78s su `cubic-bezier(0.16,1,0.3,1)`.
+Le quattro voci salgono da dietro una maschera, sfalsate di 60ms.
+
+Dettagli che sarebbero bug se mancassero:
+
+- Un reflow (`void sipario.offsetWidth`) fra la rimozione di `hidden` e
+  l'aggiunta della classe: senza, il browser parte già dallo stato finale e la
+  transizione del `clip-path` non avviene.
+- La testata sta a `z-100`, sopra il sipario a `z-95`: l'innesco deve restare
+  raggiungibile per chiudere. La CTA della testata sparisce ad aperto, perché è
+  già ripetuta in grande nel piede del menu.
+- Dialogo modale completo: `aria-modal`, focus sulla prima voce all'apertura,
+  trappola del focus sul Tab, Esc che chiude e riporta il focus sull'innesco,
+  scroll bloccato con `lenis.stop()` più `overflow:hidden`.
+- Il focus dei link non usa l'anello di sistema, che su un link a tutta
+  larghezza sarebbe un rettangolo enorme: al suo posto il numero diventa una
+  pastiglia blu piena e il filo raddoppia di spessore.
+
+**Verifica della velatura sul banco di lavoro.** La velatura è la stessa su
+tutta la pagina, come deciso — ma andava verificata dove sotto passa l'unica
+superficie chiara del sito, il documento del banco. Campionando i pixel a `y=32`
+(l'altezza dell'innesco) sopra il documento bianco: fondo `#8A8B8F`, tratti
+`#e8edf7`, **2,9:1** — sotto la soglia di 3:1 per un elemento di interfaccia.
+
+Rinforzare la velatura ovunque l'avrebbe fatta tornare una barra. La soluzione è
+locale: l'anello dell'innesco ha un fondo `rgba(4,6,13,0.55)` con `backdrop-filter`,
+invisibile sullo scuro e presente sul chiaro, e il marchio ha un alone
+(`text-shadow`) con la stessa logica. Misurato dopo: innesco **9,4:1**, marchio
+**8,25:1**.

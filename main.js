@@ -606,21 +606,89 @@ function initFaq() {
   })
 }
 
-function initMenu() {
-  const btn = $('#menu-toggle')
-  const menu = $('#mobile-menu')
-  if (!btn || !menu) return
-  const chiudi = () => {
-    menu.classList.remove('open')
-    btn.setAttribute('aria-expanded', 'false')
-    btn.setAttribute('aria-label', 'Apri il menu')
+let lenisAttivo = null
+
+function initSipario() {
+  const innesco = $('#sipario-innesco')
+  const sipario = $('#sipario')
+  if (!innesco || !sipario) return
+
+  const durata = ridotto ? 0 : 780
+  let aperto = false
+  let chiusuraId = 0
+
+  const focalizzabili = () =>
+    $$('a[href], button:not([disabled])', sipario).filter((el) => el.offsetParent !== null)
+
+  /** Centro e raggio del cerchio: parte dall'innesco e arriva all'angolo più lontano. */
+  function misura() {
+    const b = innesco.getBoundingClientRect()
+    const cx = b.left + b.width / 2
+    const cy = b.top + b.height / 2
+    const r = Math.max(
+      Math.hypot(cx, cy),
+      Math.hypot(window.innerWidth - cx, cy),
+      Math.hypot(cx, window.innerHeight - cy),
+      Math.hypot(window.innerWidth - cx, window.innerHeight - cy)
+    )
+    sipario.style.setProperty('--cx', `${cx}px`)
+    sipario.style.setProperty('--cy', `${cy}px`)
+    sipario.style.setProperty('--r', `${Math.ceil(r) + 8}px`)
   }
-  btn.addEventListener('click', () => {
-    const aperto = menu.classList.toggle('open')
-    btn.setAttribute('aria-expanded', String(aperto))
-    btn.setAttribute('aria-label', aperto ? 'Chiudi il menu' : 'Apri il menu')
+
+  function apri() {
+    if (aperto) return
+    aperto = true
+    clearTimeout(chiusuraId)
+    misura()
+    sipario.removeAttribute('hidden')
+    // Un reflow prima di aggiungere la classe: senza, il browser parte già
+    // dallo stato finale e la transizione del clip-path non avviene.
+    void sipario.offsetWidth
+    sipario.classList.add('aperto')
+    document.documentElement.classList.add('sipario-attivo', 'sipario-bloccato')
+    innesco.setAttribute('aria-expanded', 'true')
+    innesco.setAttribute('aria-label', 'Chiudi il menu')
+    lenisAttivo?.stop()
+    focalizzabili()[0]?.focus({ preventScroll: true })
+  }
+
+  function chiudi(tornaAllInnesco = true) {
+    if (!aperto) return
+    aperto = false
+    sipario.classList.remove('aperto')
+    document.documentElement.classList.remove('sipario-attivo', 'sipario-bloccato')
+    innesco.setAttribute('aria-expanded', 'false')
+    innesco.setAttribute('aria-label', 'Apri il menu')
+    lenisAttivo?.start()
+    if (tornaAllInnesco) innesco.focus({ preventScroll: true })
+    chiusuraId = setTimeout(() => sipario.setAttribute('hidden', ''), durata)
+  }
+
+  innesco.addEventListener('click', () => (aperto ? chiudi() : apri()))
+
+  // Un link chiude e lascia scorrere: il bersaglio è già nella pagina.
+  $$('[data-sipario-link]', sipario).forEach((a) =>
+    a.addEventListener('click', () => chiudi(false))
+  )
+  // Anche i link del piede che restano nella pagina o la lasciano.
+  $$('.sipario-piede a', sipario).forEach((a) =>
+    a.addEventListener('click', () => chiudi(false))
+  )
+
+  document.addEventListener('keydown', (e) => {
+    if (!aperto) return
+    if (e.key === 'Escape') { e.preventDefault(); chiudi(); return }
+    if (e.key !== 'Tab') return
+    // Trappola del focus: dentro un dialogo modale il Tab non deve uscire.
+    const f = focalizzabili()
+    if (!f.length) return
+    const primo = f[0], ultimo = f[f.length - 1]
+    if (e.shiftKey && document.activeElement === primo) { e.preventDefault(); ultimo.focus() }
+    else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primo.focus() }
   })
-  $$('a', menu).forEach((a) => a.addEventListener('click', chiudi))
+
+  window.addEventListener('resize', () => { if (aperto) misura() })
 }
 
 function initCtaGlow() {
@@ -722,12 +790,12 @@ function initCookieBanner() {
 ═══════════════════════════════════════════════════════════════ */
 function init() {
   initCookieBanner()
-  initMenu()
+  initSipario()
   initFaq()
 
   if (!ridotto) {
-    const lenis = new Lenis({ duration: 1.05, smoothWheel: true })
-    onTick((dt, now) => lenis.raf(now))
+    lenisAttivo = new Lenis({ duration: 1.05, smoothWheel: true })
+    onTick((dt, now) => lenisAttivo.raf(now))
   }
 
   initReveals()

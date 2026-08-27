@@ -240,16 +240,124 @@
 @media (min-width: 1024px) { [data-bench-recap] { display: none !important; } }
 
 /* ═══════════════════════════════════════════════════════════════
-   MENU MOBILE — riusato dal sito precedente, ricolorato su ink-900
+   TESTATA — integrata nella hero
+
+   Nessuna barra: solo una velatura che scende dall'alto e si spegne.
+   Tiene leggibili logo e CTA su qualunque cosa passi sotto, senza
+   disegnare un bordo che stacchi la testata dalla pagina.
 ═══════════════════════════════════════════════════════════════ */
-.mobile-menu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  background: #04060d;
+.testata::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -3.5rem 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(4, 6, 13, 0.62) 0%,
+    rgba(4, 6, 13, 0.30) 46%,
+    transparent 100%);
 }
-.mobile-menu.open { max-height: 420px; }
-.mobile-menu[hidden] { display: block; }
+
+/* Stessa ragione per il marchio: la parola è bianca e sul documento del banco
+   sparirebbe. L'alone è invisibile sullo scuro e la stacca sul chiaro. */
+.testata-marchio { text-shadow: 0 1px 14px rgba(4, 6, 13, 0.95), 0 0 3px rgba(4, 6, 13, 0.8); }
+
+/* ── l'innesco ────────────────────────────────────────────────
+   Due tratti di lunghezza diversa dentro un anello: al passaggio
+   si allineano, all'apertura si incrociano mentre tutto ruota. */
+.innesco { position: relative; display: grid; place-items: center; width: 42px; height: 42px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+/* Il disco dell'anello è la garanzia di leggibilità: sul fondo scuro della
+   pagina è invisibile (nero su nero), ma quando sotto passa il documento bianco
+   del banco compare e riporta il contrasto dei tratti oltre 3:1. Meglio questo
+   che rinforzare la velatura ovunque, che la farebbe tornare una barra. */
+.innesco-anello {
+  position: absolute; inset: 0; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(4, 6, 13, 0.55);
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
+}
+.innesco:hover .innesco-anello,
+.innesco:focus-visible .innesco-anello {
+  transform: scale(1.14);
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(24, 34, 58, 0.72);
+}
+.innesco-tratti { position: relative; width: 18px; height: 12px; }
+.innesco-tratti i {
+  position: absolute; left: 0; height: 1.5px; border-radius: 2px; background: #e8edf7;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.innesco-tratti i:nth-child(1) { top: 2px; width: 18px; }
+.innesco-tratti i:nth-child(2) { top: 8px; width: 11px; }
+.innesco:hover .innesco-tratti i:nth-child(2) { width: 18px; }
+
+.sipario-attivo .innesco { transform: rotate(90deg); }
+.sipario-attivo .innesco-tratti i { top: 5px; width: 18px; }
+.sipario-attivo .innesco-tratti i:nth-child(1) { transform: rotate(45deg); }
+.sipario-attivo .innesco-tratti i:nth-child(2) { transform: rotate(-45deg); }
+
+/* ── il sipario ───────────────────────────────────────────────
+   Un cerchio che si apre dal punto dell'innesco. Il raggio e il
+   centro li calcola il JS: --cx, --cy, --r. */
+.sipario {
+  position: fixed; inset: 0; z-index: 95;
+  clip-path: circle(0px at var(--cx, 100%) var(--cy, 2rem));
+  transition: clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: clip-path;
+}
+.sipario.aperto { clip-path: circle(var(--r, 150vmax) at var(--cx, 100%) var(--cy, 2rem)); }
+.sipario-fondo {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(90% 70% at 82% 8%, rgba(35, 108, 239, 0.22) 0%, transparent 60%),
+    radial-gradient(70% 60% at 15% 95%, rgba(22, 64, 156, 0.28) 0%, transparent 62%),
+    #04060d;
+}
+
+.sipario-voce { display: block; overflow: hidden; }
+.sipario-voce > em {
+  display: block; font-style: normal;
+  transform: translateY(115%);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sipario.aperto .sipario-voce > em { transform: none; }
+.sipario.aperto li:nth-child(1) .sipario-voce > em { transition-delay: 0.16s; }
+.sipario.aperto li:nth-child(2) .sipario-voce > em { transition-delay: 0.22s; }
+.sipario.aperto li:nth-child(3) .sipario-voce > em { transition-delay: 0.28s; }
+.sipario.aperto li:nth-child(4) .sipario-voce > em { transition-delay: 0.34s; }
+
+/* il filo che cresce sotto la voce */
+.sipario-filo { display: block; height: 1px; width: 0; background: rgba(96, 165, 250, 0.9);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.sipario-link:hover .sipario-filo,
+.sipario-link:focus-visible .sipario-filo { width: 100%; }
+.sipario-link:hover .sipario-num { color: #60a5fa; }
+.sipario-num { transition: color 0.3s ease; }
+
+.sipario-piede { opacity: 0; transform: translateY(14px);
+  transition: opacity 0.5s ease 0.42s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.42s; }
+.sipario.aperto .sipario-piede { opacity: 1; transform: none; }
+
+/* Con il sipario aperto la CTA della testata sparisce: è già ripetuta in
+   grande dentro il menu, e due bottoni identici a schermo sono rumore. */
+.sipario-attivo .testata-cta { opacity: 0; pointer-events: none; }
+.sipario-attivo .testata::before { opacity: 0; }
+.testata::before { transition: opacity 0.4s ease; }
+
+/* Il focus dei link del sipario: l'anello di sistema sarebbe un rettangolo a
+   tutta larghezza. Al suo posto un indicatore altrettanto inequivocabile —
+   il numero diventa una pastiglia blu piena e il filo raddoppia. */
+.sipario-link:focus-visible { outline: none; }
+.sipario-link:focus-visible .sipario-num {
+  color: #ffffff; background: #236CEF; border-radius: 5px;
+  padding: 3px 6px; margin: -3px -6px;
+}
+.sipario-link:focus-visible .sipario-filo { width: 100%; height: 2px; }
+
+html.sipario-bloccato, html.sipario-bloccato body { overflow: hidden; }
 
 /* ═══════════════════════════════════════════════════════════════
    LENIS
@@ -270,6 +378,10 @@ html.lenis, html.lenis body { height: auto; }
     transition-duration: 0.001ms !important;
   }
   .js-motion .reveal { opacity: 1 !important; transform: none !important; }
+  .sipario { clip-path: none !important; opacity: 0; transition: opacity 0.001ms; }
+  .sipario.aperto { opacity: 1; }
+  .sipario-voce > em, .sipario-piede { transform: none !important; opacity: 1 !important; }
+  .innesco, .innesco-anello, .innesco-tratti i { transition: none !important; }
   .pinned       { height: auto !important; }
   .pinned-stage { position: relative; height: auto; overflow: visible; padding: 6rem 0; }
 }
