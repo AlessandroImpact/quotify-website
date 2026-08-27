@@ -64,6 +64,27 @@ const CHIP_SEEDS = [
 const HERO_WINDOWS = [[0, 0.06], [0.24, 0.42], [0.46, 0.60], [0.62, 0.74], [0.80, 1.001]]
 const CHIP_NASCOSTI_MOBILE = new Set([2, 3])
 
+/**
+ * I colori si alternano girando ATTORNO AL CENTRO, non nell'ordine del DOM.
+ * I seed di posizione alternano già sinistra/destra (indici pari a sinistra,
+ * dispari a destra): un'alternanza per indice finisce esattamente sopra quella
+ * divisione e produce metà schermo di un colore e metà dell'altro.
+ * Va ricalcolata anche al resize: su telefono spariscono due chip e senza
+ * ricalcolo due dello stesso colore finirebbero adiacenti.
+ */
+function applicaColoriChip(chips, stretto) {
+  CHIP_SEEDS
+    .map(([sx, sy], i) => ({ i, angolo: Math.atan2(-sy, sx) }))
+    .filter((c) => !(stretto && CHIP_NASCOSTI_MOBILE.has(c.i)))
+    .sort((a, b) => a.angolo - b.angolo)
+    .forEach((c, n) => {
+      const pill = chips[c.i]?.querySelector('.chip')
+      if (!pill) return
+      pill.classList.toggle('chip-blu', n % 2 === 0)
+      pill.classList.toggle('chip-chiaro', n % 2 === 1)
+    })
+}
+
 function initHero() {
   const section = $('#top')
   if (!section) return
@@ -79,6 +100,7 @@ function initHero() {
   if (!card || !fit) return
 
   chips.forEach((c) => (c.style.willChange = 'transform, opacity'))
+  let strettoUltimo = null
   ;[card, dash, fit].forEach((e) => (e.style.willChange = 'transform'))
 
   // Adatta documento e dashboard alla banda libera fra il bordo alto
@@ -108,6 +130,11 @@ function initHero() {
     const p = progresso(section)
     const vw = window.innerWidth
     const vh = window.innerHeight
+
+    if ((vw < 720) !== strettoUltimo) {
+      strettoUltimo = vw < 720
+      applicaColoriChip(chips, strettoUltimo)
+    }
 
     if (halo) halo.style.opacity = 0.55 + 0.45 * Math.sin(p * Math.PI)
 

@@ -990,8 +990,19 @@ distanza, luce sul bordo) e si orientano verso il centro della scena
 (`rotateX`/`rotateY` derivati dalla posizione), così leggono come oggetti nello
 spazio invece che come etichette piatte.
 
-Sono **alternati**: chiaro con testo blu Quotify, blu con testo bianco, e così
-via. I gradienti di fondo sono volutamente strettissimi e il rilievo lo fanno le
+Sono **alternati girando attorno al centro**: chiaro con testo blu Quotify, blu
+con testo bianco, e così via lungo il cerchio.
+
+L'alternanza va calcolata sull'angolo, non sull'ordine nel DOM. I `CHIP_SEEDS`
+alternano già sinistra/destra — indici pari a sinistra, dispari a destra — quindi
+un'alternanza per indice cade esattamente sopra quella divisione e produce metà
+schermo di un colore e metà dell'altro. `applicaColoriChip()` ordina per
+`atan2(-sy, sx)` e assegna a giro.
+
+Va ricalcolata anche al cambio di larghezza: su telefono spariscono gli indici 2
+e 3, che nell'assegnazione a otto sono **entrambi blu**, e senza ricalcolo
+resterebbero due chiari adiacenti. L'HTML porta il default statico a otto chip
+per chi non ha JavaScript. I gradienti di fondo sono volutamente strettissimi e il rilievo lo fanno le
 quattro ombre: con stop più marcati il contrasto del testo scendeva sotto la
 soglia AA — misurato 4,22:1 sul chiaro (fondo `#eef3fb`) e 3,68:1 sul blu
 (stop alto `#3b82f6`). Ora 4,58 e 4,71, entrambi sopra 4,5.
