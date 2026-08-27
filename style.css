@@ -83,6 +83,85 @@
 .js-motion .reveal:nth-child(4) { transition-delay: 0.21s; }
 
 /* ═══════════════════════════════════════════════════════════════
+   I CHIP DELLA BUROCRAZIA
+
+   Pillole chiare e materiche: sul fondo scuro devono leggersi come
+   oggetti nello spazio, non come testo semitrasparente. Il rilievo
+   viene da tre ombre sovrapposte — contatto, distanza e luce sul
+   bordo superiore — non da un bordo disegnato.
+═══════════════════════════════════════════════════════════════ */
+.chip {
+  display: block;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  border-radius: 10px;
+  padding: 0.5rem 0.8125rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: #12203a;
+  background: linear-gradient(168deg, #ffffff 0%, #f3f6fb 58%, #e4ebf6 100%);
+  box-shadow:
+    0 1px 2px rgba(2, 6, 20, 0.4),
+    0 12px 30px -10px rgba(2, 6, 20, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(15, 32, 64, 0.09);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SUPERFICIE CONTINUA
+
+   Una sola superficie: il `body`. Ogni sezione ci appoggia sopra
+   soltanto velature che PARTONO E FINISCONO trasparenti, così un
+   bordo fra due sezioni non può esistere. Le sezioni pinned fanno
+   eccezione perché sono ritagliate da overflow:hidden, ma il loro
+   stop più esterno coincide con il colore del body.
+═══════════════════════════════════════════════════════════════ */
+/* Ogni velo vive in uno pseudo-elemento mascherato: la maschera lo porta a
+   trasparente PRIMA del bordo della sezione, così la giunzione fra due sezioni
+   cade sempre in zona completamente trasparente e i due lati mostrano lo stesso
+   identico colore del body. Senza la maschera, un radiale centrato sul bordo
+   (come quello del banco) ci arriva alla sua intensità massima e disegna una
+   riga: misurato, un salto di 69 livelli fra due pixel adiacenti. */
+.velo { position: relative; isolation: isolate; }
+.velo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+
+.velo-banco::before {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 16%, rgba(35, 108, 239, 0.22) 0%, transparent 64%),
+    linear-gradient(180deg, transparent 0%, rgba(120, 165, 255, 0.05) 45%, transparent 100%);
+}
+
+.velo-faq::before {
+  background: linear-gradient(180deg, transparent 0%, rgba(120, 165, 255, 0.03) 100%);
+}
+
+.velo-cta::before {
+  background:
+    radial-gradient(85% 78% at 50% calc(62% + var(--salita, 0px)),
+      rgba(22, 64, 156, 0.95) 0%,
+      rgba(10, 28, 70, 0.75) 42%,
+      rgba(7, 16, 38, 0.4) 66%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 82%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 82%, transparent 100%);
+}
+
+.velo-footer::before {
+  background: linear-gradient(180deg, rgba(120, 165, 255, 0.025) 0%, transparent 55%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 40%, #000 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 40%, #000 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    ANIMAZIONI CONTINUE
 ═══════════════════════════════════════════════════════════════ */
 @keyframes marquee {

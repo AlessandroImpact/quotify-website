@@ -981,3 +981,58 @@ allargava a 447px dentro un contenitore da 350 e la pagina scorreva in
 orizzontale. La griglia originale del design usava
 `minmax(min(100%, 340px), 1fr)`, che il minimo lo limitava — sostituendola con
 `1fr` si perdeva quella protezione senza che fosse evidente.
+
+### Chip della burocrazia: materici, e sei su telefono (2026-08-27)
+
+Nel design i chip sono `rgba(255,255,255,0.05)` con testo al 72%: su schermo si
+leggono appena. Ora sono pillole chiare con tre ombre sovrapposte (contatto,
+distanza, luce sul bordo) e si orientano verso il centro della scena
+(`rotateX`/`rotateY` derivati dalla posizione), così leggono come oggetti nello
+spazio invece che come etichette piatte.
+
+Su telefono ne restano **sei**: i due più vicini al centro verticale — indici 2 e
+3, `Coefficiente 78%` e `Soglia € 85.000` — cadevano sopra il titolo. Misurato a
+390×844: chip 2 a y=451 con l'h1 che finisce a 468, chip 3 a y=512 sul
+sottotitolo. Il respiro orizzontale è limitato a `0.42` e non oltre: la pillola
+più larga è ~114px e con `sx=0.82` il suo bordo uscirebbe dallo schermo sopra
+`0.44`.
+
+### Didascalie tolte dal rendering, non solo trasparenti
+
+A opacità zero un elemento resta un layer da comporre. Ora a `o <= 0.002` passa
+a `visibility: hidden`. Non sono riuscito a riprodurre il residuo segnalato
+nemmeno spingendo il contrasto di uno screenshot 8×, ma questo lo rende
+impossibile per costruzione invece che improbabile.
+
+### Superficie continua: nessuno stacco fra sezioni
+
+Richiesta: fra le sezioni non si deve vedere niente. Misurando i pixel ai bordi
+sono emersi tre difetti veri, non uno:
+
+1. Il ticker aveva `border-y` — due righe da 1px, per definizione uno stacco.
+2. `faq → cta` (`#050912` → `#04060d`) e `cta → footer` (`#04060d` → `#05080f`)
+   avevano colori terminali diversi.
+3. Il difetto peggiore, invisibile campionando ai margini: **i veli si
+   interrompevano di netto sul bordo della sezione**. Il velo del banco è
+   un'ellisse centrata sul bordo superiore, quindi al centro della pagina
+   arrivava alla giunzione alla massima intensità — salto di **69 livelli** fra
+   due pixel adiacenti. E l'alone della CTA era un elemento a `bottom:-20%`
+   tagliato dall'`overflow:hidden` della sezione: altri **26**.
+
+Architettura adottata: una sola superficie (`body`), e ogni sezione ci appoggia
+sopra soltanto un velo in uno **pseudo-elemento mascherato**, che la maschera
+porta a trasparente prima del bordo. Così la giunzione cade sempre in zona
+completamente trasparente. L'alone della CTA non è più un elemento ma il centro
+del radiale del velo, mosso dallo scroll tramite la variabile `--salita`: essendo
+dentro la maschera, non può produrre bordi.
+
+Salto massimo fra pixel adiacenti, misurato su 8 bordi × 6 posizioni orizzontali:
+
+| | salto peggiore |
+|---|---|
+| prima | 69 |
+| con i veli trasparenti | 26 |
+| con i veli mascherati | **2** |
+
+Due livelli sommati su R+G+B, cioè meno di uno per canale: sotto la soglia di
+percezione e dentro il rumore di quantizzazione a 8 bit.

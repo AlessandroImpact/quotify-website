@@ -62,6 +62,7 @@ const CHIP_SEEDS = [
   [ 0.20,  0.62, -140,  -8],
 ]
 const HERO_WINDOWS = [[0, 0.06], [0.24, 0.42], [0.46, 0.60], [0.62, 0.74], [0.80, 1.001]]
+const CHIP_NASCOSTI_MOBILE = new Set([2, 3])
 
 function initHero() {
   const section = $('#top')
@@ -112,13 +113,29 @@ function initHero() {
 
     const gather = ease(seg(p, 0, 0.2))
     const f = 1 - gather
+    const chipStretto = vw < 720
     chips.forEach((chip, i) => {
+      // Su telefono restano sei: i due più vicini al centro verticale (indici 2 e 3,
+      // "Coefficiente 78%" e "Soglia € 85.000") cadrebbero sopra il titolo.
+      if (chipStretto && CHIP_NASCOSTI_MOBILE.has(i)) { chip.style.opacity = '0'; chip.style.visibility = 'hidden'; return }
+      chip.style.visibility = 'visible'
       const [sx, sy, z, rot] = CHIP_SEEDS[i % CHIP_SEEDS.length]
       const pz = (1500 + Math.abs(z) * f) / 1500
-      chip.style.opacity = Math.max(0, 0.75 - gather * 0.9)
+      // Con sei chip c'è più aria: si spingono un po' più larghi per stare
+      // comunque lontani dal titolo.
+      // 0.42 e non di più: la pillola più larga è ~114px e con sx=0.82 il suo
+      // bordo uscirebbe dallo schermo oltre 0.44. Il respiro in più lo prende
+      // in verticale, dove su un telefono lo spazio c'è.
+      const spreadX = chipStretto ? 0.42 : 0.46
+      const spreadY = chipStretto ? 0.5 : 0.44
+      chip.style.opacity = Math.max(0, 0.95 - gather * 1.1)
+      // Ogni pillola si orienta verso il centro della scena: è questo che le fa
+      // leggere come oggetti nello spazio invece che come etichette piatte.
+      const rx = -sy * 15 * f
+      const ry = sx * 17 * f
       chip.style.transform =
-        `translate3d(${sx * vw * 0.46 * f * pz}px, ${sy * vh * 0.44 * f * pz}px, ${z * f}px)` +
-        ` rotate(${rot * f}deg) scale(${0.7 + 0.3 * f})`
+        `translate3d(${sx * vw * spreadX * f * pz}px, ${sy * vh * spreadY * f * pz}px, ${z * f}px)` +
+        ` rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rot * f}deg) scale(${0.7 + 0.3 * f})`
     })
 
     const inP = ease(seg(p, 0.02, 0.26))
@@ -170,6 +187,10 @@ function initHero() {
       const outF = i === HERO_WINDOWS.length - 1 ? 0 : seg(p, b - 0.035, b)
       const o = Math.max(0, Math.min(inF, 1 - outF))
       cap.style.opacity = o
+      // Tolta dal rendering, non solo trasparente: a opacità zero un elemento
+      // resta comunque un layer da comporre, e basta un arrotondamento a farlo
+      // riaffiorare sotto la grafica 3D.
+      cap.style.visibility = o <= 0.002 ? 'hidden' : 'visible'
       const base = cap.hasAttribute('data-stage') ? 'translateX(-50%) ' : ''
       cap.style.transform = `${base}translateY(${(1 - o) * 18}px)`
       cap.style.pointerEvents = o > 0.5 ? 'auto' : 'none'
@@ -577,13 +598,15 @@ function initMenu() {
 
 function initCtaGlow() {
   const section = $('[data-cta]')
-  const glow = $('[data-cta-glow]', section || document)
-  if (!section || !glow || ridotto) return
-  glow.style.willChange = 'transform'
+  if (!section || ridotto) return
+  // L'alone non è più un elemento: viveva a bottom:-20% e l'overflow:hidden
+  // della sezione lo tagliava di netto sul bordo inferiore, disegnando una riga
+  // (misurato: 26 livelli di salto fra due pixel adiacenti). Ora è il centro del
+  // radiale del velo, che è mascherato e quindi non può produrre bordi.
   onTick(() => {
     const rect = section.getBoundingClientRect()
     const p = clamp01(1 - rect.top / window.innerHeight)
-    glow.style.transform = `translateX(-50%) translateY(${-p * 90}px) scale(${0.85 + p * 0.3})`
+    section.style.setProperty('--salita', `${-p * 70}px`)
   })
 }
 
