@@ -990,6 +990,12 @@ distanza, luce sul bordo) e si orientano verso il centro della scena
 (`rotateX`/`rotateY` derivati dalla posizione), così leggono come oggetti nello
 spazio invece che come etichette piatte.
 
+Sono **alternati**: chiaro con testo blu Quotify, blu con testo bianco, e così
+via. I gradienti di fondo sono volutamente strettissimi e il rilievo lo fanno le
+quattro ombre: con stop più marcati il contrasto del testo scendeva sotto la
+soglia AA — misurato 4,22:1 sul chiaro (fondo `#eef3fb`) e 3,68:1 sul blu
+(stop alto `#3b82f6`). Ora 4,58 e 4,71, entrambi sopra 4,5.
+
 Su telefono ne restano **sei**: i due più vicini al centro verticale — indici 2 e
 3, `Coefficiente 78%` e `Soglia € 85.000` — cadevano sopra il titolo. Misurato a
 390×844: chip 2 a y=451 con l'h1 che finisce a 468, chip 3 a y=512 sul
