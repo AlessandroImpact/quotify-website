@@ -85,14 +85,20 @@ in Italia è vincibile. A livello globale non lo è, e non serve.
 Cosa la fa vincere, in ordine: essere indicizzati (in corso), segnali di identità
 dell'entità, e contenuto che renda ovvio quale Quotify sei.
 
-**Due lacune trovate il 27/08, entrambe mirate proprio a questo:**
+**Due lacune trovate il 27/08 e chiuse il 03/09:**
 
-1. **Manca `sameAs` nel JSON-LD Organization** (`scripts/seo/jsonld.mjs`, zero
-   occorrenze). Esistono una Pagina Facebook (ID `61593847438004`) e un profilo
-   Instagram (`quotifyita`) — vedi `social-kit/doc/`. Collegarli all'entità è il
-   segnale che dice a Google *quale* Quotify sei. Costo: dieci minuti.
-2. **Il sito mostra `info@alessandroterracciano.com`** mentre esiste già
-   `social@quotify.it`. Un contatto sul dominio è un segnale di identità più forte.
+1. ✅ **`sameAs` aggiunto** all'Organization: `instagram.com/quotifyita` e
+   `facebook.com/quotifyita`, entrambi verificati raggiungibili prima di
+   dichiararli (Facebook risponde 400 a curl per rilevamento bot — va controllato
+   col browser, la Pagina esiste ed è "Quotify | Milan").
+2. ✅ **Contatto spostato su `info@quotify.it`**, 19 occorrenze in 5 pagine più il
+   campo `email` dell'Organization e `llms.txt`.
+   ⚠️ **Da verificare**: che quella casella riceva davvero. Il dominio ha MX
+   (`mx.quotify.it`) ma nel social-kit era documentata `social@quotify.it`. Un
+   contatto che rimbalza è peggio di uno su un dominio di terzi.
+
+Resta da fare su questo fronte: nient'altro di tecnico. Da qui in poi la query di
+marca si vince facendosi indicizzare e avendo contenuto che renda ovvio chi sei.
 
 **"SEO forte e aggressiva."** Aggressiva in volume e velocità di contenuti veri: sì,
 ed è l'unica leva che sposti davvero l'ago. Aggressiva nel senso di link comprati,
