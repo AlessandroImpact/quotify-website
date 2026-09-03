@@ -48,8 +48,16 @@ const grafo = [
     url: `${O}/`,
     logo: { '@type': 'ImageObject', url: `${O}/pwa-512x512.png`, width: 512, height: 512 },
     vatID: 'IT10838411212',
+    email: 'info@quotify.it',
     address: { '@type': 'PostalAddress', addressLocality: 'Milano', addressCountry: 'IT' },
     areaServed: { '@type': 'Country', name: 'Italia' },
+    // sameAs lega il dominio ai profili ufficiali: è il segnale con cui Google
+    // capisce QUALE Quotify siamo, fra gli otto prodotti omonimi che esistono.
+    // Verificati raggiungibili il 2026-09-03 prima di dichiararli.
+    sameAs: [
+      'https://www.instagram.com/quotifyita',
+      'https://www.facebook.com/quotifyita',
+    ],
   },
   {
     '@type': 'WebSite',

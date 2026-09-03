@@ -65,6 +65,9 @@ ${faq.map((f) => `### ${f.d}\n\n${f.r}`).join('\n\n')}
 ## Contatti
 
 - Assistenza: ${O}/assistenza
+- Email: info@quotify.it
+- Instagram: https://www.instagram.com/quotifyita
+- Facebook: https://www.facebook.com/quotifyita
 - Sede: Milano, Italia — P.IVA IT10838411212
 `;
 
