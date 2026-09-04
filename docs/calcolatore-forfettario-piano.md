@@ -84,7 +84,13 @@ importare `lib/forfettario.mjs`.
 La firma editoriale del sito è `Organization`, non un commercialista (decisione del 03/09). La
 pagina dichiara, in HTML statico e non in un footer minuscolo: che è una stima, su quale anno
 d'imposta, con quali fonti, e **cosa non copre** — casse professionali private, IRAP, addizionali,
-redditi diversi dal forfettario, principio di cassa sui contributi (§6.4).
+redditi diversi dal forfettario, principio di cassa sui contributi (§6.4), e **la presunzione che
+non ci sia altra copertura previdenziale**.
+
+Quest'ultima è stata decisa il 2026-09-04. Chi è già pensionato o ha un lavoro dipendente versa
+alla Gestione Separata il 24% invece del 26,07%: esporre l'opzione è stato giudicato fuori
+perimetro per la v1. La conseguenza però non è opzionale — **a quegli utenti il calcolatore dà un
+numero più alto del dovuto**, e tacerlo sarebbe esattamente il silenzio che questa sezione vieta.
 
 Non è prudenza legale: su query YMYL dichiarare i limiti è ciò che distingue uno strumento
 affidabile da uno che promette certezze, ed è ciò che gli assistenti AI citano.
@@ -431,10 +437,20 @@ la verifica il proprietario**, e finché non l'ha fatto la pagina non esce.
 I contributi fissi sono dovuti lo stesso. La pagina mostra un numero positivo dove l'utente si
 aspetta zero, e **lo spiega accanto al risultato** invece di lasciarlo sembrare un bug.
 
-### 11.2 Oltre gli 85.000
-Fuori dal regime. Il calcolatore non estrapola: dichiara che oltre la soglia il calcolo non vale
-più e spiega la differenza fra il superamento (uscita dall'anno successivo) e la soglia superiore
-(uscita immediata). La soglia è marcata sullo slider, così ci si arriva vedendola.
+### 11.2 Le due soglie di uscita
+Non è una soglia sola, e confonderle su una pagina pubblica sarebbe un danno:
+
+| Ricavi | Effetto | `statoRegime` |
+|---|---|---|
+| fino a 85.000 € | si resta nel regime | `dentro` |
+| oltre 85.000 e fino a 100.000 € | si esce **dall'anno successivo** | `uscita-anno-successivo` |
+| oltre 100.000 € | il regime cessa **nell'anno stesso**, con IVA sulle operazioni successive | `uscita-immediata` |
+
+Entrambe si superano, non si raggiungono: a 85.000 € esatti si è ancora dentro. Fonte: art. 1
+comma 71 L. 190/2014, come modificato dalla L. 197/2022 (verificato il 2026-09-04).
+
+Il calcolatore non estrapola: `calcola()` restituisce quale dei tre casi è, e la pagina decide come
+dirlo. La soglia degli 85.000 è marcata sullo slider, così ci si arriva vedendola.
 
 ### 11.3 Cassa professionale privata
 Avvocati, ingegneri, architetti, medici non stanno in Gestione Separata. **v1 non li copre**, e lo
