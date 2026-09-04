@@ -3,10 +3,11 @@
 // Uso: node scripts/seo/gate.mjs [dist]
 // Esce con codice 1 se c'è almeno un finding `error`. SEO_GATE=off lo disattiva.
 
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { caricaPagine } from './lib.mjs';
 import { controllaPagina } from './rules-page.mjs';
 import { controllaSito } from './rules-site.mjs';
+import { controllaContenuti } from './rules-contenuti.mjs';
 
 const distDir = process.argv[2] || 'dist';
 const json = process.argv.includes('--json');
@@ -24,9 +25,33 @@ if (!existsSync(distDir)) {
 const { pagine, tuttiIFile } = caricaPagine(distDir);
 const ctx = { linkInterni: [], immaginiSocial: [] };
 
+// Le regole sui parametri fiscali guardano il SORGENTE, non dist/, e valgono
+// solo se la pagina che pubblica quei numeri è davvero nel build: finché il
+// calcolatore non esiste, non devono bloccare i deploy del resto del sito.
+function regoleContenuti() {
+  const pagina = pagine.find((p) => p.file.includes('calcolo-tasse-forfettario'));
+  if (!pagina) return [];
+
+  const fileParametri = 'data/parametri-fiscali-2026.json';
+  const fileCalcolo = 'lib/forfettario.mjs';
+  if (!existsSync(fileParametri)) {
+    return [{ level: 'error', rule: 'param-fiscale-assente', file: pagina.file, line: null,
+      message: `la pagina del calcolatore è nel build ma ${fileParametri} non esiste`,
+      hint: 'La pagina pubblica dei numeri fiscali: senza il file dei parametri non sono verificabili.' }];
+  }
+
+  return controllaContenuti({
+    parametri: JSON.parse(readFileSync(fileParametri, 'utf8')),
+    fileParametri,
+    sorgenteCalcolo: readFileSync(fileCalcolo, 'utf8'),
+    fileCalcolo,
+  });
+}
+
 const findings = [
   ...pagine.flatMap((p) => controllaPagina(p, ctx)),
   ...controllaSito(distDir, pagine, tuttiIFile, ctx),
+  ...regoleContenuti(),
 ];
 
 const errori = findings.filter((f) => f.level === 'error');

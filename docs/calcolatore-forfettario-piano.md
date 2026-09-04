@@ -398,8 +398,15 @@ Firma esistente: `esito(livello, id, file, riga, messaggio, suggerimento)` in
 proprio perimetro.
 
 Quindi le regole che guardano il sorgente vanno in un modulo nuovo,
-`scripts/seo/rules-contenuti.mjs`, invocato da `gate.mjs` accanto agli altri due
-(`scripts/seo/gate.mjs:27-30`). `rules-site.mjs` resta su `dist/`.
+`scripts/seo/rules-contenuti.mjs`, invocato da `gate.mjs` accanto agli altri due.
+`rules-site.mjs` resta su `dist/`.
+
+> **Deciso il 2026-09-04 implementandole**: si attivano **solo se la pagina del calcolatore è nel
+> build**. Altrimenti un parametro non ancora verificato bloccherebbe i deploy del *resto* del
+> sito, per una pagina che non è nemmeno pubblicata — un gate che punisce lavoro estraneo è un
+> gate che si finisce per spegnere (§2.2).
+>
+> Verificato mettendo una pagina finta in `dist/`: `exit 1` con la pagina, `exit 0` senza.
 
 | id | livello | dove | cosa impedisce |
 |---|---|---|---|
@@ -501,9 +508,10 @@ non si può dimenticare di eseguire.
 
 | # | Cosa | Verificabile da sola |
 |---|---|---|
-| 1 | **Verifica dei parametri fiscali** (§15) e riempimento del JSON | il file ha ogni `fonte` e `url` compilati |
-| 2 | `lib/forfettario.mjs` + test | `npm test` verde su tutti i casi di §12 |
-| 3 | `scripts/content/genera-calcolatore.mjs` + le regole di gate su parametri e sincronia | il gate fallisce se si tocca il JSON senza rigenerare |
+| 1 | ✅ Parametri raccolti con le fonti · ⏸️ **verifica umana ancora da fare** (§15) | il gate blocca finché `verificatoIl` è nullo |
+| 2 | ✅ `lib/forfettario.mjs` + test | 20 test verdi |
+| 3a | ✅ Regole di gate su parametri e provenienza | 10 test; collaudata con una pagina finta in `dist/` |
+| 3b | `scripts/content/genera-calcolatore.mjs` + regola di sincronia | serve un HTML con i marcatori: si fa con la Fase 4 |
 | 4 | La pagina HTML statica, senza JS: contenuto, tabella, FAQ, fonti | `npm run build` passa il gate; la pagina è utile con JS disattivato |
 | 5 | `calcolatore.js`: interattività e animazione | i valori cambiano, `prefers-reduced-motion` rispettato, nessuna violazione CSP |
 | 6 | Generalizzare `jsonld.mjs` (§9) | la home produce lo **stesso** JSON-LD di prima, byte per byte; il calcolatore ne produce uno suo |
