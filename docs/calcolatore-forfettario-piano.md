@@ -266,9 +266,15 @@ contributi = (fisso + primo × aliquota + secondo × aliquotaOltre) × (opzione3
 
 ### 6.3 Il regime al 5%
 
-La pagina **non decide l'ammissibilità**: l'utente sceglie, la pagina spiega le condizioni
-(nuova attività, nessuna attività assimilabile nei tre anni precedenti, primi cinque periodi
-d'imposta) e le dichiara come responsabilità di chi calcola.
+La pagina **non decide l'ammissibilità**: l'utente sceglie, la pagina spiega le condizioni e le
+dichiara come responsabilità di chi calcola.
+
+> ⚠️ **Corretto il 2026-09-04, prima del deploy.** Questo piano diceva "nessuna attività
+> assimilabile nei tre anni precedenti". È impreciso su due punti: la condizione riguarda
+> **qualunque** attività d'impresa, artistica o professionale, non solo una assimilabile; e le
+> condizioni sono **tre**, non una — si aggiungono il divieto di mera prosecuzione di un lavoro
+> dipendente o autonomo precedente, e il tetto ai ricavi se si prosegue l'attività di un terzo.
+> Art. 1, comma 65, L. 190/2014.
 
 ### 6.4 ⚠️ L'assunzione che va dichiarata: contributi dovuti ≠ contributi dedotti
 
