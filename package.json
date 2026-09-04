@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build && node scripts/seo/jsonld.mjs dist && node scripts/seo/llms.mjs dist && node scripts/seo/gate.mjs dist",
     "preview": "vite preview",
-    "seo": "node scripts/seo/gate.mjs dist"
+    "seo": "node scripts/seo/gate.mjs dist",
+    "test": "node --test"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",
