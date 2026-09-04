@@ -7,15 +7,16 @@
 
   "_daVerificare": [
     "ATECO 2025: i coefficienti restano agganciati alla classificazione ATECO 2007. Dal 1° aprile 2025 le imprese hanno codici ATECO 2025 e l'Allegato 4 non è stato riscritto; nel transitorio vale la corrispondenza con i vecchi codici. CONSEGUENZA PER IL CALCOLATORE: non far scegliere il codice ATECO, che non mappa sulla tabella. Far scegliere il gruppo per descrizione.",
-    "Soglia di uscita immediata dal regime (oltre 100.000 € di ricavi nell'anno): non verificata in questa sessione, quindi non presente qui.",
-    "Gestione Separata: l'aliquota ridotta al 24% per chi è già pensionato o ha altra copertura previdenziale obbligatoria non è ancora esposta dal calcolatore. È un caso frequente (freelance con un lavoro dipendente part-time)."
+    "Gestione Separata: DECISO il 2026-09-04 di NON esporre l'aliquota ridotta al 24% per chi è già pensionato o ha altra copertura previdenziale obbligatoria — fuori perimetro per la v1. Conseguenza obbligatoria: la pagina deve DICHIARARE che la stima presuppone nessuna altra copertura, altrimenti a quegli utenti dà un numero più alto del dovuto senza dirlo."
   ],
 
   "limiteRicavi": {
     "valore": 85000,
-    "fonte": "Soglia confermata per il 2026",
-    "url": "https://www.fiscoetasse.com/approfondimenti/15066-regime-forfettario-2026-tutte-le-regole.html",
-    "fonteConsultata": "secondaria"
+    "uscitaImmediata": 100000,
+    "fonte": "Art. 1, comma 71, L. 190/2014, come modificato dalla L. 197/2022 (Legge di Bilancio 2023)",
+    "url": "https://www.informazionefiscale.it/regime-forfettario-limite-100000-euro-tassazione",
+    "fonteConsultata": "secondaria",
+    "nota": "Due soglie con effetti diversi. Oltre 85.000 € e fino a 100.000 €: si esce dal regime dall'anno successivo. Oltre 100.000 €: il regime cessa nell'anno stesso, con IVA sulle operazioni successive al superamento. Entrambe si superano, non si raggiungono."
   },
 
   "impostaSostitutiva": {
