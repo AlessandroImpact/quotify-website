@@ -1,3 +1,36 @@
+/* ─── Inter, ospitato in proprio ──────────────────────────────────────────────
+   Prima veniva da Google Fonts. Il problema non era la privacy né il peso: era
+   la catena. Il browser doveva risolvere fonts.googleapis.com, scaricare un CSS,
+   scoprire lì dentro l'indirizzo su fonts.gstatic.com, risolvere ANCHE quello e
+   solo allora chiedere il font. Alla prima visita — cioè a chi arriva da Google
+   — il testo si ricomponeva a metà caricamento: CLS 0,128, sopra la soglia.
+
+   Ora il font parte dallo stesso dominio, in preload, e il sottoinsieme cirillico
+   e greco non si scaricano nemmeno: il mercato è solo italiano.
+   Inter è sotto SIL Open Font License 1.1, che consente di ospitarlo. */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-v20.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext-v20.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════

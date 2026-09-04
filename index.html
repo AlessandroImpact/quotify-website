@@ -31,9 +31,7 @@
 
     <link rel="icon" type="image/png" href="/pwa-192x192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/style.css" />
     <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
@@ -744,7 +742,7 @@
               <span class="text-xl leading-none text-foam/30 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-plus aria-hidden="true">+</span>
             </button>
             <div class="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" data-faq-panel style="height:0">
-              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Sì. Ogni funzionalità — dalla dicitura in fattura all'esenzione IVA, dal calcolo dell'imposta sostitutiva al monitoraggio della soglia degli 85.000 € — è calibrata su questo regime. Se sei in regime ordinario, Quotify non fa per te (ancora).</p>
+              <p class="text-[0.9375rem] text-foam/50 leading-[1.75] pr-2 pb-7 pl-[clamp(2.5rem,6vw,4rem)]" style="max-width:60ch" data-faq-a>Sì. Ogni funzionalità — dalla dicitura in fattura all'esenzione IVA, dal calcolo dell'imposta sostitutiva al monitoraggio della soglia degli 85.000 € — è calibrata su questo regime. Se sei in regime ordinario, Quotify non fa per te (ancora). Se vuoi vedere i numeri prima di iscriverti, il <a href="/calcolo-tasse-forfettario" class="underline underline-offset-4 hover:text-white transition-colors">calcolo delle tasse in regime forfettario</a> è pubblico e gratuito.</p>
             </div>
           </div>
 
