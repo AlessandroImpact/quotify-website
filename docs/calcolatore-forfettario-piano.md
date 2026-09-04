@@ -1,6 +1,6 @@
 # Calcolatore tasse forfettario — piano di implementazione
 
-> Stato: **proposta, non ancora implementata**. Data: 2026-09-03.
+> Stato: **implementata e in produzione dal 2026-09-04.** Piano scritto il 2026-09-03.
 > Origine: i primi dati veri di Search Console (`docs/console-sito-piano.md` §3.2) — 3 impressioni
 > in otto giorni, tutte sulla home, tutte riconducibili alla query di marca. **Domanda non di marca:
 > zero.** Non è un problema di posizionamento: non esiste una pagina per nessuna delle query
@@ -537,7 +537,7 @@ non si può dimenticare di eseguire.
 | 5 | ✅ `calcolatore.js`, 10,5 KB | verificato in Chrome: valori uguali a quelli da riga di comando, stato ricostruito dal link, nessun errore in console |
 | 6 | ✅ Generalizzato `jsonld.mjs` (§9) | home identica byte per byte (`b7d372fcc1107805`, 3311 caratteri); calcolatore: Organization, WebApplication, FAQPage, BreadcrumbList |
 | 7 | ✅ Regole sui meta di misurazione | 7 test; collaudate togliendo i meta dalla pagina in `dist/` |
-| 8 | Deploy e richiesta di indicizzazione in Search Console | la pagina è raggiungibile e Controllo URL dice "indicizzazione consentita" |
+| 8 | ✅ Deploy del 2026-09-04 · ⏸️ richiesta di indicizzazione da fare a mano | verificato in produzione: vedi sotto |
 
 La Fase 1 è bloccante e non è codice: senza parametri verificati, tutto il resto calcola numeri
 inventati.
@@ -618,3 +618,34 @@ scaglione di aliquota (§6.2), che il piano non prevedeva e che dentro il forfet
 | `controllaSito` legge solo `dist/` | `scripts/seo/rules-site.mjs:11` |
 | Catena del build | `package.json` → `scripts.build` |
 | Perché questa pagina esiste | `docs/console-sito-piano.md` §3.2 |
+
+
+---
+
+## 16. Verifica in produzione — 2026-09-04
+
+Deploy su Cloudflare Pages, `--branch=main`. Verificato interrogando
+`https://quotify.it/calcolo-tasse-forfettario` con lo user agent di Googlebot.
+
+| Controllo | Esito |
+|---|---|
+| Stato HTTP | `200` |
+| `Cache-Control` | `public, max-age=0, s-maxage=300, must-revalidate` — una sola regola, come prescrive `public/_headers` |
+| Importi nell'HTML **servito** | `20.100,00` · `5.240,07` · `22.530,94` — il contenuto c'è prima del JavaScript |
+| Tabella dei coefficienti | presente |
+| JSON-LD | 1 blocco: `Organization`, `WebApplication`, `FAQPage`, `BreadcrumbList` |
+| Meta di misurazione | `query-obiettivo="calcolo tasse forfettario"`, `verifica-fiscale="verificata"` |
+| Bundle | `/assets/calcolatore-9G1T-5AG.js` → `200`, 10.572 byte |
+| Presenza in `sitemap.xml` | sì |
+| Link dalla home | sì — nessuna pagina orfana |
+| `llms.txt` | la pagina compare, generata dal build |
+| **CSP in produzione** | nessuna violazione, **zero messaggi in console** |
+| Calcolo interattivo | 60.000 € al 78% → 42.609,35 € netti, coincide con il calcolo a mano |
+
+### Cosa resta, ed è manuale
+
+**Search Console → Controllo URL** su `https://quotify.it/calcolo-tasse-forfettario`, poi
+**Richiedi indicizzazione**. Non è automatizzabile senza le API della Fase 5 del piano console.
+
+Da lì in poi la pagina entra nella misurazione: `quotify:query-obiettivo` dice per cosa è stata
+scritta, `quotify:pubblicato` da quando. Le due colonne che oggi mancano.
