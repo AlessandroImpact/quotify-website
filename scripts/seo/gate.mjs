@@ -40,11 +40,14 @@ function regoleContenuti() {
       hint: 'La pagina pubblica dei numeri fiscali: senza il file dei parametri non sono verificabili.' }];
   }
 
+  const filePagina = 'calcolo-tasse-forfettario.html';
   return controllaContenuti({
     parametri: JSON.parse(readFileSync(fileParametri, 'utf8')),
     fileParametri,
     sorgenteCalcolo: readFileSync(fileCalcolo, 'utf8'),
     fileCalcolo,
+    sorgentePagina: existsSync(filePagina) ? readFileSync(filePagina, 'utf8') : undefined,
+    filePagina,
   });
 }
 

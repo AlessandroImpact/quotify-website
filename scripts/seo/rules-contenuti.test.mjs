@@ -95,7 +95,7 @@ test('i numeri dei commenti non contano come valori cablati', () => {
   assert.deepEqual(regole(controlla(sani(), sorgente)), []);
 });
 
-test('il file dei parametri veri: l\'unico rilievo è la verifica umana', () => {
+test('il file dei parametri veri passa tutte le regole', () => {
   const veri = JSON.parse(readFileSync('data/parametri-fiscali-2026.json', 'utf8'));
   const f = controllaContenuti({
     parametri: veri,
@@ -105,5 +105,47 @@ test('il file dei parametri veri: l\'unico rilievo è la verifica umana', () => 
     oggi: OGGI,
   });
 
-  assert.deepEqual(regole(f), ['param-fiscale-non-verificato']);
+  // Verificato da una persona il 2026-09-04: da qui in poi questo test è la
+  // guardia che il file non regredisca — fonte tolta, verifica azzerata, o un
+  // valore fiscale rientrato nel codice.
+  assert.deepEqual(regole(f), []);
+});
+
+// ─── Sincronia fra il JSON e l'HTML generato ─────────────────────────────────
+const paginaVera = () => readFileSync('calcolo-tasse-forfettario.html', 'utf8');
+
+test('la pagina vera è allineata ai parametri veri', () => {
+  const veri = JSON.parse(readFileSync('data/parametri-fiscali-2026.json', 'utf8'));
+  const f = controllaContenuti({
+    parametri: veri,
+    fileParametri: 'data/parametri-fiscali-2026.json',
+    sorgenteCalcolo: readFileSync('lib/forfettario.mjs', 'utf8'),
+    fileCalcolo: 'lib/forfettario.mjs',
+    sorgentePagina: paginaVera(),
+    filePagina: 'calcolo-tasse-forfettario.html',
+    oggi: OGGI,
+  });
+
+  assert.deepEqual(regole(f), []);
+});
+
+test('se i parametri cambiano e la pagina non viene rigenerata, il build si ferma', () => {
+  const veri = JSON.parse(readFileSync('data/parametri-fiscali-2026.json', 'utf8'));
+  // Un coefficiente cambia nel JSON ma la pagina resta quella di prima: è
+  // esattamente il caso in cui la tabella pubblicata direbbe una cosa e il
+  // calcolatore un'altra.
+  veri.coefficienti.gruppi[0].coefficiente = 0.54;
+
+  const f = controllaContenuti({
+    parametri: veri,
+    fileParametri: 'data/parametri-fiscali-2026.json',
+    sorgenteCalcolo: readFileSync('lib/forfettario.mjs', 'utf8'),
+    fileCalcolo: 'lib/forfettario.mjs',
+    sorgentePagina: paginaVera(),
+    filePagina: 'calcolo-tasse-forfettario.html',
+    oggi: OGGI,
+  });
+
+  assert.deepEqual(regole(f), ['calcolatore-non-sincronizzato']);
+  assert.equal(f[0].level, 'error');
 });

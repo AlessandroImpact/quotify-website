@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Quanto paghi di tasse e contributi in regime forfettario nel 2026: coefficiente, INPS e imposta sostitutiva, con un esempio svolto passo per passo." />
+    <title>Calcolo tasse forfettario 2026 — quanto resta davvero</title>
+
+    <link rel="canonical" href="https://quotify.it/calcolo-tasse-forfettario" />
+
+    <!-- Misurazione: per cosa è stata scritta questa pagina e da quando.
+         Verificate dal gate di build — docs/calcolatore-forfettario-piano.md §9. -->
+    <meta name="quotify:query-obiettivo" content="calcolo tasse forfettario" />
+    <meta name="quotify:query-secondarie" content="calcolatore regime forfettario, quanto si paga di tasse in forfettario, coefficiente di redditività forfettario" />
+    <meta name="quotify:pubblicato" content="2026-09-04" />
+    <meta name="quotify:revisionato" content="2026-09-04" />
+    <meta name="quotify:verifica-fiscale" content="verificata" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://quotify.it/calcolo-tasse-forfettario" />
+    <meta property="og:title" content="Calcolo tasse forfettario 2026 — quanto resta davvero" />
+    <meta property="og:description" content="Coefficiente di redditività, INPS e imposta sostitutiva: quanto resta di quello che fatturi, con un esempio svolto." />
+    <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Calcolo tasse forfettario 2026 — quanto resta davvero" />
+    <meta name="twitter:description" content="Coefficiente di redditività, INPS e imposta sostitutiva: quanto resta di quello che fatturi, con un esempio svolto." />
+    <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  </head>
+  <body class="font-sans antialiased bg-white text-slate-900" data-jsonld="calcolatore">
+
+    <!-- Navbar -->
+    <header class="bg-primary-900 text-white">
+      <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="/" class="flex items-center gap-2 font-bold text-xl">
+          <img src="/pwa-192x192.png" alt="" class="w-8 h-8 rounded-lg" />
+          Quotify
+        </a>
+        <a href="/" class="text-white/80 hover:text-white text-sm font-medium transition-colors">&larr; Torna alla Home</a>
+      </nav>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        Calcolo tasse e contributi in regime forfettario
+      </h1>
+      <p class="text-lg text-slate-600 mb-10">
+        In forfettario non paghi le tasse su quello che fatturi, ma su una percentuale del
+        fatturato stabilita per legge in base all’attività. Qui sotto trovi il calcolo completo,
+        passaggio per passaggio, con i valori in vigore per il <strong>2026</strong>.
+      </p>
+
+      <!-- ─── Esempio svolto ─────────────────────────────────────────────── -->
+      <section aria-labelledby="esempio" class="mb-14">
+        <h2 id="esempio" class="text-2xl font-bold text-slate-900 mb-2">
+          Un esempio, per capire subito l’ordine di grandezza
+        </h2>
+        <p class="text-slate-600 mb-6">
+          Uno sviluppatore software iscritto alla Gestione Separata INPS che nel 2026 incassa
+          30.000&nbsp;€. Il suo coefficiente di redditività è il 67%.
+        </p>
+
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-7">
+          <!-- generato:esempio:inizio -->
+      <table class="w-full border-collapse">
+        <caption class="sr-only">Esempio di calcolo per uno sviluppatore software</caption>
+        <tbody class="divide-y divide-slate-200">
+        <tr class="font-semibold text-slate-900">
+          <th scope="row" class="py-3 pr-4 text-left font-normal">Fatturato incassato nell’anno
+            <span class="block text-sm text-slate-500">quello che i clienti ti hanno effettivamente pagato</span></th>
+          <td class="py-3 text-right tabular-nums whitespace-nowrap">30.000,00&nbsp;€</td>
+        </tr>
+        <tr class="text-slate-700">
+          <th scope="row" class="py-3 pr-4 text-left font-normal">Reddito imponibile lordo
+            <span class="block text-sm text-slate-500">fatturato × 67% di coefficiente di redditività</span></th>
+          <td class="py-3 text-right tabular-nums whitespace-nowrap">20.100,00&nbsp;€</td>
+        </tr>
+        <tr class="text-slate-700">
+          <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi INPS
+            <span class="block text-sm text-slate-500">Gestione Separata, 26,07% sul reddito lordo</span></th>
+          <td class="py-3 text-right tabular-nums whitespace-nowrap">− 5.240,07&nbsp;€</td>
+        </tr>
+        <tr class="text-slate-700">
+          <th scope="row" class="py-3 pr-4 text-left font-normal">Base imponibile
+            <span class="block text-sm text-slate-500">i contributi versati si deducono dal reddito</span></th>
+          <td class="py-3 text-right tabular-nums whitespace-nowrap">14.859,93&nbsp;€</td>
+        </tr>
+        <tr class="text-slate-700">
+          <th scope="row" class="py-3 pr-4 text-left font-normal">Imposta sostitutiva
+            <span class="block text-sm text-slate-500">15% sulla base imponibile</span></th>
+          <td class="py-3 text-right tabular-nums whitespace-nowrap">− 2.228,99&nbsp;€</td>
+        </tr>
+        <tr class="font-semibold text-slate-900">
+          <th scope="row" class="py-3 pr-4 text-left font-normal">Restano
+            <span class="block text-sm text-slate-500">il 75,1% di quello che hai fatturato</span></th>
+          <td class="py-3 text-right tabular-nums whitespace-nowrap">22.530,94&nbsp;€</td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- generato:esempio:fine -->
+        </div>
+
+        <p class="mt-4 text-sm text-slate-500">
+          Cambiando attività, cassa previdenziale o fatturato, cambiano tutte le righe: il
+          coefficiente pesa spesso più dell’aliquota.
+        </p>
+      </section>
+
+      <!-- ─── Come si calcola ────────────────────────────────────────────── -->
+      <section aria-labelledby="come" class="mb-14">
+        <h2 id="come" class="text-2xl font-bold text-slate-900 mb-4">Come si calcola, passo per passo</h2>
+
+        <ol class="space-y-5 text-slate-700">
+          <li>
+            <strong class="text-slate-900">1. Si parte dall’incassato, non dal fatturato.</strong>
+            Vale il principio di cassa: conta quello che i clienti ti hanno effettivamente pagato
+            nell’anno, non quello che hai fatturato. Una fattura di dicembre pagata a gennaio
+            entra nell’anno dopo.
+          </li>
+          <li>
+            <strong class="text-slate-900">2. Si applica il coefficiente di redditività.</strong>
+            È una percentuale fissa per legge, diversa per gruppo di attività: sostituisce la
+            deduzione dei costi reali. Se il tuo coefficiente è il 67%, lo Stato presume che il
+            33% del tuo incassato siano stati costi, senza chiederti alcuna prova — e senza
+            lasciarti dedurre nulla in più, nemmeno se hai speso di più.
+          </li>
+          <li>
+            <strong class="text-slate-900">3. Si tolgono i contributi previdenziali versati.</strong>
+            I contributi INPS pagati nell’anno si deducono dal reddito, abbassando la base su cui
+            si calcola l’imposta.
+          </li>
+          <li>
+            <strong class="text-slate-900">4. Si applica l’imposta sostitutiva.</strong>
+            Il 15%, oppure il 5% per i primi cinque anni se l’attività è nuova. Si chiama
+            sostitutiva perché prende il posto di IRPEF, addizionali regionali e comunali.
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── Tabella dei coefficienti ───────────────────────────────────── -->
+      <section aria-labelledby="coefficienti" class="mb-14">
+        <h2 id="coefficienti" class="text-2xl font-bold text-slate-900 mb-2">
+          I coefficienti di redditività, per gruppo di attività
+        </h2>
+        <p class="text-slate-600 mb-6">
+          Sono nove gruppi e sei valori possibili. Non c’è un coefficiente per ogni codice ATECO:
+          ogni codice ricade in uno di questi gruppi.
+        </p>
+
+        <!-- generato:ateco:inizio -->
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-left">
+          <thead>
+            <tr class="border-b-2 border-slate-300 text-sm uppercase tracking-wide text-slate-500">
+              <th scope="col" class="py-2 pr-4 font-medium">Gruppo di attività</th>
+              <th scope="col" class="py-2 pr-4 font-medium">Codici ATECO 2007</th>
+              <th scope="col" class="py-2 text-right font-medium">Coefficiente</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Industrie alimentari e delle bevande</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">(10-11)</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">40%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Commercio all'ingrosso e al dettaglio</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">45 – (da 46.2 a 46.9) – (da 47.1 a 47.7) – 47.9</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">40%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Commercio ambulante di prodotti alimentari e bevande</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">47.81</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">40%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Commercio ambulante di altri prodotti</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">47.82 – 47.89</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">54%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Costruzioni e attività immobiliari</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">(41-42-43) – (68)</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">86%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Intermediari del commercio</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">46.1</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">62%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Attività dei servizi di alloggio e di ristorazione</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">(55-56)</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">40%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Attività professionali, scientifiche, tecniche, sanitarie, di istruzione, servizi finanziari e assicurativi</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">(64-65-66) – (69-70-71-72-73-74-75) – (85) – (86-87-88)</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">78%</td>
+          </tr>
+          <tr class="align-top">
+            <td class="py-3 pr-4 text-slate-800">Altre attività economiche</td>
+            <td class="py-3 pr-4 text-slate-500 text-sm font-mono">(01-02-03) – (05-06-07-08-09) – (12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33) – (35) – (36-37-38-39) – (49-50-51-52-53) – (58-59-60-61-62-63) – (77-78-79-80-81-82) – (84) – (90-91-92-93) – (94-95-96) – (97-98) – (99)</td>
+            <td class="py-3 text-right font-semibold text-slate-900 tabular-nums">67%</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-slate-500">
+        Fonte: <a href="https://www.agenziaentrate.gov.it/portale/documents/20143/241208/allegato+4.pdf/d69be7fc-b18a-3c73-bd2e-b0f3c1970218" class="underline hover:text-slate-700"
+        rel="noopener">Allegato 2 (art. 1, comma 10) della L. 145/2018, che sostituisce l'Allegato 4 (art. 1, comma 64) della L. 190/2014 — Gazzetta Ufficiale, Supplemento ordinario n. 62/L del 31/12/2018, pag. 214</a>.
+      </p>
+      <!-- generato:ateco:fine -->
+      </section>
+
+      <!-- ─── ATECO 2025 ─────────────────────────────────────────────────── -->
+      <section aria-labelledby="ateco2025" class="mb-14">
+        <h2 id="ateco2025" class="text-2xl font-bold text-slate-900 mb-4">
+          «Il mio codice ATECO non è in tabella»
+        </h2>
+        <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5 sm:p-6 text-slate-700 space-y-3">
+          <p>
+            Succede, ed è normale. Dal 1° aprile 2025 è operativa la classificazione
+            <strong>ATECO 2025</strong>, che ha rinumerato molte attività. La tabella dei
+            coefficienti, invece, è ancora quella agganciata ai codici <strong>ATECO 2007</strong>:
+            non è stata riscritta.
+          </p>
+          <p>
+            Quindi il codice che leggi sulla tua visura camerale oggi può non comparire nella
+            colonna qui sopra. Nel periodo transitorio si continua ad applicare la corrispondenza
+            con la vecchia classificazione: quello che conta è <strong>in quale gruppo di attività
+            rientri</strong>, non il numero.
+          </p>
+          <p class="text-sm text-slate-600">
+            Se hai un dubbio su quale gruppo sia il tuo, è una domanda da commercialista: da come
+            si risponde dipende quanto paghi.
+          </p>
+        </div>
+      </section>
+
+      <!-- ─── Limiti ─────────────────────────────────────────────────────── -->
+      <section aria-labelledby="limiti" class="mb-14">
+        <h2 id="limiti" class="text-2xl font-bold text-slate-900 mb-4">Cosa questo calcolo non copre</h2>
+        <p class="text-slate-600 mb-5">
+          È una stima, non una dichiarazione dei redditi. Ecco dove si ferma, detto prima e non
+          dopo:
+        </p>
+        <ul class="space-y-4 text-slate-700 list-disc pl-5">
+          <li>
+            <strong class="text-slate-900">Presume che tu non abbia altra copertura previdenziale.</strong>
+            Chi è già pensionato o ha un lavoro dipendente versa alla Gestione Separata un’aliquota
+            più bassa: per quelle situazioni il numero qui sopra è più alto del dovuto.
+          </li>
+          <li>
+            <strong class="text-slate-900">Non copre le casse professionali private.</strong>
+            Avvocati, ingegneri, architetti, medici e altre professioni ordinistiche versano alla
+            propria cassa, con regole sue.
+          </li>
+          <li>
+            <strong class="text-slate-900">Assume che i contributi dovuti coincidano con quelli versati.</strong>
+            Si deducono i contributi <em>pagati</em> nell’anno. Al primo anno di attività hai
+            versato poco o nulla, quindi hai poco o nulla da dedurre: l’imposta reale sarà
+            <strong>più alta</strong> di questa stima. A regime la differenza si riassorbe.
+          </li>
+          <li>
+            <strong class="text-slate-900">Non considera altri redditi.</strong>
+            Se oltre alla partita IVA hai redditi da lavoro dipendente, affitti o altro, il quadro
+            complessivo cambia.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ─── Domande frequenti ──────────────────────────────────────────── -->
+      <section aria-labelledby="faq" class="mb-14">
+        <h2 id="faq" class="text-2xl font-bold text-slate-900 mb-6">Domande frequenti</h2>
+
+        <div class="space-y-6">
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">
+              I contributi INPS si pagano anche se non guadagno niente?
+            </h3>
+            <p data-faq-a class="text-slate-700">
+              Dipende dalla cassa. Chi è iscritto alla Gestione Separata paga in proporzione al
+              reddito: a reddito zero non versa contributi. Artigiani e commercianti invece devono
+              i contributi fissi sul reddito minimale anche se non hanno incassato nulla, e sono
+              dovuti per intero.
+            </p>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">
+              Cosa succede se supero gli 85.000&nbsp;€?
+            </h3>
+            <p data-faq-a class="text-slate-700">
+              Ci sono due soglie con effetti diversi. Se superi 85.000&nbsp;€ ma resti entro
+              100.000&nbsp;€, esci dal regime forfettario a partire dall’anno successivo. Se superi
+              100.000&nbsp;€, il regime cessa già nell’anno in corso e devi applicare l’IVA sulle
+              operazioni successive al superamento.
+            </p>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">
+              L’aliquota al 5% quanto dura?
+            </h3>
+            <p data-faq-a class="text-slate-700">
+              Cinque anni, e vale solo per chi avvia una nuova attività senza averne esercitata una
+              analoga nei tre anni precedenti. Dal sesto anno si passa al 15%, anche se il
+              fatturato non è cambiato: è la variazione che sorprende più spesso.
+            </p>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">
+              Perché il coefficiente conta più dell’aliquota?
+            </h3>
+            <p data-faq-a class="text-slate-700">
+              Perché si applica prima, su tutto l’incassato. A parità di fatturato, passare da un
+              coefficiente del 67% a uno dell’86% aumenta la base imponibile di quasi un terzo, e
+              quell’aumento si trascina su contributi e imposta. L’aliquota agisce solo sull’ultimo
+              passaggio.
+            </p>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">
+              In forfettario si paga l’IVA?
+            </h3>
+            <p data-faq-a class="text-slate-700">
+              No. In regime forfettario non si addebita l’IVA in fattura e non la si detrae sugli
+              acquisti. L’imposta sostitutiva prende inoltre il posto di IRPEF e delle addizionali
+              regionali e comunali.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Fonti ──────────────────────────────────────────────────────── -->
+      <section aria-labelledby="fonti" class="mb-14 text-sm text-slate-600">
+        <h2 id="fonti" class="text-base font-semibold text-slate-900 mb-3">Fonti e aggiornamento</h2>
+        <p class="mb-2">
+          Calcolo riferito all’anno d’imposta <strong>2026</strong>. Valori verificati il
+          <strong>4 settembre 2026</strong>.
+        </p>
+        <ul class="space-y-1 list-disc pl-5">
+          <li>Coefficienti di redditività: Allegato 4 alla L. 190/2014, nel testo sostituito dall’Allegato 2 alla L. 145/2018.</li>
+          <li>Soglie del regime: art. 1, comma 71, L. 190/2014, come modificato dalla L. 197/2022.</li>
+          <li>Contributi Gestione Separata: circolare INPS 3 febbraio 2026, n. 8.</li>
+          <li>Contributi artigiani e commercianti: circolare INPS 9 febbraio 2026, n. 14.</li>
+        </ul>
+        <p class="mt-3">
+          Questa pagina è una stima informativa e non sostituisce il parere di un commercialista.
+        </p>
+      </section>
+
+      <!-- ─── CTA ────────────────────────────────────────────────────────── -->
+      <section aria-labelledby="cta" class="rounded-2xl bg-primary-900 text-white p-6 sm:p-8">
+        <h2 id="cta" class="text-xl sm:text-2xl font-bold mb-3">
+          Sapere quanto devi è la parte facile
+        </h2>
+        <p class="text-white/80 mb-6">
+          La parte difficile è arrivarci con i soldi da parte, le fatture in ordine e le scadenze
+          rispettate. Quotify emette le fatture elettroniche, le trasmette allo SdI, tiene il
+          registro e ti dice quanto accantonare ogni mese.
+        </p>
+        <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=calcolatore&utm_campaign=forfettario"
+           class="inline-flex items-center justify-center rounded-xl bg-white text-primary-900 font-semibold px-6 py-3 hover:bg-primary-50 transition-colors">
+          Prova Quotify gratis
+        </a>
+      </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+        <p>&copy; 2026 Quotify — Alessandro Terracciano. P.IVA 10838411212</p>
+        <div class="flex gap-6">
+          <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="/cookie" class="hover:text-white transition-colors">Cookie Policy</a>
+          <a href="/termini" class="hover:text-white transition-colors">Termini di Servizio</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

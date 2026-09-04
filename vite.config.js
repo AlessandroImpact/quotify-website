@@ -13,6 +13,7 @@ export default defineConfig({
         cookie: resolve(__dirname, 'cookie.html'),
         termini: resolve(__dirname, 'termini.html'),
         assistenza: resolve(__dirname, 'assistenza.html'),
+        calcolatore: resolve(__dirname, 'calcolo-tasse-forfettario.html'),
       },
     },
   },

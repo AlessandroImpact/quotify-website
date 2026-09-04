@@ -4,6 +4,7 @@
 // Vedi docs/calcolatore-forfettario-piano.md §10.
 
 import { esito } from './lib.mjs';
+import { generaBlocchi } from '../content/genera-calcolatore.mjs';
 
 const E = 'error';
 const W = 'warn';
@@ -51,9 +52,34 @@ function controllaFonti(nodo, percorso, ereditata, file, f) {
 }
 
 export function controllaContenuti({
-  parametri, fileParametri, sorgenteCalcolo, fileCalcolo, oggi = new Date(),
+  parametri, fileParametri, sorgenteCalcolo, fileCalcolo,
+  sorgentePagina, filePagina, oggi = new Date(),
 }) {
   const f = [];
+
+  // ── l'HTML generato dice quello che dice il JSON ──────────────────────────
+  // La tabella e l'esempio sono committati per far funzionare `npm run dev`:
+  // il prezzo è che possono restare indietro. Qui si rigenera in memoria e si
+  // confronta, così la divergenza è impossibile invece che improbabile.
+  if (sorgentePagina !== undefined) {
+    let atteso;
+    try {
+      atteso = generaBlocchi(sorgentePagina, parametri);
+    } catch (e) {
+      f.push(
+        esito(E, 'calcolatore-non-generabile', filePagina, null,
+          `impossibile rigenerare i blocchi: ${e.message}`,
+          'I marcatori <!-- generato:…:inizio --> e :fine devono esistere entrambi e in ordine.'),
+      );
+    }
+    if (atteso !== undefined && atteso !== sorgentePagina) {
+      f.push(
+        esito(E, 'calcolatore-non-sincronizzato', filePagina, null,
+          `${filePagina} non è allineato a ${fileParametri}`,
+          'Eseguire "npm run gen": la pagina pubblicherebbe numeri diversi da quelli che il calcolatore usa.'),
+      );
+    }
+  }
 
   // ── verifica umana ────────────────────────────────────────────────────────
   if (!parametri.verificatoIl || !parametri.verificatoDa) {

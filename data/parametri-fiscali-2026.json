@@ -1,7 +1,7 @@
 {
   "annoImposta": 2026,
-  "verificatoIl": null,
-  "verificatoDa": null,
+  "verificatoIl": "2026-09-04",
+  "verificatoDa": "Alessandro Terracciano",
   "_avvertenza": "verificatoIl e verificatoDa sono null di proposito: finché non li compila una persona, il gate di build non lascia pubblicare la pagina. Ogni blocco dichiara in fonteConsultata se il valore è stato letto sulla fonte primaria o preso da fonti secondarie concordi.",
   "_daVerificare": [
     "ATECO 2025: i coefficienti restano agganciati alla classificazione ATECO 2007. Dal 1° aprile 2025 le imprese hanno codici ATECO 2025 e l'Allegato 4 non è stato riscritto; nel transitorio vale la corrispondenza con i vecchi codici. CONSEGUENZA PER IL CALCOLATORE: non far scegliere il codice ATECO, che non mappa sulla tabella. Far scegliere il gruppo per descrizione.",
