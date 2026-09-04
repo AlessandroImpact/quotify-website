@@ -14,6 +14,7 @@ export default defineConfig({
         termini: resolve(__dirname, 'termini.html'),
         assistenza: resolve(__dirname, 'assistenza.html'),
         calcolatore: resolve(__dirname, 'calcolo-tasse-forfettario.html'),
+        ateco: resolve(__dirname, 'ateco-2025-forfettario.html'),
       },
     },
   },

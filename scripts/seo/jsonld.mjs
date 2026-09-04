@@ -165,7 +165,64 @@ function grafoCalcolatore(root) {
   ];
 }
 
-const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore };
+function grafoArticolo(root) {
+  const faq = estraiFaq(root);
+  const meta = (nome) => root.querySelector(`meta[name="${nome}"]`)?.getAttribute('content')?.trim();
+  const url = root.querySelector('link[rel="canonical"]')?.getAttribute('href');
+
+  if (!url) fatale('articolo: manca il canonical, da cui si ricava @id');
+  const pubblicato = meta('quotify:pubblicato');
+  const revisionato = meta('quotify:revisionato');
+  if (!pubblicato || !revisionato) fatale('articolo: mancano quotify:pubblicato o quotify:revisionato');
+
+  const titolo = pulisci(root.querySelector('h1')?.structuredText) ||
+    pulisci(root.querySelector('title')?.structuredText);
+
+  const grafo = [
+    organizzazione(),
+    {
+      '@type': 'Article',
+      '@id': `${url}#articolo`,
+      headline: titolo,
+      description: pulisci(root.querySelector('meta[name="description"]')?.getAttribute('content')),
+      inLanguage: 'it-IT',
+      datePublished: pubblicato,
+      dateModified: revisionato,
+      // Autore e editore sono l'organizzazione, non una persona: nessuno di noi
+      // ha una qualifica fiscale da rivendicare (decisione del 2026-09-03).
+      author: { '@id': `${O}/#organization` },
+      publisher: { '@id': `${O}/#organization` },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      isAccessibleForFree: true,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#briciole`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Quotify', item: `${O}/` },
+        { '@type': 'ListItem', position: 2, name: titolo, item: url },
+      ],
+    },
+  ];
+
+  if (faq.length) {
+    if (faq.some((f) => !f.domanda || !f.risposta)) fatale('articolo: FAQ incomplete in [data-faq]');
+    grafo.splice(2, 0, {
+      '@type': 'FAQPage',
+      '@id': `${url}#faq`,
+      inLanguage: 'it-IT',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.domanda,
+        acceptedAnswer: { '@type': 'Answer', text: f.risposta },
+      })),
+    });
+  }
+
+  return grafo;
+}
+
+const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore, articolo: grafoArticolo };
 
 const { pagine } = caricaPagine(distDir);
 let generati = 0;

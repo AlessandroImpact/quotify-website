@@ -85,3 +85,36 @@ test('le pagine di servizio non devono dichiarare niente', () => {
     assert.deepEqual(regole(nuda), [], `${file} non dovrebbe avere rilievi`);
   }
 });
+
+// ─── Contenuto che invecchia da solo ─────────────────────────────────────────
+const OGGI = new Date('2026-09-04T12:00:00Z');
+
+function paginaConDate(revisionato, inEvoluzione) {
+  const meta = { 'quotify:revisionato': revisionato };
+  if (inEvoluzione) meta['quotify:in-evoluzione'] = 'si';
+  return pagina(meta);
+}
+
+const avvisiScadenza = (pag) =>
+  controllaPagina(pag, { linkInterni: [], immaginiSocial: [], oggi: OGGI })
+    .filter((f) => f.rule === 'contenuto-in-evoluzione-fermo');
+
+test('un contenuto in evoluzione rivisto di recente non ha rilievi', () => {
+  assert.deepEqual(avvisiScadenza(paginaConDate('2026-08-15', true)), []);
+});
+
+test('un contenuto in evoluzione fermo da mesi va rivisto', () => {
+  // Una pagina che descrive una situazione in corso diventa falsa da sola,
+  // senza che nessuno tocchi niente. È così che i siti di contenuto muoiono.
+  const f = avvisiScadenza(paginaConDate('2026-04-01', true));
+
+  assert.equal(f.length, 1);
+  assert.equal(f[0].level, 'warn');
+  assert.match(f[0].message, /156 giorni/);
+});
+
+test('una pagina non marcata come in evoluzione può restare ferma', () => {
+  // Un articolo su una norma stabile non ha bisogno di essere ritoccato per
+  // sembrare fresco: chiederlo produrrebbe revisioni finte.
+  assert.deepEqual(avvisiScadenza(paginaConDate('2025-01-01', false)), []);
+});

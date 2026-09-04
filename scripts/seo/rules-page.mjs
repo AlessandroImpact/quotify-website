@@ -18,6 +18,11 @@ const PAGINE_DI_SERVIZIO = new Set([
 
 const DATA_ISO = /^\d{4}-\d{2}-\d{2}$/;
 
+// Dopo quanti giorni una pagina che descrive una situazione IN CORSO va
+// riguardata. Non è un blocco: è un promemoria. Una pagina così diventa falsa
+// da sola, senza che nessuno tocchi niente.
+const GIORNI_PRIMA_DI_RIVEDERE = 90;
+
 /** @returns {Array} findings per la pagina */
 export function controllaPagina(pag, ctx) {
   const f = [];
@@ -200,6 +205,20 @@ export function controllaPagina(pag, ctx) {
       f.push(esito(E, 'date-contenuto-mancanti', file, null,
         'quotify:pubblicato o quotify:revisionato assenti o non in formato AAAA-MM-GG',
         'Senza la data di pubblicazione, "si posiziona da quando?" resta senza risposta per sempre.'));
+    }
+
+    // Una pagina marcata "in evoluzione" descrive qualcosa che sta cambiando —
+    // una norma in transitorio, una tabella non ancora aggiornata. Marcarla è
+    // volontario: chiedere una revisione periodica a un articolo su una norma
+    // stabile produrrebbe solo revisioni finte.
+    if (dichiarato('in-evoluzione') && DATA_ISO.test(date[1])) {
+      const oggi = ctx.oggi ?? new Date();
+      const giorni = Math.floor((oggi - new Date(`${date[1]}T12:00:00Z`)) / 86400000);
+      if (giorni > GIORNI_PRIMA_DI_RIVEDERE) {
+        f.push(esito(W, 'contenuto-in-evoluzione-fermo', file, null,
+          `pagina su una situazione in corso, ferma da ${giorni} giorni`,
+          'Verificare se la situazione descritta è ancora quella, poi aggiornare quotify:revisionato.'));
+      }
     }
 
     // Coerenza: non è un blocco perché una query può legittimamente non
