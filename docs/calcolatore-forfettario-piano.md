@@ -421,7 +421,17 @@ Quindi le regole che guardano il sorgente vanno in un modulo nuovo,
 | `numeri-fiscali-nel-codice` | warn | rules-contenuti | un'aliquota rientrata di soppiatto in `lib/forfettario.mjs` |
 | `query-obiettivo-mancante` | **error** | rules-page | una pagina di contenuto senza dichiarare per cosa è stata scritta |
 | `verifica-fiscale-mancante` | **error** | rules-page | pubblicare un calcolo che nessuno ha controllato |
+| `date-contenuto-mancanti` | **error** | rules-page | senza `pubblicato`, "si posiziona da quando?" resta senza risposta per sempre |
 | `query-obiettivo-incoerente` | warn | rules-page | query dichiarata che non compare né in `title` né in `h1` |
+
+> **Come si riconosce una pagina di contenuto** (deciso il 2026-09-04). Non con un'adesione
+> esplicita, che si dimentica: con un elenco chiuso di **pagine di servizio** — `index`, `privacy`,
+> `cookie`, `termini`, `assistenza`, `404` — e tutto il resto è contenuto **per difetto**. Così un
+> articolo nuovo rientra nella regola senza che nessuno debba ricordarsene, ed è il contrario di
+> ciò che succede con l'adesione volontaria.
+>
+> Le pagine legali restano fuori: chiedere loro una query obiettivo sarebbe un falso positivo, e i
+> falsi positivi sono ciò che fa spegnere i gate (§2.2 del piano console).
 
 ### Sulla freschezza (`param-fiscale-scaduto`)
 
@@ -520,7 +530,7 @@ non si può dimenticare di eseguire.
 | 4 | ✅ La pagina HTML statica | gate verde; utile e completa con JS disattivato |
 | 5 | ✅ `calcolatore.js`, 10,5 KB | verificato in Chrome: valori uguali a quelli da riga di comando, stato ricostruito dal link, nessun errore in console |
 | 6 | ✅ Generalizzato `jsonld.mjs` (§9) | home identica byte per byte (`b7d372fcc1107805`, 3311 caratteri); calcolatore: Organization, WebApplication, FAQPage, BreadcrumbList |
-| 7 | Integrazione: sitemap, `_headers`, link da home e footer, meta di misurazione | gate verde, nessuna pagina orfana |
+| 7 | ✅ Regole sui meta di misurazione | 7 test; collaudate togliendo i meta dalla pagina in `dist/` |
 | 8 | Deploy e richiesta di indicizzazione in Search Console | la pagina è raggiungibile e Controllo URL dice "indicizzazione consentita" |
 
 La Fase 1 è bloccante e non è codice: senza parametri verificati, tutto il resto calcola numeri

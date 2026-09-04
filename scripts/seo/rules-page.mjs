@@ -6,6 +6,18 @@ import { CONFIG, riga, contaParole, assoluto, esito } from './lib.mjs';
 const E = 'error';
 const W = 'warn';
 
+// Pagine che esistono per ragioni legali o di servizio, non per posizionarsi.
+// Chiedere loro una query obiettivo sarebbe un falso positivo, e i falsi
+// positivi sono ciò che fa spegnere i gate (docs/console-sito-piano.md §2.2).
+// Tutto il resto è contenuto: una pagina nuova rientra QUI per difetto, così
+// nessuno può pubblicare un articolo dimenticandosi di dire per cosa l'ha
+// scritto. Vedi docs/calcolatore-forfettario-piano.md §9.
+const PAGINE_DI_SERVIZIO = new Set([
+  'index.html', 'privacy.html', 'cookie.html', 'termini.html', 'assistenza.html', '404.html',
+]);
+
+const DATA_ISO = /^\d{4}-\d{2}-\d{2}$/;
+
 /** @returns {Array} findings per la pagina */
 export function controllaPagina(pag, ctx) {
   const f = [];
@@ -162,6 +174,44 @@ export function controllaPagina(pag, ctx) {
   if (!isNoindex && parole < CONFIG.paroleMin) {
     f.push(esito(W, 'contenuto-scarso', file, null,
       `${parole} parole di testo visibile (soglia ${CONFIG.paroleMin})`));
+  }
+
+  // ── meta di misurazione ───────────────────────────────────────────────────
+  // Perché fra sei mesi si possa rispondere a "questa pagina si posiziona per
+  // quello per cui l'ho scritta, e da quando?" senza ricostruirlo a memoria.
+  if (!isNoindex && !PAGINE_DI_SERVIZIO.has(file)) {
+    const dichiarato = (nome) => (meta(`quotify:${nome}`)?.getAttribute('content') || '').trim();
+
+    const query = dichiarato('query-obiettivo');
+    if (!query) {
+      f.push(esito(E, 'query-obiettivo-mancante', file, null,
+        'pagina di contenuto senza <meta name="quotify:query-obiettivo">',
+        'Dichiarare per quale ricerca è stata scritta: è la chiave con cui si misurerà se ha funzionato.'));
+    }
+
+    if (dichiarato('verifica-fiscale') !== 'verificata') {
+      f.push(esito(E, 'verifica-fiscale-mancante', file, null,
+        'contenuto fiscale non ancora verificato da una persona',
+        'Impostare quotify:verifica-fiscale="verificata" dopo aver controllato ogni affermazione.'));
+    }
+
+    const date = ['pubblicato', 'revisionato'].map(dichiarato);
+    if (date.some((d) => !DATA_ISO.test(d))) {
+      f.push(esito(E, 'date-contenuto-mancanti', file, null,
+        'quotify:pubblicato o quotify:revisionato assenti o non in formato AAAA-MM-GG',
+        'Senza la data di pubblicazione, "si posiziona da quando?" resta senza risposta per sempre.'));
+    }
+
+    // Coerenza: non è un blocco perché una query può legittimamente non
+    // comparire alla lettera nel titolo. Ma quasi sempre è una svista.
+    if (query) {
+      const dove = `${title} ${root.querySelector('h1')?.structuredText || ''}`.toLowerCase();
+      const assenti = query.toLowerCase().split(/\s+/).filter((w) => w && !dove.includes(w));
+      if (assenti.length) {
+        f.push(esito(W, 'query-obiettivo-incoerente', file, null,
+          `la query obiettivo "${query}" non compare in title né in h1 (mancano: ${assenti.join(', ')})`));
+      }
+    }
   }
 
   return f;
