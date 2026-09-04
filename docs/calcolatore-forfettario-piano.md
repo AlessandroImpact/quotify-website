@@ -360,8 +360,13 @@ comportamento della home identico a oggi. È un refactor piccolo e obbligato: se
 contenuto futura ripete lo stesso problema. Non si estende oltre questo — nessun altro riordino di
 `scripts/seo/`.
 
-Per il calcolatore genera: `WebApplication` (`applicationCategory: FinanceApplication`),
-`FAQPage`, `BreadcrumbList`.
+Per il calcolatore genera: `Organization`, `WebApplication`
+(`applicationCategory: FinanceApplication`), `FAQPage`, `BreadcrumbList`.
+
+**`Organization` sta su ogni pagina che dichiara un grafo, non solo in home** (deciso il
+2026-09-04): un `publisher` che punta a un `@id` assente dalla pagina è un riferimento che il
+motore può non risolvere, e l'identità del marchio è esattamente l'obiettivo per cui questi dati
+esistono — vedi la query di marca in `docs/console-sito-piano.md` §3.
 
 Non `SoftwareApplication`: quello è già dichiarato per Quotify in home, e due entità dello stesso
 tipo sullo stesso sito confondono l'associazione. Il calcolatore è un'applicazione web, il
@@ -512,9 +517,9 @@ non si può dimenticare di eseguire.
 | 2 | ✅ `lib/forfettario.mjs` + test | 20 test verdi |
 | 3a | ✅ Regole di gate su parametri e provenienza | 10 test; collaudata con una pagina finta in `dist/` |
 | 3b | `scripts/content/genera-calcolatore.mjs` + regola di sincronia | serve un HTML con i marcatori: si fa con la Fase 4 |
-| 4 | La pagina HTML statica, senza JS: contenuto, tabella, FAQ, fonti | `npm run build` passa il gate; la pagina è utile con JS disattivato |
-| 5 | `calcolatore.js`: interattività e animazione | i valori cambiano, `prefers-reduced-motion` rispettato, nessuna violazione CSP |
-| 6 | Generalizzare `jsonld.mjs` (§9) | la home produce lo **stesso** JSON-LD di prima, byte per byte; il calcolatore ne produce uno suo |
+| 4 | ✅ La pagina HTML statica | gate verde; utile e completa con JS disattivato |
+| 5 | ✅ `calcolatore.js`, 10,5 KB | verificato in Chrome: valori uguali a quelli da riga di comando, stato ricostruito dal link, nessun errore in console |
+| 6 | ✅ Generalizzato `jsonld.mjs` (§9) | home identica byte per byte (`b7d372fcc1107805`, 3311 caratteri); calcolatore: Organization, WebApplication, FAQPage, BreadcrumbList |
 | 7 | Integrazione: sitemap, `_headers`, link da home e footer, meta di misurazione | gate verde, nessuna pagina orfana |
 | 8 | Deploy e richiesta di indicizzazione in Search Console | la pagina è raggiungibile e Controllo URL dice "indicizzazione consentita" |
 
