@@ -1095,6 +1095,52 @@ content-type corretto. TTFB 85-145 ms da Milano, `cf-cache-status: HIT`.
 
 ---
 
+## 15. Riferimento Lighthouse — 2026-09-04
+
+Misurato in emulazione mobile sulla produzione. Serve come **riga di partenza**: la prossima
+volta che qualcosa peggiora, il confronto è con questi numeri e non con un ricordo.
+
+| | Home | Calcolatore |
+|---|---|---|
+| SEO | 100 | 100 |
+| Best Practices | 100 | 100 |
+| Accessibilità | 96 | 100 |
+| Controlli superati | 53 su 54 | **57 su 57** |
+
+### Cosa è stato corretto oggi
+
+**CLS del calcolatore: 0,1279 → 0,0000.** La causa era la catena del font. Il browser risolveva
+`fonts.googleapis.com`, scaricava un CSS, scopriva lì dentro l'indirizzo su `fonts.gstatic.com`,
+risolveva anche quello e solo allora chiedeva il font: alla prima visita il testo si ricomponeva a
+metà caricamento.
+
+Il metodo per trovarlo vale più del risultato: con `PerformanceObserver` su caricamenti normali
+misuravo **0,0000**, anche in emulazione mobile con rete e CPU rallentate. Lighthouse riproduceva
+**0,1279 identico a ogni esecuzione**. La differenza fra i due è che Lighthouse parte a cache
+vuota — ed è la condizione di chi arriva da Google, cioè esattamente il pubblico che ci interessa.
+Misurare a cache calda avrebbe detto "non c'è nessun problema".
+
+Inter ora è ospitato in proprio, in preload, coi soli sottoinsiemi latini. Effetto collaterale:
+`style-src` e `font-src` nella CSP perdono due origini esterne e diventano `'self'`.
+
+**Altro chiuso**: `pwa-512x512.png` ricompresso senza perdita (265 → 208 KB, scarto per canale
+zero, verificato pixel per pixel); cinque `<title>` sotto i 30 caratteri; la description di
+`cookie.html`; un link contestuale dalla home al calcolatore, dentro il corpo e non nel piè di
+pagina. Il gate passa da 8 avvisi a 2.
+
+### Cosa resta aperto, e perché non l'ho chiuso
+
+- **Contrasto sulla home** (`text-white/25`, `text-foam/35` nel piè di pagina): è l'unico controllo
+  che la home non supera. È una scelta di design, e il brief di questa fase dice di non toccarla.
+- **`assistenza.html`, 117 parole**: è davvero magra. È contenuto, non tecnica.
+- **`pwa-512x512.png`, 203 KB contro una soglia di 200**: tre chilobyte, su un asset che **nessuna
+  pagina carica** — esiste solo come URL del logo nel JSON-LD. La regola `asset-pesante` misura il
+  peso della pagina, e qui sta segnalando qualcosa che nel peso della pagina non entra. Se dà
+  fastidio, la correzione giusta è raffinare la regola perché ignori gli asset che nessuna pagina
+  referenzia, non ricomprimere l'immagine perdendo qualità per rientrare di tre chilobyte.
+
+---
+
 ## Riferimenti nel codice
 
 - `index.html:9` — unico OG presente, con URL relativo
