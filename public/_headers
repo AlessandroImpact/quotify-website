@@ -44,6 +44,9 @@
 /ateco-2025-forfettario
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/quanto-accantonare-tasse-partita-iva
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 # ── Asset con hash nel nome: immutabili ──
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

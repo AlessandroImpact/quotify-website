@@ -121,8 +121,7 @@ test('la pagina vera è allineata ai parametri veri', () => {
     fileParametri: 'data/parametri-fiscali-2026.json',
     sorgenteCalcolo: readFileSync('lib/forfettario.mjs', 'utf8'),
     fileCalcolo: 'lib/forfettario.mjs',
-    sorgentePagina: paginaVera(),
-    filePagina: 'calcolo-tasse-forfettario.html',
+    sorgentiPagine: [{ file: 'calcolo-tasse-forfettario.html', sorgente: paginaVera() }],
     oggi: OGGI,
   });
 
@@ -141,8 +140,7 @@ test('se i parametri cambiano e la pagina non viene rigenerata, il build si ferm
     fileParametri: 'data/parametri-fiscali-2026.json',
     sorgenteCalcolo: readFileSync('lib/forfettario.mjs', 'utf8'),
     fileCalcolo: 'lib/forfettario.mjs',
-    sorgentePagina: paginaVera(),
-    filePagina: 'calcolo-tasse-forfettario.html',
+    sorgentiPagine: [{ file: 'calcolo-tasse-forfettario.html', sorgente: paginaVera() }],
     oggi: OGGI,
   });
 

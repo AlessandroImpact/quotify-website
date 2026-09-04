@@ -73,15 +73,27 @@ if (radice) {
   const precedenti = new Map();
   const animazioni = new Map();
 
+  const percentuale = (n) => `${(n * 100).toFixed(1).replace('.', ',')}%`;
+
   function mostra(nome, valore) {
     const el = campo(nome);
     if (!el) return;
+
+    // Un valore non calcolabile (la quota a fatturato zero) non diventa "0%":
+    // sarebbe falso, perché i contributi fissi restano dovuti.
+    if (valore === null) {
+      el.textContent = '—';
+      precedenti.delete(nome);
+      return;
+    }
+
+    const formatta = el.dataset.formato === 'percentuale' ? percentuale : eur;
 
     const da = precedenti.get(nome);
     precedenti.set(nome, valore);
 
     if (menoMovimento || da === undefined || da === valore) {
-      el.textContent = eur(valore);
+      el.textContent = formatta(valore);
       return;
     }
 
@@ -92,9 +104,9 @@ if (radice) {
     const passo = (ora) => {
       const t = Math.min(1, (ora - inizio) / durata);
       const eased = 1 - (1 - t) ** 3;
-      el.textContent = eur(da + (valore - da) * eased);
+      el.textContent = formatta(da + (valore - da) * eased);
       if (t < 1) animazioni.set(nome, requestAnimationFrame(passo));
-      else el.textContent = eur(valore);
+      else el.textContent = formatta(valore);
     };
     animazioni.set(nome, requestAnimationFrame(passo));
   }
@@ -105,9 +117,12 @@ if (radice) {
     const r = calcola({ ...stato, coefficiente }, parametri);
     const inps = parametri.inps[stato.cassa];
 
-    mostra('ricavi', stato.ricavi);
-    for (const k of ['redditoLordo', 'contributi', 'redditoImponibile', 'impostaSostitutiva', 'netto']) {
-      mostra(k, r[k]);
+    // Si aggiornano i campi che la pagina ESPONE, non una lista scritta qui:
+    // così lo stesso script serve il calcolatore e la pagina
+    // sull'accantonamento, che mostrano voci diverse dello stesso risultato.
+    const valori = { ...r, ricavi: stato.ricavi };
+    for (const el of pagina.querySelectorAll('[data-campo]')) {
+      if (el.dataset.campo in valori) mostra(el.dataset.campo, valori[el.dataset.campo]);
     }
 
     if (nota('redditoLordo')) {

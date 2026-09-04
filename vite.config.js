@@ -15,6 +15,7 @@ export default defineConfig({
         assistenza: resolve(__dirname, 'assistenza.html'),
         calcolatore: resolve(__dirname, 'calcolo-tasse-forfettario.html'),
         ateco: resolve(__dirname, 'ateco-2025-forfettario.html'),
+        accantonare: resolve(__dirname, 'quanto-accantonare-tasse-partita-iva.html'),
       },
     },
   },

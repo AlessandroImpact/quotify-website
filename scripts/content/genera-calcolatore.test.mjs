@@ -31,9 +31,10 @@ test("l'esempio generato riporta i numeri che il modulo calcola davvero", () => 
   // Se l'esempio scritto nella pagina divergesse dal calcolo, la pagina
   // mentirebbe a chi non tocca i cursori — cioè a Google e alla maggior parte
   // dei visitatori.
-  for (const [nome, valore] of Object.entries(atteso)) {
-    if (typeof valore !== 'number') continue;
-    assert.ok(numeri.includes(valore), `${nome} = ${valore} non compare nell'esempio generato`);
+  // Solo le voci della cascata: `quotaAccantonamento` e `accantonamentoMensile`
+  // esistono nel risultato ma vivono su un'altra pagina, non su questa.
+  for (const nome of ['redditoLordo', 'contributi', 'redditoImponibile', 'impostaSostitutiva', 'netto']) {
+    assert.ok(numeri.includes(atteso[nome]), `${nome} = ${atteso[nome]} non compare nell'esempio generato`);
   }
 });
 

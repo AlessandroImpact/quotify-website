@@ -8,6 +8,7 @@ import { caricaPagine } from './lib.mjs';
 import { controllaPagina } from './rules-page.mjs';
 import { controllaSito } from './rules-site.mjs';
 import { controllaContenuti } from './rules-contenuti.mjs';
+import { PAGINE } from '../content/genera-calcolatore.mjs';
 
 const distDir = process.argv[2] || 'dist';
 const json = process.argv.includes('--json');
@@ -29,7 +30,8 @@ const ctx = { linkInterni: [], immaginiSocial: [] };
 // solo se la pagina che pubblica quei numeri è davvero nel build: finché il
 // calcolatore non esiste, non devono bloccare i deploy del resto del sito.
 function regoleContenuti() {
-  const pagina = pagine.find((p) => p.file.includes('calcolo-tasse-forfettario'));
+  const generate = PAGINE.map((p) => p.file);
+  const pagina = pagine.find((p) => generate.includes(p.file));
   if (!pagina) return [];
 
   const fileParametri = 'data/parametri-fiscali-2026.json';
@@ -40,14 +42,13 @@ function regoleContenuti() {
       hint: 'La pagina pubblica dei numeri fiscali: senza il file dei parametri non sono verificabili.' }];
   }
 
-  const filePagina = 'calcolo-tasse-forfettario.html';
   return controllaContenuti({
     parametri: JSON.parse(readFileSync(fileParametri, 'utf8')),
     fileParametri,
     sorgenteCalcolo: readFileSync(fileCalcolo, 'utf8'),
     fileCalcolo,
-    sorgentePagina: existsSync(filePagina) ? readFileSync(filePagina, 'utf8') : undefined,
-    filePagina,
+    sorgentiPagine: PAGINE.filter((p) => existsSync(p.file))
+      .map((p) => ({ file: p.file, sorgente: readFileSync(p.file, 'utf8') })),
   });
 }
 

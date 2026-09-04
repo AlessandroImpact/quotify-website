@@ -12,7 +12,6 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { calcola, coefficientePerGruppo } from '../../lib/forfettario.mjs';
 import { eur, pct } from '../../lib/formato.mjs';
 
-export const PAGINA = 'calcolo-tasse-forfettario.html';
 export const PARAMETRI = 'data/parametri-fiscali-2026.json';
 
 // Il caso di apertura della pagina. Uno sviluppatore software sta in ATECO 62,
@@ -207,6 +206,47 @@ function bloccoAteco(p) {
       </p>`;
 }
 
+function bloccoAccantonamento(p) {
+  const coefficiente = coefficientePerGruppo(ESEMPIO.gruppo, p);
+  const r = calcola({ ...ESEMPIO, coefficiente }, p);
+  const percento = (r.quotaAccantonamento * 100).toFixed(1).replace('.', ',');
+
+  return `${bloccoControlli(p)}
+      <div class="mt-8 text-center">
+        <p class="text-sm uppercase tracking-wide text-slate-500 mb-2">
+          Di ogni fattura che ti pagano, metti da parte
+        </p>
+        <p class="text-6xl sm:text-7xl font-bold text-primary-700 tabular-nums">
+          <span data-campo="quotaAccantonamento" data-formato="percentuale">${percento}%</span>
+        </p>
+        <p class="mt-3 text-slate-600">
+          Sono <span data-campo="accantonamentoMensile" class="font-semibold tabular-nums">${eur(r.accantonamentoMensile)}</span>
+          al mese, se l\u2019anno andasse come questa stima.
+        </p>
+      </div>
+
+      <table class="w-full border-collapse mt-8">
+        <caption class="sr-only">Da cosa è composta la quota da accantonare</caption>
+        <tbody class="divide-y divide-slate-200" data-risultato aria-live="polite">
+          <tr class="text-slate-700">
+            <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi INPS
+              <span class="block text-sm text-slate-500" data-nota="contributi"></span></th>
+            <td class="py-3 text-right"><span data-campo="contributi" class="tabular-nums whitespace-nowrap">${eur(r.contributi)}</span></td>
+          </tr>
+          <tr class="text-slate-700">
+            <th scope="row" class="py-3 pr-4 text-left font-normal">Imposta sostitutiva
+              <span class="block text-sm text-slate-500" data-nota="impostaSostitutiva"></span></th>
+            <td class="py-3 text-right"><span data-campo="impostaSostitutiva" class="tabular-nums whitespace-nowrap">${eur(r.impostaSostitutiva)}</span></td>
+          </tr>
+          <tr class="font-semibold text-slate-900">
+            <th scope="row" class="py-3 pr-4 text-left font-normal">Totale da mettere via in un anno</th>
+            <td class="py-3 text-right tabular-nums whitespace-nowrap">${eur(r.contributi + r.impostaSostitutiva)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p data-avviso-regime hidden class="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900"></p>`;
+}
+
 function sostituisci(html, nome, contenuto) {
   const inizio = `<!-- generato:${nome}:inizio -->`;
   const fine = `<!-- generato:${nome}:fine -->`;
@@ -214,31 +254,44 @@ function sostituisci(html, nome, contenuto) {
   const j = html.indexOf(fine);
 
   if (i === -1 || j === -1 || j < i) {
-    throw new Error(`marcatori "generato:${nome}" assenti o invertiti in ${PAGINA}`);
+    throw new Error(`marcatori "generato:${nome}" assenti o invertiti`);
   }
   return html.slice(0, i + inizio.length) + contenuto + '\n      ' + html.slice(j);
 }
 
-export function generaBlocchi(html, parametri) {
-  let out = sostituisci(html, 'esempio', bloccoEsempio(parametri));
-  out = sostituisci(out, 'ateco', bloccoAteco(parametri));
+// Registro delle pagine generate. Ogni pagina dichiara quali blocchi vuole:
+// aggiungerne una è una riga qui, non un secondo script che diverge dal primo.
+export const PAGINE = [
+  { file: 'calcolo-tasse-forfettario.html', blocchi: { esempio: bloccoEsempio, ateco: bloccoAteco } },
+  { file: 'quanto-accantonare-tasse-partita-iva.html', blocchi: { accantonamento: bloccoAccantonamento } },
+];
+
+export function generaBlocchi(html, parametri, blocchi = PAGINE[0].blocchi) {
+  let out = html;
+  for (const [nome, costruisci] of Object.entries(blocchi)) {
+    out = sostituisci(out, nome, costruisci(parametri));
+  }
   return out;
 }
 
 // ── CLI ──────────────────────────────────────────────────────────────────────
 if (import.meta.url === `file://${process.argv[1]}`) {
   const parametri = JSON.parse(readFileSync(PARAMETRI, 'utf8'));
-  const prima = readFileSync(PAGINA, 'utf8');
-  const dopo = generaBlocchi(prima, parametri);
+  const verifica = process.argv.includes('--verifica');
+  let disallineate = 0;
 
-  if (process.argv.includes('--verifica')) {
-    if (prima !== dopo) {
-      console.error(`✖ ${PAGINA} non è allineato a ${PARAMETRI}. Eseguire: npm run gen`);
-      process.exit(1);
+  for (const { file, blocchi } of PAGINE) {
+    const prima = readFileSync(file, 'utf8');
+    const dopo = generaBlocchi(prima, parametri, blocchi);
+
+    if (verifica) {
+      if (prima !== dopo) { console.error(`\u2716 ${file} non è allineato a ${PARAMETRI}`); disallineate += 1; }
+      else console.log(`\u2714 ${file} è allineato`);
+    } else {
+      if (prima !== dopo) writeFileSync(file, dopo);
+      console.log(prima === dopo ? `= ${file} già aggiornato` : `\u2714 ${file} rigenerato`);
     }
-    console.log(`✔ ${PAGINA} è allineato a ${PARAMETRI}`);
-  } else {
-    writeFileSync(PAGINA, dopo);
-    console.log(prima === dopo ? `= ${PAGINA} già aggiornato` : `✔ ${PAGINA} rigenerato`);
   }
+
+  if (disallineate) { console.error('   Eseguire: npm run gen'); process.exit(1); }
 }

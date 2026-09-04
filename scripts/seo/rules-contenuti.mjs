@@ -4,13 +4,19 @@
 // Vedi docs/calcolatore-forfettario-piano.md §10.
 
 import { esito } from './lib.mjs';
-import { generaBlocchi } from '../content/genera-calcolatore.mjs';
+import { generaBlocchi, PAGINE } from '../content/genera-calcolatore.mjs';
 
 const E = 'error';
 const W = 'warn';
 
 // Numeri che in un modulo di calcolo non sono valori fiscali ma aritmetica.
-const INNOCUI = new Set([0, 1, 100]);
+// La lista è chiusa e va tenuta tale: se diventa il posto dove si mette
+// qualsiasi numero scomodo, la regola smette di servire.
+//   0, 1   — confronti e complementi
+//   100    — conversione in percentuale
+//   10000  — scala dell'arrotondamento a quattro decimali
+//   12     — mesi in un anno
+const INNOCUI = new Set([0, 1, 100, 10000, 12]);
 
 // Numeri nel JSON che sono metadati, non valori fiscali: non hanno una fonte
 // perché non affermano niente sul fisco.
@@ -53,30 +59,34 @@ function controllaFonti(nodo, percorso, ereditata, file, f) {
 
 export function controllaContenuti({
   parametri, fileParametri, sorgenteCalcolo, fileCalcolo,
-  sorgentePagina, filePagina, oggi = new Date(),
+  sorgentiPagine = [], oggi = new Date(),
 }) {
   const f = [];
 
   // ── l'HTML generato dice quello che dice il JSON ──────────────────────────
-  // La tabella e l'esempio sono committati per far funzionare `npm run dev`:
-  // il prezzo è che possono restare indietro. Qui si rigenera in memoria e si
-  // confronta, così la divergenza è impossibile invece che improbabile.
-  if (sorgentePagina !== undefined) {
+  // I blocchi generati sono committati per far funzionare `npm run dev`: il
+  // prezzo è che possono restare indietro. Qui si rigenerano in memoria e si
+  // confrontano, così la divergenza è impossibile invece che improbabile.
+  for (const { file, sorgente } of sorgentiPagine) {
+    const blocchi = PAGINE.find((p) => p.file === file)?.blocchi;
+    if (!blocchi) continue;
+
     let atteso;
     try {
-      atteso = generaBlocchi(sorgentePagina, parametri);
+      atteso = generaBlocchi(sorgente, parametri, blocchi);
     } catch (e) {
       f.push(
-        esito(E, 'calcolatore-non-generabile', filePagina, null,
+        esito(E, 'calcolatore-non-generabile', file, null,
           `impossibile rigenerare i blocchi: ${e.message}`,
           'I marcatori <!-- generato:…:inizio --> e :fine devono esistere entrambi e in ordine.'),
       );
+      continue;
     }
-    if (atteso !== undefined && atteso !== sorgentePagina) {
+    if (atteso !== sorgente) {
       f.push(
-        esito(E, 'calcolatore-non-sincronizzato', filePagina, null,
-          `${filePagina} non è allineato a ${fileParametri}`,
-          'Eseguire "npm run gen": la pagina pubblicherebbe numeri diversi da quelli che il calcolatore usa.'),
+        esito(E, 'calcolatore-non-sincronizzato', file, null,
+          `${file} non è allineato a ${fileParametri}`,
+          'Eseguire "npm run gen": la pagina pubblicherebbe numeri diversi da quelli che il calcolo usa.'),
       );
     }
   }
