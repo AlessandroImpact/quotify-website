@@ -144,6 +144,12 @@ termini, ore 14:20): **la sitemap sta propagando mentre la si guarda**.
 aveva mai presentato a Google. Il lavoro tecnico di §4 resta valido, ma va inquadrato come
 fondamenta messe a posto prima che servissero, non come un incendio spento.
 
+> ⚠️ **Corretta il 2026-09-03.** *"Un sito nuovo che nessuno aveva mai presentato a Google"* è
+> falso. Il **sito** è nuovo; il **dominio** no: `quotify.it` è online dal 2011 ed è stato
+> presentato a Google nel 2014. Vedi §3.2. La conclusione sull'assenza di problemi di
+> indicizzazione regge lo stesso: Azioni manuali e Problemi di sicurezza sono entrambi puliti,
+> verificato il 03/09.
+
 ### Come Google ha trovato il sito: solo link spam
 
 Le pagine di referral della home sono `saint-laser.com/lasernews/...`,
@@ -155,21 +161,29 @@ citazioni che ha probabilmente agganciato il dominio per assonanza con "quotes".
 serve disconoscerla), ma fissa un vincolo per il piano: **zero autorità in entrata**, e nessuna
 ottimizzazione tecnica la sostituisce.
 
-### ⚠️ Il backfill di Search Console resta da verificare
+> **Riletto il 2026-09-03.** Il dominio ha un passato (§3.2): questi tre link sono plausibilmente
+> residui di quell'epoca, non directory che hanno agganciato un dominio nuovo. Non cambia la
+> conclusione — anzi la rafforza, perché "non serve disconoscerla" ora poggia su una verifica:
+> nessuna azione manuale attiva.
+
+### ✅ Il backfill di Search Console: verificato il 2026-09-03
 
 Più sopra questo piano afferma che Search Console non ha storico precedente alla verifica.
-**L'affermazione non è stata verificata** e va trattata come non confermata: al 25/08 sia
-Rendimento sia Indicizzazione → Pagine rispondono *"Elaborazione dei dati in corso.
-Ricontrolla tra un giorno o due"*. La risposta arriva quando i report si popolano.
-Se compariranno dati precedenti al 25/08, l'affermazione era falsa e va corretta.
+**L'affermazione è stata verificata ed è vera.** Prova ed evidenza in §3.2.
 
-L'urgenza di verificare la proprietà restava comunque giustificata, ma per un motivo più debole
-di quello dichiarato.
+Al 25/08 non era verificabile — sia Rendimento sia Indicizzazione → Pagine rispondevano
+*"Elaborazione dei dati in corso"* — e per nove giorni è rimasta un'assunzione travestita da
+fatto. L'urgenza di verificare la proprietà era quindi giustificata per il motivo dichiarato.
 
-### Il dato ancora mancante
+**Precisazione emersa verificandola**, che il piano non faceva: il limite vale **solo per il
+Rendimento**. Indicizzazione e Controllo URL espongono dati molto anteriori alla verifica della
+proprietà. Le due famiglie di dati vanno trattate con regole diverse.
 
-**Impression e query della home negli ultimi 3 mesi.** È l'unica cosa che decide se il collo di
-bottiglia è la copertura di contenuto (§14.9) o altro. Non disponibile prima del 26-27/08.
+### ✅ Il dato che mancava: arrivato il 2026-09-03
+
+**3 impressioni e 1 clic in tutto**, tutte sulla home, tutte riconducibili alla query di marca.
+**Domanda non di marca: zero.** Il collo di bottiglia è la copertura di contenuto (§14.9), e
+adesso è misurato invece che dedotto. Derivazione e conseguenze in §3.2.
 
 ---
 
@@ -194,6 +208,192 @@ Passi:
 > e non riguarda questa console.
 
 ---
+
+---
+
+### 3.2 Ricognizione del 2026-09-03 — i primi dati veri
+
+Fonti: export CSV di Search Console (`quotify.it-Performance-on-Search-2026-09-03` e
+`quotify.it-Coverage-2026-09-03`), viste di dettaglio di Indicizzazione → Pagine, archivio del
+web, e verifiche in produzione con `curl` come Googlebot.
+
+I dati di Search Console arrivano al **31/08**: il report ha 2-3 giorni di ritardo strutturale
+("Ultimo aggiornamento: 70,5 ore fa"). Qualunque allerta della Fase 7 deve tenerne conto — qui
+il "quasi in tempo reale" non esiste.
+
+#### ✅ Il backfill: verificato, il piano aveva ragione
+
+`Filtri.csv` conferma l'intervallo richiesto (`Data,Ultimi 3 mesi`) e `Grafico.csv` contiene
+otto righe in tutto:
+
+```
+Data,Clic,Impressioni,CTR,Posizione
+2026-08-24,0,0,,
+2026-08-25,0,0,,
+2026-08-26,0,1,0%,18
+2026-08-27,1,2,50%,4
+2026-08-28,0,0,,
+2026-08-29,0,0,,
+2026-08-30,0,0,,
+2026-08-31,0,0,,
+```
+
+La prova sta nelle righe a zero: Search Console **non omette i giorni vuoti**. L'assenza di
+righe prima del 24/08, su una richiesta di 90 giorni, significa che quei dati non esistono —
+non che valevano zero. Proprietà verificata il 25/08, primo giorno disponibile il 24/08:
+**nessun backfill**.
+
+**Il limite vale però solo per il Rendimento.** Indicizzazione e Controllo URL espongono dati
+molto anteriori alla verifica: scansione di `http://www.quotify.it/` il 10/05/2026, di
+`https://app.quotify.it/` il 19/06/2026, sitemap inviate nel 2014. Una console che confronta
+serie storiche deve trattare le due famiglie con regole diverse.
+
+#### Le 3 impressioni, ricostruite una per una
+
+`Query.csv` contiene solo l'intestazione: a questi volumi Google anonimizza il 100% delle query.
+Le tre impressioni si ricostruiscono però in modo **univoco** incrociando le altre tabelle,
+perché la posizione di una singola impressione è un intero e le somme devono tornare.
+
+| Data | Paese | Dispositivo | Posizione | Clic |
+|---|---|---|---|---|
+| 26/08 | Grecia | mobile | 18 | 0 |
+| 27/08 | Italia | **mobile** | **1** | **1** |
+| 27/08 | Italia | computer | 7 | 0 |
+
+Derivazione: l'impressione a posizione 18 è greca (`Paesi.csv`) e non può essere quella da
+computer, che sta a posizione 7 (`Dispositivi.csv`) — quindi è mobile. L'altra impressione
+mobile vale 19 − 18 = 1. Restano all'Italia le posizioni 1 e 7, media 4 ✓. Somma totale 26 da
+entrambi i lati ✓. Il clic è italiano (la Grecia ha 0 clic) ed è da mobile (il computer ha 0
+clic): resta una casella sola.
+
+**Lettura.** Un sito con zero backlink e cinque pagine non arriva primo in Italia per una query
+informativa: posizione 1 è la firma di una **query di marca**. L'obiettivo "comparire se uno
+cerca quotify" risulta raggiunto almeno una volta, il 27/08. Con un'impressione sola è un
+segnale, non una misura, e va mostrato come tale — §2.6.
+
+L'unica impressione estera, la greca, sta a posizione 18: coerente con la ricognizione del 27/08
+sui concorrenti anglofoni a corrispondenza esatta.
+
+#### La domanda non di marca è zero — §14.9 misurato
+
+`Pagine.csv` ha una riga sola:
+
+```
+Pagine principali,Clic,Impressioni,CTR,Posizione
+https://quotify.it/,1,3,33.33%,8.67
+```
+
+Nessuna impressione per `/cookie`, `/termini`, `/privacy`, `/assistenza`. E nessuna per
+`app.quotify.it`: la proprietà Dominio non sta inquinando questi numeri, come si poteva temere.
+
+Tolte le tre impressioni riconducibili alla marca, **la domanda non di marca che raggiunge il
+sito è zero**. Non è un problema di posizionamento: non c'è niente da posizionare.
+
+§14.9 passa da deduzione a misura, e con essa la priorità: **prima la pipeline dei contenuti,
+poi la console**. Una console che misura 3 impressioni misura rumore — è esattamente il rischio
+già segnalato in §13, dove è classificato "alta — è il rischio vero".
+
+#### Le 8 pagine note, tutte identificate
+
+Al 28/08, unica misurazione esistente del report Pagine (`Grafico.csv` di Coverage ha le colonne
+indicizzazione popolate solo quel giorno): 1 indicizzata, 7 non indicizzate.
+
+| URL | Stato | Ultima scansione |
+|---|---|---|
+| `https://quotify.it/` | **indicizzata** | — |
+| `https://quotify.it/assistenza` | Rilevata, non indicizzata | **N/D** |
+| `https://quotify.it/cookie` | Rilevata, non indicizzata | **N/D** |
+| `https://quotify.it/privacy` | Rilevata, non indicizzata | **N/D** |
+| `https://quotify.it/termini` | Rilevata, non indicizzata | **N/D** |
+| `http://quotify.it/` | Pagina con reindirizzamento | 25/08/2026 |
+| `http://www.quotify.it/` | **Errore del server (5xx)** | 10/05/2026 |
+| `https://app.quotify.it/` | Scansionata, non indicizzata | 19/06/2026 |
+
+Il conto torna: 8 su 8, nessuna sorpresa nascosta. Progresso rispetto al 25/08: `/privacy` e
+`/assistenza` non sono più sconosciute a Google.
+
+**Il collo di bottiglia è la colonna "Ultima scansione".** Le quattro pagine pubbliche sono a
+`N/D`: Google sa che esistono da nove giorni e non ci è mai andato. Non è un ostacolo tecnico —
+la sitemap viene letta regolarmente (ultima lettura 02/09, *"Sitemap elaborata correttamente"*,
+5 URL rilevate). È che Google non le considera abbastanza importanti da spendere una scansione.
+Su un sito senza link in entrata è il comportamento previsto, e **non si sblocca per via
+tecnica**.
+
+`https://app.quotify.it/` è l'unica con la diagnosi maligna *"Scansionata, ma attualmente non
+indicizzata"*, ed è corretto: è una SPA dietro login. Riguarda il repo dell'app, non questo.
+Se non deve mai essere indicizzata, un `noindex` lì pulirebbe questo report.
+
+#### 🔴 → ✅ Il 5xx su `www`: obsoleto, correzione già in produzione
+
+`Errore del server (5xx)` su `http://www.quotify.it/`, ultima scansione **10/05/2026** — prima
+del lavoro su Cloudflare del 25/08, quando `always_use_https` era ancora `off` (§14.11). Non è
+un residuo dell'epoca precedente: il dominio era già stato acquistato (25/03/2026).
+
+Verificato il 03/09 come Googlebot:
+
+```
+$ curl -sIL -A "...Googlebot..." http://www.quotify.it/
+HTTP/1.1 301 Moved Permanently
+Location: https://quotify.it/
+Server: cloudflare
+HTTP/2 200
+```
+
+Resta da premere **CONVALIDA CORREZIONE** sul report per rimuovere la riga.
+
+Nota: `Pagina con reindirizzamento` è `http://quotify.it/` → `https://quotify.it/`, **non** una
+delle varianti `.html`. Quelle rispondono 308 correttamente e Google non ne conosce nessuna.
+
+#### ⚠️ Il dominio non è nuovo — premessa di §3 corretta
+
+Il report Sitemap contiene tre righe mai guardate prima:
+
+```
+http://www.quotify.it/sitemapproducts.xml     inviata 12/06/2014   letta 06/06/2019   1 errore
+http://www.quotify.it/sitemapezpages.xml      inviata 12/06/2014   letta 03/06/2019   1 errore
+http://www.quotify.it/sitemapcategories.xml   inviata 12/06/2014   letta 07/06/2019   1 errore
+```
+
+Sono nomi generati da **Zen Cart** (`ezpages` è una sua funzione esclusiva): nel 2014 qualcuno
+ha verificato una proprietà su questo dominio e vi ha inviato le sitemap di un e-commerce.
+
+Cronologia ricostruita dall'archivio del web:
+
+| Data | `<title>` servito |
+|---|---|
+| 23/04/2011 | `Quotify.it : Share inside jokes with your friends` |
+| 17/11/2014 | **`mbt scarpe outlet online from italia - mbt sito ufficiale.`** |
+| 06/2016 | `Quotes` |
+| 06/2018 | `Quotify it!` |
+| 2020-2021 | `checker` |
+| dal 2023 | nulla |
+
+Il dominio è online dal 2011 e nel 2014 serviva pagine di un outlet di scarpe contraffatte — la
+firma dello spam Zen Cart di quegli anni, quasi certamente un sito compromesso più che un cambio
+di proprietà, visto che nel 2016 torna a essere un sito di citazioni.
+
+**Non è un problema, ed è verificato che non lo sia.** Il dominio è stato acquistato su Aruba il
+**25/03/2026**: è un dominio scaduto e ri-registrato, quella storia non è dell'attuale
+proprietario. E al 03/09:
+
+- **Sicurezza e azioni manuali → Azioni manuali**: *Nessun problema rilevato*
+- **Sicurezza e azioni manuali → Problemi di sicurezza**: *Nessun problema rilevato*
+
+Nessuna penalizzazione ereditata. E senza azione manuale, disconoscere backlink non ha basi: la
+raccomandazione di §3 resta valida, ora per verifica invece che per assunzione.
+
+**Cosa resta corretto altrove**: la conclusione di §3 *"un sito nuovo che nessuno aveva mai
+presentato a Google"*. Il sito è nuovo; il dominio ha quindici anni ed era già stato presentato
+a Google nel 2014. Vedi il riquadro di correzione in §3.
+
+#### Cosa questa ricognizione lascia aperto
+
+| Domanda | Stato |
+|---|---|
+| Convalida della correzione del 5xx in Search Console | da fare, un clic |
+| Profilo dei backlink (report Link) | non guardato — senza azione manuale non è prioritario |
+| `info@quotify.it` riceve davvero? | ✅ sì — casella creata dal proprietario, confermato il 03/09 |
+| `noindex` su `app.quotify.it` | decisione del repo dell'app, non di questo |
 
 ## 4. Fase 1 — Chiudere i buchi già noti
 
@@ -838,6 +1038,12 @@ Documentazione API. Sono esattamente i temi delle query target, e sono link mort
 **14.8 — 🟡 Peso.**
 `/assets/main-DwD_iuHk.js` = 621 KB grezzi / 176 KB in brotli, quasi tutto Three.js, per un
 globo e un gradiente. `/images/earth-map-colored.png` = 113 KB. HTML home = 85 KB / 13 KB brotli.
+
+> ✅ **Superato al 2026-09-03.** Three.js non è più nel repo: `package.json` ha come unica
+> dipendenza `@studio-freight/lenis`, e `grep -rn "three"` su `main.js`, `package.json` e
+> `index.html` non trova nulla. Il bundle attuale è `dist/assets/main-qwgy7LC1.js` = **28,5 KB**
+> (CSS 46 KB). L'ha eliminato il redesign della home (`d70c520`), che fa il 3D in CSS.
+> Il budget di prestazioni per le pagine nuove è quindi libero.
 
 **14.9 — 🟡 Contenuto.**
 5 pagine. Parole di testo visibile: `index.html` 1706, `termini.html` 886, `privacy.html` 557,
