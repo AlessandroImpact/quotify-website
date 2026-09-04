@@ -74,11 +74,15 @@
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=3600, s-maxage=3600
 
+# s-maxage breve di proposito: sitemap.xml e llms.txt cambiano a ogni pagina
+# nuova, e con un'ora di cache all'edge una pagina appena pubblicata resterebbe
+# fuori dalla sitemap SERVITA proprio mentre si chiede a Google di indicizzarla.
+# Sono file da qualche kilobyte richiesti di rado: la cache lunga non serviva.
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
-  Cache-Control: public, max-age=3600, s-maxage=3600
+  Cache-Control: public, max-age=300, s-maxage=300
 
 # ── llms.txt: generato dal build (scripts/seo/llms.mjs) ──
 /llms.txt
   Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=3600, s-maxage=3600
+  Cache-Control: public, max-age=300, s-maxage=300
