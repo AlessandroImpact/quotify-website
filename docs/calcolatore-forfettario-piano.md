@@ -42,6 +42,13 @@ sovrappiù per l'utente, non il contenuto della pagina.
 La pagina si apre su un caso calcolato per intero, scritto in HTML. Quando il JS parte non
 ridisegna e non svuota niente: prende quei nodi e li rende vivi.
 
+> ⚠️ **Corretto il 2026-09-04.** Questo piano indicava come esempio "consulente informatico,
+> coefficiente 0,78". **È sbagliato.** Chi produce software sta in ATECO 62, che l'Allegato 4
+> colloca nel gruppo 9 "Altre attività economiche" al **67%**; il 78% è il gruppo 8, dove stanno
+> ingegneri e consulenti di gestione (69-75). L'errore è emerso solo trascrivendo la tabella dalla
+> Gazzetta Ufficiale — tre fonti secondarie consultate riportavano valori diversi fra loro.
+> L'esempio della pagina sarà **uno sviluppatore software al 67%**.
+
 Le alternative sono peggiori. Un calcolatore che si popola al `load` produce un salto visivo e
 una versione "vuota" della pagina che esiste comunque nel sorgente. Due blocchi separati — uno
 statico per Google, uno interattivo per l'utente — sono contenuto duplicato e due verità da tenere
@@ -88,9 +95,19 @@ Il forfettario non ha un coefficiente per codice: l'Allegato 4 alla L. 190/2014 
 attività in **nove gruppi** con cinque valori. Il dato autorevole sono nove righe.
 
 La coda lunga SEO sta nel mappare i singoli codici sul gruppo, ed è lì che c'è il volume di
-lavoro. v1 copre i nove gruppi più i codici più frequenti fra i freelance; la mappatura completa
-è un'espansione successiva, e solo se la pagina dimostra di prendere traffico. Non si scrivono
-mille righe di dati prima di sapere se qualcuno arriva.
+lavoro.
+
+> ⚠️ **Riscritto il 2026-09-04, e il vincolo è più forte di così.** I coefficienti sono agganciati
+> alla classificazione **ATECO 2007**. Dal 1° aprile 2025 le imprese hanno codici **ATECO 2025** e
+> l'Allegato 4 non è stato riscritto: nel transitorio si continua ad applicare la corrispondenza
+> con i vecchi codici.
+>
+> Conseguenza: **il calcolatore non deve far scegliere il codice ATECO.** Il codice che l'utente
+> legge sulla propria visura è del 2025 e non mappa sulla tabella in vigore. Si sceglie il **gruppo
+> per descrizione**, con esempi di attività in chiaro.
+>
+> Non è un ripiego: è anche contenuto. La confusione fra ATECO 2007 e 2025 è una domanda che oggi
+> le partite IVA si fanno davvero, e spiegarla sulla pagina è materiale che si posiziona.
 
 ### 2.8 Niente librerie
 
@@ -226,13 +243,20 @@ contributi = min(reddito lordo, massimale) × aliquota
 ```
 
 **Artigiani e commercianti** — contributi fissi dovuti **anche a reddito zero**, più una
-percentuale sulla parte eccedente il minimale. Il forfettario può optare per la riduzione del 35%
-su entrambe le componenti.
+percentuale sulla parte eccedente il minimale, su **due scaglioni**. Il forfettario può optare per
+la riduzione del 35% su tutte le componenti.
 
 ```
-eccedenza  = max(0, reddito lordo − minimale)
-contributi = (fisso + eccedenza × aliquota) × (opzione35 ? 0,65 : 1)
+base    = min(reddito lordo, massimale)
+primo   = max(0, min(base, scaglione) − minimale)      → aliquota base
+secondo = max(0, base − max(scaglione, minimale))      → aliquota maggiorata
+
+contributi = (fisso + primo × aliquota + secondo × aliquotaOltre) × (opzione35 ? 0,65 : 1)
 ```
+
+> ⚠️ **Aggiunto il 2026-09-04.** Il secondo scaglione non era in questo piano. Non è un caso
+> limite: nel 2026 scatta a 56.224 € di reddito, e dentro il forfettario ci si arriva
+> (85.000 × 0,78 = 66.300). Senza, il calcolo sottostima i contributi di chi fattura di più.
 
 ### 6.3 Il regime al 5%
 
@@ -261,8 +285,8 @@ nulla da dedurre. Dirlo è più utile che dare un numero rassicurante e sbagliat
 Nell'ordine, tutto presente prima che il JS parta:
 
 1. **`<h1>` e paragrafo di apertura** che rispondono alla query in due righe, senza preamboli.
-2. **Il calcolatore** con l'esempio precompilato (§2.2) — consulente informatico, 30.000 €,
-   gestione separata — e la cascata dei passaggi già svolta con numeri veri.
+2. **Il calcolatore** con l'esempio precompilato (§2.2) — sviluppatore software, 30.000 €,
+   gestione separata, coefficiente 67% — e la cascata dei passaggi già svolta con numeri veri.
 3. **Come si calcola**, la spiegazione discorsiva della catena di §6.1.
 4. **La tabella dei coefficienti** per gruppo, con i codici ATECO di ciascuno. È il blocco che
    intercetta da solo la coda lunga *"coefficiente redditività ATECO xx.xx"*.
@@ -301,7 +325,8 @@ riga della cascata che cambia si evidenzia.
 
 **I controlli**: slider sul fatturato 0–85.000 **con la soglia marcata sulla scala**, affiancato
 da un campo numerico per la precisione; regime 5% / 15% con gli anni di attività; cassa
-previdenziale; gruppo o codice ATECO con ricerca; casella per la riduzione del 35% (visibile solo
+previdenziale; gruppo di attività scelto per descrizione, **non per codice ATECO** (§2.7);
+casella per la riduzione del 35% (visibile solo
 per artigiani e commercianti).
 
 **Due cose non negoziabili.** `prefers-reduced-motion`: se impostato, i numeri cambiano e basta.
@@ -488,22 +513,47 @@ inventati.
 
 ---
 
-## 15. Da verificare prima di scrivere una riga di codice
+## 15. I parametri: stato della verifica
 
-Nessuno di questi valori va scritto a memoria. Ognuno richiede la fonte ufficiale e la data.
+Aggiornato il **2026-09-04**. I valori sono in `data/parametri-fiscali-2026.json`, ognuno con la
+propria `fonte`, `url` e `fonteConsultata`.
 
-1. **Quale classificazione ATECO è in vigore** e come si mappa sui gruppi dell'Allegato 4. La
-   rinumerazione recente rende i codici del 2007 non sovrapponibili a quelli attuali, e l'utente
-   confronterà con la propria visura.
-2. **Aliquota della Gestione Separata** per l'anno d'imposta, e il massimale. Circolare INPS.
-3. **Contributi fissi, minimale e aliquota** per artigiani e per commercianti — sono diversi fra
-   loro. Circolare INPS.
-4. **La riduzione del 35%**: perimetro e condizioni.
-5. **I nove gruppi e i cinque coefficienti** dell'Allegato 4 alla L. 190/2014, testo vigente.
-6. **Soglia dei ricavi** e regole di uscita (superamento nell'anno successivo vs uscita immediata).
-7. **Condizioni del regime al 5%** e durata.
+`verificatoIl` e `verificatoDa` nel file sono **`null` di proposito**: finché non li compila una
+persona, il gate non lascia pubblicare la pagina. Questo resta il compito del proprietario.
 
-Questa verifica è la Fase 1 e la fa il proprietario, non l'assistente (decisione del 03/09).
+| # | Parametro | Stato | Fonte |
+|---|---|---|---|
+| 1 | I nove gruppi e i sei coefficienti | ✅ **fonte primaria** | Gazzetta Ufficiale, Suppl. ord. n. 62/L del 31/12/2018, pag. 214 — Allegato 2 L. 145/2018 che sostituisce l'Allegato 4 L. 190/2014 |
+| 2 | Aliquota e massimale Gestione Separata | 🟡 secondaria, due fonti concordi | Circolare INPS 3/2/2026 n. 8 (citata, non letta) |
+| 3 | Fissi, minimale, aliquote e scaglioni artigiani e commercianti | 🟡 secondaria, due fonti concordi | Circolare INPS 9/2/2026 n. 14 (citata, non letta) |
+| 4 | Riduzione del 35% | 🟡 secondaria | facoltativa, adesione entro il 28 febbraio |
+| 5 | Soglia dei ricavi (85.000) | 🟡 secondaria | confermata per il 2026 |
+| 6 | Aliquote 15% e 5%, durata cinque anni | 🟡 secondaria | art. 1 commi 64-65 L. 190/2014 |
+| 7 | Classificazione ATECO in vigore | ⚠️ **problema aperto** | vedi sotto |
+
+### Cosa ha cambiato il progetto
+
+**Il punto 1 ha smentito questo stesso documento.** Trascritta la tabella dalla Gazzetta Ufficiale,
+è emerso che l'esempio che il piano proponeva — "consulente informatico al 78%" — era sbagliato:
+chi produce software sta in ATECO 62, gruppo 9, al **67%**. Tre fonti secondarie consultate prima
+davano valori diversi fra loro (costruzioni al 67% invece che 86%, alloggio e ristorazione al 78%
+invece che 40%). **Non usarle.**
+
+**Il punto 3 ha cambiato il modello di calcolo**: artigiani e commercianti hanno un secondo
+scaglione di aliquota (§6.2), che il piano non prevedeva e che dentro il forfettario si raggiunge.
+
+**Il punto 7 ha cambiato l'interfaccia**: niente selettore per codice ATECO (§2.7).
+
+### Cosa resta da fare al proprietario
+
+1. Aprire le due circolari INPS e confrontare i valori dei punti 2, 3 e 4 con il JSON.
+2. Confermare i punti 5 e 6 su fonte primaria.
+3. Decidere sulla soglia di **uscita immediata** dal regime, oggi assente dal file perché non
+   verificata (`_daVerificare` nel JSON).
+4. Decidere se esporre l'**aliquota ridotta al 24%** della Gestione Separata per chi è già
+   pensionato o ha altra copertura previdenziale. È il caso del freelance con un part-time
+   dipendente: frequente, e oggi il calcolatore gli darebbe un numero troppo alto.
+5. Compilare `verificatoIl` e `verificatoDa`, che sbloccano il gate.
 
 ---
 

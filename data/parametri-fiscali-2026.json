@@ -1,0 +1,146 @@
+{
+  "annoImposta": 2026,
+  "verificatoIl": null,
+  "verificatoDa": null,
+
+  "_avvertenza": "verificatoIl e verificatoDa sono null di proposito: finché non li compila una persona, il gate di build non lascia pubblicare la pagina. Ogni blocco dichiara in fonteConsultata se il valore è stato letto sulla fonte primaria o preso da fonti secondarie concordi.",
+
+  "_daVerificare": [
+    "ATECO 2025: i coefficienti restano agganciati alla classificazione ATECO 2007. Dal 1° aprile 2025 le imprese hanno codici ATECO 2025 e l'Allegato 4 non è stato riscritto; nel transitorio vale la corrispondenza con i vecchi codici. CONSEGUENZA PER IL CALCOLATORE: non far scegliere il codice ATECO, che non mappa sulla tabella. Far scegliere il gruppo per descrizione.",
+    "Soglia di uscita immediata dal regime (oltre 100.000 € di ricavi nell'anno): non verificata in questa sessione, quindi non presente qui.",
+    "Gestione Separata: l'aliquota ridotta al 24% per chi è già pensionato o ha altra copertura previdenziale obbligatoria non è ancora esposta dal calcolatore. È un caso frequente (freelance con un lavoro dipendente part-time)."
+  ],
+
+  "limiteRicavi": {
+    "valore": 85000,
+    "fonte": "Soglia confermata per il 2026",
+    "url": "https://www.fiscoetasse.com/approfondimenti/15066-regime-forfettario-2026-tutte-le-regole.html",
+    "fonteConsultata": "secondaria"
+  },
+
+  "impostaSostitutiva": {
+    "ordinaria": {
+      "valore": 0.15,
+      "fonte": "Art. 1, comma 64, L. 190/2014",
+      "url": "https://www.fiscoetasse.com/approfondimenti/15066-regime-forfettario-2026-tutte-le-regole.html",
+      "fonteConsultata": "secondaria"
+    },
+    "startup": {
+      "valore": 0.05,
+      "anni": 5,
+      "fonte": "Art. 1, comma 65, L. 190/2014 — nuova attività, nessuna attività d'impresa o professionale nei tre anni precedenti",
+      "url": "https://www.fiscoetasse.com/approfondimenti/15066-regime-forfettario-2026-tutte-le-regole.html",
+      "fonteConsultata": "secondaria"
+    }
+  },
+
+  "_fonteCoefficienti": {
+    "fonte": "Allegato 2 (art. 1, comma 10) della L. 145/2018, che sostituisce l'Allegato 4 (art. 1, comma 64) della L. 190/2014 — Gazzetta Ufficiale, Supplemento ordinario n. 62/L del 31/12/2018, pag. 214",
+    "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/241208/allegato+4.pdf/d69be7fc-b18a-3c73-bd2e-b0f3c1970218",
+    "fonteConsultata": "primaria",
+    "nota": "Trascritta integralmente dal PDF della Gazzetta Ufficiale. Tre fonti secondarie consultate riportavano valori diversi fra loro (costruzioni al 67% invece che 86%, alloggio e ristorazione al 78% invece che 40%): non vanno usate."
+  },
+
+  "coefficienti": [
+    {
+      "id": "alimentari",
+      "progressivo": 1,
+      "descrizione": "Industrie alimentari e delle bevande",
+      "ateco": "(10-11)",
+      "coefficiente": 0.4
+    },
+    {
+      "id": "commercio",
+      "progressivo": 2,
+      "descrizione": "Commercio all'ingrosso e al dettaglio",
+      "ateco": "45 – (da 46.2 a 46.9) – (da 47.1 a 47.7) – 47.9",
+      "coefficiente": 0.4
+    },
+    {
+      "id": "ambulante-alimentari",
+      "progressivo": 3,
+      "descrizione": "Commercio ambulante di prodotti alimentari e bevande",
+      "ateco": "47.81",
+      "coefficiente": 0.4
+    },
+    {
+      "id": "ambulante-altri",
+      "progressivo": 4,
+      "descrizione": "Commercio ambulante di altri prodotti",
+      "ateco": "47.82 – 47.89",
+      "coefficiente": 0.54
+    },
+    {
+      "id": "costruzioni",
+      "progressivo": 5,
+      "descrizione": "Costruzioni e attività immobiliari",
+      "ateco": "(41-42-43) – (68)",
+      "coefficiente": 0.86
+    },
+    {
+      "id": "intermediari",
+      "progressivo": 6,
+      "descrizione": "Intermediari del commercio",
+      "ateco": "46.1",
+      "coefficiente": 0.62
+    },
+    {
+      "id": "alloggio-ristorazione",
+      "progressivo": 7,
+      "descrizione": "Attività dei servizi di alloggio e di ristorazione",
+      "ateco": "(55-56)",
+      "coefficiente": 0.4
+    },
+    {
+      "id": "professionali",
+      "progressivo": 8,
+      "descrizione": "Attività professionali, scientifiche, tecniche, sanitarie, di istruzione, servizi finanziari e assicurativi",
+      "ateco": "(64-65-66) – (69-70-71-72-73-74-75) – (85) – (86-87-88)",
+      "coefficiente": 0.78
+    },
+    {
+      "id": "altre",
+      "progressivo": 9,
+      "descrizione": "Altre attività economiche",
+      "ateco": "(01-02-03) – (05-06-07-08-09) – (12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33) – (35) – (36-37-38-39) – (49-50-51-52-53) – (58-59-60-61-62-63) – (77-78-79-80-81-82) – (84) – (90-91-92-93) – (94-95-96) – (97-98) – (99)",
+      "coefficiente": 0.67
+    }
+  ],
+
+  "inps": {
+    "gestioneSeparata": {
+      "aliquota": 0.2607,
+      "massimale": 122295,
+      "fonte": "Circolare INPS 3 febbraio 2026, n. 8",
+      "url": "https://www.inps.it/it/it/inps-comunica/atti/circolari-messaggi-e-normativa/dettaglio.circolari-e-messaggi.2026.02.circolare-numero-8-del-03-02-2026_15153.html",
+      "fonteConsultata": "secondaria",
+      "nota": "26,07% = 25% IVS + 0,72% maternità/malattia/ANF + 0,35% ISCRO. Nessun minimale di versamento: il minimale 2026 di 18.808 € riguarda l'accredito contributivo, non un importo minimo dovuto — per questo il calcolo è proporzionale al reddito effettivo."
+    },
+    "artigiani": {
+      "fisso": 4521.36,
+      "minimale": 18808,
+      "aliquota": 0.24,
+      "scaglione": 56224,
+      "aliquotaOltre": 0.25,
+      "massimale": 122295,
+      "riduzione": 0.35,
+      "fonte": "Circolare INPS 9 febbraio 2026, n. 14",
+      "url": "https://www.confcommercio.it/-/gestioni-artigiani-e-commercianti-i-contributi",
+      "fonteConsultata": "secondaria",
+      "nota": "Massimale 122.295 € per chi si è iscritto dal 1° gennaio 1996; per le anzianità al 31/12/1995 è 93.707 €. Dentro il forfettario nessuno dei due si raggiunge mai (85.000 × 0,86 = 73.100). La riduzione del 35% è facoltativa, con adesione entro il 28 febbraio."
+    },
+    "commercianti": {
+      "fisso": 4611.64,
+      "minimale": 18808,
+      "aliquota": 0.2448,
+      "scaglione": 56224,
+      "aliquotaOltre": 0.2548,
+      "massimale": 122295,
+      "riduzione": 0.35,
+      "fonte": "Circolare INPS 9 febbraio 2026, n. 14",
+      "url": "https://www.confcommercio.it/-/gestioni-artigiani-e-commercianti-i-contributi",
+      "fonteConsultata": "secondaria",
+      "nota": "Le aliquote superiori a quelle degli artigiani includono lo 0,48% di contributo aggiuntivo. Stessa struttura a due scaglioni e stessa riduzione facoltativa del 35%."
+    }
+  }
+}
