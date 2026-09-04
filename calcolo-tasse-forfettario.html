@@ -75,54 +75,117 @@
           Un esempio, per capire subito l’ordine di grandezza
         </h2>
         <p class="text-slate-600 mb-6">
-          Uno sviluppatore software iscritto alla Gestione Separata INPS che nel 2026 incassa
-          30.000&nbsp;€. Il suo coefficiente di redditività è il 67%.
+          Il calcolo si aggiorna mentre muovi i valori, senza premere niente. Si parte da un caso
+          concreto: uno sviluppatore software iscritto alla Gestione Separata INPS che nel 2026
+          incassa 30.000&nbsp;€, con un coefficiente di redditività del 67%.
         </p>
 
         <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-7">
           <!-- generato:esempio:inizio -->
-      <table class="w-full border-collapse">
-        <caption class="sr-only">Esempio di calcolo per uno sviluppatore software</caption>
-        <tbody class="divide-y divide-slate-200">
+      <div data-calcolatore data-esempio='{"ricavi":30000,"gruppo":"altre","cassa":"gestioneSeparata","regime":"ordinaria","riduzione35":false}' class="space-y-5">
+
+        <div>
+          <label for="c-ricavi" class="block text-sm font-medium text-slate-700 mb-2">Quanto incassi in un anno</label>
+          <div class="flex items-center gap-3">
+            <input type="range" id="c-ricavi" data-controllo="ricavi" min="0" max="100000" step="500"
+              value="30000" class="flex-1 accent-primary-600" />
+            <div class="relative">
+              <input type="number" id="c-ricavi-numero" data-controllo="ricavi" min="0" step="500"
+                value="30000" aria-label="Fatturato annuo in euro"
+                class="w-32 px-3 py-2 rounded-xl border border-slate-300 text-right tabular-nums
+                       focus:outline-none focus:ring-2 focus:ring-primary-600" />
+            </div>
+          </div>
+          <p class="mt-1 text-xs text-slate-500">
+            La soglia del regime è a 85.000&nbsp;€: oltre, il calcolo cambia di natura.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label for="c-gruppo" class="block text-sm font-medium text-slate-700 mb-2">Che attività fai</label>
+            <select id="c-gruppo" data-controllo="gruppo" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600"><option value="alimentari">Industrie alimentari e delle bevande — 40%</option><option value="commercio">Commercio all'ingrosso e al dettaglio — 40%</option><option value="ambulante-alimentari">Commercio ambulante di prodotti alimentari e bevande — 40%</option><option value="ambulante-altri">Commercio ambulante di altri prodotti — 54%</option><option value="costruzioni">Costruzioni e attività immobiliari — 86%</option><option value="intermediari">Intermediari del commercio — 62%</option><option value="alloggio-ristorazione">Attività dei servizi di alloggio e di ristorazione — 40%</option><option value="professionali">Attività professionali, scientifiche, tecniche, sanitarie, di istruzione, servizi finanziari e assicurativi — 78%</option><option value="altre" selected>Altre attività economiche — 67%</option></select>
+          </div>
+          <div>
+            <label for="c-cassa" class="block text-sm font-medium text-slate-700 mb-2">Dove versi i contributi</label>
+            <select id="c-cassa" data-controllo="cassa" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600"><option value="gestioneSeparata" selected>Gestione Separata INPS</option><option value="artigiani">Artigiani</option><option value="commercianti">Commercianti</option></select>
+          </div>
+          <div>
+            <label for="c-regime" class="block text-sm font-medium text-slate-700 mb-2">Da quanto hai la partita IVA</label>
+            <select id="c-regime" data-controllo="regime" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600"><option value="ordinaria" selected>Ordinario</option><option value="startup">Nuova attività, primi 5 anni</option></select>
+          </div>
+          <div class="flex items-end" data-riduzione hidden>
+            <label class="flex items-center gap-3 text-sm text-slate-700 pb-3">
+              <input type="checkbox" data-controllo="riduzione35" class="w-5 h-5 rounded accent-primary-600" />
+              Riduzione contributiva del 35%
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6">
+        <div class="flex h-12 rounded-xl overflow-hidden bg-slate-200" role="img"
+          aria-label="Ripartizione del fatturato fra netto, contributi e imposta">
+          <div data-segmento="netto" class="bg-primary-600 text-white h-full flex items-center justify-center
+            text-xs font-semibold transition-[width] duration-500 ease-out overflow-hidden"
+            style="width: 75.10%"><span class="px-1 truncate">netto</span></div>
+          <div data-segmento="contributi" class="bg-amber-400 text-amber-950 h-full flex items-center justify-center
+            text-xs font-semibold transition-[width] duration-500 ease-out overflow-hidden"
+            style="width: 17.47%"><span class="px-1 truncate">INPS</span></div>
+          <div data-segmento="imposta" class="bg-slate-500 text-white h-full flex items-center justify-center
+            text-xs font-semibold transition-[width] duration-500 ease-out overflow-hidden"
+            style="width: 7.43%"><span class="px-1 truncate">imposta</span></div>
+        </div>
+      </div>
+      <table class="w-full border-collapse mt-6">
+        <caption class="sr-only">Calcolo delle tasse in regime forfettario</caption>
+        <tbody class="divide-y divide-slate-200" data-risultato aria-live="polite">
         <tr class="font-semibold text-slate-900">
           <th scope="row" class="py-3 pr-4 text-left font-normal">Fatturato incassato nell’anno
-            <span class="block text-sm text-slate-500">quello che i clienti ti hanno effettivamente pagato</span></th>
-          <td class="py-3 text-right tabular-nums whitespace-nowrap">30.000,00&nbsp;€</td>
+            <span class="block text-sm text-slate-500" data-nota="ricavi">quello che i clienti ti hanno effettivamente pagato</span></th>
+          <td class="py-3 text-right"><span data-campo="ricavi" class="tabular-nums whitespace-nowrap">30.000,00 €</span></td>
         </tr>
         <tr class="text-slate-700">
           <th scope="row" class="py-3 pr-4 text-left font-normal">Reddito imponibile lordo
-            <span class="block text-sm text-slate-500">fatturato × 67% di coefficiente di redditività</span></th>
-          <td class="py-3 text-right tabular-nums whitespace-nowrap">20.100,00&nbsp;€</td>
+            <span class="block text-sm text-slate-500" data-nota="redditoLordo">fatturato × 67% di coefficiente di redditività</span></th>
+          <td class="py-3 text-right"><span data-campo="redditoLordo" class="tabular-nums whitespace-nowrap">20.100,00 €</span></td>
         </tr>
         <tr class="text-slate-700">
           <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi INPS
-            <span class="block text-sm text-slate-500">Gestione Separata, 26,07% sul reddito lordo</span></th>
-          <td class="py-3 text-right tabular-nums whitespace-nowrap">− 5.240,07&nbsp;€</td>
+            <span class="block text-sm text-slate-500" data-nota="contributi">Gestione Separata, 26,07% sul reddito lordo</span></th>
+          <td class="py-3 text-right">− <span data-campo="contributi" class="tabular-nums whitespace-nowrap">5.240,07 €</span></td>
         </tr>
         <tr class="text-slate-700">
           <th scope="row" class="py-3 pr-4 text-left font-normal">Base imponibile
-            <span class="block text-sm text-slate-500">i contributi versati si deducono dal reddito</span></th>
-          <td class="py-3 text-right tabular-nums whitespace-nowrap">14.859,93&nbsp;€</td>
+            <span class="block text-sm text-slate-500" data-nota="redditoImponibile">i contributi versati si deducono dal reddito</span></th>
+          <td class="py-3 text-right"><span data-campo="redditoImponibile" class="tabular-nums whitespace-nowrap">14.859,93 €</span></td>
         </tr>
         <tr class="text-slate-700">
           <th scope="row" class="py-3 pr-4 text-left font-normal">Imposta sostitutiva
-            <span class="block text-sm text-slate-500">15% sulla base imponibile</span></th>
-          <td class="py-3 text-right tabular-nums whitespace-nowrap">− 2.228,99&nbsp;€</td>
+            <span class="block text-sm text-slate-500" data-nota="impostaSostitutiva">15% sulla base imponibile</span></th>
+          <td class="py-3 text-right">− <span data-campo="impostaSostitutiva" class="tabular-nums whitespace-nowrap">2.228,99 €</span></td>
         </tr>
         <tr class="font-semibold text-slate-900">
           <th scope="row" class="py-3 pr-4 text-left font-normal">Restano
-            <span class="block text-sm text-slate-500">il 75,1% di quello che hai fatturato</span></th>
-          <td class="py-3 text-right tabular-nums whitespace-nowrap">22.530,94&nbsp;€</td>
+            <span class="block text-sm text-slate-500" data-nota="netto">75,1% del tuo fatturato</span></th>
+          <td class="py-3 text-right"><span data-campo="netto" class="tabular-nums whitespace-nowrap">22.530,94 €</span></td>
         </tr>
         </tbody>
       </table>
+      <p data-avviso-regime hidden class="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900"></p>
       <!-- generato:esempio:fine -->
         </div>
 
-        <p class="mt-4 text-sm text-slate-500">
-          Cambiando attività, cassa previdenziale o fatturato, cambiano tutte le righe: il
-          coefficiente pesa spesso più dell’aliquota.
-        </p>
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <p class="text-sm text-slate-500 max-w-md">
+            Cambiando attività, cassa previdenziale o fatturato cambiano tutte le righe: il
+            coefficiente pesa spesso più dell’aliquota.
+          </p>
+          <button type="button" data-copia-link hidden
+            class="text-sm font-medium text-primary-600 hover:text-primary-700 underline
+                   underline-offset-4 transition-colors">
+            Copia il link a questo calcolo
+          </button>
+        </div>
       </section>
 
       <!-- ─── Come si calcola ────────────────────────────────────────────── -->
@@ -402,5 +465,6 @@
     </footer>
 
     <script type="module" src="/main.js"></script>
+    <script type="module" src="/calcolatore.js"></script>
   </body>
 </html>

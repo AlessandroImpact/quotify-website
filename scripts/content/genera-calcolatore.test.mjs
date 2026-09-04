@@ -25,7 +25,7 @@ test("l'esempio generato riporta i numeri che il modulo calcola davvero", () => 
   // formattava con la stessa funzione del generatore e quindi verificava sé
   // stesso — non si accorse che gli importi a quattro cifre uscivano senza
   // separatore delle migliaia.
-  const numeri = [...html.matchAll(/([\d.]+,\d{2})&nbsp;€/g)]
+  const numeri = [...html.matchAll(/([\d.]+,\d{2}) €/g)]
     .map((m) => Number(m[1].replaceAll('.', '').replace(',', '.')));
 
   // Se l'esempio scritto nella pagina divergesse dal calcolo, la pagina
@@ -74,7 +74,7 @@ test('le cifre in euro sono formattate in modo coerente fra loro', () => {
     html.indexOf('generato:esempio:fine'),
   );
 
-  const importi = [...blocco.matchAll(/([\d.]+,\d{2})&nbsp;€/g)].map((m) => m[1]);
+  const importi = [...blocco.matchAll(/([\d.]+,\d{2}) €/g)].map((m) => m[1]);
   assert.ok(importi.length >= 5, 'nessun importo trovato nel blocco');
 
   for (const importo of importi) {
@@ -83,4 +83,50 @@ test('le cifre in euro sono formattate in modo coerente fra loro', () => {
       assert.ok(importo.includes('.'), `${importo} è ≥ 1000 ma non ha il separatore delle migliaia`);
     }
   }
+});
+
+test('ogni valore della cascata è agganciabile dal JavaScript', () => {
+  const html = generaBlocchi(scheletro, P);
+
+  // Il JS deve rendere vivi QUESTI nodi, non crearne di nuovi (§2.2): senza un
+  // aggancio stabile finirebbe per ridisegnare, e tornerebbe la doppia verità.
+  for (const campo of ['redditoLordo', 'contributi', 'redditoImponibile', 'impostaSostitutiva', 'netto']) {
+    assert.ok(html.includes(`data-campo="${campo}"`), `manca l'aggancio per ${campo}`);
+  }
+});
+
+test('i controlli sono generati dagli stessi parametri, non scritti a mano', () => {
+  const html = generaBlocchi(scheletro, P);
+
+  // Un <select> scritto a mano si disallineerebbe dal JSON al primo cambio.
+  for (const g of P.coefficienti.gruppi) {
+    assert.ok(html.includes(`value="${g.id}"`), `manca l'opzione ${g.id}`);
+  }
+  for (const c of ['gestioneSeparata', 'artigiani', 'commercianti']) {
+    assert.ok(html.includes(`value="${c}"`), `manca la cassa ${c}`);
+  }
+});
+
+test('lo stato iniziale è dichiarato nel DOM, non duplicato nel JavaScript', () => {
+  const html = generaBlocchi(scheletro, P);
+  const m = html.match(/data-esempio='([^']+)'/);
+
+  assert.ok(m, "manca data-esempio: il JS non saprebbe da dove ripartire");
+  assert.deepEqual(JSON.parse(m[1]), {
+    ricavi: ESEMPIO.ricavi,
+    gruppo: ESEMPIO.gruppo,
+    cassa: ESEMPIO.cassa,
+    regime: ESEMPIO.regime,
+    riduzione35: false,
+  });
+});
+
+test('la barra ha i tre segmenti proporzionati già senza JavaScript', () => {
+  const html = generaBlocchi(scheletro, P);
+
+  for (const s of ['netto', 'contributi', 'imposta']) {
+    assert.ok(html.includes(`data-segmento="${s}"`), `manca il segmento ${s}`);
+  }
+  // Le larghezze iniziali sono nell'HTML: a JS spento la barra resta veritiera.
+  assert.match(html, /data-segmento="netto"[^>]*style="width:\s*\d+(\.\d+)?%/);
 });
