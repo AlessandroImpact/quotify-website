@@ -122,6 +122,11 @@ test('la pagina vera è allineata ai parametri veri', () => {
     sorgenteCalcolo: readFileSync('lib/forfettario.mjs', 'utf8'),
     fileCalcolo: 'lib/forfettario.mjs',
     sorgentiPagine: [{ file: 'calcolo-tasse-forfettario.html', sorgente: paginaVera() }],
+    dati: {
+      parametri: veri,
+      scadenze: JSON.parse(readFileSync('data/scadenze-2026.json', 'utf8')),
+      navigazione: JSON.parse(readFileSync('data/navigazione.json', 'utf8')),
+    },
     oggi: OGGI,
   });
 
@@ -141,6 +146,11 @@ test('se i parametri cambiano e la pagina non viene rigenerata, il build si ferm
     sorgenteCalcolo: readFileSync('lib/forfettario.mjs', 'utf8'),
     fileCalcolo: 'lib/forfettario.mjs',
     sorgentiPagine: [{ file: 'calcolo-tasse-forfettario.html', sorgente: paginaVera() }],
+    dati: {
+      parametri: veri,
+      scadenze: JSON.parse(readFileSync('data/scadenze-2026.json', 'utf8')),
+      navigazione: JSON.parse(readFileSync('data/navigazione.json', 'utf8')),
+    },
     oggi: OGGI,
   });
 

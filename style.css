@@ -458,3 +458,159 @@ html.lenis, html.lenis body { height: auto; }
 .filtro-scadenze:has(input[value="gestione-separata"]:checked) ~ .linea .scadenza[data-chi="artigiani"] {
   display: none;
 }
+
+/* ─── Testata chiara, per le pagine di contenuto ─────────────────────────────
+   Stessa identità della home — marchio, CTA, sipario — ma senza il velo scuro
+   di `.testata::before`, che su fondo bianco sarebbe una macchia. È `sticky` e
+   non `fixed`: su una pagina lunga di testo il contenuto deve poter scorrere
+   sotto un'intestazione che resta leggibile, non galleggiare sotto un vetro. */
+
+.testata-chiara {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid rgb(226 232 240);
+}
+.testata-chiara::before { display: none; }
+/* L'anello ha un fondo scuro traslucido, giusto sulla home: sul bianco
+   diventava un disco grigio. Qui torna a essere un anello. */
+.testata-chiara .innesco-anello {
+  border-color: rgba(4, 6, 13, 0.16);
+  background: rgba(255, 255, 255, 0.6);
+}
+.testata-chiara .innesco:hover .innesco-anello,
+.testata-chiara .innesco:focus-visible .innesco-anello {
+  border-color: rgba(4, 6, 13, 0.4);
+  background: rgba(241, 245, 249, 0.9);
+}
+/* Con il sipario aperto la pagina è scura: l'anello torna quello della home. */
+.sipario-attivo .testata-chiara .innesco-anello {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(4, 6, 13, 0.55);
+}
+
+/* Con il sipario aperto la testata chiara sparirebbe sopra il fondo scuro:
+   il marchio e l'innesco tornano chiari per restare visibili. */
+.sipario-attivo .testata-chiara {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.sipario-attivo .testata-chiara .innesco { color: var(--color-foam); }
+.sipario-attivo .testata-chiara .testata-marchio,
+.sipario-attivo .testata-chiara a > span:not(.innesco-anello) { color: var(--color-foam); }
+
+/* ═══ Pagina delle guide ══════════════════════════════════════════════════════
+   Un registro, non una griglia di schede. Il mondo del forfettario è fatto di
+   codici, aliquote e date: ogni voce si presenta con LA cifra di cui parla, e
+   la colonna dei numeri è la spina dorsale della pagina. Inter in peso leggero
+   a corpo molto grande — un trattamento che non compare altrove sul sito, così
+   questa pagina ha una voce sua senza scaricare un secondo font. */
+
+.guide-pagina { max-width: 68rem; margin-inline: auto; padding: clamp(3rem, 9vh, 6rem) clamp(1.25rem, 5vw, 3rem) clamp(4rem, 10vh, 7rem); }
+
+.occhiello {
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--color-primary-300); opacity: 0.75; margin-bottom: 1.25rem;
+}
+
+.guide-titolo {
+  font-size: clamp(2.5rem, 7vw, 4.75rem); font-weight: 800;
+  letter-spacing: -0.045em; line-height: 1.02; margin-bottom: 1.75rem;
+}
+
+.guide-intro {
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.65;
+  color: rgb(232 237 247 / 0.62); max-width: 54ch;
+}
+
+/* ── La cosa più urgente nella vita di chi legge, non un titolo ────────────── */
+.urgenza {
+  display: flex; align-items: center; gap: clamp(1rem, 3vw, 2rem); flex-wrap: wrap;
+  margin-top: clamp(2.5rem, 6vh, 4rem); padding: 1.5rem clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgb(232 237 247 / 0.1); border-radius: 1.25rem;
+  background: linear-gradient(100deg, rgb(35 108 239 / 0.1), transparent 62%);
+}
+.urgenza-num {
+  font-size: clamp(2.75rem, 6vw, 4rem); font-weight: 200; letter-spacing: -0.05em;
+  line-height: 1; font-variant-numeric: tabular-nums; color: var(--color-foam);
+}
+.urgenza-testo { display: flex; flex-direction: column; gap: 0.25rem; flex: 1 1 14rem; }
+.urgenza-eti { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(232 237 247 / 0.4); }
+.urgenza-link {
+  font-size: 0.875rem; font-weight: 600; color: var(--color-primary-300);
+  border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.25s;
+}
+.urgenza-link:hover { color: var(--color-foam); }
+
+/* ── Il registro ───────────────────────────────────────────────────────────── */
+.gruppo { margin-top: clamp(3.5rem, 9vh, 6rem); }
+.gruppo-testa { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgb(232 237 247 / 0.14); padding-bottom: 0.875rem; }
+.gruppo-titolo { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 700; letter-spacing: -0.02em; }
+.gruppo-conta { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(232 237 247 / 0.38); white-space: nowrap; }
+.gruppo-sommario { margin-top: 1rem; color: rgb(232 237 247 / 0.58); max-width: 60ch; line-height: 1.6; }
+.gruppo-sommario em { font-style: normal; color: rgb(232 237 247 / 0.38); }
+
+.registro { margin-top: clamp(1.5rem, 4vh, 2.5rem); }
+.voce + .voce { border-top: 1px solid rgb(232 237 247 / 0.08); }
+
+.voce-a {
+  display: grid; align-items: center;
+  grid-template-columns: minmax(4.5rem, 8rem) 1fr auto;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.25rem, 3vh, 2rem) 0.25rem;
+  transition: background-color 0.3s ease, padding-inline 0.3s ease;
+}
+.voce-a:hover { background: rgb(232 237 247 / 0.03); padding-inline: 0.875rem 0.25rem; }
+
+.voce-cifra {
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem); font-weight: 200; letter-spacing: -0.05em;
+  line-height: 1; font-variant-numeric: tabular-nums;
+  color: rgb(232 237 247 / 0.34); transition: color 0.3s ease;
+}
+.voce-a:hover .voce-cifra { color: var(--color-primary-400); }
+
+.voce-corpo { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.voce-titolo { font-size: clamp(1.0625rem, 1.9vw, 1.3125rem); font-weight: 700; letter-spacing: -0.015em; }
+.voce-desc { color: rgb(232 237 247 / 0.55); line-height: 1.55; font-size: 0.9375rem; }
+.voce-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 0.875rem; align-items: center; margin-top: 0.25rem; }
+.voce-tipo {
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-primary-300); border: 1px solid rgb(35 108 239 / 0.35);
+  border-radius: 0.5rem; padding: 0.125rem 0.5rem;
+}
+.voce-nota { font-size: 0.8125rem; color: rgb(232 237 247 / 0.34); }
+
+.voce-freccia { color: rgb(232 237 247 / 0.25); transition: color 0.3s ease, transform 0.3s ease; }
+.voce-a:hover .voce-freccia { color: var(--color-primary-400); transform: translateX(4px); }
+
+.vuoto { margin-top: 1.5rem; color: rgb(232 237 247 / 0.45); line-height: 1.6; max-width: 56ch; }
+.vuoto a { color: var(--color-primary-300); border-bottom: 1px solid currentColor; }
+
+/* ── Il metodo ─────────────────────────────────────────────────────────────── */
+.guide-metodo { margin-top: clamp(4rem, 11vh, 7rem); padding-top: clamp(2rem, 5vh, 3rem); border-top: 1px solid rgb(232 237 247 / 0.1); }
+.metodo-griglia { display: grid; gap: clamp(1.5rem, 4vw, 2.5rem); margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.metodo-griglia h3 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem; }
+.metodo-griglia p { font-size: 0.9375rem; line-height: 1.6; color: rgb(232 237 247 / 0.5); }
+.metodo-chiusa { margin-top: 2rem; font-size: 0.8125rem; color: rgb(232 237 247 / 0.32); }
+
+/* ── Ingresso ──────────────────────────────────────────────────────────────── */
+.registro.anima .voce { opacity: 0; transform: translateY(14px); }
+.registro.anima .voce.dentro {
+  opacity: 1; transform: none;
+  transition: opacity 0.55s ease-out var(--ritardo, 0ms), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--ritardo, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .registro.anima .voce { opacity: 1; transform: none; transition: none; }
+}
+
+/* Testata scura appiccicata: stessa identità della home ma con un fondo suo,
+   perché su una pagina-elenco il contenuto non deve sparirle sotto. */
+.testata-scura {
+  background: rgb(4 6 13 / 0.82);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid rgb(232 237 247 / 0.08);
+}
+.testata-scura::before { display: none; }

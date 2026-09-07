@@ -17,6 +17,7 @@ export default defineConfig({
         ateco: resolve(__dirname, 'ateco-2025-forfettario.html'),
         accantonare: resolve(__dirname, 'quanto-accantonare-tasse-partita-iva.html'),
         scadenze: resolve(__dirname, 'scadenze-fiscali-forfettario.html'),
+        guide: resolve(__dirname, 'guide.html'),
       },
     },
   },

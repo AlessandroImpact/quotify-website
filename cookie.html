@@ -37,15 +37,102 @@
   <body class="font-sans antialiased bg-white text-slate-900">
 
     <!-- Navbar -->
-    <header class="bg-primary-900 text-white">
-      <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <a href="/" class="flex items-center gap-2 font-bold text-xl">
-          <img src="/pwa-192x192.png" alt="" class="w-8 h-8 rounded-lg" />
-          Quotify
-        </a>
-        <a href="/" class="text-white/80 hover:text-white text-sm font-medium transition-colors">← Torna alla Home</a>
-      </nav>
-    </header>
+        <!-- generato:testata:inizio -->
+      <header class="testata testata-chiara sticky top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="text-ink-900 text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- generato:testata:fine -->
+
+        <!-- generato:sipario:inizio -->
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">
+              <li>
+                <a href="/#sistema" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">01</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Il sistema</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="/#banco" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">02</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Provalo</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="/guide" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">03</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Guide</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="/#prezzi" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">04</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Prezzi</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="/#faq" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">05</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Domande</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">
+                  <li><a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-sm text-foam/60 hover:text-foam transition-colors">Accedi</a></li>
+                  <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                  <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy</a></li>
+                  <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini</a></li>
+                  <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie</a></li>
+                  <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- generato:sipario:fine -->
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Cookie Policy</h1>
@@ -204,16 +291,49 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-8">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
-        <p>&copy; 2026 Quotify — Alessandro Terracciano. P.IVA 10838411212</p>
-        <div class="flex gap-6">
-          <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="/cookie" class="hover:text-white transition-colors">Cookie Policy</a>
-          <a href="/termini" class="hover:text-white transition-colors">Termini di Servizio</a>
+        <!-- generato:piede:inizio -->
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+                <li><a href="/#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+                <li><a href="/#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+                <li><a href="/#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+                <li><a href="/guide" class="text-sm text-foam/60 hover:text-foam transition-colors">Guide</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+                <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+                <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+                <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+      <!-- generato:piede:fine -->
 
     <script type="module" src="/main.js"></script>
   </body>

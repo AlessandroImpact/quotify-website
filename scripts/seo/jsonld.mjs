@@ -222,7 +222,54 @@ function grafoArticolo(root) {
   return grafo;
 }
 
-const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore, articolo: grafoArticolo };
+function grafoGuide(root) {
+  const url = root.querySelector('link[rel="canonical"]')?.getAttribute('href');
+  if (!url) fatale('guide: manca il canonical, da cui si ricava @id');
+
+  // L'elenco si legge dal contenuto VISIBILE, non da un registro a parte: è la
+  // stessa regola di tutto il resto del file. Se una voce sparisce dalla
+  // pagina, sparisce anche dai dati strutturati, senza che nessuno se ne
+  // debba ricordare.
+  const voci = root.querySelectorAll('.voce-a').map((a, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: pulisci(a.querySelector('.voce-titolo')?.structuredText),
+    url: `${O}${a.getAttribute('href')}`,
+  }));
+  if (!voci.length) fatale('guide: nessuna voce estraibile da .voce-a');
+
+  return [
+    organizzazione(),
+    {
+      '@type': 'CollectionPage',
+      '@id': `${url}#raccolta`,
+      name: pulisci(root.querySelector('h1')?.structuredText),
+      description: pulisci(root.querySelector('meta[name="description"]')?.getAttribute('content')),
+      url,
+      inLanguage: 'it-IT',
+      isPartOf: { '@id': `${O}/#website` },
+      publisher: { '@id': `${O}/#organization` },
+      mainEntity: { '@id': `${url}#elenco` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${url}#elenco`,
+      numberOfItems: voci.length,
+      itemListOrder: 'https://schema.org/ItemListUnordered',
+      itemListElement: voci,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#briciole`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Quotify', item: `${O}/` },
+        { '@type': 'ListItem', position: 2, name: 'Guide', item: url },
+      ],
+    },
+  ];
+}
+
+const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore, articolo: grafoArticolo, guide: grafoGuide };
 
 const { pagine } = caricaPagine(distDir);
 let generati = 0;

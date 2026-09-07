@@ -8,7 +8,7 @@ import { caricaPagine } from './lib.mjs';
 import { controllaPagina } from './rules-page.mjs';
 import { controllaSito } from './rules-site.mjs';
 import { controllaContenuti } from './rules-contenuti.mjs';
-import { PAGINE, SCADENZE } from '../content/genera-calcolatore.mjs';
+import { PAGINE, SCADENZE, NAVIGAZIONE, leggiContenuto } from '../content/genera-calcolatore.mjs';
 
 const distDir = process.argv[2] || 'dist';
 const json = process.argv.includes('--json');
@@ -44,10 +44,16 @@ function regoleContenuti() {
 
   const parametri = JSON.parse(readFileSync(fileParametri, 'utf8'));
   const scadenze = existsSync(SCADENZE) ? JSON.parse(readFileSync(SCADENZE, 'utf8')) : undefined;
+  const navigazione = existsSync(NAVIGAZIONE) ? JSON.parse(readFileSync(NAVIGAZIONE, 'utf8')) : undefined;
 
   return controllaContenuti({
     parametri,
-    dati: { parametri, scadenze },
+    dati: {
+      parametri, scadenze, navigazione,
+      contenuti: PAGINE.filter((p) => existsSync(p.file))
+        .map((p) => leggiContenuto(p.file, readFileSync(p.file, 'utf8')))
+        .filter(Boolean),
+    },
     fileParametri,
     sorgenteCalcolo: readFileSync(fileCalcolo, 'utf8'),
     fileCalcolo,

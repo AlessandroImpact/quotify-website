@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { generaBlocchi, ESEMPIO } from './genera-calcolatore.mjs';
+import { generaBlocchi, ESEMPIO, BLOCCHI } from './genera-calcolatore.mjs';
 import { calcola, coefficientePerGruppo } from '../../lib/forfettario.mjs';
 
 const P = JSON.parse(readFileSync('data/parametri-fiscali-2026.json', 'utf8'));
@@ -19,7 +19,7 @@ test("l'esempio generato riporta i numeri che il modulo calcola davvero", () => 
     { ...ESEMPIO, coefficiente: coefficientePerGruppo(ESEMPIO.gruppo, P) },
     P,
   );
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
 
   // Confronto sui VALORI, non sulle stringhe: la prima versione di questo test
   // formattava con la stessa funzione del generatore e quindi verificava sé
@@ -39,7 +39,7 @@ test("l'esempio generato riporta i numeri che il modulo calcola davvero", () => 
 });
 
 test('la tabella generata contiene tutti e nove i gruppi di legge', () => {
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
 
   assert.equal(P.coefficienti.gruppi.length, 9);
   for (const g of P.coefficienti.gruppi) {
@@ -48,18 +48,18 @@ test('la tabella generata contiene tutti e nove i gruppi di legge', () => {
 });
 
 test('la tabella cita la fonte dei coefficienti', () => {
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
   assert.ok(html.includes(P.coefficienti.url), 'manca il link alla fonte');
 });
 
 test('rigenerare due volte dà lo stesso risultato', () => {
-  const una = generaBlocchi(scheletro, { parametri: P });
-  assert.equal(generaBlocchi(una, { parametri: P }), una);
+  const una = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
+  assert.equal(generaBlocchi(una, { parametri: P }, BLOCCHI.calcolatore), una);
 });
 
 test('un marcatore mancante ferma la generazione invece di produrre metà pagina', () => {
   assert.throws(
-    () => generaBlocchi('<p>niente marcatori</p>', { parametri: P }),
+    () => generaBlocchi('<p>niente marcatori</p>', { parametri: P }, BLOCCHI.calcolatore),
     /generato:esempio/,
   );
 });
@@ -69,7 +69,7 @@ test('le cifre in euro sono formattate in modo coerente fra loro', () => {
   // produce: verificava sé stesso. Questo asserisce una proprietà indipendente —
   // in una colonna di importi allineati, o hanno tutti il separatore delle
   // migliaia o non ce l'ha nessuno. "30.000,00" sopra "5240,07" si legge male.
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
   const blocco = html.slice(
     html.indexOf('generato:esempio:inizio'),
     html.indexOf('generato:esempio:fine'),
@@ -87,7 +87,7 @@ test('le cifre in euro sono formattate in modo coerente fra loro', () => {
 });
 
 test('ogni valore della cascata è agganciabile dal JavaScript', () => {
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
 
   // Il JS deve rendere vivi QUESTI nodi, non crearne di nuovi (§2.2): senza un
   // aggancio stabile finirebbe per ridisegnare, e tornerebbe la doppia verità.
@@ -97,7 +97,7 @@ test('ogni valore della cascata è agganciabile dal JavaScript', () => {
 });
 
 test('i controlli sono generati dagli stessi parametri, non scritti a mano', () => {
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
 
   // Un <select> scritto a mano si disallineerebbe dal JSON al primo cambio.
   for (const g of P.coefficienti.gruppi) {
@@ -109,7 +109,7 @@ test('i controlli sono generati dagli stessi parametri, non scritti a mano', () 
 });
 
 test('lo stato iniziale è dichiarato nel DOM, non duplicato nel JavaScript', () => {
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
   const m = html.match(/data-esempio='([^']+)'/);
 
   assert.ok(m, "manca data-esempio: il JS non saprebbe da dove ripartire");
@@ -123,7 +123,7 @@ test('lo stato iniziale è dichiarato nel DOM, non duplicato nel JavaScript', ()
 });
 
 test('la barra ha i tre segmenti proporzionati già senza JavaScript', () => {
-  const html = generaBlocchi(scheletro, { parametri: P });
+  const html = generaBlocchi(scheletro, { parametri: P }, BLOCCHI.calcolatore);
 
   for (const s of ['netto', 'contributi', 'imposta']) {
     assert.ok(html.includes(`data-segmento="${s}"`), `manca il segmento ${s}`);

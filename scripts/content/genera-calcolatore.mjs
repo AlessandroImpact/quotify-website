@@ -14,6 +14,7 @@ import { eur, pct } from '../../lib/formato.mjs';
 
 export const PARAMETRI = 'data/parametri-fiscali-2026.json';
 export const SCADENZE = 'data/scadenze-2026.json';
+export const NAVIGAZIONE = 'data/navigazione.json';
 
 // Il caso di apertura della pagina. Uno sviluppatore software sta in ATECO 62,
 // gruppo 9, al 67% — non al 78%, che è il gruppo dei consulenti e degli
@@ -343,6 +344,205 @@ function bloccoCodici({ scadenze: s }) {
       </div>`;
 }
 
+
+// ─── Telaio: intestazione, menu e piè di pagina ──────────────────────────────
+// Erano duplicati a mano in otto file, ed erano già divergenti — le pagine di
+// contenuto avevano una testata vecchia mentre la home aveva quella nuova.
+// Adesso c'è una fonte sola e il gate blocca il build se una pagina resta
+// indietro. Aggiungere una voce di menu è una riga in data/navigazione.json.
+
+const esterno = (v) => (v.esterno ? ' target="_blank" rel="noopener noreferrer"' : '');
+
+// I contenuti dell'hub si ricavano dalle PAGINE STESSE, non da un elenco a
+// parte: un secondo elenco divergerebbe dal primo alla seconda modifica di un
+// titolo. Qui si legge solo il <head>, quindi non c'è ciclo con i blocchi
+// generati dentro il <body>.
+const fraTag = (html, re) => (html.match(re)?.[1] ?? '').trim();
+
+export function leggiContenuto(file, html) {
+  const meta = (nome) =>
+    fraTag(html, new RegExp(`<meta name="quotify:${nome}" content="([^"]*)"`));
+  if (!meta('categoria')) return null;
+
+  return {
+    file,
+    url: `/${file.replace(/\.html$/, '')}`,
+    titolo: fraTag(html, /<h1[^>]*>([\s\S]*?)<\/h1>/).replace(/<[^>]+>/g, '').trim(),
+    descrizione: fraTag(html, /<meta name="description" content="([^"]*)"/),
+    categoria: meta('categoria'),
+    tipo: meta('tipo') || 'guida',
+    pubblicato: meta('pubblicato'),
+    query: meta('query-obiettivo'),
+    cifra: meta('cifra'),
+    cifraNota: meta('cifra-nota'),
+  };
+}
+
+// Due temi. Il sipario e il piede restano scuri su entrambi — il sipario è una
+// sovrapposizione a tutto schermo e il piede porta il proprio fondo — mentre la
+// barra in alto cambia: sul chiaro il velo scuro di `.testata::before` sarebbe
+// una macchia, e 1.100 parole di fisco si leggono meglio su bianco.
+function bloccoTestata({ navigazione: n }, tema) {
+  const chiara = tema === 'chiaro';
+  const marchio = chiara ? 'text-ink-900' : 'testata-marchio';
+
+  // Tre varianti, e la differenza non è estetica. Sulla home la testata è
+  // FISSA perché il contenuto le scorre sotto per disegno. Su una pagina che è
+  // un elenco o un testo lungo dev'essere appiccicata: se resta fissa, si
+  // sovrappone ai titoli di sezione mentre si scorre.
+  const posizione = tema === 'scuro-fisso' ? 'fixed'
+    : chiara ? 'testata-chiara sticky' : 'testata-scura sticky';
+
+  return `
+      <header class="testata ${posizione} top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="${marchio} text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco ${chiara ? 'text-ink-900' : 'text-foam'}" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>`;
+}
+
+function bloccoSipario({ navigazione: n }) {
+  const voce = (v, i) => `
+              <li>
+                <a href="${v.href}" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">${String(i + 1).padStart(2, '0')}</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">${v.etichetta}</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>`;
+
+  const altro = n.altro.map((v) => `
+                  <li><a href="${v.href}"${esterno(v)} class="text-sm text-foam/60 hover:text-foam transition-colors">${v.etichetta}</a></li>`).join('');
+
+  return `
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">${n.principale.map(voce).join('')}
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">${altro}
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+}
+
+function bloccoPiede({ navigazione: n }) {
+  const colonna = (titolo, voci) => `
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">${titolo}</h3>
+              <ul class="space-y-3" role="list">${voci.map((v) => `
+                <li><a href="${v.href}"${esterno(v)} class="text-sm text-foam/60 hover:text-foam transition-colors">${v.etichetta}</a></li>`).join('')}
+              </ul>
+            </div>`;
+
+  return `
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+${colonna('Prodotto', n.piede.prodotto)}
+${colonna('Legale e contatti', n.piede.legale)}
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
+        </div>
+      </footer>`;
+}
+
+const TELAIO_HOME = { testata: (d) => bloccoTestata(d, 'scuro-fisso'), sipario: bloccoSipario, piede: bloccoPiede };
+const TELAIO_SCURO = { testata: (d) => bloccoTestata(d, 'scuro'), sipario: bloccoSipario, piede: bloccoPiede };
+const TELAIO_CHIARO = { testata: (d) => bloccoTestata(d, 'chiaro'), sipario: bloccoSipario, piede: bloccoPiede };
+
+// L'hub delle guide. Un registro, non una griglia di schede: il mondo del
+// forfettario è fatto di codici, aliquote e date, e ogni voce si presenta con
+// LA cifra di cui parla davvero — 2007 è l'anno della tabella ancora in vigore,
+// ed è tutto l'articolo su ATECO in un numero.
+function bloccoGuide({ navigazione: n, contenuti }) {
+  const voce = (c, i) => `
+            <li class="voce" style="--ritardo: ${i * 60}ms">
+              <a href="${c.url}" class="voce-a group">
+                <span class="voce-cifra" aria-hidden="true">${c.cifra || '·'}</span>
+                <span class="voce-corpo">
+                  <span class="voce-titolo">${c.titolo}</span>
+                  <span class="voce-desc">${c.descrizione}</span>
+                  <span class="voce-meta">
+                    <span class="voce-tipo">${c.tipo}</span>
+                    ${c.cifraNota ? `<span class="voce-nota">${c.cifra} ${c.cifraNota}</span>` : ''}
+                  </span>
+                </span>
+                <span class="voce-freccia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </a>
+            </li>`;
+
+  const sezione = (cat) => {
+    const dentro = contenuti.filter((c) => c.categoria === cat.id);
+    const conteggio = dentro.length
+      ? `${dentro.length} ${dentro.length === 1 ? 'contenuto' : 'contenuti'}`
+      : 'in arrivo';
+
+    // Una categoria vuota si mostra lo stesso, dichiarando che è vuota. Dice a
+    // chi torna cosa aspettarsi, e a Google di cosa si occupa questo sito.
+    const corpo = dentro.length
+      ? `<ol class="registro" role="list">${dentro.map(voce).join('')}
+          </ol>`
+      : `<p class="vuoto">Le stiamo scrivendo: come si crea un preventivo, come si emette una
+             fattura elettronica, come si tiene un progetto. Se ne cerchi una in particolare,
+             <a href="/assistenza">scrivicelo</a>.</p>`;
+
+    return `
+        <section class="gruppo" aria-labelledby="cat-${cat.id}">
+          <div class="gruppo-testa">
+            <h2 id="cat-${cat.id}" class="gruppo-titolo">${cat.etichetta}</h2>
+            <span class="gruppo-conta">${conteggio}</span>
+          </div>
+          <p class="gruppo-sommario">${cat.sommario} <em>${cat.per}</em></p>
+          ${corpo}
+        </section>`;
+  };
+
+  return n.categorie.map(sezione).join('');
+}
+
 function sostituisci(html, nome, contenuto) {
   const inizio = `<!-- generato:${nome}:inizio -->`;
   const fine = `<!-- generato:${nome}:fine -->`;
@@ -357,16 +557,36 @@ function sostituisci(html, nome, contenuto) {
 
 // Registro delle pagine generate. Ogni pagina dichiara quali blocchi vuole:
 // aggiungerne una è una riga qui, non un secondo script che diverge dal primo.
+// Gruppi di blocchi con un nome, invece che posizioni in un elenco: il valore
+// predefinito `PAGINE[0].blocchi` si è rotto alla prima pagina aggiunta in
+// testa. Un contratto che dipende dall'ordine di un array non è un contratto.
+export const BLOCCHI = {
+  guide: { guide: bloccoGuide },
+  telaioHome: TELAIO_HOME,
+  telaioScuro: TELAIO_SCURO,
+  telaioChiaro: TELAIO_CHIARO,
+  calcolatore: { esempio: bloccoEsempio, ateco: bloccoAteco },
+  accantonamento: { accantonamento: bloccoAccantonamento },
+  scadenze: { scadenze: bloccoScadenze, codici: bloccoCodici },
+};
+
 export const PAGINE = [
-  { file: 'calcolo-tasse-forfettario.html', blocchi: { esempio: bloccoEsempio, ateco: bloccoAteco } },
-  { file: 'quanto-accantonare-tasse-partita-iva.html', blocchi: { accantonamento: bloccoAccantonamento } },
-  { file: 'scadenze-fiscali-forfettario.html', blocchi: { scadenze: bloccoScadenze, codici: bloccoCodici } },
+  { file: 'index.html', blocchi: BLOCCHI.telaioHome },
+  { file: 'guide.html', blocchi: { ...BLOCCHI.telaioScuro, ...BLOCCHI.guide } },
+  { file: 'calcolo-tasse-forfettario.html', blocchi: { ...BLOCCHI.telaioChiaro, ...BLOCCHI.calcolatore } },
+  { file: 'quanto-accantonare-tasse-partita-iva.html', blocchi: { ...BLOCCHI.telaioChiaro, ...BLOCCHI.accantonamento } },
+  { file: 'scadenze-fiscali-forfettario.html', blocchi: { ...BLOCCHI.telaioChiaro, ...BLOCCHI.scadenze } },
+  { file: 'ateco-2025-forfettario.html', blocchi: BLOCCHI.telaioChiaro },
+  { file: 'assistenza.html', blocchi: BLOCCHI.telaioChiaro },
+  { file: 'privacy.html', blocchi: BLOCCHI.telaioChiaro },
+  { file: 'termini.html', blocchi: BLOCCHI.telaioChiaro },
+  { file: 'cookie.html', blocchi: BLOCCHI.telaioChiaro },
 ];
 
 // `dati` raccoglie tutte le fonti: i parametri fiscali e le scadenze stanno in
 // file diversi perché cambiano per motivi diversi, ma un blocco può averne
 // bisogno di entrambi.
-export function generaBlocchi(html, dati, blocchi = PAGINE[0].blocchi) {
+export function generaBlocchi(html, dati, blocchi) {
   let out = html;
   for (const [nome, costruisci] of Object.entries(blocchi)) {
     out = sostituisci(out, nome, costruisci(dati));
@@ -379,6 +599,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const dati = {
     parametri: JSON.parse(readFileSync(PARAMETRI, 'utf8')),
     scadenze: JSON.parse(readFileSync(SCADENZE, 'utf8')),
+    navigazione: JSON.parse(readFileSync(NAVIGAZIONE, 'utf8')),
+    contenuti: PAGINE.map((p) => leggiContenuto(p.file, readFileSync(p.file, 'utf8'))).filter(Boolean),
   };
   const verifica = process.argv.includes('--verifica');
   let disallineate = 0;
