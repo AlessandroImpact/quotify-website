@@ -147,3 +147,20 @@ test('se i parametri cambiano e la pagina non viene rigenerata, il build si ferm
   assert.deepEqual(regole(f), ['calcolatore-non-sincronizzato']);
   assert.equal(f[0].level, 'error');
 });
+
+test('anche le scadenze vogliono una verifica umana, non solo i parametri', () => {
+  // Le date sono l'unico contenuto in cui l'errore fa perdere una scadenza.
+  // Lasciare `verificatoIl` a null nel file e affidarsi solo al meta della
+  // pagina significherebbe avere un campo che non controlla niente.
+  const f = controllaContenuti({
+    parametri: sani(),
+    fileParametri: 'p.json',
+    sorgenteCalcolo: calcolaPulito,
+    fileCalcolo: 'lib/forfettario.mjs',
+    dati: { parametri: sani(), scadenze: { anno: 2026, verificatoIl: null, verificatoDa: null } },
+    oggi: OGGI,
+  });
+
+  assert.deepEqual(regole(f), ['scadenze-non-verificate']);
+  assert.equal(f[0].level, 'error');
+});

@@ -423,3 +423,29 @@ html.lenis, html.lenis body { height: auto; }
   .no-print { display: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* ─── Linea del tempo delle scadenze ─────────────────────────────────────────
+   L'animazione è additiva: senza JavaScript, o con prefers-reduced-motion, le
+   voci sono già visibili. La classe .anima la aggiunge il browser solo quando
+   ha deciso di animare, così l'informazione non dipende mai dall'effetto. */
+
+.scadenza.passata { opacity: 0.55; }
+.scadenza.passata h3 { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+.scadenza.prossima h3 { color: var(--color-primary-800); }
+.scadenza.prossima .pallino {
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-primary-600) 18%, transparent);
+}
+
+.linea.anima .scadenza {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out var(--ritardo, 0ms), transform 0.5s ease-out var(--ritardo, 0ms);
+}
+.linea.anima .scadenza.dentro { opacity: 1; transform: none; }
+.linea.anima .scadenza.passata.dentro { opacity: 0.55; }
+
+@media (prefers-reduced-motion: reduce) {
+  .linea.anima .scadenza { opacity: 1; transform: none; transition: none; }
+  .linea.anima .scadenza.passata { opacity: 0.55; }
+}

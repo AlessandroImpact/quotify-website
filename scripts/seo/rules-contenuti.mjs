@@ -59,7 +59,7 @@ function controllaFonti(nodo, percorso, ereditata, file, f) {
 
 export function controllaContenuti({
   parametri, fileParametri, sorgenteCalcolo, fileCalcolo,
-  sorgentiPagine = [], oggi = new Date(),
+  sorgentiPagine = [], dati = { parametri }, oggi = new Date(),
 }) {
   const f = [];
 
@@ -73,7 +73,7 @@ export function controllaContenuti({
 
     let atteso;
     try {
-      atteso = generaBlocchi(sorgente, parametri, blocchi);
+      atteso = generaBlocchi(sorgente, dati, blocchi);
     } catch (e) {
       f.push(
         esito(E, 'calcolatore-non-generabile', file, null,
@@ -97,6 +97,17 @@ export function controllaContenuti({
       esito(E, 'param-fiscale-non-verificato', fileParametri, null,
         'i parametri fiscali non sono stati verificati da una persona',
         'Compilare "verificatoIl" e "verificatoDa" dopo aver confrontato ogni valore con la sua fonte.'),
+    );
+  }
+
+  // ── le date vogliono la stessa verifica dei numeri ────────────────────────
+  // Un coefficiente sbagliato dà una stima sbagliata; una data sbagliata fa
+  // perdere una scadenza. Se il file esiste, chi l'ha controllato deve firmarlo.
+  if (dati.scadenze && (!dati.scadenze.verificatoIl || !dati.scadenze.verificatoDa)) {
+    f.push(
+      esito(E, 'scadenze-non-verificate', 'data/scadenze-2026.json', null,
+        'le scadenze non sono state verificate da una persona',
+        'Compilare "verificatoIl" e "verificatoDa" dopo aver confrontato ogni data con la sua fonte.'),
     );
   }
 

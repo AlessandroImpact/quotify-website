@@ -13,6 +13,7 @@ import { calcola, coefficientePerGruppo } from '../../lib/forfettario.mjs';
 import { eur, pct } from '../../lib/formato.mjs';
 
 export const PARAMETRI = 'data/parametri-fiscali-2026.json';
+export const SCADENZE = 'data/scadenze-2026.json';
 
 // Il caso di apertura della pagina. Uno sviluppatore software sta in ATECO 62,
 // gruppo 9, al 67% — non al 78%, che è il gruppo dei consulenti e degli
@@ -41,7 +42,7 @@ const campo = (nome, valore) =>
 
 // I controlli sono generati dagli stessi parametri della tabella: un <select>
 // scritto a mano si disallineerebbe dal JSON al primo cambio (§2.4).
-function bloccoControlli(p) {
+function bloccoControlli({ parametri: p }) {
   const opzioni = (voci, sel) =>
     voci.map(([v, t]) => `<option value="${v}"${v === sel ? ' selected' : ''}>${t}</option>`).join('');
 
@@ -118,7 +119,7 @@ function bloccoBarra(r, ricavi) {
       </div>`;
 }
 
-function bloccoEsempio(p) {
+function bloccoEsempio({ parametri: p }) {
   const coefficiente = coefficientePerGruppo(ESEMPIO.gruppo, p);
   const r = calcola({ ...ESEMPIO, coefficiente }, p);
 
@@ -129,7 +130,7 @@ function bloccoEsempio(p) {
           <td class="py-3 text-right">${segno}${campo(nome, valore)}</td>
         </tr>`;
 
-  return `${bloccoControlli(p)}${bloccoBarra(r, ESEMPIO.ricavi)}
+  return `${bloccoControlli({ parametri: p })}${bloccoBarra(r, ESEMPIO.ricavi)}
       <table class="w-full border-collapse mt-6">
         <caption class="sr-only">Calcolo delle tasse in regime forfettario</caption>
         <tbody class="divide-y divide-slate-200" data-risultato aria-live="polite">${riga(
@@ -174,7 +175,7 @@ function bloccoEsempio(p) {
       <p data-avviso-regime hidden class="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900"></p>`;
 }
 
-function bloccoAteco(p) {
+function bloccoAteco({ parametri: p }) {
   const righe = p.coefficienti.gruppi
     .map(
       (g) => `
@@ -206,12 +207,12 @@ function bloccoAteco(p) {
       </p>`;
 }
 
-function bloccoAccantonamento(p) {
+function bloccoAccantonamento({ parametri: p }) {
   const coefficiente = coefficientePerGruppo(ESEMPIO.gruppo, p);
   const r = calcola({ ...ESEMPIO, coefficiente }, p);
   const percento = (r.quotaAccantonamento * 100).toFixed(1).replace('.', ',');
 
-  return `${bloccoControlli(p)}
+  return `${bloccoControlli({ parametri: p })}
       <div class="mt-8 text-center">
         <p class="text-sm uppercase tracking-wide text-slate-500 mb-2">
           Di ogni fattura che ti pagano, metti da parte
@@ -247,6 +248,75 @@ function bloccoAccantonamento(p) {
       <p data-avviso-regime hidden class="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900"></p>`;
 }
 
+const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
+  'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+
+const inItaliano = (iso) => {
+  const [a, m, g] = iso.split('-').map(Number);
+  return `${g} ${MESI[m - 1]} ${a}`;
+};
+
+// La linea del tempo dell'anno. NON contiene lo stato temporale — "mancano 70
+// giorni" scritto qui sarebbe falso domani. Lo stato lo mette il browser
+// (lib/scadenze.mjs); qui c'è il contenuto, che è ciò che si indicizza.
+function bloccoScadenze({ scadenze: s }) {
+  const codice = (c) => {
+    const d = s.codici[c];
+    return `<span class="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-300 px-2 py-1 text-xs font-mono">
+              <span class="font-semibold">${c}</span>
+              <span class="text-slate-500 font-sans">${d ? d.sezione : ''}</span>
+            </span>`;
+  };
+
+  const voce = (v, i) => `
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="${v.id}" data-data="${v.data}" style="--ritardo: ${i * 70}ms">
+          <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
+          <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <time datetime="${v.data}">${inItaliano(v.data)}</time>
+            <span class="conto ml-2 normal-case tracking-normal font-medium text-primary-700" hidden></span>
+          </p>
+          <h3 class="text-lg font-bold text-slate-900 mt-1">${v.titolo}</h3>
+          <p class="text-slate-700 mt-1">${v.cosa}</p>
+          ${v.slittata ? `<p class="text-sm text-slate-500 mt-1">⤷ ${v.slittata}.</p>` : ''}
+          <div class="flex flex-wrap items-center gap-2 mt-3">
+            <span class="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium ${
+              v.chi === 'tutti' ? 'bg-primary-50 text-primary-800' : 'bg-amber-50 text-amber-900'
+            }">${v.chi === 'tutti' ? 'riguarda tutti i forfettari' : 'solo artigiani e commercianti'}</span>
+            ${v.codici.map(codice).join('')}
+          </div>
+        </li>`;
+
+  return `
+      <ol class="linea relative border-l-2 border-slate-200 ml-2.5">${s.scadenze.map(voce).join('')}
+      </ol>`;
+}
+
+// I codici tributo per esteso: è il contenuto che intercetta "codice tributo
+// 1791 cosa significa", una ricerca che qualcuno fa davvero col F24 aperto.
+function bloccoCodici({ scadenze: s }) {
+  const righe = Object.entries(s.codici).map(([c, d]) => `
+            <tr class="align-top">
+              <td class="py-3 pr-4 font-mono font-semibold text-slate-900">${c}</td>
+              <td class="py-3 pr-4 text-slate-500 text-sm whitespace-nowrap">${d.sezione}</td>
+              <td class="py-3 text-slate-700">${d.significato}</td>
+            </tr>`).join('');
+
+  return `
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-left">
+          <thead>
+            <tr class="border-b-2 border-slate-300 text-sm uppercase tracking-wide text-slate-500">
+              <th scope="col" class="py-2 pr-4 font-medium">Codice</th>
+              <th scope="col" class="py-2 pr-4 font-medium">Sezione F24</th>
+              <th scope="col" class="py-2 font-medium">Cosa versa</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">${righe}
+          </tbody>
+        </table>
+      </div>`;
+}
+
 function sostituisci(html, nome, contenuto) {
   const inizio = `<!-- generato:${nome}:inizio -->`;
   const fine = `<!-- generato:${nome}:fine -->`;
@@ -264,25 +334,32 @@ function sostituisci(html, nome, contenuto) {
 export const PAGINE = [
   { file: 'calcolo-tasse-forfettario.html', blocchi: { esempio: bloccoEsempio, ateco: bloccoAteco } },
   { file: 'quanto-accantonare-tasse-partita-iva.html', blocchi: { accantonamento: bloccoAccantonamento } },
+  { file: 'scadenze-fiscali-forfettario.html', blocchi: { scadenze: bloccoScadenze, codici: bloccoCodici } },
 ];
 
-export function generaBlocchi(html, parametri, blocchi = PAGINE[0].blocchi) {
+// `dati` raccoglie tutte le fonti: i parametri fiscali e le scadenze stanno in
+// file diversi perché cambiano per motivi diversi, ma un blocco può averne
+// bisogno di entrambi.
+export function generaBlocchi(html, dati, blocchi = PAGINE[0].blocchi) {
   let out = html;
   for (const [nome, costruisci] of Object.entries(blocchi)) {
-    out = sostituisci(out, nome, costruisci(parametri));
+    out = sostituisci(out, nome, costruisci(dati));
   }
   return out;
 }
 
 // ── CLI ──────────────────────────────────────────────────────────────────────
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const parametri = JSON.parse(readFileSync(PARAMETRI, 'utf8'));
+  const dati = {
+    parametri: JSON.parse(readFileSync(PARAMETRI, 'utf8')),
+    scadenze: JSON.parse(readFileSync(SCADENZE, 'utf8')),
+  };
   const verifica = process.argv.includes('--verifica');
   let disallineate = 0;
 
   for (const { file, blocchi } of PAGINE) {
     const prima = readFileSync(file, 'utf8');
-    const dopo = generaBlocchi(prima, parametri, blocchi);
+    const dopo = generaBlocchi(prima, dati, blocchi);
 
     if (verifica) {
       if (prima !== dopo) { console.error(`\u2716 ${file} non è allineato a ${PARAMETRI}`); disallineate += 1; }

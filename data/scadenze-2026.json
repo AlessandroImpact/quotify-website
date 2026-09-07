@@ -1,0 +1,84 @@
+{
+  "anno": 2026,
+  "verificatoIl": null,
+  "verificatoDa": null,
+
+  "_avvertenza": "Le date sono la parte più pericolosa del sito: un coefficiente sbagliato dà una stima sbagliata, una data sbagliata fa perdere una scadenza. verificatoIl e verificatoDa restano null finché non li compila una persona.",
+
+  "fonte": "Scadenze ordinarie di versamento; proroga 2026 per soggetti ISA e forfettari",
+  "url": "https://www.finanzaefisco.com/d-l-n-89-2026-proroga-dei-versamenti-al-20-luglio-per-i-contribuenti-isa-e-forfetari-e-nuove-misure-su-carburanti-autotrasporto-e-agricoltura/",
+  "fonteConsultata": "secondaria",
+  "nota": "La proroga al 20 luglio 2026 nasce dall’art. 6 del DL 22 maggio 2026 n. 89, abrogato in conversione facendo salvi gli effetti; la stessa disciplina è confluita nell’art. 1-sexies del DL 30 aprile 2026 n. 63, convertito dalla L. 25 giugno 2026 n. 113.",
+
+  "scadenze": [
+    {
+      "id": "inps-rata-1",
+      "data": "2026-05-18",
+      "titolo": "Prima rata dei contributi fissi INPS",
+      "chi": "artigiani",
+      "codici": ["AF", "CF"],
+      "slittata": "il termine ordinario è il 16 maggio, che nel 2026 cade di sabato",
+      "cosa": "Un quarto dei contributi dovuti sul reddito minimale. Sono dovuti anche se non hai incassato nulla."
+    },
+    {
+      "id": "saldo-acconto",
+      "data": "2026-07-20",
+      "titolo": "Saldo 2025 e primo acconto 2026",
+      "chi": "tutti",
+      "codici": ["1792", "1790"],
+      "slittata": "termine ordinario 30 giugno, prorogato per soggetti ISA e forfettari senza maggiorazione",
+      "cosa": "Il conguaglio dell’imposta sostitutiva sull’anno chiuso, più il primo anticipo su quello in corso. Per chi versa alla Gestione Separata, nello stesso F24 vanno anche i contributi."
+    },
+    {
+      "id": "differimento",
+      "data": "2026-08-20",
+      "titolo": "Stessi versamenti, con maggiorazione dello 0,80%",
+      "chi": "tutti",
+      "codici": [],
+      "cosa": "Chi non versa entro il 20 luglio può farlo entro il 20 agosto aggiungendo lo 0,80% a titolo di interesse corrispettivo."
+    },
+    {
+      "id": "inps-rata-2",
+      "data": "2026-08-20",
+      "titolo": "Seconda rata dei contributi fissi INPS",
+      "chi": "artigiani",
+      "codici": ["AF", "CF"],
+      "cosa": "Seconda delle quattro rate sul reddito minimale."
+    },
+    {
+      "id": "inps-rata-3",
+      "data": "2026-11-16",
+      "titolo": "Terza rata dei contributi fissi INPS",
+      "chi": "artigiani",
+      "codici": ["AF", "CF"],
+      "cosa": "Terza delle quattro rate sul reddito minimale."
+    },
+    {
+      "id": "secondo-acconto",
+      "data": "2026-11-30",
+      "titolo": "Secondo acconto 2026",
+      "chi": "tutti",
+      "codici": ["1791"],
+      "cosa": "Il secondo e ultimo anticipo sull’imposta dell’anno in corso, in unica soluzione."
+    },
+    {
+      "id": "inps-rata-4",
+      "data": "2027-02-16",
+      "titolo": "Quarta rata dei contributi fissi INPS",
+      "chi": "artigiani",
+      "codici": ["AF", "CF"],
+      "cosa": "Ultima delle quattro rate, già nell’anno successivo."
+    }
+  ],
+
+  "codici": {
+    "1790": { "sezione": "Erario", "significato": "Imposta sostitutiva regime forfetario — acconto prima rata", "fonte": "Risoluzione Agenzia delle Entrate n. 59 dell’11 giugno 2015", "url": "https://www.fiscoetasse.com/normativa-prassi/12035-imposta-sostitutiva-regime-forfetario-istituiti-i-codici-tributo.html", "fonteConsultata": "secondaria" },
+    "1791": { "sezione": "Erario", "significato": "Imposta sostitutiva regime forfetario — acconto seconda rata o in unica soluzione", "fonte": "Risoluzione Agenzia delle Entrate n. 59 dell’11 giugno 2015", "url": "https://www.fiscoetasse.com/normativa-prassi/12035-imposta-sostitutiva-regime-forfetario-istituiti-i-codici-tributo.html", "fonteConsultata": "secondaria" },
+    "1792": { "sezione": "Erario", "significato": "Imposta sostitutiva regime forfetario — saldo", "fonte": "Risoluzione Agenzia delle Entrate n. 59 dell’11 giugno 2015", "url": "https://www.fiscoetasse.com/normativa-prassi/12035-imposta-sostitutiva-regime-forfetario-istituiti-i-codici-tributo.html", "fonteConsultata": "secondaria" },
+    "AF": { "sezione": "INPS", "significato": "Artigiani — contributi sul minimale di reddito", "fonte": "Portale INPS, F24 per artigiani e commercianti", "url": "https://www.inps.it/it/it/dettaglio-approfondimento.schede-informative.49923.f24-per-artigiani-e-commercianti.html", "fonteConsultata": "secondaria" },
+    "CF": { "sezione": "INPS", "significato": "Commercianti — contributi sul minimale di reddito", "fonte": "Portale INPS, F24 per artigiani e commercianti", "url": "https://www.inps.it/it/it/dettaglio-approfondimento.schede-informative.49923.f24-per-artigiani-e-commercianti.html", "fonteConsultata": "secondaria" },
+    "AP": { "sezione": "INPS", "significato": "Artigiani — contributi sui redditi eccedenti il minimale", "fonte": "Portale INPS, F24 per artigiani e commercianti", "url": "https://www.inps.it/it/it/dettaglio-approfondimento.schede-informative.49923.f24-per-artigiani-e-commercianti.html", "fonteConsultata": "secondaria" },
+    "CP": { "sezione": "INPS", "significato": "Commercianti — contributi sui redditi eccedenti il minimale", "fonte": "Portale INPS, F24 per artigiani e commercianti", "url": "https://www.inps.it/it/it/dettaglio-approfondimento.schede-informative.49923.f24-per-artigiani-e-commercianti.html", "fonteConsultata": "secondaria" },
+    "PXX": { "sezione": "INPS", "significato": "Gestione Separata, professionisti — saldo e acconti in unica soluzione (PXXR se rateizzato)", "fonte": "Portale INPS, F24 per professionisti iscritti alla Gestione Separata", "url": "https://www.inps.it/it/it/dettaglio-approfondimento.schede-informative.49920.F24-per-professionisti-iscritti-alla-Gestione-Separata.html", "fonteConsultata": "secondaria" }
+  }
+}

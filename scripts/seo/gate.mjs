@@ -8,7 +8,7 @@ import { caricaPagine } from './lib.mjs';
 import { controllaPagina } from './rules-page.mjs';
 import { controllaSito } from './rules-site.mjs';
 import { controllaContenuti } from './rules-contenuti.mjs';
-import { PAGINE } from '../content/genera-calcolatore.mjs';
+import { PAGINE, SCADENZE } from '../content/genera-calcolatore.mjs';
 
 const distDir = process.argv[2] || 'dist';
 const json = process.argv.includes('--json');
@@ -42,8 +42,12 @@ function regoleContenuti() {
       hint: 'La pagina pubblica dei numeri fiscali: senza il file dei parametri non sono verificabili.' }];
   }
 
+  const parametri = JSON.parse(readFileSync(fileParametri, 'utf8'));
+  const scadenze = existsSync(SCADENZE) ? JSON.parse(readFileSync(SCADENZE, 'utf8')) : undefined;
+
   return controllaContenuti({
-    parametri: JSON.parse(readFileSync(fileParametri, 'utf8')),
+    parametri,
+    dati: { parametri, scadenze },
     fileParametri,
     sorgenteCalcolo: readFileSync(fileCalcolo, 'utf8'),
     fileCalcolo,
