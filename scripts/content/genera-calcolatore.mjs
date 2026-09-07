@@ -269,7 +269,7 @@ function bloccoScadenze({ scadenze: s }) {
   };
 
   const voce = (v, i) => `
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="${v.id}" data-data="${v.data}" style="--ritardo: ${i * 70}ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="${v.id}" data-data="${v.data}" data-chi="${v.chi}" style="--ritardo: ${i * 70}ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="${v.data}">${inItaliano(v.data)}</time>
@@ -286,7 +286,33 @@ function bloccoScadenze({ scadenze: s }) {
           </div>
         </li>`;
 
+  // Il filtro funziona in CSS puro, con i radio e `:has()`: chi ha il
+  // JavaScript disattivato lo usa lo stesso. Lo stato predefinito mostra TUTTO
+  // — nascondere righe al primo caricamento significherebbe presentare a Google
+  // una pagina più povera di quella che è.
+  const scelta = (valore, etichetta, nota) => `
+          <label class="flex-1 min-w-[13rem] cursor-pointer rounded-xl border border-slate-300 bg-white px-4 py-3
+                 transition-colors hover:border-primary-400 has-[:checked]:border-primary-600
+                 has-[:checked]:bg-primary-50 has-[:checked]:ring-1 has-[:checked]:ring-primary-600">
+            <input type="radio" name="chi" value="${valore}" class="sr-only" ${valore === 'tutte' ? 'checked' : ''} />
+            <span class="block font-semibold text-slate-900">${etichetta}</span>
+            <span class="block text-sm text-slate-500">${nota}</span>
+          </label>`;
+
   return `
+      <div class="filtro-scadenze mb-8">
+        <p class="text-sm font-medium text-slate-700 mb-3" id="filtro-etichetta">Dove versi i contributi?</p>
+        <div class="flex flex-wrap gap-3" role="radiogroup" aria-labelledby="filtro-etichetta">${
+          scelta('tutte', 'Mostrale tutte', 'il calendario completo')
+        }${
+          scelta('gestione-separata', 'Gestione Separata', 'liberi professionisti')
+        }${
+          scelta('artigiani', 'Artigiani e commercianti', 'con i contributi fissi')
+        }
+        </div>
+        <p class="mt-3 text-sm text-slate-500" data-conteggio-filtro hidden></p>
+      </div>
+
       <ol class="linea relative border-l-2 border-slate-200 ml-2.5">${s.scadenze.map(voce).join('')}
       </ol>`;
 }

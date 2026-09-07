@@ -449,3 +449,12 @@ html.lenis, html.lenis body { height: auto; }
   .linea.anima .scadenza { opacity: 1; transform: none; transition: none; }
   .linea.anima .scadenza.passata { opacity: 0.55; }
 }
+
+/* ─── Filtro delle scadenze, in CSS puro ─────────────────────────────────────
+   Radio + `:has()`: funziona anche con JavaScript disattivato. Lo stato
+   predefinito è "mostrale tutte", perché nascondere righe al primo
+   caricamento presenterebbe a Google una pagina più povera di quella che è. */
+
+.filtro-scadenze:has(input[value="gestione-separata"]:checked) ~ .linea .scadenza[data-chi="artigiani"] {
+  display: none;
+}

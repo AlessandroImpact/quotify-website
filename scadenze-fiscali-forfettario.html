@@ -71,8 +71,36 @@
       <section aria-labelledby="calendario" class="mb-16">
         <h2 id="calendario" class="text-2xl font-bold text-slate-900 mb-8">Il calendario dell’anno</h2>
         <!-- generato:scadenze:inizio -->
+      <div class="filtro-scadenze mb-8">
+        <p class="text-sm font-medium text-slate-700 mb-3" id="filtro-etichetta">Dove versi i contributi?</p>
+        <div class="flex flex-wrap gap-3" role="radiogroup" aria-labelledby="filtro-etichetta">
+          <label class="flex-1 min-w-[13rem] cursor-pointer rounded-xl border border-slate-300 bg-white px-4 py-3
+                 transition-colors hover:border-primary-400 has-[:checked]:border-primary-600
+                 has-[:checked]:bg-primary-50 has-[:checked]:ring-1 has-[:checked]:ring-primary-600">
+            <input type="radio" name="chi" value="tutte" class="sr-only" checked />
+            <span class="block font-semibold text-slate-900">Mostrale tutte</span>
+            <span class="block text-sm text-slate-500">il calendario completo</span>
+          </label>
+          <label class="flex-1 min-w-[13rem] cursor-pointer rounded-xl border border-slate-300 bg-white px-4 py-3
+                 transition-colors hover:border-primary-400 has-[:checked]:border-primary-600
+                 has-[:checked]:bg-primary-50 has-[:checked]:ring-1 has-[:checked]:ring-primary-600">
+            <input type="radio" name="chi" value="gestione-separata" class="sr-only"  />
+            <span class="block font-semibold text-slate-900">Gestione Separata</span>
+            <span class="block text-sm text-slate-500">liberi professionisti</span>
+          </label>
+          <label class="flex-1 min-w-[13rem] cursor-pointer rounded-xl border border-slate-300 bg-white px-4 py-3
+                 transition-colors hover:border-primary-400 has-[:checked]:border-primary-600
+                 has-[:checked]:bg-primary-50 has-[:checked]:ring-1 has-[:checked]:ring-primary-600">
+            <input type="radio" name="chi" value="artigiani" class="sr-only"  />
+            <span class="block font-semibold text-slate-900">Artigiani e commercianti</span>
+            <span class="block text-sm text-slate-500">con i contributi fissi</span>
+          </label>
+        </div>
+        <p class="mt-3 text-sm text-slate-500" data-conteggio-filtro hidden></p>
+      </div>
+
       <ol class="linea relative border-l-2 border-slate-200 ml-2.5">
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-1" data-data="2026-05-18" style="--ritardo: 0ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-1" data-data="2026-05-18" data-chi="artigiani" style="--ritardo: 0ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2026-05-18">18 maggio 2026</time>
@@ -92,7 +120,7 @@
             </span>
           </div>
         </li>
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="saldo-acconto" data-data="2026-07-20" style="--ritardo: 70ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="saldo-acconto" data-data="2026-07-20" data-chi="tutti" style="--ritardo: 70ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2026-07-20">20 luglio 2026</time>
@@ -112,7 +140,7 @@
             </span>
           </div>
         </li>
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="differimento" data-data="2026-08-20" style="--ritardo: 140ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="differimento" data-data="2026-08-20" data-chi="tutti" style="--ritardo: 140ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2026-08-20">20 agosto 2026</time>
@@ -126,7 +154,7 @@
             
           </div>
         </li>
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-2" data-data="2026-08-20" style="--ritardo: 210ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-2" data-data="2026-08-20" data-chi="artigiani" style="--ritardo: 210ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2026-08-20">20 agosto 2026</time>
@@ -146,7 +174,7 @@
             </span>
           </div>
         </li>
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-3" data-data="2026-11-16" style="--ritardo: 280ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-3" data-data="2026-11-16" data-chi="artigiani" style="--ritardo: 280ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2026-11-16">16 novembre 2026</time>
@@ -166,7 +194,7 @@
             </span>
           </div>
         </li>
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="secondo-acconto" data-data="2026-11-30" style="--ritardo: 350ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="secondo-acconto" data-data="2026-11-30" data-chi="tutti" style="--ritardo: 350ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2026-11-30">30 novembre 2026</time>
@@ -183,7 +211,7 @@
             </span>
           </div>
         </li>
-        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-4" data-data="2027-02-16" style="--ritardo: 420ms">
+        <li class="scadenza relative pl-10 sm:pl-12 pb-10 last:pb-0" data-scadenza="inps-rata-4" data-data="2027-02-16" data-chi="artigiani" style="--ritardo: 420ms">
           <span class="pallino absolute left-0 top-1.5 w-5 h-5 rounded-full border-4 border-white bg-slate-300 ring-1 ring-slate-300" aria-hidden="true"></span>
           <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">
             <time datetime="2027-02-16">16 febbraio 2027</time>
