@@ -318,7 +318,7 @@
 }
 .innesco-tratti { position: relative; width: 18px; height: 12px; }
 .innesco-tratti i {
-  position: absolute; left: 0; height: 1.5px; border-radius: 2px; background: #e8edf7;
+  position: absolute; left: 0; height: 1.5px; border-radius: 2px; background: currentColor;
   transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -337,6 +337,10 @@
    centro li calcola il JS: --cx, --cy, --r. */
 .sipario {
   position: fixed; inset: 0; z-index: 95;
+  /* Colore proprio, non ereditato: il sipario è scuro su OGNI pagina, e sulle
+     pagine di contenuto il testo del documento è scuro. Senza questa riga le
+     voci del menu erano nere su nero. */
+  color: var(--color-foam);
   clip-path: circle(0px at var(--cx, 100%) var(--cy, 2rem));
   transition: clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: clip-path;
@@ -357,18 +361,25 @@
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .sipario.aperto .sipario-voce > em { transform: none; }
-.sipario.aperto li:nth-child(1) .sipario-voce > em { transition-delay: 0.16s; }
-.sipario.aperto li:nth-child(2) .sipario-voce > em { transition-delay: 0.22s; }
-.sipario.aperto li:nth-child(3) .sipario-voce > em { transition-delay: 0.28s; }
-.sipario.aperto li:nth-child(4) .sipario-voce > em { transition-delay: 0.34s; }
+/* Il ritardo arriva dal generatore, non da nth-child: le voci vengono dai dati
+   e possono essere quante si vuole. Con i selettori posizionali la quinta voce
+   restava senza animazione. */
+.sipario.aperto .sipario-voce > em { transition-delay: var(--ritardo, 0.16s); }
 
 /* il filo che cresce sotto la voce */
 .sipario-filo { display: block; height: 1px; width: 0; background: rgba(96, 165, 250, 0.9);
   transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .sipario-link:hover .sipario-filo,
 .sipario-link:focus-visible .sipario-filo { width: 100%; }
-.sipario-link:hover .sipario-num { color: #60a5fa; }
+.sipario-link:hover .sipario-num,
+.sipario-link:focus-visible .sipario-num { color: #60a5fa; }
 .sipario-num { transition: color 0.3s ease; }
+
+/* Anche la parola risponde. Prima cresceva solo il filo sotto, e su una voce
+   di quella dimensione non bastava a far capire che era attiva. */
+.sipario-voce > em { color: rgb(232 237 247 / 0.72); transition: color 0.3s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+.sipario-link:hover .sipario-voce > em,
+.sipario-link:focus-visible .sipario-voce > em { color: var(--color-foam); }
 
 .sipario-piede { opacity: 0; transform: translateY(14px);
   transition: opacity 0.5s ease 0.42s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.42s; }

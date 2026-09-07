@@ -414,7 +414,7 @@ function bloccoTestata({ navigazione: n }, tema) {
 
 function bloccoSipario({ navigazione: n }) {
   const voce = (v, i) => `
-              <li>
+              <li style="--ritardo: ${(0.16 + i * 0.06).toFixed(2)}s">
                 <a href="${v.href}" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
                   <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">${String(i + 1).padStart(2, '0')}</span>
                   <span class="flex-1 min-w-0">
