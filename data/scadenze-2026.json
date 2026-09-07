@@ -1,7 +1,7 @@
 {
   "anno": 2026,
-  "verificatoIl": null,
-  "verificatoDa": null,
+  "verificatoIl": "2026-09-07",
+  "verificatoDa": "Alessandro Terracciano",
 
   "_avvertenza": "Le date sono la parte più pericolosa del sito: un coefficiente sbagliato dà una stima sbagliata, una data sbagliata fa perdere una scadenza. verificatoIl e verificatoDa restano null finché non li compila una persona.",
 
