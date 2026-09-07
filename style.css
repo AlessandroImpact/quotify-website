@@ -625,3 +625,26 @@ html.lenis, html.lenis body { height: auto; }
   border-bottom: 1px solid rgb(232 237 247 / 0.08);
 }
 .testata-scura::before { display: none; }
+
+/* Il corpo del pilastro: prosa lunga su fondo scuro. Misura di riga corta e
+   interlinea generosa — 3.000 parole di fisco si leggono male a piena larghezza. */
+.guide-corpo { margin-top: clamp(3rem, 8vh, 5rem); max-width: 64ch; }
+.guide-corpo > p, .guide-corpo .lista { margin-top: 1.125rem; line-height: 1.72; color: rgb(232 237 247 / 0.62); }
+.guide-corpo h3 { margin-top: 2.25rem; font-size: 1.0625rem; font-weight: 700; color: var(--color-foam); }
+.guide-corpo strong { color: rgb(232 237 247 / 0.9); font-weight: 600; }
+.guide-corpo em { color: rgb(232 237 247 / 0.75); }
+.guide-corpo a { color: var(--color-primary-300); border-bottom: 1px solid rgb(96 165 250 / 0.4); transition: border-color 0.25s, color 0.25s; }
+.guide-corpo a:hover { color: var(--color-foam); border-bottom-color: currentColor; }
+.lista { padding-left: 1.25rem; }
+.lista > li { list-style: disc; margin-top: 0.75rem; }
+.lista-num > li { list-style: decimal; }
+.lista-num { padding-left: 1.5rem; }
+
+.faq-elenco { margin-top: 1.75rem; }
+.faq-elenco > div + div { margin-top: 1.75rem; padding-top: 1.75rem; border-top: 1px solid rgb(232 237 247 / 0.08); }
+.faq-elenco h3 { margin-top: 0; margin-bottom: 0.5rem; }
+.faq-elenco p { line-height: 1.72; color: rgb(232 237 247 / 0.62); }
+
+/* Con una testata appiccicata, saltare a un'ancora nasconde il titolo sotto di
+   essa. Vale per ogni pagina con più sezioni, non solo per le guide. */
+:where(h1, h2, h3)[id] { scroll-margin-top: 5.5rem; }

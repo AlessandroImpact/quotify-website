@@ -238,7 +238,7 @@ function grafoGuide(root) {
   }));
   if (!voci.length) fatale('guide: nessuna voce estraibile da .voce-a');
 
-  return [
+  const grafo = [
     organizzazione(),
     {
       '@type': 'CollectionPage',
@@ -267,6 +267,23 @@ function grafoGuide(root) {
       ],
     },
   ];
+
+  const faq = estraiFaq(root);
+  if (faq.length) {
+    if (faq.some((f) => !f.domanda || !f.risposta)) fatale('guide: FAQ incomplete in [data-faq]');
+    grafo.push({
+      '@type': 'FAQPage',
+      '@id': `${url}#faq`,
+      inLanguage: 'it-IT',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.domanda,
+        acceptedAnswer: { '@type': 'Answer', text: f.risposta },
+      })),
+    });
+  }
+
+  return grafo;
 }
 
 const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore, articolo: grafoArticolo, guide: grafoGuide };
