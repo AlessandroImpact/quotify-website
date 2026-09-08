@@ -145,6 +145,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/preventivi.html",
+      "url": "/guide/preventivi",
+      "titolo": "Creare un preventivo e farlo accettare",
+      "titoloBreve": "Il preventivo che il cliente accetta con un clic",
+      "descrizione": "I cinque stati del preventivo, i tre template PDF e il link pubblico da cui il cliente accetta: cosa si muove nell'app quando risponde.",
+      "descrizioneSocial": "Manda un link, non un allegato. Il cliente apre, legge e accetta dallo stesso posto.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "30",
+      "cifra_nota": "i giorni di validità predefiniti",
+      "query_obiettivo": "creare un preventivo",
+      "query_secondarie": "preventivo forfettario iva, preventivo online link cliente, template preventivo pdf, preventivo ha valore legale",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",

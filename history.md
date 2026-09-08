@@ -135,7 +135,7 @@ Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 
 - [x] `/guide/primo-accesso-profilo-fiscale` — i quattro numeri del profilo; campi e valori predefiniti verificati su `ProfilePage.tsx` (8 set 2026)
 - [x] `/guide/bacheca-progetti` — cinque colonne e regola dei promemoria verificate su `project-state-machine.ts` (8 set 2026)
-- [ ] `/guide/preventivi` — creazione, PDF, link pubblico, stati
+- [x] `/guide/preventivi` — stati, template, link pubblico e risposta del cliente verificati su `dates.ts` e sugli endpoint share (8 set 2026)
 - [ ] `/guide/dal-preventivo-alla-fattura` — il passaggio che è il cuore del prodotto
 - [ ] `/guide/clienti` — l'anagrafica
 - [ ] `/guide/fatture-ricorrenti` — programmare e confermare

@@ -48,6 +48,9 @@
 /guide/bacheca-progetti
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/guide/preventivi
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/stati-fattura-elettronica
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
