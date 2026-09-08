@@ -221,6 +221,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/f24-e-dashboard.html",
+      "url": "/guide/f24-e-dashboard",
+      "titolo": "F24 e dashboard: i numeri del forfettario",
+      "titoloBreve": "F24 e dashboard, e perché non dicono lo stesso numero",
+      "descrizione": "Perché dashboard e F24 mostrano fatturati diversi, come si calcolano imposta, contributi e acconti, e perché la stima si basa sull'emissione e non sull'incasso.",
+      "descrizioneSocial": "Due schermate che parlano di soldi e non coincidono. Non è un errore: contano cose diverse.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "2",
+      "cifra_nota": "le fonti da cui nascono i numeri dell'anno",
+      "query_obiettivo": "f24 forfettario",
+      "query_secondarie": "acconti imposta sostitutiva metodo storico, quanto accantonare forfettario app, massimale inps gestione separata, principio di cassa forfettario",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",

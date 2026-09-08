@@ -60,6 +60,9 @@
 /guide/fatture-ricorrenti
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/guide/f24-e-dashboard
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/stati-fattura-elettronica
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
