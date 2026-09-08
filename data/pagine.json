@@ -164,6 +164,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/dal-preventivo-alla-fattura.html",
+      "url": "/guide/dal-preventivo-alla-fattura",
+      "titolo": "Dal preventivo alla fattura senza ricopiare",
+      "titoloBreve": "Dal preventivo alla fattura, e l'eccezione da conoscere",
+      "descrizione": "Cosa viene riportato dal preventivo alla fattura e cosa no, come funziona la numerazione progressiva e perché conviene collegare il cliente prima.",
+      "descrizioneSocial": "Le righe passano, il cliente passa, gli «altri costi» no. Meglio saperlo prima di emettere.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "1",
+      "cifra_nota": "la voce del preventivo che non passa in fattura",
+      "query_obiettivo": "dal preventivo alla fattura",
+      "query_secondarie": "trasformare preventivo in fattura, numerazione fattura forfettario, numero progressivo fattura anno, cambiare gestionale fatture a meta anno",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
