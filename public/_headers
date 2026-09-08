@@ -42,6 +42,9 @@
 /ateco-2025-forfettario
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/guide/stati-fattura-elettronica
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /assistenza
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 

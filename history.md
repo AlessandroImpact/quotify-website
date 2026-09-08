@@ -105,6 +105,52 @@ anglofoni, quindi in Italia vincibile.
 
 ---
 
+## Contenuti: fatti e da fare
+
+Si spunta man mano. Ogni riga fatta porta la data di pubblicazione.
+
+### Fisco — pagine di primo livello (URL piatti)
+
+- [x] `/guide` — hub e pilastro · 07/09/2026
+- [x] `/calcolo-tasse-forfettario` · 04/09/2026
+- [x] `/quanto-accantonare-tasse-partita-iva` · 04/09/2026
+- [x] `/ateco-2025-forfettario` · 04/09/2026
+- [x] `/scadenze-fiscali-forfettario` · 07/09/2026
+
+### Guide all'app — gruppo A, rispondono a una ricerca vera
+
+Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
+
+- [ ] `/guide/stati-fattura-elettronica` — i nove stati e cosa fare per ognuno
+- [ ] `/guide/fattura-scartata-sdi` — perché succede, i codici, i 5 giorni per rimediare
+- [ ] `/guide/codice-destinatario` — cos'è, dove si trova, cosa mettere se manca
+- [ ] `/guide/natura-n2-2-diciture-forfettario` — il codice natura e le diciture obbligatorie
+- [ ] `/guide/marca-da-bollo-fattura-elettronica` — soglia, importo, assolvimento virtuale
+- [ ] `/guide/nota-di-credito-td04` — quando serve e come si emette
+- [ ] `/guide/fattura-cliente-estero-forfettario` — UE, extra UE, codici e diciture
+
+### Guide all'app — gruppo B, documentazione dei moduli
+
+Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
+
+- [ ] `/guide/primo-accesso-profilo-fiscale` — **da fare per prima**: se il profilo è sbagliato, ogni numero dell'app è sbagliato
+- [ ] `/guide/bacheca-progetti` — i cinque stati e i promemoria automatici
+- [ ] `/guide/preventivi` — creazione, PDF, link pubblico, stati
+- [ ] `/guide/dal-preventivo-alla-fattura` — il passaggio che è il cuore del prodotto
+- [ ] `/guide/clienti` — l'anagrafica
+- [ ] `/guide/fatture-ricorrenti` — programmare e confermare
+- [ ] `/guide/f24-e-dashboard` — da dove vengono i numeri
+- [ ] `/guide/quotifai` — cosa può leggere e cosa no
+- [ ] `/guide/app-su-telefono` — installazione e notifiche
+
+### Non contenuto, ma manca
+
+- [ ] Pagina **chi siamo** — su materia YMYL l'assenza di una pagina che dica chi c'è dietro è un segnale di fiducia mancante
+- [ ] Almeno **un'immagine di contenuto** — un diagramma «dove finiscono i 100 € che fatturi»
+- [ ] `assistenza.html` è magra (167 parole)
+
+---
+
 ## Cosa viene dopo
 
 **In corso**: le guide all'app. Sedici pagine pianificate, divise in due gruppi —

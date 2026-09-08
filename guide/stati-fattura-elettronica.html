@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <!-- generato:testa:inizio -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
+    <meta name="description" content="Consegnata, Scartata, Non consegnata, Decorrenza termini: cosa vuol dire ogni esito dello SdI e quando devi intervenire davvero." />
+    <title>Stati della fattura elettronica: cosa significano</title>
+
+    <link rel="canonical" href="https://quotify.it/guide/stati-fattura-elettronica" />
+
+    <!-- Misurazione: per cosa è stata scritta questa pagina e da quando.
+         Verificate dal gate di build — docs/calcolatore-forfettario-piano.md §9. -->
+    <meta name="quotify:categoria" content="app" />
+    <meta name="quotify:tipo" content="guida" />
+    <meta name="quotify:cifra" content="9" />
+    <meta name="quotify:cifra-nota" content="gli esiti che lo SdI può restituire" />
+    <meta name="quotify:query-obiettivo" content="stati fattura elettronica" />
+    <meta name="quotify:query-secondarie" content="fattura consegnata sdi significato, non consegnata fattura elettronica, decorrenza termini fattura, esiti sdi" />
+    <meta name="quotify:pubblicato" content="2026-09-08" />
+    <meta name="quotify:revisionato" content="2026-09-08" />
+    <meta name="quotify:verifica-fiscale" content="da-verificare" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://quotify.it/guide/stati-fattura-elettronica" />
+    <meta property="og:title" content="Stati della fattura elettronica: cosa significano" />
+    <meta property="og:description" content="Nove stati, uno solo richiede che tu faccia qualcosa. Ecco quale e perché." />
+    <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stati della fattura elettronica: cosa significano" />
+    <meta name="twitter:description" content="Nove stati, uno solo richiede che tu faccia qualcosa. Ecco quale e perché." />
+    <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  
+      <!-- generato:testa:fine -->
+  </head>
+  <body class="font-sans antialiased bg-white text-slate-900" data-jsonld="articolo">
+
+        <!-- generato:testata:inizio -->
+      <header class="testata testata-pagina top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="marchio-pagina text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- generato:testata:fine -->
+
+        <!-- generato:sipario:inizio -->
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">
+              <li style="--ritardo: 0.16s">
+                <a href="/#sistema" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">01</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Il sistema</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.22s">
+                <a href="/#banco" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">02</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Provalo</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.28s">
+                <a href="/guide" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">03</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Guide</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.34s">
+                <a href="/#prezzi" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">04</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Prezzi</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.40s">
+                <a href="/#faq" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">05</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Domande</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">
+                  <li><a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-sm text-foam/60 hover:text-foam transition-colors">Accedi</a></li>
+                  <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                  <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy</a></li>
+                  <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini</a></li>
+                  <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie</a></li>
+                  <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- generato:sipario:fine -->
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <nav aria-label="Percorso" class="text-sm text-slate-500 mb-6">
+        <a href="/guide" class="hover:text-slate-700 underline underline-offset-4">Guide</a>
+        <span aria-hidden="true"> › </span>
+        <span>Stati della fattura elettronica</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        Gli stati della fattura elettronica, spiegati uno per uno
+      </h1>
+      <p class="text-lg text-slate-600 mb-4">
+        Hai inviato la fattura e adesso c’è scritto qualcosa che non ti dice niente:
+        «Consegnata», «Non consegnata», «Decorrenza termini». Sono gli esiti che il Sistema di
+        Interscambio restituisce, e ognuno vuol dire una cosa precisa.
+      </p>
+      <p class="text-lg text-slate-900 font-semibold mb-10">
+        Uno solo richiede che tu faccia qualcosa, ed è «Scartata».
+      </p>
+
+      <section aria-labelledby="percorso" class="mb-14">
+        <h2 id="percorso" class="text-2xl font-bold text-slate-900 mb-4">Il percorso normale</h2>
+        <p class="text-slate-700 mb-4">
+          Quando emetti una fattura non la mandi al cliente: la mandi allo <strong>SdI</strong>, il
+          Sistema di Interscambio dell’Agenzia delle Entrate, che la controlla e poi la consegna.
+          È lui a dirti com’è andata, e lo fa con una notifica per ogni passaggio.
+        </p>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+          <p class="font-semibold text-slate-900 mb-2">Verso un cliente privato o un’azienda</p>
+          <p class="text-slate-700 font-mono text-sm">Bozza → Inviata → Consegnata</p>
+          <p class="font-semibold text-slate-900 mt-5 mb-2">Verso la Pubblica Amministrazione</p>
+          <p class="text-slate-700 font-mono text-sm">Bozza → Inviata → Consegnata → Accettata</p>
+        </div>
+        <p class="text-slate-600 mt-4 text-sm">
+          La differenza sta in fondo: un’azienda non deve accettare niente, mentre la PA ha quindici
+          giorni per accettare o rifiutare quello che le hai mandato.
+        </p>
+      </section>
+
+      <section aria-labelledby="stati" class="mb-14">
+        <h2 id="stati" class="text-2xl font-bold text-slate-900 mb-6">I nove stati</h2>
+
+        <div class="space-y-6">
+          <div class="border-l-4 border-slate-300 pl-5">
+            <h3 class="font-bold text-slate-900">Bozza</h3>
+            <p class="text-slate-700 mt-1">Esiste solo per te. Non è stata emessa, non è stata
+              numerata in modo definitivo, e puoi ancora cambiarci tutto.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: inviarla, quando è pronta.</p>
+          </div>
+
+          <div class="border-l-4 border-slate-300 pl-5">
+            <h3 class="font-bold text-slate-900">Invio in corso…</h3>
+            <p class="text-slate-700 mt-1">È partita verso lo SdI ma non è ancora arrivata una
+              risposta. Dura pochi istanti, a volte qualche minuto.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: aspettare. Non reinviarla.</p>
+          </div>
+
+          <div class="border-l-4 border-slate-300 pl-5">
+            <h3 class="font-bold text-slate-900">Inviata</h3>
+            <p class="text-slate-700 mt-1">Lo SdI l’ha presa in carico e la sta controllando.
+              Ha fino a cinque giorni per dire se va bene, anche se di solito ci mette molto meno.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: aspettare l’esito.</p>
+          </div>
+
+          <div class="border-l-4 border-emerald-400 pl-5">
+            <h3 class="font-bold text-slate-900">Consegnata</h3>
+            <p class="text-slate-700 mt-1">I controlli sono passati e il documento è arrivato al
+              destinatario. Per una fattura verso un privato o un’azienda <strong>questo è il
+              traguardo</strong>: non arriverà nient’altro, ed è tutto a posto.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: niente.</p>
+          </div>
+
+          <div class="border-l-4 border-emerald-400 pl-5">
+            <h3 class="font-bold text-slate-900">Accettata</h3>
+            <p class="text-slate-700 mt-1">Riguarda solo le fatture verso la Pubblica
+              Amministrazione: l’ente ha esaminato la fattura e l’ha accettata.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: niente.</p>
+          </div>
+
+          <div class="border-l-4 border-emerald-400 pl-5">
+            <h3 class="font-bold text-slate-900">Decorrenza termini</h3>
+            <p class="text-slate-700 mt-1">Anche questo riguarda solo la PA, e nonostante il nome
+              burocratico <strong>è una buona notizia</strong>: l’ente non ha risposto entro il
+              termine previsto, e la fattura si considera regolare.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: niente.</p>
+          </div>
+
+          <div class="border-l-4 border-orange-400 pl-5">
+            <h3 class="font-bold text-slate-900">Non consegnata</h3>
+            <p class="text-slate-700 mt-1">Lo SdI ha <strong>accettato</strong> la fattura ma non è
+              riuscito a recapitarla: di solito perché il canale del destinatario non funziona, o
+              perché il codice destinatario indicato non è raggiungibile.</p>
+            <p class="text-slate-700 mt-2">È il nome che spaventa di più e il meno grave di tutti:
+              <strong>la fattura è emessa a tutti gli effetti</strong>. Lo SdI la mette a
+              disposizione del destinatario nella sua area riservata dell’Agenzia delle Entrate.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: avvisare il cliente che la trova nel
+              proprio cassetto fiscale, e mandargliene una copia di cortesia in PDF.</p>
+          </div>
+
+          <div class="border-l-4 border-primary-400 pl-5">
+            <h3 class="font-bold text-slate-900">Importata</h3>
+            <p class="text-slate-700 mt-1">Non è uno stato dello SdI: vuol dire che quella fattura
+              è stata caricata da fuori, non emessa da qui. Serve a tenere lo storico completo
+              quando si cambia gestionale a metà anno.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: niente.</p>
+          </div>
+
+          <div class="border-l-4 border-red-400 pl-5">
+            <h3 class="font-bold text-slate-900">Scartata</h3>
+            <p class="text-slate-700 mt-1">I controlli non sono passati e la fattura
+              <strong>non è stata emessa</strong>. Lo SdI dice sempre perché, con un codice di
+              errore e una descrizione.</p>
+            <p class="text-slate-700 mt-2 font-semibold">È l’unico stato che richiede che tu faccia
+              qualcosa, e c’è un termine.</p>
+            <p class="text-slate-500 text-sm mt-1">Da fare: correggere e reinviare — vedi sotto.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="scarto" class="mb-14">
+        <h2 id="scarto" class="text-2xl font-bold text-slate-900 mb-4">Se è «Scartata»: hai cinque giorni</h2>
+        <p class="text-slate-700 mb-4">
+          Dalla data della notifica di scarto hai <strong>cinque giorni</strong> per correggere la
+          fattura e rimandarla. Se rispetti quel termine puoi riemetterla con lo
+          <strong>stesso numero e la stessa data</strong> dell’originale, e ai fini fiscali è come
+          se fosse stata emessa quel giorno.
+        </p>
+        <div class="rounded-2xl bg-amber-50 border border-amber-200 p-5 sm:p-6">
+          <p class="text-amber-900">
+            Se lasci passare i cinque giorni la fattura risulta emessa in ritardo, e la tardiva
+            emissione è sanzionata. Non è una formalità: è il motivo per cui vale la pena guardare
+            gli esiti invece di dare per scontato che sia andata bene.
+          </p>
+        </div>
+        <p class="text-slate-700 mt-4">
+          In Quotify una fattura scartata torna modificabile, e accanto trovi il
+          <strong>motivo dello scarto</strong> letto direttamente dalla notifica dello SdI: correggi
+          quel punto e reinvii, senza rifare il documento da capo.
+        </p>
+      </section>
+
+      <section aria-labelledby="faq" class="mb-14">
+        <h2 id="faq" class="text-2xl font-bold text-slate-900 mb-6">Domande frequenti</h2>
+        <div class="space-y-6">
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">«Non consegnata» significa che devo rifarla?</h3>
+            <p data-faq-a class="text-slate-700">No. La fattura è emessa e valida: lo SdI l’ha
+              accettata, semplicemente non è riuscito a recapitarla al canale del destinatario e
+              gliela mette a disposizione nella sua area riservata dell’Agenzia delle Entrate.
+              L’unica cosa utile è avvisare il cliente, perché altrimenti potrebbe non accorgersene.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Quanto ci mette lo SdI a rispondere?</h3>
+            <p data-faq-a class="text-slate-700">Ha fino a cinque giorni per comunicare l’esito dei
+              controlli, ma nella pratica risponde quasi sempre in pochi minuti. Se dopo qualche ora
+              lo stato è ancora «Inviata», non è un problema: sta solo lavorando.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">La fattura si ferma a «Consegnata». È normale?</h3>
+            <p data-faq-a class="text-slate-700">Sì, ed è il traguardo. «Accettata» e «Decorrenza
+              termini» esistono solo per le fatture verso la Pubblica Amministrazione: un cliente
+              privato o un’azienda non deve accettare niente.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Posso reinviare una fattura scartata con un numero nuovo?</h3>
+            <p data-faq-a class="text-slate-700">Si può, ma non è la strada preferibile. Riemetterla
+              con lo stesso numero e la stessa data entro cinque giorni è la modalità indicata come
+              prima scelta; le alternative servono quando quella non è praticabile.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Cosa vuol dire «Decorrenza termini»?</h3>
+            <p data-faq-a class="text-slate-700">Che la Pubblica Amministrazione non ha né accettato
+              né rifiutato la fattura entro il termine che aveva per farlo. Il silenzio vale come
+              via libera: la fattura si considera regolare e non devi fare niente.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="fonti" class="mb-14 text-sm text-slate-600">
+        <h2 id="fonti" class="text-base font-semibold text-slate-900 mb-3">Fonti e aggiornamento</h2>
+        <p class="mb-2">Aggiornato all’<strong>8 settembre 2026</strong>.</p>
+        <ul class="space-y-1 list-disc pl-5">
+          <li>Notifiche del Sistema di Interscambio: ricevuta di consegna, notifica di scarto, notifica di mancata consegna, notifica di esito, decorrenza termini.</li>
+          <li>Termine di cinque giorni per il reinvio di una fattura scartata mantenendo numero e data.</li>
+          <li>Etichette degli stati: quelle mostrate da Quotify nell’elenco delle fatture.</li>
+        </ul>
+        <p class="mt-3">Questa pagina ha finalità informative e non sostituisce il parere di un commercialista.</p>
+      </section>
+
+      <section aria-labelledby="cta" class="rounded-2xl bg-primary-900 text-white p-6 sm:p-8">
+        <h2 id="cta" class="text-xl sm:text-2xl font-bold mb-3">Gli esiti si guardano una volta sola</h2>
+        <p class="text-white/80 mb-6">
+          Il problema è ricordarsi di guardarli. Quotify segue ogni fattura fino all’esito e ti
+          avvisa se qualcosa viene scartato, mentre i cinque giorni per rimediare stanno ancora
+          correndo.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/guide" class="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/25 text-white font-semibold px-6 py-3 hover:bg-white/20 transition-colors">Tutte le guide</a>
+          <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=guida&utm_campaign=stati-fattura" class="inline-flex items-center justify-center rounded-xl bg-white text-primary-900 font-semibold px-6 py-3 hover:bg-primary-50 transition-colors">Prova Quotify gratis</a>
+        </div>
+      </section>
+
+    </main>
+
+        <!-- generato:piede:inizio -->
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+                <li><a href="/#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+                <li><a href="/#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+                <li><a href="/#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+                <li><a href="/guide" class="text-sm text-foam/60 hover:text-foam transition-colors">Guide</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+                <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+                <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+                <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
+        </div>
+      </footer>
+      <!-- generato:piede:fine -->
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

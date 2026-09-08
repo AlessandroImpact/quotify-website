@@ -107,6 +107,25 @@
       "titoloBreve": "ATECO 2025 e regime forfettario: cosa è cambiato"
     },
     {
+      "file": "guide/stati-fattura-elettronica.html",
+      "url": "/guide/stati-fattura-elettronica",
+      "titolo": "Stati della fattura elettronica: cosa significano",
+      "titoloBreve": "Gli stati della fattura elettronica, spiegati uno per uno",
+      "descrizione": "Consegnata, Scartata, Non consegnata, Decorrenza termini: cosa vuol dire ogni esito dello SdI e quando devi intervenire davvero.",
+      "descrizioneSocial": "Nove stati, uno solo richiede che tu faccia qualcosa. Ecco quale e perché.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "9",
+      "cifra_nota": "gli esiti che lo SdI può restituire",
+      "query_obiettivo": "stati fattura elettronica",
+      "query_secondarie": "fattura consegnata sdi significato, non consegnata fattura elettronica, decorrenza termini fattura, esiti sdi",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "da-verificare"
+    },
+    {
       "file": "assistenza.html",
       "url": "/assistenza",
       "titolo": "Assistenza Quotify — scrivici, rispondiamo noi",
