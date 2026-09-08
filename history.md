@@ -121,7 +121,7 @@ Si spunta man mano. Ogni riga fatta porta la data di pubblicazione.
 
 Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 
-- [ ] `/guide/stati-fattura-elettronica` — i nove stati e cosa fare per ognuno
+- [x] `/guide/stati-fattura-elettronica` — i nove stati e cosa fare per ognuno · 08/09/2026
 - [ ] `/guide/fattura-scartata-sdi` — perché succede, i codici, i 5 giorni per rimediare
 - [ ] `/guide/codice-destinatario` — cos'è, dove si trova, cosa mettere se manca
 - [ ] `/guide/natura-n2-2-diciture-forfettario` — il codice natura e le diciture obbligatorie
