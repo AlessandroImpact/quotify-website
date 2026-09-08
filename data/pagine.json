@@ -278,6 +278,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/fattura-scartata-sdi.html",
+      "url": "/guide/fattura-scartata-sdi",
+      "titolo": "Fattura scartata dallo SdI: cosa fare",
+      "titoloBreve": "Fattura scartata, e i cinque giorni per rimediare",
+      "descrizione": "Cosa significa uno scarto, i cinque giorni per rimandare con stesso numero e data, e i codici di errore che colpiscono davvero i forfettari.",
+      "descrizioneSocial": "Non è una multa: è un controllo formale. La fattura scartata non è mai stata emessa.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "5",
+      "cifra_nota": "i giorni per rimandare la fattura corretta",
+      "query_obiettivo": "fattura scartata",
+      "query_secondarie": "codice errore 00400 fattura elettronica, errore 00311 codice destinatario, fattura scartata sdi cosa fare, rinvio fattura scartata stesso numero",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
