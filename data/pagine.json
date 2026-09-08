@@ -126,6 +126,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/codice-destinatario.html",
+      "url": "/guide/codice-destinatario",
+      "titolo": "Codice destinatario: cos’è e cosa scrivere",
+      "titoloBreve": "Il codice destinatario, e cosa scrivere quando non ce l’hai",
+      "descrizione": "Cos’è il codice destinatario della fattura elettronica, dove si trova e cosa scrivere nei cinque casi: 0000000, PEC, XXXXXXX per l’estero, sei caratteri per la PA.",
+      "descrizioneSocial": "Sette caratteri che dicono allo SdI dove consegnare. E cosa fare quando il cliente non te li dà.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "7",
+      "cifra_nota": "i caratteri che dicono dove consegnare",
+      "query_obiettivo": "codice destinatario",
+      "query_secondarie": "codice destinatario fattura elettronica dove trovarlo, 0000000 codice destinatario, codice univoco sdi, xxxxxxx cliente estero",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "da-verificare"
+    },
+    {
       "file": "assistenza.html",
       "url": "/assistenza",
       "titolo": "Assistenza Quotify — scrivici, rispondiamo noi",

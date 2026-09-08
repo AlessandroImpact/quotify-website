@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <!-- generato:testa:inizio -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
+    <meta name="description" content="Cos’è il codice destinatario della fattura elettronica, dove si trova e cosa scrivere nei cinque casi: 0000000, PEC, XXXXXXX per l’estero, sei caratteri per la PA." />
+    <title>Codice destinatario: cos’è e cosa scrivere</title>
+
+    <link rel="canonical" href="https://quotify.it/guide/codice-destinatario" />
+
+    <!-- Misurazione: per cosa è stata scritta questa pagina e da quando.
+         Verificate dal gate di build — docs/calcolatore-forfettario-piano.md §9. -->
+    <meta name="quotify:categoria" content="app" />
+    <meta name="quotify:tipo" content="guida" />
+    <meta name="quotify:cifra" content="7" />
+    <meta name="quotify:cifra-nota" content="i caratteri che dicono dove consegnare" />
+    <meta name="quotify:query-obiettivo" content="codice destinatario" />
+    <meta name="quotify:query-secondarie" content="codice destinatario fattura elettronica dove trovarlo, 0000000 codice destinatario, codice univoco sdi, xxxxxxx cliente estero" />
+    <meta name="quotify:pubblicato" content="2026-09-08" />
+    <meta name="quotify:revisionato" content="2026-09-08" />
+    <meta name="quotify:verifica-fiscale" content="da-verificare" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://quotify.it/guide/codice-destinatario" />
+    <meta property="og:title" content="Codice destinatario: cos’è e cosa scrivere" />
+    <meta property="og:description" content="Sette caratteri che dicono allo SdI dove consegnare. E cosa fare quando il cliente non te li dà." />
+    <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Codice destinatario: cos’è e cosa scrivere" />
+    <meta name="twitter:description" content="Sette caratteri che dicono allo SdI dove consegnare. E cosa fare quando il cliente non te li dà." />
+    <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  
+      <!-- generato:testa:fine -->
+  </head>
+  <body class="font-sans antialiased bg-white text-slate-900" data-jsonld="articolo">
+
+        <!-- generato:testata:inizio -->
+      <header class="testata testata-pagina top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="marchio-pagina text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- generato:testata:fine -->
+
+        <!-- generato:sipario:inizio -->
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">
+              <li style="--ritardo: 0.16s">
+                <a href="/#sistema" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">01</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Il sistema</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.22s">
+                <a href="/#banco" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">02</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Provalo</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.28s">
+                <a href="/guide" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">03</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Guide</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.34s">
+                <a href="/#prezzi" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">04</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Prezzi</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.40s">
+                <a href="/#faq" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">05</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Domande</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">
+                  <li><a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-sm text-foam/60 hover:text-foam transition-colors">Accedi</a></li>
+                  <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                  <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy</a></li>
+                  <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini</a></li>
+                  <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie</a></li>
+                  <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- generato:sipario:fine -->
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <nav aria-label="Percorso" class="text-sm text-slate-500 mb-6">
+        <a href="/guide" class="hover:text-slate-700 underline underline-offset-4">Guide</a>
+        <span aria-hidden="true"> › </span>
+        <span>Codice destinatario</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        Il codice destinatario: cos’è e cosa scrivere quando non ce l’hai
+      </h1>
+      <p class="text-lg text-slate-600 mb-4">
+        È il campo che blocca più gente alla prima fattura elettronica. Sono sette caratteri che
+        dicono allo SdI <em>dove</em> consegnare il documento — non a chi, ma su quale canale.
+      </p>
+      <p class="text-lg text-slate-900 font-semibold mb-10">
+        Se il cliente non te lo dà, non sei bloccato: c’è una risposta corretta per ogni caso.
+      </p>
+
+      <section aria-labelledby="cose" class="mb-14">
+        <h2 id="cose" class="text-2xl font-bold text-slate-900 mb-4">Cos’è, in una riga</h2>
+        <p class="text-slate-700 mb-4">
+          Il destinatario di una fattura elettronica è identificato dalla partita IVA o dal codice
+          fiscale. Il <strong>codice destinatario</strong> è un’altra cosa: è l’indirizzo del
+          <strong>canale telematico</strong> su cui quel soggetto ha scelto di ricevere. Un
+          casellario, non un nome.
+        </p>
+        <p class="text-slate-700">
+          Chi ha un gestionale o un intermediario ne ha uno; chi non l’ha mai attivato non ce l’ha,
+          e va benissimo lo stesso — cambia solo dove lo SdI mette la fattura.
+        </p>
+      </section>
+
+      <section aria-labelledby="casi" class="mb-14">
+        <h2 id="casi" class="text-2xl font-bold text-slate-900 mb-6">I cinque casi, e cosa scrivere</h2>
+
+        <div class="space-y-6">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-mono text-lg font-bold text-slate-900">ABC1234</p>
+            <p class="font-semibold text-slate-900 mt-2">Il cliente ti ha dato un codice di sette caratteri</p>
+            <p class="text-slate-700 mt-1">È il caso normale fra aziende e partite IVA. Lo scrivi
+              così com’è, e lo SdI consegna sul canale che quel codice identifica.</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-mono text-lg font-bold text-slate-900">0000000</p>
+            <p class="font-semibold text-slate-900 mt-2">Il cliente è italiano ma non ha un codice</p>
+            <p class="text-slate-700 mt-1">Sette zeri. Succede con i privati senza partita IVA e con
+              le imprese che non hanno mai attivato un canale. La fattura è valida: lo SdI la mette
+              a disposizione del destinatario nella sua area riservata dell’Agenzia delle Entrate.</p>
+            <p class="text-slate-600 text-sm mt-2">Il cliente potrebbe non accorgersene mai da solo:
+              conviene mandargli anche una copia di cortesia in PDF.</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-mono text-lg font-bold text-slate-900">0000000 <span class="font-sans text-sm font-normal text-slate-500">+ PEC nel campo dedicato</span></p>
+            <p class="font-semibold text-slate-900 mt-2">Il cliente riceve via PEC</p>
+            <p class="text-slate-700 mt-1">Sempre sette zeri nel codice, ma la casella PEC va scritta
+              nel campo <span class="font-mono text-sm">PECDestinatario</span>. Lo SdI recapita lì.</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-mono text-lg font-bold text-slate-900">XXXXXXX</p>
+            <p class="font-semibold text-slate-900 mt-2">Il cliente è estero</p>
+            <p class="text-slate-700 mt-1">Sette X, per i soggetti non residenti né stabiliti né
+              identificati in Italia — sia in Unione Europea sia fuori. Dice allo SdI che il
+              destinatario non è censito nel sistema.</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-mono text-lg font-bold text-slate-900">ABC123 <span class="font-sans text-sm font-normal text-slate-500">— sei caratteri</span></p>
+            <p class="font-semibold text-slate-900 mt-2">Il cliente è una Pubblica Amministrazione</p>
+            <p class="text-slate-700 mt-1">Qui si chiama <strong>codice univoco ufficio</strong> ed è
+              di <strong>sei</strong> caratteri, non sette. Lo trovi sull’Indice delle Pubbliche
+              Amministrazioni cercando l’ente: ogni ufficio di fatturazione ha il suo.</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-amber-50 border border-amber-200 p-5 sm:p-6 mt-6">
+          <p class="text-amber-900">
+            <strong>La lunghezza non è un dettaglio.</strong> Sei caratteri significano Pubblica
+            Amministrazione, sette significano privato o azienda. È anche il modo in cui i
+            gestionali capiscono quale percorso seguirà la fattura: verso la PA c’è un passaggio in
+            più, perché l’ente deve accettarla o rifiutarla.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="trovare" class="mb-14">
+        <h2 id="trovare" class="text-2xl font-bold text-slate-900 mb-4">Dove si trova</h2>
+        <h3 class="font-bold text-slate-900 mt-6">Il tuo</h3>
+        <p class="text-slate-700 mt-1">Se ricevi fatture tramite un gestionale o un intermediario, il
+          codice te l’ha assegnato lui: lo trovi nelle impostazioni del servizio. Se non ne hai uno,
+          il tuo codice <em>è</em> <span class="font-mono">0000000</span>, e le fatture che ricevi
+          finiscono nella tua area riservata dell’Agenzia delle Entrate.</p>
+
+        <h3 class="font-bold text-slate-900 mt-6">Quello di un cliente azienda</h3>
+        <p class="text-slate-700 mt-1">Non esiste un elenco pubblico: glielo devi chiedere. È il
+          motivo per cui conviene raccoglierlo una volta sola, quando registri il cliente, invece
+          che a ogni fattura.</p>
+
+        <h3 class="font-bold text-slate-900 mt-6">Quello di un ente pubblico</h3>
+        <p class="text-slate-700 mt-1">Quello sì che è pubblico: si cerca sull’Indice delle Pubbliche
+          Amministrazioni. Attenzione a prendere il codice dell’<em>ufficio</em> giusto — un comune
+          grande ne ha diversi, e sbagliarlo significa mandare la fattura all’ufficio sbagliato.</p>
+      </section>
+
+      <section aria-labelledby="quotify" class="mb-14">
+        <h2 id="quotify" class="text-2xl font-bold text-slate-900 mb-4">Come lo gestisce Quotify</h2>
+        <p class="text-slate-700 mb-4">
+          Quando registri un cliente e inserisci la partita IVA, Quotify <strong>cerca i suoi dati</strong>
+          e compila anche il codice destinatario, se quel soggetto ne ha uno noto. Il campo parte
+          da <span class="font-mono">0000000</span>, che è la risposta giusta quando non si sa
+          nulla.
+        </p>
+        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 sm:p-6">
+          <p class="text-slate-800">
+            Con una regola che vale la pena conoscere: se il cliente ha già un codice registrato e
+            la ricerca non ne trova uno, <strong>Quotify non lo sovrascrive con sette zeri</strong>.
+            Sette zeri non sono un dato, sono l’assenza di un dato — e confonderli manderebbe la
+            fattura nel posto sbagliato.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="faq" class="mb-14">
+        <h2 id="faq" class="text-2xl font-bold text-slate-900 mb-6">Domande frequenti</h2>
+        <div class="space-y-6">
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Il cliente non mi dà il codice. Posso emettere lo stesso?</h3>
+            <p data-faq-a class="text-slate-700">Sì. Metti sette zeri e la fattura è emessa e valida:
+              lo SdI la rende disponibile nell’area riservata del destinatario. Non sei bloccato e
+              non stai facendo niente di irregolare. L’unica accortezza è avvisarlo, perché
+              potrebbe non guardare mai lì.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Che differenza c’è fra 0000000 e XXXXXXX?</h3>
+            <p data-faq-a class="text-slate-700">Sette zeri si usano per un destinatario italiano che
+              non ha un canale registrato. Sette X si usano per un destinatario estero, non
+              residente né identificato in Italia. Non sono intercambiabili: dicono allo SdI due
+              cose diverse.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Il codice destinatario è la stessa cosa del codice univoco?</h3>
+            <p data-faq-a class="text-slate-700">Nell’uso comune sì, ma tecnicamente «codice univoco
+              ufficio» indica quello a sei caratteri della Pubblica Amministrazione, mentre «codice
+              destinatario» è quello a sette caratteri di privati e aziende. Se qualcuno ti dà un
+              codice di sei caratteri, sta fatturando come ente pubblico.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Se sbaglio il codice, cosa succede?</h3>
+            <p data-faq-a class="text-slate-700">Dipende. Se il codice non esiste o non è
+              raggiungibile, la fattura risulta «non consegnata»: resta valida e finisce nel
+              cassetto fiscale del destinatario. Se invece il codice esiste ma è di qualcun altro,
+              la fattura viene consegnata alla persona sbagliata — ed è il caso peggiore, perché
+              nessuno ti segnala niente.</p>
+          </div>
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Devo chiederlo a ogni fattura?</h3>
+            <p data-faq-a class="text-slate-700">No, è un dato del cliente e non della singola
+              fattura: si raccoglie una volta e si riusa. Cambia solo se il cliente cambia
+              gestionale o intermediario, ed è lui a doverlo comunicare.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="fonti" class="mb-14 text-sm text-slate-600">
+        <h2 id="fonti" class="text-base font-semibold text-slate-900 mb-3">Fonti e aggiornamento</h2>
+        <p class="mb-2">Aggiornato all’<strong>8 settembre 2026</strong>.</p>
+        <ul class="space-y-1 list-disc pl-5">
+          <li>Codice a sette caratteri, uso di 0000000 con PEC nel campo dedicato e codice univoco ufficio a sei caratteri per la PA: documentazione del Sistema di Interscambio.</li>
+          <li>Uso di XXXXXXX per i destinatari non residenti né stabiliti né identificati in Italia.</li>
+          <li>Indice delle Pubbliche Amministrazioni per i codici degli enti.</li>
+        </ul>
+        <p class="mt-3">Questa pagina ha finalità informative e non sostituisce il parere di un commercialista.</p>
+      </section>
+
+      <section aria-labelledby="cta" class="rounded-2xl bg-primary-900 text-white p-6 sm:p-8">
+        <h2 id="cta" class="text-xl sm:text-2xl font-bold mb-3">Un dato da chiedere una volta sola</h2>
+        <p class="text-white/80 mb-6">
+          Quotify lo cerca dalla partita IVA quando registri il cliente, e da lì in poi lo riusa su
+          ogni fattura. Un campo in meno da ricordare a ogni documento.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/guide/stati-fattura-elettronica" class="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/25 text-white font-semibold px-6 py-3 hover:bg-white/20 transition-colors">Gli stati della fattura</a>
+          <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=guida&utm_campaign=codice-destinatario" class="inline-flex items-center justify-center rounded-xl bg-white text-primary-900 font-semibold px-6 py-3 hover:bg-primary-50 transition-colors">Prova Quotify gratis</a>
+        </div>
+      </section>
+
+    </main>
+
+        <!-- generato:piede:inizio -->
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+                <li><a href="/#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+                <li><a href="/#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+                <li><a href="/#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+                <li><a href="/guide" class="text-sm text-foam/60 hover:text-foam transition-colors">Guide</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+                <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+                <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+                <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
+        </div>
+      </footer>
+      <!-- generato:piede:fine -->
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
