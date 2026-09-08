@@ -133,7 +133,7 @@ Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 
 Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 
-- [ ] `/guide/primo-accesso-profilo-fiscale` — **da fare per prima**: se il profilo è sbagliato, ogni numero dell'app è sbagliato
+- [x] `/guide/primo-accesso-profilo-fiscale` — i quattro numeri del profilo; campi e valori predefiniti verificati su `ProfilePage.tsx` (8 set 2026)
 - [ ] `/guide/bacheca-progetti` — i cinque stati e i promemoria automatici
 - [ ] `/guide/preventivi` — creazione, PDF, link pubblico, stati
 - [ ] `/guide/dal-preventivo-alla-fattura` — il passaggio che è il cuore del prodotto

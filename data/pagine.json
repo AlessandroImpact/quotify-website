@@ -107,6 +107,25 @@
       "titoloBreve": "ATECO 2025 e regime forfettario: cosa è cambiato"
     },
     {
+      "file": "guide/primo-accesso-profilo-fiscale.html",
+      "url": "/guide/primo-accesso-profilo-fiscale",
+      "titolo": "Primo accesso: impostare il profilo fiscale forfettario",
+      "titoloBreve": "Primo accesso: i quattro numeri che decidono ogni calcolo",
+      "descrizione": "Coefficiente, aliquota d'imposta, aliquota INPS e codice ATECO: cosa scrivere in ognuno e cosa succede se lasci i valori predefiniti.",
+      "descrizioneSocial": "I valori predefiniti sono plausibili, ma non sono i tuoi. Cinque minuti per non sbagliare tutto l'anno.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "4",
+      "cifra_nota": "i numeri da cui dipende ogni calcolo",
+      "query_obiettivo": "impostare profilo fiscale forfettario",
+      "query_secondarie": "coefficiente redditivita dove si imposta, aliquota imposta sostitutiva 5 o 15, aliquota contributiva inps forfettario, causale contributo inps pxx",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
