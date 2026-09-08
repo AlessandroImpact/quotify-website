@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <!-- generato:testa:inizio -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
+    <meta name="description" content="L'app iOS ufficiale con il widget, l'installazione dal browser su Android, e le tre notifiche che Quotify può mandarti sul telefono." />
+    <title>Installare Quotify sul telefono: due strade</title>
+
+    <link rel="canonical" href="https://quotify.it/guide/app-su-telefono" />
+
+    <!-- Misurazione: per cosa è stata scritta questa pagina e da quando.
+         Verificate dal gate di build — docs/calcolatore-forfettario-piano.md §9. -->
+    <meta name="quotify:categoria" content="app" />
+    <meta name="quotify:tipo" content="guida" />
+    <meta name="quotify:cifra" content="3" />
+    <meta name="quotify:cifra-nota" content="i tipi di notifica che può mandarti" />
+    <meta name="quotify:query-obiettivo" content="installare Quotify sul telefono" />
+    <meta name="quotify:query-secondarie" content="app ios forfettario, widget fatturato iphone, pwa android installa app, notifiche scadenze fiscali telefono" />
+    <meta name="quotify:pubblicato" content="2026-09-08" />
+    <meta name="quotify:revisionato" content="2026-09-08" />
+    <meta name="quotify:verifica-fiscale" content="verificata" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://quotify.it/guide/app-su-telefono" />
+    <meta property="og:title" content="Installare Quotify sul telefono: due strade" />
+    <meta property="og:description" content="App ufficiale su iPhone, dal browser su Android. Il motivo per averla non è l'icona: sono le notifiche." />
+    <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Installare Quotify sul telefono: due strade" />
+    <meta name="twitter:description" content="App ufficiale su iPhone, dal browser su Android. Il motivo per averla non è l'icona: sono le notifiche." />
+    <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  
+      <!-- generato:testa:fine -->
+  </head>
+  <body class="bg-white antialiased">
+
+    <!-- generato:testata:inizio -->
+      <header class="testata testata-pagina top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="marchio-pagina text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- generato:testata:fine -->
+
+    <!-- generato:sipario:inizio -->
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">
+              <li style="--ritardo: 0.16s">
+                <a href="/#sistema" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">01</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Il sistema</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.22s">
+                <a href="/#banco" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">02</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Provalo</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.28s">
+                <a href="/guide" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">03</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Guide</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.34s">
+                <a href="/#prezzi" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">04</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Prezzi</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.40s">
+                <a href="/#faq" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">05</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Domande</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">
+                  <li><a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-sm text-foam/60 hover:text-foam transition-colors">Accedi</a></li>
+                  <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                  <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy</a></li>
+                  <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini</a></li>
+                  <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie</a></li>
+                  <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- generato:sipario:fine -->
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <nav aria-label="Percorso" class="text-sm text-slate-500 mb-6">
+        <a href="/guide" class="hover:text-slate-700 underline underline-offset-4">Guide</a>
+        <span aria-hidden="true"> › </span>
+        <span>L’app sul telefono</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        Installare Quotify sul telefono: due strade
+      </h1>
+      <p class="text-lg text-slate-600 mb-4">
+        Su iPhone c’è l’<strong>app ufficiale</strong>, con il widget che tiene fatturato e prossima
+        scadenza sulla schermata home. Su qualunque telefono, in alternativa, Quotify si
+        <strong>installa direttamente dal browser</strong> in pochi secondi.
+      </p>
+      <p class="text-lg text-slate-900 font-semibold mb-10">
+        In entrambi i casi il motivo per averla sul telefono non è l’icona: sono le notifiche. Un
+        promemoria che arriva addosso è l’unica cosa che trasforma un’intenzione in una telefonata
+        fatta.
+      </p>
+
+      <section aria-labelledby="ios" class="mb-14">
+        <h2 id="ios" class="text-2xl font-bold text-slate-900 mb-4">Su iPhone: l’app ufficiale</h2>
+        <p class="text-slate-700 mb-4">
+          Su iPhone e iPad c’è l’applicazione Quotify vera e propria, scaricabile dall’App Store.
+          È la strada consigliata, perché ha una cosa che l’installazione dal browser non può
+          avere: il <strong>widget</strong>.
+        </p>
+        <div class="rounded-2xl bg-primary-50 border border-primary-200 p-5 mb-4">
+          <p class="text-slate-800">
+            <strong>Il widget sulla schermata home.</strong> Esiste in due misure. Quello piccolo
+            tiene sott’occhio <strong>fatturato dell’anno e prossima scadenza fiscale</strong>;
+            quello medio mostra il riepilogo della dashboard. Sono i due numeri che di solito si
+            guardano di sfuggita — e averli senza aprire niente cambia quante volte li guardi.
+          </p>
+        </div>
+        <p class="text-slate-700">
+          Al primo avvio il widget chiede di aprire l’app una volta per attivarsi: deve ricevere i
+          tuoi dati prima di poterli mostrare.
+        </p>
+      </section>
+
+      <section aria-labelledby="browser" class="mb-14">
+        <h2 id="browser" class="text-2xl font-bold text-slate-900 mb-4">Dal browser, su qualunque telefono</h2>
+        <p class="text-slate-700 mb-6">
+          Quotify è anche una <strong>Progressive Web App</strong>: apri <strong>app.quotify.it</strong>
+          nel browser del telefono e la aggiungi alla schermata home. Nessun download, nessun account
+          dello store. È la strada su Android, ed è una scelta valida anche su iPhone se preferisci.
+        </p>
+        <div class="space-y-4">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Su Android</p>
+            <p class="text-slate-700 mt-1">
+              In Chrome compare spesso da sola una richiesta di installazione. Se non la vedi, apri
+              il menu con i tre puntini e scegli <strong>«Installa app»</strong> o «Aggiungi a
+              schermata Home».
+            </p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Su iPhone, se non vuoi passare dall’App Store</p>
+            <p class="text-slate-700 mt-1">
+              Serve <strong>Safari</strong>: su iOS l’aggiunta alla home passa solo da lì. Tocca il
+              pulsante di condivisione (il quadrato con la freccia verso l’alto), scorri e scegli
+              <strong>«Aggiungi a Home»</strong>. Avrai tutto tranne il widget.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="cosa-cambia" class="mb-14">
+        <h2 id="cosa-cambia" class="text-2xl font-bold text-slate-900 mb-4">Cosa cambia rispetto al browser</h2>
+        <ul class="space-y-3 text-slate-700">
+          <li><strong>Sta a schermo intero.</strong> Niente barra degli indirizzi: si comporta come un’app, non come un sito aperto.</li>
+          <li><strong>Può mandarti notifiche.</strong> È la differenza vera, e ne parliamo qui sotto.</li>
+          <li><strong>Il trascinamento funziona a dito.</strong> Le schede della bacheca si spostano fra le colonne con un piccolo riscontro tattile quando si posano.</li>
+          <li><strong>I dati sono gli stessi.</strong> Apri una scheda dal telefono in mattinata e la ritrovi sul portatile nel pomeriggio: non c’è niente da sincronizzare.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="notifiche" class="mb-14">
+        <h2 id="notifiche" class="text-2xl font-bold text-slate-900 mb-4">Le notifiche, e quando arrivano</h2>
+        <p class="text-slate-700 mb-4">Ce ne sono di tre tipi, e nascono da tre parti diverse dell’app.</p>
+
+        <div class="space-y-4 mb-4">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">I promemoria dei progetti</p>
+            <p class="text-slate-700 mt-1">
+              «Fai follow-up», «richiama il cliente», «richiedi l’anticipo»: quelli che nascono
+              spostando le schede sulla
+              <a href="/guide/bacheca-progetti" class="text-primary-700 underline underline-offset-4 hover:text-primary-800">bacheca</a>.
+              Arrivano quando sono scaduti, all’ora che hai scelto tu.
+            </p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Il preventivo aperto dal cliente</p>
+            <p class="text-slate-700 mt-1">
+              Quando qualcuno apre per la prima volta il link di un
+              <a href="/guide/preventivi" class="text-primary-700 underline underline-offset-4 hover:text-primary-800">preventivo condiviso</a>.
+              Una volta sola, e le anteprime automatiche dei link non la fanno scattare.
+            </p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Le scadenze fiscali</p>
+            <p class="text-slate-700 mt-1">
+              Un avviso <strong>sette giorni prima</strong> e uno <strong>il giorno prima</strong>
+              delle due scadenze principali dell’anno: il saldo con il primo acconto, e il secondo
+              acconto. Riservati al piano Pro.
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+          <p class="text-slate-800">
+            <strong>Gli avvisi fiscali seguono le date ordinarie</strong>, quelle di fine giugno e
+            fine novembre. Quando esce una proroga il termine si sposta più in là, quindi l’avviso
+            ti arriva comunque in anticipo — che è il verso giusto in cui sbagliare. La data buona
+            resta quella della
+            <a href="/scadenze-fiscali-forfettario" class="text-primary-700 underline underline-offset-4 hover:text-primary-800">pagina delle scadenze</a>,
+            che aggiorniamo quando le proroghe escono.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="orario" class="mb-14">
+        <h2 id="orario" class="text-2xl font-bold text-slate-900 mb-4">L’ora delle notifiche la scegli tu</h2>
+        <p class="text-slate-700 mb-4">
+          I promemoria non arrivano appena scattano: arrivano <strong>all’ora che hai impostato</strong>.
+          Se non ne scegli una, è le <strong>9 del mattino</strong>.
+        </p>
+        <p class="text-slate-700">
+          È un dettaglio che conta più di quanto sembri. Un promemoria che dice «richiama il
+          cliente» ha senso alle nove, quando puoi farlo davvero; alle undici di sera è solo un
+          telefono che vibra. L’orario segue l’ora italiana, ora legale compresa.
+        </p>
+      </section>
+
+      <section aria-labelledby="faq" class="mb-14">
+        <h2 id="faq" class="text-2xl font-bold text-slate-900 mb-6">Domande frequenti</h2>
+        <div class="space-y-6">
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Meglio l’app dall’App Store o quella dal browser?</h3>
+            <div data-faq-a class="text-slate-700">
+              Su iPhone, l’app ufficiale: fa tutto quello che fa l’altra e in più ha il widget. La
+              versione dal browser resta utile su Android, e su iPhone se preferisci non passare
+              dallo store — le funzioni sono le stesse, manca solo il widget.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Se le installo tutte e due vedo dati diversi?</h3>
+            <div data-faq-a class="text-slate-700">
+              No: i dati stanno sul server e l’account è lo stesso. Cambia solo il modo in cui apri
+              Quotify. Avere due icone della stessa cosa però confonde: conviene tenerne una.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Su iPhone devo per forza usare Safari per l’installazione dal browser?</h3>
+            <div data-faq-a class="text-slate-700">
+              Sì, l’aggiunta alla schermata home su iOS passa da Safari. Una volta installata puoi
+              usarla normalmente: il browser con cui l’hai messa sulla home non conta più. Se invece
+              scarichi l’app ufficiale, il browser non c’entra affatto.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Se non ricevo le notifiche?</h3>
+            <div data-faq-a class="text-slate-700">
+              I due controlli, nell’ordine: che tu abbia dato il permesso alle notifiche quando il
+              telefono l’ha chiesto, e — se usi la versione dal browser — che l’app sia davvero
+              installata sulla home e non solo aperta in una scheda. Su iPhone il permesso si può
+              concedere solo dopo l’installazione.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Posso emettere una fattura dal telefono?</h3>
+            <div data-faq-a class="text-slate-700">
+              Sì, l’app è la stessa: cambia solo lo schermo. In pratica dal telefono si fanno bene
+              le cose brevi — aprire una scheda, spostarla, chiudere un promemoria, controllare se
+              un preventivo è stato letto — mentre compilare una fattura riga per riga resta più
+              comodo da computer.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section aria-labelledby="fonti" class="mb-14 text-sm text-slate-600">
+        <h2 id="fonti" class="text-base font-semibold text-slate-900 mb-3">Fonti e aggiornamento</h2>
+        <p class="mb-2">Aggiornato all’<strong>8 settembre 2026</strong>.</p>
+        <ul class="space-y-1 list-disc pl-5">
+          <li>Esistenza dell’app iOS ufficiale, widget in due misure con fatturato e prossima scadenza, installazione come Progressive Web App, tipi di notifica, anticipo di sette giorni e di un giorno sulle scadenze fiscali, ora di invio scelta dall’utente con valore predefinito alle 9 e gestione dell’ora legale italiana: verificati sulla versione dell’app pubblicata a settembre 2026.</li>
+          <li>Riserva degli avvisi sulle scadenze fiscali al piano Pro: verificata sulla logica di invio delle notifiche.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="cta" class="rounded-2xl bg-primary-900 text-white p-6 sm:p-8">
+        <h2 id="cta" class="text-xl sm:text-2xl font-bold mb-3">Il promemoria che arriva quando serve</h2>
+        <p class="text-white/80 mb-6">
+          Mettila sul telefono, scegli l’ora che ti va bene e lascia che sia lui a ricordarsi di
+          richiamare quel cliente.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/guide/bacheca-progetti" class="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/25 text-white font-semibold px-6 py-3 hover:bg-white/20 transition-colors">La bacheca progetti</a>
+          <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=guida&utm_campaign=app-su-telefono" class="inline-flex items-center justify-center rounded-xl bg-white text-primary-900 font-semibold px-6 py-3 hover:bg-primary-50 transition-colors">Prova Quotify gratis</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- generato:piede:inizio -->
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+                <li><a href="/#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+                <li><a href="/#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+                <li><a href="/#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+                <li><a href="/guide" class="text-sm text-foam/60 hover:text-foam transition-colors">Guide</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+                <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+                <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+                <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
+        </div>
+      </footer>
+      <!-- generato:piede:fine -->
+
+  </body>
+</html>

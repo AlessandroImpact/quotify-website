@@ -164,7 +164,7 @@ Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 - [x] `/guide/fatture-ricorrenti` — ciclo dell'occorrenza, finestra di 7 giorni e segnaposto, verificati su `recurring.ts` e `recurringMaterialize.ts` (8 set 2026)
 - [x] `/guide/f24-e-dashboard` — le due fonti diverse dei numeri e il limite emissione/incasso, verificati su `f24/index.ts` e `dashboard/index.ts` (8 set 2026)
 - [x] `/guide/quotifai` — perimetro, conferme lato server, regola sulle stime e soglie 85k/100k, verificati su `ai/chat.ts` (8 set 2026)
-- [ ] `/guide/app-su-telefono` — installazione e notifiche
+- [x] `/guide/app-su-telefono` — app iOS ufficiale col widget, installazione dal browser e le tre notifiche; corretta la home che diceva ancora «senza App Store» (8 set 2026)
 
 ### Non contenuto, ma manca
 
