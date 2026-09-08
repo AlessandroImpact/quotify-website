@@ -202,6 +202,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/fatture-ricorrenti.html",
+      "url": "/guide/fatture-ricorrenti",
+      "titolo": "Fatture ricorrenti: il canone mensile",
+      "titoloBreve": "Le fatture ricorrenti, e perché chiedono conferma",
+      "descrizione": "Come si programma un canone mensile, il ciclo di ogni scadenza, la finestra di sette giorni per confermare e i segnaposto che scrivono il periodo nella causale.",
+      "descrizioneSocial": "Preparata da sola, emessa da te. Una fattura è un atto fiscale, non un automatismo.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "7",
+      "cifra_nota": "i giorni per confermare un'occorrenza",
+      "query_obiettivo": "fatture ricorrenti",
+      "query_secondarie": "canone mensile fattura automatica, fattura ricorrente forfettario, numerazione fatture ricorrenti, principio di cassa canone",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",

@@ -103,6 +103,29 @@ anglofoni, quindi in Italia vincibile.
   il markup esistente, lo scuro è uno strato di rimappatura. Regola `colore-non-mappato` per
   impedire che una pagina nuova sia rotta sul tema scuro.
 
+### 8 settembre 2026 — Le guide ai moduli dell'app
+Sei guide scritte e pubblicate leggendo il codice dell'app, non l'interfaccia: profilo fiscale,
+bacheca, preventivi, conversione in fattura, anagrafica clienti, fatture ricorrenti. Ogni
+affermazione ha una fonte in `file:riga`, e le sole cose girate ad Alessandro sono quelle
+fiscali, che dal codice non si deducono.
+
+Cose emerse leggendo, che nell'app non sono scritte da nessuna parte:
+- **Difetto vero**: gli «altri costi» del preventivo non passano in fattura — la conversione
+  costruisce le righe solo dai servizi. Chi ci mette trasferte fattura meno di quanto ha
+  preventivato. Documentato in evidenza sul sito; l'app non è stata toccata.
+- Spostare una scheda sulla bacheca e rimetterla dov'era **fa ripartire il follow-up da zero**:
+  i promemoria precedenti sono già stati chiusi.
+- «Scaduto» non è uno stato salvato ma calcolato a ogni lettura, e solo per bozza e inviato:
+  accettati e rifiutati non scadono mai.
+- I valori predefiniti del profilo (78 / 15 / 26,07) descrivono un consulente in Gestione
+  Separata: plausibili, quindi non sembrano un errore, e sbagliati per tutti gli altri.
+
+Il gate ha fatto il suo lavoro due volte: ha bloccato una guida per `bg-slate-100` non mappato
+sul tema scuro, e ha segnalato due query obiettivo incoerenti con il titolo. Emerso però che
+la regola `colore-non-mappato` **non copre emerald e rosa**: usate in due riquadri, sarebbero
+rimaste chiare sul tema scuro senza alcuna segnalazione. Sostituite con palette mappate; la
+regola resta da allargare.
+
 ---
 
 ## Contenuti: fatti e da fare
@@ -138,7 +161,7 @@ Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 - [x] `/guide/preventivi` — stati, template, link pubblico e risposta del cliente verificati su `dates.ts` e sugli endpoint share (8 set 2026)
 - [x] `/guide/dal-preventivo-alla-fattura` — conversione, numerazione e il caso degli «altri costi» che non passano, verificati su `InvoicePage.tsx` e `invoiceNumber.ts` (8 set 2026)
 - [x] `/guide/clienti` — anagrafica, ricerca dal Registro Imprese e il caso dei professionisti non iscritti, verificati su `clients/lookup.ts` (8 set 2026)
-- [ ] `/guide/fatture-ricorrenti` — programmare e confermare
+- [x] `/guide/fatture-ricorrenti` — ciclo dell'occorrenza, finestra di 7 giorni e segnaposto, verificati su `recurring.ts` e `recurringMaterialize.ts` (8 set 2026)
 - [ ] `/guide/f24-e-dashboard` — da dove vengono i numeri
 - [ ] `/guide/quotifai` — cosa può leggere e cosa no
 - [ ] `/guide/app-su-telefono` — installazione e notifiche
