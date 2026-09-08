@@ -4,6 +4,9 @@
     <!-- generato:testa:inizio -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
     <meta name="description" content="Privacy Policy di Quotify — Informativa sul trattamento dei dati personali ai sensi del GDPR." />
     <title>Privacy Policy — come Quotify tratta i tuoi dati</title>
 
@@ -43,14 +46,19 @@
 
     <!-- Navbar -->
         <!-- generato:testata:inizio -->
-      <header class="testata testata-chiara sticky top-0 inset-x-0 z-[100] h-16" role="banner">
+      <header class="testata testata-pagina top-0 inset-x-0 z-[100] h-16" role="banner">
         <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
           <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
             <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
-            <span class="text-ink-900 text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+            <span class="marchio-pagina text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
           </a>
 
           <div class="flex items-center gap-3 sm:gap-4">
+
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
             <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
             <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
               <span class="innesco-anello" aria-hidden="true"></span>

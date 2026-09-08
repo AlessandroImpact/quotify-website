@@ -402,14 +402,16 @@ export function leggiContenuto(file, html) {
 // una macchia, e 1.100 parole di fisco si leggono meglio su bianco.
 function bloccoTestata({ navigazione: n }, tema) {
   const chiara = tema === 'chiaro';
-  const marchio = chiara ? 'text-ink-900' : 'testata-marchio';
+  // Sulle pagine di contenuto il marchio segue il tema via CSS, non una classe
+  // fissa: con `text-ink-900` restava nero sul fondo scuro.
+  const marchio = chiara ? 'marchio-pagina' : 'testata-marchio';
 
   // Tre varianti, e la differenza non è estetica. Sulla home la testata è
   // FISSA perché il contenuto le scorre sotto per disegno. Su una pagina che è
   // un elenco o un testo lungo dev'essere appiccicata: se resta fissa, si
   // sovrappone ai titoli di sezione mentre si scorre.
   const posizione = tema === 'scuro-fisso' ? 'fixed'
-    : chiara ? 'testata-chiara sticky' : 'testata-scura sticky';
+    : chiara ? 'testata-pagina' : 'testata-scura sticky';
 
   return `
       <header class="testata ${posizione} top-0 inset-x-0 z-[100] h-16" role="banner">
@@ -420,6 +422,11 @@ function bloccoTestata({ navigazione: n }, tema) {
           </a>
 
           <div class="flex items-center gap-3 sm:gap-4">
+${chiara ? `
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>` : ''}
             <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
             <button type="button" id="sipario-innesco" class="innesco ${chiara ? 'text-ink-900' : 'text-foam'}" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
               <span class="innesco-anello" aria-hidden="true"></span>
@@ -578,6 +585,9 @@ function bloccoTesta({ registro }, voce) {
   return `
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
     <meta name="description" content="${voce.descrizione}" />
     <title>${voce.titolo}</title>
 

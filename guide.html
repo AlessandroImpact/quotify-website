@@ -4,6 +4,9 @@
     <!-- generato:testa:inizio -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
     <meta name="description" content="Guide e calcolatori sul regime forfettario: quanto paghi, quanto mettere da parte e quando si versa. Ogni numero verificato alla fonte." />
     <title>Guide sul regime forfettario — strumenti e calcoli</title>
 
@@ -57,6 +60,7 @@
           </a>
 
           <div class="flex items-center gap-3 sm:gap-4">
+
             <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
             <button type="button" id="sipario-innesco" class="innesco text-foam" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
               <span class="innesco-anello" aria-hidden="true"></span>

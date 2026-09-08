@@ -64,6 +64,10 @@
 /assistenza.js
   Cache-Control: public, max-age=86400, s-maxage=604800
 
+# Bloccante nel <head> di ogni pagina: deve arrivare subito e restare in cache.
+/tema.js
+  Cache-Control: public, max-age=86400, s-maxage=604800
+
 # ── Font ospitati in proprio: il nome contiene la versione, quindi immutabili ──
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable

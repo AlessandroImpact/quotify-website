@@ -815,3 +815,28 @@ function init() {
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init)
 else init()
+
+// ─── Commutatore di tema ─────────────────────────────────────────────────────
+// Il tema lo applica /tema.js prima del disegno; qui si gestisce solo il
+// cambio. La transizione si accende per un attimo e poi si spegne: tenerla
+// sempre attiva rallenterebbe ogni hover della pagina.
+;(() => {
+  const tasto = document.querySelector('[data-tema-tasto]')
+  if (!tasto) return
+
+  const radice = document.documentElement
+  const etichetta = () =>
+    (tasto.setAttribute('aria-label',
+      radice.dataset.tema === 'scuro' ? 'Passa al tema chiaro' : 'Passa al tema scuro'))
+
+  etichetta()
+
+  tasto.addEventListener('click', () => {
+    const nuovo = radice.dataset.tema === 'scuro' ? 'chiaro' : 'scuro'
+    radice.classList.add('cambio-tema')
+    radice.dataset.tema = nuovo
+    try { localStorage.setItem('quotify:tema', nuovo) } catch { /* navigazione privata */ }
+    etichetta()
+    setTimeout(() => radice.classList.remove('cambio-tema'), 360)
+  })
+})()

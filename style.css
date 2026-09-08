@@ -648,3 +648,168 @@ html.lenis, html.lenis body { height: auto; }
 /* Con una testata appiccicata, saltare a un'ancora nasconde il titolo sotto di
    essa. Vale per ogni pagina con più sezioni, non solo per le guide. */
 :where(h1, h2, h3)[id] { scroll-margin-top: 5.5rem; }
+
+/* ═══ Temi: scuro per difetto, chiaro a scelta ════════════════════════════════
+   Il markup delle pagine di contenuto è scritto con le utility chiare di
+   Tailwind (bg-white, text-slate-900…). Invece di riscriverlo, il tema chiaro
+   RESTA quello che già c'è — quindi è corretto per costruzione — e lo scuro è
+   uno strato che rimappa quelle utility su token scuri.
+
+   La scelta si conserva in localStorage e la applica /tema.js, caricato in modo
+   bloccante nel <head>: senza, la pagina lampeggerebbe chiara prima di
+   diventare scura. Non può essere uno script inline perché la CSP è
+   `script-src 'self'`. */
+
+:root {
+  --fondo:          #0b0f1a;
+  --superficie:     #121826;
+  --superficie-2:   #1a2233;
+  --testo:          #e8edf7;
+  --testo-medio:    rgb(232 237 247 / 0.72);
+  --testo-tenue:    rgb(232 237 247 / 0.5);
+  --bordo:          rgb(232 237 247 / 0.12);
+  --bordo-forte:    rgb(232 237 247 / 0.22);
+}
+
+[data-tema='scuro'] body { background: var(--fondo); color: var(--testo); }
+
+/* ── rimappatura delle utility chiare, solo sul tema scuro ────────────────── */
+/* Il <body> ha anch'esso .bg-white: senza questa riga pagina e schede
+   finivano dello stesso colore e il rilievo spariva. */
+[data-tema='scuro'] body.bg-white    { background-color: var(--fondo) !important; }
+[data-tema='scuro'] .bg-white        { background-color: var(--superficie) !important; }
+[data-tema='scuro'] .bg-slate-50     { background-color: var(--superficie) !important; }
+[data-tema='scuro'] .bg-slate-200    { background-color: var(--superficie-2) !important; }
+[data-tema='scuro'] .bg-slate-300    { background-color: var(--superficie-2) !important; }
+[data-tema='scuro'] .bg-slate-500    { background-color: rgb(232 237 247 / 0.32) !important; }
+
+[data-tema='scuro'] .text-slate-900  { color: var(--testo) !important; }
+[data-tema='scuro'] .text-slate-800  { color: var(--testo) !important; }
+[data-tema='scuro'] .text-slate-700  { color: var(--testo-medio) !important; }
+[data-tema='scuro'] .text-slate-600  { color: var(--testo-medio) !important; }
+[data-tema='scuro'] .text-slate-500  { color: var(--testo-tenue) !important; }
+[data-tema='scuro'] .text-slate-400  { color: var(--testo-tenue) !important; }
+[data-tema='scuro'] .hover\:text-slate-700:hover,
+[data-tema='scuro'] .hover\:text-slate-900:hover { color: var(--testo) !important; }
+
+[data-tema='scuro'] .border-slate-100,
+[data-tema='scuro'] .border-slate-200 { border-color: var(--bordo) !important; }
+[data-tema='scuro'] .border-slate-300 { border-color: var(--bordo-forte) !important; }
+[data-tema='scuro'] .hover\:border-slate-400:hover { border-color: var(--bordo-forte) !important; }
+[data-tema='scuro'] .divide-slate-200 > * + * { border-color: var(--bordo) !important; }
+[data-tema='scuro'] .ring-slate-300  { --tw-ring-color: var(--bordo-forte) !important; }
+[data-tema='scuro'] .placeholder-slate-400::placeholder { color: var(--testo-tenue) !important; }
+
+/* Gli avvisi ambra e rossi hanno fondi pallidi: sullo scuro diventerebbero
+   macchie bianche. Restano riconoscibili, ma con il colore portato dentro. */
+[data-tema='scuro'] .bg-amber-50   { background-color: rgb(180 120 20 / 0.14) !important; }
+[data-tema='scuro'] .border-amber-200 { border-color: rgb(217 160 60 / 0.34) !important; }
+[data-tema='scuro'] .text-amber-900 { color: #f5d493 !important; }
+[data-tema='scuro'] .text-amber-950 { color: #2a1c04 !important; }
+[data-tema='scuro'] .bg-red-50     { background-color: rgb(190 60 60 / 0.14) !important; }
+[data-tema='scuro'] .border-red-200 { border-color: rgb(220 110 110 / 0.34) !important; }
+[data-tema='scuro'] .text-red-900,
+[data-tema='scuro'] .text-red-700  { color: #f7b4b4 !important; }
+[data-tema='scuro'] .bg-primary-50 { background-color: rgb(35 108 239 / 0.13) !important; }
+[data-tema='scuro'] .border-primary-200 { border-color: rgb(96 165 250 / 0.3) !important; }
+[data-tema='scuro'] .text-primary-700,
+[data-tema='scuro'] .text-primary-800 { color: #93c5fd !important; }
+[data-tema='scuro'] .text-primary-600 { color: #7dafff !important; }
+
+/* ── la testata delle pagine di contenuto segue il tema ───────────────────── */
+.testata-pagina { position: sticky; border-bottom: 1px solid var(--bordo); }
+[data-tema='chiaro'] .testata-pagina {
+  background: rgb(255 255 255 / 0.88);
+  border-bottom-color: rgb(226 232 240);
+}
+[data-tema='scuro'] .testata-pagina { background: rgb(11 15 26 / 0.86); }
+.testata-pagina {
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
+.testata-pagina::before { display: none; }
+[data-tema='chiaro'] .testata-pagina .innesco { color: #04060d; }
+[data-tema='scuro']  .testata-pagina .innesco { color: var(--testo); }
+[data-tema='chiaro'] .testata-pagina .innesco-anello { border-color: rgb(4 6 13 / 0.16); background: rgb(255 255 255 / 0.6); }
+[data-tema='scuro']  .testata-pagina .innesco-anello { border-color: var(--bordo-forte); background: rgb(255 255 255 / 0.04); }
+.sipario-attivo .testata-pagina { background: transparent; border-bottom-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.sipario-attivo .testata-pagina .innesco { color: var(--color-foam); }
+.sipario-attivo .testata-pagina .innesco-anello { border-color: rgba(255,255,255,0.16); background: rgba(4,6,13,0.55); }
+
+/* ── il commutatore ───────────────────────────────────────────────────────── */
+.tema-tasto {
+  position: relative; display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 999px;
+  border: 1px solid transparent; color: inherit;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.tema-tasto:hover { background: rgb(128 140 170 / 0.14); border-color: var(--bordo-forte); }
+.tema-tasto svg { position: absolute; width: 17px; height: 17px; transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+/* Sul tema scuro si offre il chiaro, e viceversa: l'icona mostra DOVE si va,
+   non dove si è. È la convenzione che la gente si aspetta. */
+[data-tema='scuro'] .tema-tasto .icona-luna  { opacity: 0; transform: rotate(-70deg) scale(0.6); }
+[data-tema='scuro'] .tema-tasto .icona-sole  { opacity: 1; transform: none; }
+[data-tema='chiaro'] .tema-tasto .icona-sole { opacity: 0; transform: rotate(70deg) scale(0.6); }
+[data-tema='chiaro'] .tema-tasto .icona-luna { opacity: 1; transform: none; }
+
+/* La transizione si accende SOLO durante il cambio: tenerla sempre attiva
+   rallenterebbe ogni hover della pagina. */
+.cambio-tema, .cambio-tema *, .cambio-tema *::before, .cambio-tema *::after {
+  transition: background-color 0.32s ease, color 0.32s ease, border-color 0.32s ease, fill 0.32s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cambio-tema, .cambio-tema *, .cambio-tema *::before, .cambio-tema *::after { transition: none !important; }
+  .tema-tasto svg { transition: opacity 0.01ms; }
+}
+
+[data-tema='chiaro'] .marchio-pagina { color: #04060d; }
+[data-tema='scuro']  .marchio-pagina { color: var(--testo); }
+.sipario-attivo .marchio-pagina { color: var(--color-foam); }
+
+/* Lo slider: la traccia nativa è bianca e sullo scuro spara. */
+[data-tema='scuro'] input[type='range'] { background: transparent; }
+[data-tema='scuro'] input[type='range']::-webkit-slider-runnable-track {
+  background: rgb(232 237 247 / 0.14); height: 6px; border-radius: 999px;
+}
+[data-tema='scuro'] input[type='range']::-moz-range-track {
+  background: rgb(232 237 247 / 0.14); height: 6px; border-radius: 999px;
+}
+
+/* La traccia dello slider: `accent-color` colora il riempimento e il pomello,
+   non la parte vuota, che resta bianca e sullo scuro spara. Si disegna a mano
+   SOLO sul tema scuro, così il chiaro conserva il controllo nativo. */
+[data-tema='scuro'] input[type='range'] {
+  -webkit-appearance: none; appearance: none; background: transparent; height: 22px;
+}
+[data-tema='scuro'] input[type='range']::-webkit-slider-runnable-track {
+  height: 6px; border-radius: 999px; background: rgb(232 237 247 / 0.16);
+}
+[data-tema='scuro'] input[type='range']::-moz-range-track {
+  height: 6px; border-radius: 999px; background: rgb(232 237 247 / 0.16);
+}
+[data-tema='scuro'] input[type='range']::-moz-range-progress {
+  height: 6px; border-radius: 999px; background: var(--color-primary-600);
+}
+[data-tema='scuro'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 999px; margin-top: -6px;
+  background: var(--color-primary-600); border: 2px solid var(--fondo);
+  box-shadow: 0 0 0 1px rgb(35 108 239 / 0.5);
+}
+[data-tema='scuro'] input[type='range']::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 999px; border: 2px solid var(--fondo);
+  background: var(--color-primary-600);
+}
+[data-tema='scuro'] input[type='range']:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgb(35 108 239 / 0.4);
+}
+
+/* Lo stato "selezionato" deve battere la rimappatura di .bg-white, altrimenti
+   sul tema scuro il filtro scelto non si distingue dagli altri. È il prezzo
+   dell'usare !important per rimappare le utility: gli stati vanno riaffermati. */
+[data-tema='scuro'] label:has(input:checked) { background-color: rgb(35 108 239 / 0.16) !important; }
+[data-tema='scuro'] label:has(input:checked) .text-slate-900 { color: var(--testo) !important; }
+
+/* Il pallino della linea del tempo ha un bordo bianco che serve a ritagliarlo
+   sul fondo della pagina: deve seguire il fondo, non essere bianco. */
+[data-tema='scuro'] .border-white { border-color: var(--fondo) !important; }
