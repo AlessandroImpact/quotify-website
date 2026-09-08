@@ -134,7 +134,7 @@ Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 
 - [x] `/guide/primo-accesso-profilo-fiscale` — i quattro numeri del profilo; campi e valori predefiniti verificati su `ProfilePage.tsx` (8 set 2026)
-- [ ] `/guide/bacheca-progetti` — i cinque stati e i promemoria automatici
+- [x] `/guide/bacheca-progetti` — cinque colonne e regola dei promemoria verificate su `project-state-machine.ts` (8 set 2026)
 - [ ] `/guide/preventivi` — creazione, PDF, link pubblico, stati
 - [ ] `/guide/dal-preventivo-alla-fattura` — il passaggio che è il cuore del prodotto
 - [ ] `/guide/clienti` — l'anagrafica

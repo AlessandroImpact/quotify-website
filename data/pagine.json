@@ -126,6 +126,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/bacheca-progetti.html",
+      "url": "/guide/bacheca-progetti",
+      "titolo": "La bacheca: gestire i preventivi in corso",
+      "titoloBreve": "La bacheca, e i preventivi che non si perdono per strada",
+      "descrizione": "Le cinque colonne della bacheca, i promemoria automatici di ogni stato e cosa succede davvero quando sposti una scheda da una colonna all'altra.",
+      "descrizioneSocial": "I preventivi non si perdono perché il cliente dice no. Si perdono perché nessuno richiama.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "5",
+      "cifra_nota": "le colonne fra la richiesta e la fattura",
+      "query_obiettivo": "gestire preventivi in corso",
+      "query_secondarie": "organizzare preventivi freelance, follow up preventivo cliente, promemoria preventivi partita iva, kanban preventivi",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
