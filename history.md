@@ -163,7 +163,7 @@ Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 - [x] `/guide/clienti` — anagrafica, ricerca dal Registro Imprese e il caso dei professionisti non iscritti, verificati su `clients/lookup.ts` (8 set 2026)
 - [x] `/guide/fatture-ricorrenti` — ciclo dell'occorrenza, finestra di 7 giorni e segnaposto, verificati su `recurring.ts` e `recurringMaterialize.ts` (8 set 2026)
 - [x] `/guide/f24-e-dashboard` — le due fonti diverse dei numeri e il limite emissione/incasso, verificati su `f24/index.ts` e `dashboard/index.ts` (8 set 2026)
-- [ ] `/guide/quotifai` — cosa può leggere e cosa no
+- [x] `/guide/quotifai` — perimetro, conferme lato server, regola sulle stime e soglie 85k/100k, verificati su `ai/chat.ts` (8 set 2026)
 - [ ] `/guide/app-su-telefono` — installazione e notifiche
 
 ### Non contenuto, ma manca

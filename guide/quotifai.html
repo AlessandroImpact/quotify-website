@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <!-- generato:testa:inizio -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
+    <meta name="description" content="Cosa sa fare l'assistente di Quotify, cosa non può fare per scelta, come funzionano le conferme sulle azioni irreversibili e quali limiti d'uso ha." />
+    <title>QuotifAI: l’assistente AI dei progetti</title>
+
+    <link rel="canonical" href="https://quotify.it/guide/quotifai" />
+
+    <!-- Misurazione: per cosa è stata scritta questa pagina e da quando.
+         Verificate dal gate di build — docs/calcolatore-forfettario-piano.md §9. -->
+    <meta name="quotify:categoria" content="app" />
+    <meta name="quotify:tipo" content="guida" />
+    <meta name="quotify:cifra" content="7" />
+    <meta name="quotify:cifra-nota" content="gli strumenti che l'assistente può usare" />
+    <meta name="quotify:query-obiettivo" content="assistente AI" />
+    <meta name="quotify:query-secondarie" content="assistente ai partita iva, gestionale con intelligenza artificiale, limite 85000 forfettario, limite 100000 forfettario" />
+    <meta name="quotify:pubblicato" content="2026-09-08" />
+    <meta name="quotify:revisionato" content="2026-09-08" />
+    <meta name="quotify:verifica-fiscale" content="verificata" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://quotify.it/guide/quotifai" />
+    <meta property="og:title" content="QuotifAI: l’assistente AI dei progetti" />
+    <meta property="og:description" content="Fa il lavoro noioso e si ferma dove comincia quello che non si può disfare." />
+    <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="QuotifAI: l’assistente AI dei progetti" />
+    <meta name="twitter:description" content="Fa il lavoro noioso e si ferma dove comincia quello che non si può disfare." />
+    <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  
+      <!-- generato:testa:fine -->
+  </head>
+  <body class="bg-white antialiased">
+
+    <!-- generato:testata:inizio -->
+      <header class="testata testata-pagina top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="marchio-pagina text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- generato:testata:fine -->
+
+    <!-- generato:sipario:inizio -->
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">
+              <li style="--ritardo: 0.16s">
+                <a href="/#sistema" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">01</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Il sistema</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.22s">
+                <a href="/#banco" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">02</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Provalo</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.28s">
+                <a href="/guide" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">03</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Guide</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.34s">
+                <a href="/#prezzi" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">04</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Prezzi</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.40s">
+                <a href="/#faq" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">05</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Domande</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">
+                  <li><a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-sm text-foam/60 hover:text-foam transition-colors">Accedi</a></li>
+                  <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                  <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy</a></li>
+                  <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini</a></li>
+                  <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie</a></li>
+                  <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- generato:sipario:fine -->
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <nav aria-label="Percorso" class="text-sm text-slate-500 mb-6">
+        <a href="/guide" class="hover:text-slate-700 underline underline-offset-4">Guide</a>
+        <span aria-hidden="true"> › </span>
+        <span>QuotifAI</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        QuotifAI: l’assistente AI che gestisce i progetti
+      </h1>
+      <p class="text-lg text-slate-600 mb-4">
+        Non è una chat che risponde a domande generiche: è un assistente che <em>fa</em> cose
+        dentro l’app. Gli scrivi «ho un nuovo lavoro per Rossi, sito web, 2.500 euro» e la scheda
+        compare sulla bacheca.
+      </p>
+      <p class="text-lg text-slate-900 font-semibold mb-10">
+        E soprattutto: ci sono cose che deliberatamente non può fare. Sapere quali è metà della
+        ragione per fidarsi.
+      </p>
+
+      <section aria-labelledby="cosa-fa" class="mb-14">
+        <h2 id="cosa-fa" class="text-2xl font-bold text-slate-900 mb-4">Cosa sa fare</h2>
+        <p class="text-slate-700 mb-4">
+          Ha sette strumenti a disposizione, e sono tutti su due cose: i progetti e i promemoria.
+        </p>
+        <ul class="space-y-2 text-slate-700 mb-4">
+          <li><strong>Creare un progetto.</strong> Bastano il nome del cliente e quello del progetto; prezzo, stato e probabilità sono facoltativi.</li>
+          <li><strong>Modificare un progetto</strong> esistente, incluso spostarlo di colonna.</li>
+          <li><strong>Elencare i progetti</strong>, eventualmente filtrati per stato.</li>
+          <li><strong>Eliminare un progetto</strong> e i suoi promemoria.</li>
+          <li><strong>Elencare i promemoria</strong> attivi, con il progetto a cui appartengono.</li>
+          <li><strong>Segnare fatto un promemoria.</strong></li>
+          <li><strong>Leggere la dashboard</strong>, per rispondere sul fatturato e sulle stime.</li>
+        </ul>
+        <p class="text-slate-700">
+          In pratica è la
+          <a href="/guide/bacheca-progetti" class="text-primary-700 underline underline-offset-4 hover:text-primary-800">bacheca</a>
+          comandata a voce. Utile soprattutto da telefono, quando esci da una chiamata e la scheda
+          va aperta subito, prima di dimenticartene.
+        </p>
+      </section>
+
+      <section aria-labelledby="perimetro" class="mb-14">
+        <h2 id="perimetro" class="text-2xl font-bold text-slate-900 mb-4">Cosa non può fare, e perché</h2>
+        <p class="text-slate-700 mb-4">
+          L’assistente <strong>non emette fatture</strong>. Non crea preventivi, non modifica
+          l’anagrafica clienti, non manda niente allo SdI. Non è una funzione mancante: è il
+          perimetro.
+        </p>
+        <div class="rounded-2xl bg-primary-50 border border-primary-200 p-5">
+          <p class="text-slate-800">
+            La differenza è fra ciò che si può disfare e ciò che non si può. Una scheda spostata
+            nella colonna sbagliata si rimette a posto in due secondi. Una fattura inviata allo SdI
+            è un atto fiscale: per rimediare serve una nota di credito. Un assistente che
+            fraintende una frase non deve poter arrivare fin lì.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="conferme" class="mb-14">
+        <h2 id="conferme" class="text-2xl font-bold text-slate-900 mb-4">Le azioni che chiedono conferma</h2>
+        <p class="text-slate-700 mb-4">
+          Anche dentro il suo perimetro, due azioni sono trattate come irreversibili: eliminare un
+          progetto e spostarlo in <em>rifiutato</em>. Per entrambe l’assistente deve chiederti
+          conferma, dirti esattamente quale progetto sta per toccare, e <strong>non può eseguire
+          nello stesso messaggio</strong>: aspetta la tua risposta.
+        </p>
+        <p class="text-slate-700 mb-4">
+          C’è una sola eccezione, ed è quando la conferma è già inequivocabile nella tua frase —
+          «elimina il progetto Rossi, confermo».
+        </p>
+        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+          <p class="text-slate-800">
+            <strong>La protezione è doppia.</strong> Non c’è solo l’istruzione all’assistente:
+            <strong>è il server a rifiutare</strong> l’operazione se non arriva il segnale di
+            conferma. Se il modello sbagliasse a seguire la regola, l’azione non passerebbe
+            comunque. Le istruzioni si possono aggirare, un controllo lato server no.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="parole" class="mb-14">
+        <h2 id="parole" class="text-2xl font-bold text-slate-900 mb-4">Perché dice sempre «stima»</h2>
+        <p class="text-slate-700 mb-4">
+          Se gli chiedi delle tasse, l’assistente risponde con formule come «da accantonare
+          (stima)», e non dirà mai «imposte pagate», «versate» o «dovute». È una regola esplicita,
+          non un caso.
+        </p>
+        <p class="text-slate-700 mb-4">
+          Il motivo è quello raccontato nella guida a
+          <a href="/guide/f24-e-dashboard" class="text-primary-700 underline underline-offset-4 hover:text-primary-800">F24 e dashboard</a>:
+          l’app non traccia i versamenti effettivi né gli incassi. Sa cosa hai fatturato, non cosa
+          hai pagato. Un assistente che dicesse «hai pagato 4.200 euro di imposte» starebbe
+          affermando una cosa che nessuno gli ha detto.
+        </p>
+        <p class="text-slate-700">
+          È una piccola cosa di linguaggio con una conseguenza grande: le stime restano stime anche
+          quando te le legge qualcuno che sembra sicuro di sé.
+        </p>
+      </section>
+
+      <section aria-labelledby="limiti-regime" class="mb-14">
+        <h2 id="limiti-regime" class="text-2xl font-bold text-slate-900 mb-4">L’avviso sulle soglie del forfettario</h2>
+        <p class="text-slate-700 mb-4">
+          C’è un caso in cui l’assistente deve interrompersi e avvisarti <em>prima</em> di darti
+          qualunque stima: quando il fatturato si avvicina ai limiti del regime.
+        </p>
+        <ul class="space-y-3 text-slate-700 mb-4">
+          <li><strong>Oltre 85.000 €:</strong> si esce dal regime forfettario dall’anno successivo. Le stime dell’anno in corso valgono ancora, ma quelle del prossimo no.</li>
+          <li><strong>Oltre 100.000 €:</strong> il regime cessa <em>in corso d’anno</em>, e i calcoli con l’aliquota piatta smettono di avere senso da subito.</li>
+        </ul>
+        <div class="rounded-2xl bg-amber-50 border border-amber-200 p-5">
+          <p class="text-slate-800">
+            In entrambi i casi la risposta corretta non è un numero più preciso: è
+            <strong>rivolgersi al commercialista</strong>. Superata quella soglia nessuno strumento
+            automatico basta più, e l’app lo dice invece di continuare a mostrare cifre rassicuranti
+            e sbagliate.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="quante" class="mb-14">
+        <h2 id="quante" class="text-2xl font-bold text-slate-900 mb-4">Quante volte si può usare</h2>
+        <p class="text-slate-700 mb-4">
+          L’uso è contato, perché ogni conversazione ha un costo reale:
+        </p>
+        <ul class="space-y-2 text-slate-700 mb-4">
+          <li><strong>Piano Free:</strong> 3 richieste ogni 30 giorni. Servono a provarlo.</li>
+          <li><strong>Piano Pro:</strong> 30 richieste ogni ora.</li>
+        </ul>
+        <p class="text-slate-700">
+          La finestra è mobile, non legata al mese di calendario: contano le richieste fatte negli
+          ultimi 30 giorni (o nell’ultima ora), quindi la disponibilità si ricostituisce man mano
+          invece di azzerarsi tutta il primo del mese.
+        </p>
+      </section>
+
+      <section aria-labelledby="faq" class="mb-14">
+        <h2 id="faq" class="text-2xl font-bold text-slate-900 mb-6">Domande frequenti</h2>
+        <div class="space-y-6">
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Può sbagliare?</h3>
+            <div data-faq-a class="text-slate-700">
+              Sì, come qualunque assistente di questo tipo: può fraintendere un nome o un importo.
+              Per questo il perimetro è quello che è — gli errori possibili sono tutti su cose che
+              si correggono da soli in pochi secondi, e le due azioni davvero irreversibili
+              richiedono la tua conferma esplicita.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Vede i miei dati fiscali?</h3>
+            <div data-faq-a class="text-slate-700">
+              Legge i tuoi progetti, i promemoria e i numeri della dashboard, che servono a
+              rispondere. Ogni strumento lavora solo sui dati del tuo account: non c’è modo di
+              chiedergli i progetti di qualcun altro.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Posso chiedergli consigli fiscali?</h3>
+            <div data-faq-a class="text-slate-700">
+              Può leggerti le tue stime e spiegarti come sono composte, ed è già utile. Ma resta uno
+              strumento di supporto: le domande su cosa ti conviene fare, sulle deduzioni o su un
+              caso particolare vanno a un commercialista, che i tuoi dati completi li ha davvero.
+            </div>
+          </div>
+
+          <div data-faq>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Perché non può creare anche i preventivi?</h3>
+            <div data-faq-a class="text-slate-700">
+              Un preventivo è un documento che poi mandi a un cliente: un errore di trascrizione
+              esce dalla tua schermata e arriva a qualcun altro. Il confine attuale tiene
+              l’assistente su ciò che resta dentro casa tua.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section aria-labelledby="fonti" class="mb-14 text-sm text-slate-600">
+        <h2 id="fonti" class="text-base font-semibold text-slate-900 mb-3">Fonti e aggiornamento</h2>
+        <p class="mb-2">Aggiornato all’<strong>8 settembre 2026</strong>.</p>
+        <ul class="space-y-1 list-disc pl-5">
+          <li>Elenco degli strumenti disponibili, obbligo di conferma per eliminazione e passaggio a rifiutato, rifiuto lato server senza conferma, regola sul linguaggio delle stime e limiti d’uso dei due piani: verificati sulla versione dell’app pubblicata a settembre 2026.</li>
+          <li>Soglie di 85.000 € e 100.000 € e obbligo di riportarle prima di qualunque stima: verificati sulla logica dell’assistente.</li>
+          <li>Uscita dal regime forfettario dall’anno successivo oltre 85.000 € e cessazione in corso d’anno oltre 100.000 €: normativa vigente.</li>
+        </ul>
+        <p class="mt-3">Questa pagina ha finalità informative e non sostituisce il parere di un commercialista.</p>
+      </section>
+
+      <section aria-labelledby="cta" class="rounded-2xl bg-primary-900 text-white p-6 sm:p-8">
+        <h2 id="cta" class="text-xl sm:text-2xl font-bold mb-3">Un assistente con dei confini</h2>
+        <p class="text-white/80 mb-6">
+          Fa il lavoro noioso — aprire schede, spostarle, chiudere promemoria — e si ferma dove
+          comincia quello che non si può disfare.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/guide/f24-e-dashboard" class="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/25 text-white font-semibold px-6 py-3 hover:bg-white/20 transition-colors">F24 e dashboard</a>
+          <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=guida&utm_campaign=quotifai" class="inline-flex items-center justify-center rounded-xl bg-white text-primary-900 font-semibold px-6 py-3 hover:bg-primary-50 transition-colors">Prova Quotify gratis</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- generato:piede:inizio -->
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+                <li><a href="/#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+                <li><a href="/#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+                <li><a href="/#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+                <li><a href="/guide" class="text-sm text-foam/60 hover:text-foam transition-colors">Guide</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+                <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+                <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+                <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
+        </div>
+      </footer>
+      <!-- generato:piede:fine -->
+
+  </body>
+</html>

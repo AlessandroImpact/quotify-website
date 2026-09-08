@@ -63,6 +63,9 @@
 /guide/f24-e-dashboard
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/guide/quotifai
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/stati-fattura-elettronica
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 

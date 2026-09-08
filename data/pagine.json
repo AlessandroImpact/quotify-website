@@ -240,6 +240,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/quotifai.html",
+      "url": "/guide/quotifai",
+      "titolo": "QuotifAI: l’assistente AI dei progetti",
+      "titoloBreve": "QuotifAI, e le cose che deliberatamente non fa",
+      "descrizione": "Cosa sa fare l'assistente di Quotify, cosa non può fare per scelta, come funzionano le conferme sulle azioni irreversibili e quali limiti d'uso ha.",
+      "descrizioneSocial": "Fa il lavoro noioso e si ferma dove comincia quello che non si può disfare.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "7",
+      "cifra_nota": "gli strumenti che l'assistente può usare",
+      "query_obiettivo": "assistente AI",
+      "query_secondarie": "assistente ai partita iva, gestionale con intelligenza artificiale, limite 85000 forfettario, limite 100000 forfettario",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
