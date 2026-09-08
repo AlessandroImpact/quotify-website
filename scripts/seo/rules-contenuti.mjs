@@ -4,7 +4,7 @@
 // Vedi docs/calcolatore-forfettario-piano.md §10.
 
 import { esito } from './lib.mjs';
-import { generaBlocchi, PAGINE } from '../content/genera-calcolatore.mjs';
+import { generaBlocchi, PAGINE, generaSitemap, bloccoHeaders } from '../content/genera-calcolatore.mjs';
 
 const E = 'error';
 const W = 'warn';
@@ -59,9 +59,28 @@ function controllaFonti(nodo, percorso, ereditata, file, f) {
 
 export function controllaContenuti({
   parametri, fileParametri, sorgenteCalcolo, fileCalcolo,
-  sorgentiPagine = [], dati = { parametri }, oggi = new Date(),
+  sorgentiPagine = [], ausiliari = [], dati = { parametri }, oggi = new Date(),
 }) {
   const f = [];
+
+  // ── sitemap e header di cache seguono il registro ─────────────────────────
+  // Dimenticarsi di rigenerarli non rompe niente in modo visibile: la pagina
+  // semplicemente non entra in sitemap e nessuno se ne accorge per settimane.
+  for (const { file, contenuto } of ausiliari) {
+    const atteso = file.endsWith('sitemap.xml')
+      ? generaSitemap(dati)
+      : contenuto.replace(
+          /(<!-- generato:cache:inizio -->)[\s\S]*?(# <!-- generato:cache:fine -->)/,
+          `$1\n${bloccoHeaders(dati)}\n$2`,
+        );
+    if (atteso !== contenuto) {
+      f.push(
+        esito(E, 'ausiliario-non-sincronizzato', file, null,
+          `${file} non è allineato a data/pagine.json`,
+          'Eseguire "npm run gen": una pagina nuova resterebbe fuori dalla sitemap senza che nessuno se ne accorga.'),
+      );
+    }
+  }
 
   // ── l'HTML generato dice quello che dice il JSON ──────────────────────────
   // I blocchi generati sono committati per far funzionare `npm run dev`: il

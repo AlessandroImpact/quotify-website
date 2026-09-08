@@ -1,24 +1,24 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
+import { readFileSync } from 'fs';
+
+const registro = JSON.parse(readFileSync(resolve(__dirname, 'data/pagine.json'), 'utf8'));
 
 export default defineConfig({
   plugins: [tailwindcss()],
   build: {
     outDir: 'dist',
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        privacy: resolve(__dirname, 'privacy.html'),
-        cookie: resolve(__dirname, 'cookie.html'),
-        termini: resolve(__dirname, 'termini.html'),
-        assistenza: resolve(__dirname, 'assistenza.html'),
-        calcolatore: resolve(__dirname, 'calcolo-tasse-forfettario.html'),
-        ateco: resolve(__dirname, 'ateco-2025-forfettario.html'),
-        accantonare: resolve(__dirname, 'quanto-accantonare-tasse-partita-iva.html'),
-        scadenze: resolve(__dirname, 'scadenze-fiscali-forfettario.html'),
-        guide: resolve(__dirname, 'guide.html'),
-      },
+      // Le entry vengono dal registro: aggiungere una pagina qui a mano era il
+      // quarto posto da ricordare, ed è quello che fa fallire il build in modo
+      // silenzioso — la pagina semplicemente non viene costruita.
+      input: Object.fromEntries(
+        registro.pagine.map((v) => [
+          v.url === '/' ? 'main' : v.url.slice(1).replace(/\//g, '-'),
+          resolve(__dirname, v.file),
+        ]),
+      ),
     },
   },
 });

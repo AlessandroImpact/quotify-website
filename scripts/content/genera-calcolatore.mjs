@@ -15,6 +15,7 @@ import { eur, pct } from '../../lib/formato.mjs';
 export const PARAMETRI = 'data/parametri-fiscali-2026.json';
 export const SCADENZE = 'data/scadenze-2026.json';
 export const NAVIGAZIONE = 'data/navigazione.json';
+export const REGISTRO = 'data/pagine.json';
 
 // Il caso di apertura della pagina. Uno sviluppatore software sta in ATECO 62,
 // gruppo 9, al 67% — non al 78%, che è il gruppo dei consulenti e degli
@@ -359,6 +360,23 @@ const esterno = (v) => (v.esterno ? ' target="_blank" rel="noopener noreferrer"'
 // generati dentro il <body>.
 const fraTag = (html, re) => (html.match(re)?.[1] ?? '').trim();
 
+// I contenuti dell'hub vengono dal REGISTRO, non dai <meta> delle pagine: quei
+// meta ora sono generati dal registro stesso, e leggerli sarebbe un giro
+// circolare che si rompe alla prima pagina nuova.
+export function contenutiDalRegistro() {
+  return REGISTRO_PAGINE.filter((v) => v.categoria).map((v) => ({
+    file: v.file,
+    url: v.url,
+    titolo: v.titoloBreve || v.titolo.split(/ — | \u2014 |: /)[0],
+    descrizione: v.descrizione,
+    categoria: v.categoria,
+    tipo: v.tipo || 'guida',
+    pubblicato: v.pubblicato,
+    cifra: v.cifra,
+    cifraNota: v.cifra_nota,
+  }));
+}
+
 export function leggiContenuto(file, html) {
   const meta = (nome) =>
     fraTag(html, new RegExp(`<meta name="quotify:${nome}" content="([^"]*)"`));
@@ -543,6 +561,124 @@ function bloccoGuide({ navigazione: n, contenuti }) {
   return n.categorie.map(sezione).join('');
 }
 
+
+// ─── Il <head>, generato dal registro ───────────────────────────────────────
+// Il 48% delle righe di <head> era identico su ogni pagina, e di ciò che
+// cambiava quasi tutto era ricavabile: canonical, og:url, og:title e
+// twitter:title discendono da URL e titolo. Copiarle a mano su ventidue pagine
+// significa garantire che alla ventitreesima siano diverse.
+function bloccoTesta({ registro }, voce) {
+  const O = 'https://quotify.it';
+  const url = `${O}${voce.url}`;
+  const social = voce.descrizioneSocial || voce.descrizione;
+
+  const misura = (nome, valore) =>
+    valore ? `\n    <meta name="quotify:${nome}" content="${valore}" />` : '';
+
+  return `
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="${voce.descrizione}" />
+    <title>${voce.titolo}</title>
+
+    <link rel="canonical" href="${url}" />
+${voce.query_obiettivo ? `
+    <!-- Misurazione: per cosa è stata scritta questa pagina e da quando.
+         Verificate dal gate di build — docs/calcolatore-forfettario-piano.md §9. -->` : ''}${
+    misura('categoria', voce.categoria)}${
+    misura('tipo', voce.tipo)}${
+    misura('cifra', voce.cifra)}${
+    misura('cifra-nota', voce.cifra_nota)}${
+    misura('query-obiettivo', voce.query_obiettivo)}${
+    misura('query-secondarie', voce.query_secondarie)}${
+    misura('pubblicato', voce.pubblicato)}${
+    misura('revisionato', voce.revisionato)}${
+    misura('verifica-fiscale', voce.verifica_fiscale)}${
+    misura('in-evoluzione', voce.in_evoluzione)}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="${voce.ogTipo || 'website'}" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="${url}" />
+    <meta property="og:title" content="${voce.titolo}" />
+    <meta property="og:description" content="${social}" />
+    <meta property="og:image" content="${O}/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${voce.titolo}" />
+    <meta name="twitter:description" content="${social}" />
+    <meta name="twitter:image" content="${O}/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />${(voce.testaExtra || []).map((r) => `\n    ${r}`).join('')}
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  `;
+}
+
+
+// ─── File ausiliari, anch'essi dal registro ─────────────────────────────────
+// sitemap.xml e le righe di cache in _headers erano due posti in più da toccare
+// a mano a ogni pagina nuova. Dimenticarsene non rompe niente in modo visibile:
+// la pagina semplicemente non entra in sitemap, e nessuno se ne accorge.
+
+// Priorità e frequenza per tipo di pagina, invece che una a una: sono decisioni
+// che dipendono da COSA è la pagina, non da quale pagina è.
+const PESO_SITEMAP = {
+  home: { priorita: '1.0', frequenza: 'weekly' },
+  hub: { priorita: '0.9', frequenza: 'weekly' },
+  contenuto: { priorita: '0.8', frequenza: 'monthly' },
+  servizio: { priorita: '0.6', frequenza: 'monthly' },
+  legale: { priorita: '0.3', frequenza: 'yearly' },
+};
+
+const pesoDi = (v) =>
+  v.url === '/' ? PESO_SITEMAP.home
+  : v.grafo === 'guide' ? PESO_SITEMAP.hub
+  : v.categoria ? PESO_SITEMAP.contenuto
+  : ['/privacy', '/termini', '/cookie'].includes(v.url) ? PESO_SITEMAP.legale
+  : PESO_SITEMAP.servizio;
+
+export function generaSitemap({ registro }) {
+  const O = 'https://quotify.it';
+  const voci = registro.map((v) => {
+    const { priorita, frequenza } = pesoDi(v);
+    const data = v.revisionato || v.pubblicato || '2026-08-25';
+    return `  <url>
+    <loc>${O}${v.url}</loc>
+    <lastmod>${data}</lastmod>
+    <changefreq>${frequenza}</changefreq>
+    <priority>${priorita}</priority>
+  </url>`;
+  }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generato da scripts/content/genera-calcolatore.mjs a partire da data/pagine.json.
+     Non modificare a mano: "npm run gen" lo riscrive. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${voci}
+</urlset>
+`;
+}
+
+// Le righe di Cache-Control per gli URL puliti. Il commento in testa a _headers
+// avverte che Pages CONCATENA gli header quando più regole matchano lo stesso
+// path: ogni URL deve comparire una volta sola, ed è esattamente il tipo di
+// vincolo che si viola copiando a mano.
+export function bloccoHeaders({ registro }) {
+  return registro.map((v) => `${v.url}
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate`).join('\n\n');
+}
+
 function sostituisci(html, nome, contenuto) {
   const inizio = `<!-- generato:${nome}:inizio -->`;
   const fine = `<!-- generato:${nome}:fine -->`;
@@ -570,18 +706,29 @@ export const BLOCCHI = {
   scadenze: { scadenze: bloccoScadenze, codici: bloccoCodici },
 };
 
-export const PAGINE = [
-  { file: 'index.html', blocchi: BLOCCHI.telaioHome },
-  { file: 'guide.html', blocchi: { ...BLOCCHI.telaioScuro, ...BLOCCHI.guide } },
-  { file: 'calcolo-tasse-forfettario.html', blocchi: { ...BLOCCHI.telaioChiaro, ...BLOCCHI.calcolatore } },
-  { file: 'quanto-accantonare-tasse-partita-iva.html', blocchi: { ...BLOCCHI.telaioChiaro, ...BLOCCHI.accantonamento } },
-  { file: 'scadenze-fiscali-forfettario.html', blocchi: { ...BLOCCHI.telaioChiaro, ...BLOCCHI.scadenze } },
-  { file: 'ateco-2025-forfettario.html', blocchi: BLOCCHI.telaioChiaro },
-  { file: 'assistenza.html', blocchi: BLOCCHI.telaioChiaro },
-  { file: 'privacy.html', blocchi: BLOCCHI.telaioChiaro },
-  { file: 'termini.html', blocchi: BLOCCHI.telaioChiaro },
-  { file: 'cookie.html', blocchi: BLOCCHI.telaioChiaro },
-];
+// Quali blocchi di CONTENUTO ha ogni pagina. Il telaio e la testa li riceve
+// ognuna: non sono una scelta, sono l'ossatura.
+const CONTENUTO_PER_URL = {
+  '/': BLOCCHI.telaioHome,
+  '/guide': { ...BLOCCHI.telaioScuro, ...BLOCCHI.guide },
+  '/calcolo-tasse-forfettario': { ...BLOCCHI.telaioChiaro, ...BLOCCHI.calcolatore },
+  '/quanto-accantonare-tasse-partita-iva': { ...BLOCCHI.telaioChiaro, ...BLOCCHI.accantonamento },
+  '/scadenze-fiscali-forfettario': { ...BLOCCHI.telaioChiaro, ...BLOCCHI.scadenze },
+};
+
+// Il registro è la fonte: da qui discendono le pagine da generare, le entry di
+// build, le righe di cache e la sitemap. Aggiungere una pagina è una voce in
+// data/pagine.json più il corpo HTML — non quattro file da toccare a mano.
+export const REGISTRO_PAGINE = JSON.parse(readFileSync(REGISTRO, 'utf8')).pagine;
+
+export const PAGINE = REGISTRO_PAGINE.map((voce) => ({
+  file: voce.file,
+  voce,
+  blocchi: {
+    testa: (d) => bloccoTesta(d, voce),
+    ...(CONTENUTO_PER_URL[voce.url] ?? BLOCCHI.telaioChiaro),
+  },
+}));
 
 // `dati` raccoglie tutte le fonti: i parametri fiscali e le scadenze stanno in
 // file diversi perché cambiano per motivi diversi, ma un blocco può averne
@@ -600,7 +747,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     parametri: JSON.parse(readFileSync(PARAMETRI, 'utf8')),
     scadenze: JSON.parse(readFileSync(SCADENZE, 'utf8')),
     navigazione: JSON.parse(readFileSync(NAVIGAZIONE, 'utf8')),
-    contenuti: PAGINE.map((p) => leggiContenuto(p.file, readFileSync(p.file, 'utf8'))).filter(Boolean),
+    registro: REGISTRO_PAGINE,
+    contenuti: contenutiDalRegistro(),
   };
   const verifica = process.argv.includes('--verifica');
   let disallineate = 0;
@@ -615,6 +763,22 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     } else {
       if (prima !== dopo) writeFileSync(file, dopo);
       console.log(prima === dopo ? `= ${file} già aggiornato` : `\u2714 ${file} rigenerato`);
+    }
+  }
+
+  // ── file ausiliari ────────────────────────────────────────────────────────
+  const ausiliari = [
+    ['public/sitemap.xml', generaSitemap(dati)],
+    ['public/_headers', sostituisci(readFileSync('public/_headers', 'utf8'), 'cache', `\n${bloccoHeaders(dati)}\n`)],
+  ];
+  for (const [file, atteso] of ausiliari) {
+    const prima = readFileSync(file, 'utf8');
+    if (verifica) {
+      if (prima !== atteso) { console.error(`\u2716 ${file} non è allineato al registro`); disallineate += 1; }
+      else console.log(`\u2714 ${file} è allineato`);
+    } else {
+      if (prima !== atteso) writeFileSync(file, atteso);
+      console.log(prima === atteso ? `= ${file} già aggiornato` : `\u2714 ${file} rigenerato`);
     }
   }
 

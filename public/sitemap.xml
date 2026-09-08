@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generato da scripts/content/genera-calcolatore.mjs a partire da data/pagine.json.
+     Non modificare a mano: "npm run gen" lo riscrive. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://quotify.it/</loc>
@@ -19,8 +21,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://quotify.it/ateco-2025-forfettario</loc>
-    <lastmod>2026-09-04</lastmod>
+    <loc>https://quotify.it/scadenze-fiscali-forfettario</loc>
+    <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -31,8 +33,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://quotify.it/scadenze-fiscali-forfettario</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://quotify.it/ateco-2025-forfettario</loc>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -49,13 +51,13 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://quotify.it/cookie</loc>
+    <loc>https://quotify.it/termini</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://quotify.it/termini</loc>
+    <loc>https://quotify.it/cookie</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

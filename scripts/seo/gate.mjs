@@ -8,7 +8,7 @@ import { caricaPagine } from './lib.mjs';
 import { controllaPagina } from './rules-page.mjs';
 import { controllaSito } from './rules-site.mjs';
 import { controllaContenuti } from './rules-contenuti.mjs';
-import { PAGINE, SCADENZE, NAVIGAZIONE, leggiContenuto } from '../content/genera-calcolatore.mjs';
+import { PAGINE, SCADENZE, NAVIGAZIONE, REGISTRO_PAGINE, contenutiDalRegistro } from '../content/genera-calcolatore.mjs';
 
 const distDir = process.argv[2] || 'dist';
 const json = process.argv.includes('--json');
@@ -48,15 +48,13 @@ function regoleContenuti() {
 
   return controllaContenuti({
     parametri,
-    dati: {
-      parametri, scadenze, navigazione,
-      contenuti: PAGINE.filter((p) => existsSync(p.file))
-        .map((p) => leggiContenuto(p.file, readFileSync(p.file, 'utf8')))
-        .filter(Boolean),
-    },
+    dati: { parametri, scadenze, navigazione, registro: REGISTRO_PAGINE, contenuti: contenutiDalRegistro() },
     fileParametri,
     sorgenteCalcolo: readFileSync(fileCalcolo, 'utf8'),
     fileCalcolo,
+    ausiliari: ['public/sitemap.xml', 'public/_headers']
+      .filter((f) => existsSync(f))
+      .map((f) => ({ file: f, contenuto: readFileSync(f, 'utf8') })),
     sorgentiPagine: PAGINE.filter((p) => existsSync(p.file))
       .map((p) => ({ file: p.file, sorgente: readFileSync(p.file, 'utf8') })),
   });
