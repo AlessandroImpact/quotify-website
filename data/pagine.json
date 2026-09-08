@@ -183,6 +183,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/clienti.html",
+      "url": "/guide/clienti",
+      "titolo": "L’anagrafica clienti: i dati per fatturare",
+      "titoloBreve": "L’anagrafica clienti, e i dati che non devi chiedere",
+      "descrizione": "Quali dati servono per la fattura elettronica, come funziona la ricerca dal Registro Imprese e perché per i colleghi forfettari non trova niente.",
+      "descrizioneSocial": "Per un preventivo basta un nome. Per una fattura elettronica no — ma spesso non devi chiedere niente.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "5",
+      "cifra_nota": "i risultati proposti dalla ricerca per nome",
+      "query_obiettivo": "anagrafica clienti",
+      "query_secondarie": "dati cliente fattura elettronica, cercare azienda da partita iva, registro imprese liberi professionisti, cliente privato fattura codice fiscale",
+      "pubblicato": "2026-09-08",
+      "revisionato": "2026-09-08",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",

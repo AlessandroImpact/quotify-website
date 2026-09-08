@@ -137,7 +137,7 @@ Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 - [x] `/guide/bacheca-progetti` — cinque colonne e regola dei promemoria verificate su `project-state-machine.ts` (8 set 2026)
 - [x] `/guide/preventivi` — stati, template, link pubblico e risposta del cliente verificati su `dates.ts` e sugli endpoint share (8 set 2026)
 - [x] `/guide/dal-preventivo-alla-fattura` — conversione, numerazione e il caso degli «altri costi» che non passano, verificati su `InvoicePage.tsx` e `invoiceNumber.ts` (8 set 2026)
-- [ ] `/guide/clienti` — l'anagrafica
+- [x] `/guide/clienti` — anagrafica, ricerca dal Registro Imprese e il caso dei professionisti non iscritti, verificati su `clients/lookup.ts` (8 set 2026)
 - [ ] `/guide/fatture-ricorrenti` — programmare e confermare
 - [ ] `/guide/f24-e-dashboard` — da dove vengono i numeri
 - [ ] `/guide/quotifai` — cosa può leggere e cosa no
