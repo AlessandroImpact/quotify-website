@@ -158,7 +158,7 @@ Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 - [x] `/guide/codice-destinatario` — cos'è, dove si trova, cosa mettere se manca · 08/09/2026
 - [x] `/guide/natura-n2-2-diciture-forfettario` — N2.2, RF19 e le due diciture con le formulazioni ufficiali AdE (9 set 2026)
 - [x] `/guide/marca-da-bollo-fattura-elettronica` — soglia, scadenze e differimento a 5.000 € dalla guida ufficiale; bollo riaddebitato come ricavo (interpello 428/2022) (9 set 2026)
-- [ ] `/guide/nota-di-credito-td04` — quando serve e come si emette
+- [x] `/guide/nota-di-credito-td04` — impostata su quando NON serve; il principio di cassa che rende lo storno neutro sul reddito (9 set 2026)
 - [ ] `/guide/fattura-cliente-estero-forfettario` — UE, extra UE, codici e diciture
 
 ### Guide all'app — gruppo B, documentazione dei moduli

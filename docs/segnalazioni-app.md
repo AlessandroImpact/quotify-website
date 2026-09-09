@@ -138,6 +138,47 @@ elencate nell'ordine sbagliato.
 
 ---
 
+## Domande aperte, non difetti
+
+Due cose notate sulla nota di credito che **non** risultano sbagliate: sono punti su cui la
+documentazione ufficiale non si pronuncia, o su cui la scelta dell'app è difendibile. Stanno
+qui perché è meglio averle guardate e archiviate che non essersele mai poste.
+
+### A. Il segno degli importi nella nota di credito
+
+**Dove**: `src/pages/InvoicePage.tsx:148` — le righe vengono ricopiate dalla fattura originale
+con `prezzo_unitario` e `importo` invertiti di segno (`-Math.abs`).
+
+**La domanda**: la documentazione dell'Agenzia **non specifica** se un TD04 debba portare importi
+positivi o negativi. L'unica indicazione vicina è che i documenti integrativi TD16-TD19 vogliono
+importi negativi *e che in quei casi non va usato il TD04* — il che lascia intendere, senza
+dirlo, che il TD04 segua la convenzione opposta.
+
+**Perché probabilmente va bene così**: le fatture vere passano, quindi lo SdI non obietta. E il
+segno negativo ha un effetto utile a valle: l'F24 somma gli `imponibile` delle fatture non in
+bozza, quindi una nota di credito negativa **riduce correttamente la base delle stime**. Con
+importi positivi le stime crescerebbero invece di calare.
+
+**Cosa varrebbe la pena fare**: nulla, se non chiedere conferma a un commercialista o verificare
+come si comportano i gestionali riceventi. È l'unico punto in cui una scelta interna potrebbe
+apparire diversa a chi legge il documento dall'altra parte.
+
+### B. La causale della nota di credito perde la dicitura sulla ritenuta
+
+**Dove**: `src/pages/InvoicePage.tsx:146` — la causale viene sovrascritta con
+`Storno fattura {numero} del {data}`, al posto della `CAUSALE_DEFAULT` che porta la dicitura del
+comma 67 sulla non applicazione della ritenuta.
+
+**Perché non è un problema**: il riferimento normativo del regime forfettario (articolo 1, commi
+54-89) è una **costante nell'XML** (`functions/lib/fatturaPA.ts:74`) e finisce comunque in
+`DatiRiepilogo`, indipendentemente dalla causale. Quindi la nota di credito dichiara comunque il
+regime; perde solo la frase sulla ritenuta, che su uno storno ha meno senso di averla.
+
+**Annotato solo per completezza**: se un giorno si volesse, le due informazioni potrebbero
+convivere (storno + dicitura) invece di escludersi.
+
+---
+
 ## Cose verificate che invece vanno bene
 
 Per equilibrio, le cose che sembravano buchi e non lo erano:

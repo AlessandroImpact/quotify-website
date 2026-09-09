@@ -335,6 +335,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/nota-di-credito-td04.html",
+      "url": "/guide/nota-di-credito-td04",
+      "titolo": "La nota di credito TD04 nel forfettario",
+      "titoloBreve": "La nota di credito, e quando invece non serve",
+      "descrizione": "Quando serve davvero una nota di credito e quando no, cos'è il TD04 e perché nel regime forfettario, contando per cassa, spesso non cambia il reddito.",
+      "descrizioneSocial": "La prima domanda non è come si fa: è se ti serve. Quasi sempre la risposta è no.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "TD04",
+      "cifra_nota": "il tipo documento della nota di credito",
+      "query_obiettivo": "nota di credito forfettario",
+      "query_secondarie": "td04 nota di credito fattura elettronica, storno fattura regime forfettario, nota di credito parziale, quando fare nota di credito",
+      "pubblicato": "2026-09-09",
+      "revisionato": "2026-09-09",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
