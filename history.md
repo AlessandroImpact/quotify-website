@@ -103,6 +103,31 @@ anglofoni, quindi in Italia vincibile.
   il markup esistente, lo scuro è uno strato di rimappatura. Regola `colore-non-mappato` per
   impedire che una pagina nuova sia rotta sul tema scuro.
 
+### 9 settembre 2026 — Il gruppo A, e una guida non scritta
+Quattro guide del gruppo A pubblicate: fattura scartata, natura N2.2 e diciture, marca da bollo,
+nota di credito. Per queste i fatti fiscali sono stati presi dalle fonti primarie e non dalla
+memoria — il PDF dei codici errore dello SdI, la guida ufficiale sul bollo, la risposta a
+interpello 428/2022 — scaricandoli ed estraendoli invece di citarli.
+
+Due volte è servito davvero:
+- la ricerca web dava la soglia di differimento del bollo a **250 €**, la guida ufficiale dice
+  **5.000 €**. Scritto 250, avremmo mandato la gente a versare a maggio invece che a settembre;
+- quattro codici di scarto che ricordavo (00320, 00422, 00445, 00471) **non risultano**
+  nell'elenco ufficiale, e sono stati tolti invece di inventarne la descrizione.
+
+Emersa e documentata la risposta 428/2022: il bollo riaddebitato al cliente è ricavo e concorre
+al reddito forfettario. L'app lo tiene fuori dall'imponibile, quindi le stime lo escludono.
+
+**La sedicesima guida non è stata scritta.** Preparandola è emerso che l'app scrive `Nazione` e
+`IdPaese` come costante `IT` per chiunque, e che il cliente non ha affatto un campo nazione: una
+fattura a un cliente estero uscirebbe dichiarandolo con sede in Italia. Le alternative erano
+pubblicarla dicendo apertamente che il caso non è coperto, oppure aspettare. Si è scelto di
+aspettare.
+
+Nato `docs/segnalazioni-app.md`: tutto ciò che è emerso leggendo il codice dell'app, con
+`file:riga`, impatto e possibili direzioni. Otto voci, due domande aperte e — per equilibrio —
+l'elenco delle cose che sembravano buchi e non lo erano. Va verificato nella chat dell'app.
+
 ### 8 settembre 2026 — Le guide ai moduli dell'app
 Sei guide scritte e pubblicate leggendo il codice dell'app, non l'interfaccia: profilo fiscale,
 bacheca, preventivi, conversione in fattura, anagrafica clienti, fatture ricorrenti. Ogni
@@ -159,7 +184,10 @@ Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 - [x] `/guide/natura-n2-2-diciture-forfettario` — N2.2, RF19 e le due diciture con le formulazioni ufficiali AdE (9 set 2026)
 - [x] `/guide/marca-da-bollo-fattura-elettronica` — soglia, scadenze e differimento a 5.000 € dalla guida ufficiale; bollo riaddebitato come ricavo (interpello 428/2022) (9 set 2026)
 - [x] `/guide/nota-di-credito-td04` — impostata su quando NON serve; il principio di cassa che rende lo storno neutro sul reddito (9 set 2026)
-- [ ] `/guide/fattura-cliente-estero-forfettario` — UE, extra UE, codici e diciture
+- [~] `/guide/fattura-cliente-estero-forfettario` — **rimandata** (9 set 2026). L'app oggi
+  scrive nazione `IT` a mano per chiunque e non ha un campo nazione sul cliente: vedi voce 0
+  di [`docs/segnalazioni-app.md`](docs/segnalazioni-app.md). Si scrive quando l'app gestira'
+  l'estero, cosi' la guida potra' dire come si fa invece di dire che non si puo'.
 
 ### Guide all'app — gruppo B, documentazione dei moduli
 

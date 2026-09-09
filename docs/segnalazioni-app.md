@@ -39,9 +39,11 @@ anagrafico, e nessuno se ne accorge finché non lo guarda un commercialista.
 3. **Gestire davvero l'estero**: nature diverse a seconda del tipo di operazione, e i relativi
    adempimenti. È un progetto, non una correzione.
 
-**Conseguenza sul sito**: la guida `/guide/fattura-cliente-estero-forfettario` era in programma
-ed è stata sospesa in attesa di una decisione. Scriverla senza dire come stanno le cose
-significherebbe far credere che l'app gestisca un caso che oggi non gestisce.
+**Conseguenza sul sito**: la guida `/guide/fattura-cliente-estero-forfettario` è stata
+**rimandata** (decisione del 9 settembre 2026). Le alternative erano scriverla dicendo
+apertamente che l'app non copre il caso, oppure aspettare: si è scelto di aspettare. La guida
+si scrive quando l'estero sarà gestito, così potrà spiegare come si fa invece di spiegare
+perché non si può. Finché la voce 0 resta aperta, la pagina non esiste.
 
 ---
 
