@@ -9,6 +9,42 @@ Ogni voce ha il riferimento `file:riga` e cosa succede in pratica. L'ordine è p
 
 ---
 
+## 0. La fattura verso un cliente estero esce con nazione «IT»
+
+**Priorità: la più alta del registro.** Non è una stima imprecisa: è un documento fiscale
+formalmente errato.
+
+**Dove**:
+- `functions/lib/fatturaPA.ts:133` — l'`IdPaese` del cliente è la costante `IT`.
+- `functions/lib/fatturaPA.ts:218` e `:232` — `<Nazione>IT</Nazione>` è scritta a mano sia per
+  il cedente sia per il cessionario.
+- `src/types/index.ts` — l'interfaccia `Client` **non ha un campo nazione**: via, CAP, comune e
+  provincia, e basta.
+- `functions/lib/fatturaPA.ts:158` e `:255` — la natura è sempre `N2.2`, anche dove
+  un'operazione verso l'estero ne richiederebbe una diversa.
+
+**Cosa succede**: se si registra un cliente estero e gli si emette fattura, l'XML dichiara che
+quel soggetto ha sede in Italia e, se ha una partita IVA, che è italiana. La fattura può passare
+i controlli formali dello SdI ed essere comunque sbagliata nel merito.
+
+**Perché è la voce più grave**: le altre voci di questo registro producono numeri leggermente
+diversi dal vero. Questa produce un documento fiscale che afferma il falso su un dato
+anagrafico, e nessuno se ne accorge finché non lo guarda un commercialista.
+
+**Possibili direzioni**, in ordine di costo crescente:
+1. **Impedire il caso**: bloccare in anagrafica i clienti con sede fuori dall'Italia, con un
+   messaggio che spieghi perché. Onesto e immediato — l'app dichiara cosa non fa.
+2. **Aggiungere il campo nazione** al cliente e portarlo in `IdPaese` e `Nazione`, con il codice
+   destinatario `XXXXXXX` per i soggetti non stabiliti in Italia.
+3. **Gestire davvero l'estero**: nature diverse a seconda del tipo di operazione, e i relativi
+   adempimenti. È un progetto, non una correzione.
+
+**Conseguenza sul sito**: la guida `/guide/fattura-cliente-estero-forfettario` era in programma
+ed è stata sospesa in attesa di una decisione. Scriverla senza dire come stanno le cose
+significherebbe far credere che l'app gestisca un caso che oggi non gestisce.
+
+---
+
 ## 1. Gli «altri costi» del preventivo non arrivano in fattura
 
 **Dove**: `src/pages/InvoicePage.tsx:113-123` — la conversione costruisce le righe della fattura
