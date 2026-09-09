@@ -316,6 +316,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/marca-da-bollo-fattura-elettronica.html",
+      "url": "/guide/marca-da-bollo-fattura-elettronica",
+      "titolo": "La marca da bollo sulla fattura elettronica",
+      "titoloBreve": "La marca da bollo, e i due euro che sono un ricavo",
+      "descrizione": "Quando serve il bollo da 2 €, la soglia di 77,47 €, le scadenze trimestrali di versamento e perché il bollo riaddebitato al cliente è un tuo ricavo.",
+      "descrizioneSocial": "Proprio perché non applichi l'IVA, serve il bollo. E i due euro che addebiti sono reddito tuo.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "2",
+      "cifra_nota": "gli euro di bollo, sopra i 77,47 € di operazioni",
+      "query_obiettivo": "marca da bollo fattura elettronica",
+      "query_secondarie": "bollo 2 euro 77,47 forfettario, quando si versa imposta di bollo trimestre, bollo addebitato al cliente ricavo, bollo virtuale fattura elettronica",
+      "pubblicato": "2026-09-09",
+      "revisionato": "2026-09-09",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",

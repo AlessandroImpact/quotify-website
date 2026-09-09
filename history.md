@@ -128,6 +128,15 @@ regola resta da allargare.
 
 ---
 
+## Segnalazioni sull'app
+
+Le cose notate leggendo il codice dell'app mentre si
+scrivevano le guide stanno in [`docs/segnalazioni-app.md`](docs/segnalazioni-app.md), con
+riferimenti `file:riga`. Vanno verificate nella chat dedicata a quel progetto: qui non si
+tocca nulla dell'app.
+
+---
+
 ## Contenuti: fatti e da fare
 
 Si spunta man mano. Ogni riga fatta porta la data di pubblicazione.
@@ -148,7 +157,7 @@ Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 - [x] `/guide/fattura-scartata-sdi` — codici errore testuali dal PDF ufficiale AdE, regola dei 5 giorni da circolare 13/E (8 set 2026)
 - [x] `/guide/codice-destinatario` — cos'è, dove si trova, cosa mettere se manca · 08/09/2026
 - [x] `/guide/natura-n2-2-diciture-forfettario` — N2.2, RF19 e le due diciture con le formulazioni ufficiali AdE (9 set 2026)
-- [ ] `/guide/marca-da-bollo-fattura-elettronica` — soglia, importo, assolvimento virtuale
+- [x] `/guide/marca-da-bollo-fattura-elettronica` — soglia, scadenze e differimento a 5.000 € dalla guida ufficiale; bollo riaddebitato come ricavo (interpello 428/2022) (9 set 2026)
 - [ ] `/guide/nota-di-credito-td04` — quando serve e come si emette
 - [ ] `/guide/fattura-cliente-estero-forfettario` — UE, extra UE, codici e diciture
 
