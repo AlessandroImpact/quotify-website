@@ -72,6 +72,9 @@
 /guide/fattura-scartata-sdi
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/guide/natura-n2-2-diciture-forfettario
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/stati-fattura-elettronica
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 

@@ -147,7 +147,7 @@ Hanno volume di ricerca: documentano il prodotto **e** intercettano domande.
 - [x] `/guide/stati-fattura-elettronica` — i nove stati e cosa fare per ognuno · 08/09/2026
 - [x] `/guide/fattura-scartata-sdi` — codici errore testuali dal PDF ufficiale AdE, regola dei 5 giorni da circolare 13/E (8 set 2026)
 - [x] `/guide/codice-destinatario` — cos'è, dove si trova, cosa mettere se manca · 08/09/2026
-- [ ] `/guide/natura-n2-2-diciture-forfettario` — il codice natura e le diciture obbligatorie
+- [x] `/guide/natura-n2-2-diciture-forfettario` — N2.2, RF19 e le due diciture con le formulazioni ufficiali AdE (9 set 2026)
 - [ ] `/guide/marca-da-bollo-fattura-elettronica` — soglia, importo, assolvimento virtuale
 - [ ] `/guide/nota-di-credito-td04` — quando serve e come si emette
 - [ ] `/guide/fattura-cliente-estero-forfettario` — UE, extra UE, codici e diciture

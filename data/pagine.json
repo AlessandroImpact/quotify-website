@@ -297,6 +297,25 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "guide/natura-n2-2-diciture-forfettario.html",
+      "url": "/guide/natura-n2-2-diciture-forfettario",
+      "titolo": "Natura N2.2 e diciture per il forfettario",
+      "titoloBreve": "N2.2 e le diciture, e quella che vale il 20%",
+      "descrizione": "Il codice natura N2.2, il regime RF19 e le due diciture obbligatorie in fattura: cosa scrivere esattamente e perché una delle due ti evita la ritenuta.",
+      "descrizioneSocial": "Una fattura senza IVA deve dire perché. E una riga di testo ti evita di essere pagato l'80%.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "app",
+      "tipo": "guida",
+      "cifra": "3",
+      "cifra_nota": "gli elementi che spiegano l'assenza di IVA",
+      "query_obiettivo": "natura N2.2 forfettario",
+      "query_secondarie": "dicitura fattura regime forfettario, rf19 codice regime fiscale, operazione non soggetta a ritenuta comma 67, codice natura fattura elettronica forfettario",
+      "pubblicato": "2026-09-09",
+      "revisionato": "2026-09-09",
+      "verifica_fiscale": "verificata"
+    },
+    {
       "file": "guide/stati-fattura-elettronica.html",
       "url": "/guide/stati-fattura-elettronica",
       "titolo": "Stati della fattura elettronica: cosa significano",
