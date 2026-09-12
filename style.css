@@ -813,3 +813,259 @@ html.lenis, html.lenis body { height: auto; }
 /* Il pallino della linea del tempo ha un bordo bianco che serve a ritagliarlo
    sul fondo della pagina: deve seguire il fondo, non essere bianco. */
 [data-tema='scuro'] .border-white { border-color: var(--fondo) !important; }
+
+/* ── il passaggio fra pagine ──────────────────────────────────────────────
+   Transizione fra documenti diversi, dichiarata in CSS e gestita dal
+   browser: nessun JavaScript, quindi nessun conflitto con la CSP e nessun
+   ritardo aggiunto alla navigazione.
+
+   È additiva per costruzione. I browser che non conoscono `@view-transition`
+   ignorano la regola e navigano come hanno sempre fatto: non c'è un percorso
+   in cui questa aggiunta possa rompere un collegamento.
+
+   Il movimento è volutamente piccolo — una dissolvenza con due centimetri di
+   scorrimento — perché fra una guida e l'altra la testata e il piede sono
+   identici: un'animazione ampia farebbe sobbalzare elementi che in realtà
+   non si sono mossi. */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) {
+  animation: pagina-esce 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+::view-transition-new(root) {
+  animation: pagina-entra 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pagina-esce {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes pagina-entra {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+/* La testata e il piede sono gli stessi su ogni pagina: trattarli come
+   elementi propri evita che scorrano insieme al contenuto, che è il
+   dettaglio che distingue un passaggio curato da una dissolvenza. */
+.testata { view-transition-name: testata; }
+footer[role='contentinfo'] { view-transition-name: piede; }
+
+::view-transition-old(testata), ::view-transition-new(testata),
+::view-transition-old(piede),   ::view-transition-new(piede) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* ── la home sul tema chiaro ──────────────────────────────────────────────
+   La home è scritta al contrario delle pagine di contenuto: il markup è
+   SCURO e il chiaro è lo strato che rimappa. Siccome lo scuro è anche il
+   tema predefinito, tutto qui sotto è additivo: se `data-tema` non vale
+   'chiaro', nessuna di queste regole si applica.
+
+   La difficoltà vera non è invertire i colori: è che la home ha tre tipi di
+   superficie mescolati nella stessa schermata.
+     1. la PAGINA, che diventa chiara;
+     2. i PANNELLI GALLEGGIANTI delle didascalie, che erano vetro scuro e
+        sul chiaro diventano blu pieno — con il testo che resta chiaro;
+     3. le SCHEDE FINTE che restano scure per disegno (l'XML, la dashboard),
+        perché sono la citazione di uno schermo: anche lì il testo resta chiaro.
+   Trattarle tutte allo stesso modo è ciò che rendeva la pagina illeggibile.
+
+   Sul resto lavorano i token: Tailwind scrive `text-foam/50` come
+   `color-mix(in oklab, var(--color-foam) 50%, transparent)`, quindi cambiare
+   `--color-foam` sposta insieme tutte le gradazioni. Le più deboli vengono
+   però rialzate a mano: un testo scuro al 25% su fondo chiaro sparisce,
+   mentre un testo chiaro al 25% su fondo nero si legge ancora.
+
+   Due confini invalicabili: il PIEDE è una fascia scura su ogni pagina del
+   sito e il SIPARIO è una tenda scura. Entrambi stanno fuori da `main`,
+   quindi le regole sono limitate a `.testata` e `main`: mai a `body`. */
+
+:root {
+  --home-fondo: #eef3fd;
+  --home-testo: #091023;
+  --home-blu: #1d4ed8;   /* primary-700: il 600 su fondo chiaro sta sotto 4,5:1 */
+}
+
+[data-tema='chiaro'] body[data-home] {
+  background-color: var(--home-fondo);
+  color: var(--home-testo);
+
+  /* i fondi di sezione: più blu di prima, perché il quasi-bianco spegneva */
+  --eroe-a: #cfdffb;  --eroe-b: #e5edfd;  --eroe-c: var(--home-fondo);
+  --sistema-a: #dae7fc; --sistema-b: var(--home-fondo);
+  --trama: rgb(35 108 239 / 0.09);
+  --trama-punti: rgb(35 108 239 / 0.11);
+
+  /* i pannelli delle didascalie: da vetro scuro a blu pieno */
+  --pannello: rgb(35 108 239 / 0.96);
+  --pannello-pieno: #236CEF;
+  --pannello-pieno-2: #236CEF;
+  --pannello-alto: rgb(10 16 32 / 0.92);  /* schermo citato: resta scuro */
+  --filo: rgb(255 255 255 / 0.22);
+
+  /* le voci del calcolatore: le disegna main.js, quindi i colori arrivano
+     da qui invece che da una classe. Il bianco su azzurro tenue non si
+     legge: la voce scelta diventa blu pieno con testo bianco, quella non
+     scelta resta leggibile invece di sparire. */
+  --voce-on-fondo: #236CEF;
+  --voce-on-filo: #1d4ed8;
+  --voce-on-testo: #ffffff;
+  --voce-off-fondo: rgb(255 255 255 / 0.72);
+  --voce-off-filo: rgb(35 108 239 / 0.22);
+  --voce-off-testo: rgb(9 16 35 / 0.72);
+  --voce-off-cifra: rgb(9 16 35 / 0.55);
+  --voce-off-segno-fondo: rgb(35 108 239 / 0.12);
+  --voce-off-segno: rgb(9 16 35 / 0.55);
+}
+
+/* ── 1. la pagina ─────────────────────────────────────────────────────── */
+[data-tema='chiaro'] body[data-home] main,
+[data-tema='chiaro'] body[data-home] .testata {
+  --color-foam: var(--home-testo);
+  --color-ink-900: #e2ebfc;
+  --color-ink-700: #d8e4fb;
+}
+
+/* Le gradazioni deboli non sopravvivono al ribaltamento: si rialzano. */
+[data-tema='chiaro'] body[data-home] main .text-foam\/25     { color: rgb(9 16 35 / 0.50); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/30     { color: rgb(9 16 35 / 0.54); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/35     { color: rgb(9 16 35 / 0.58); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/40     { color: rgb(9 16 35 / 0.62); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/45     { color: rgb(9 16 35 / 0.66); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/50     { color: rgb(9 16 35 / 0.70); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/55     { color: rgb(9 16 35 / 0.74); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/60     { color: rgb(9 16 35 / 0.78); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/70     { color: rgb(9 16 35 / 0.86); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/\[0\.28\] { color: rgb(9 16 35 / 0.52); }
+[data-tema='chiaro'] body[data-home] main .text-foam\/\[0\.58\] { color: rgb(9 16 35 / 0.76); }
+
+[data-tema='chiaro'] body[data-home] main .text-white { color: var(--home-testo); }
+[data-tema='chiaro'] body[data-home] main .text-white\/25,
+[data-tema='chiaro'] body[data-home] main .text-white\/\[0\.22\] { color: rgb(9 16 35 / 0.48); }
+[data-tema='chiaro'] body[data-home] main [class*='border-white'] { border-color: rgb(35 108 239 / 0.18); }
+
+/* Gli azzurri chiari erano scelti per leggere sul nero: sul chiaro spariscono. */
+[data-tema='chiaro'] body[data-home] main .text-primary-200,
+[data-tema='chiaro'] body[data-home] main .text-primary-300,
+[data-tema='chiaro'] body[data-home] main .text-primary-400 { color: var(--home-blu); }
+[data-tema='chiaro'] body[data-home] main [class*='text-primary-300\/'],
+[data-tema='chiaro'] body[data-home] main [class*='text-primary-400\/'] { color: rgb(29 78 216 / 0.78); }
+
+/* ── 2 e 3. le superfici che restano piene ────────────────────────────────
+   Qualunque cosa abbia un fondo proprio — blu pieno o nero di citazione —
+   si riporta il testo chiaro. Le proprietà personalizzate si ereditano,
+   quindi basta dichiararle sul contenitore. */
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello'] { color: #fff; }
+
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello'],
+[data-tema='chiaro'] body[data-home] [style*='background:rgba(9,15,30'],
+[data-tema='chiaro'] body[data-home] [style*='background:#070c18'],
+[data-tema='chiaro'] body[data-home] [style*='background:#04060d'],
+[data-tema='chiaro'] body[data-home] [style*='background:#05080f'],
+[data-tema='chiaro'] body[data-home] [style*='background:#0a142c'],
+[data-tema='chiaro'] body[data-home] [style*='background:#0d1b3e'],
+[data-tema='chiaro'] body[data-home] [class*='bg-primary-'] {
+  --color-foam: #fff;
+}
+
+/* Gli SCHERMI CITATI restano scuri anche sul tema chiaro: sono la citazione
+   dell'app, non una superficie della pagina. Invertirli avrebbe significato
+   rifare i loro equilibri interni — trenta velature bianche tarate sul nero —
+   con la certezza di sbagliarne qualcuna. Restando scuri conservano
+   esattamente i rapporti che il disegno aveva scelto: serve solo che il testo
+   dentro non segua la pagina. */
+[data-tema='chiaro'] body[data-home] [style*='background:rgba(9,15,30'],
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello-alto'],
+[data-tema='chiaro'] body[data-home] [style*='background:#070c18'] { color: #e8edf7; }
+
+/* Dentro uno schermo scuro gli azzurri restano quelli chiari di partenza:
+   la regola della pagina li scurirebbe, rendendoli blu su nero. */
+[data-tema='chiaro'] body[data-home] [style*='background:rgba(9,15,30'] [class*='text-primary-'],
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello-alto'] [class*='text-primary-'],
+[data-tema='chiaro'] body[data-home] [style*='background:#070c18'] [class*='text-primary-'] { color: #93c5fd; }
+
+[data-tema='chiaro'] body[data-home] [style*='background:rgba(9,15,30'] [class*='text-foam\/'],
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello-alto'] [class*='text-foam\/'] {
+  color: rgb(232 237 247 / 0.62);
+}
+[data-tema='chiaro'] body[data-home] [style*='background:rgba(9,15,30'] [class*='text-white\/'],
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello-alto'] [class*='text-white\/'] {
+  color: rgb(255 255 255 / 0.35);
+}
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello'] .text-white,
+[data-tema='chiaro'] body[data-home] [class*='bg-primary-'] .text-white,
+[data-tema='chiaro'] body[data-home] [class*='bg-primary-'].text-white,
+[data-tema='chiaro'] body[data-home] [style*='background:#236CEF'],
+[data-tema='chiaro'] body[data-home] [style*='background:#1d4ed8'],
+[data-tema='chiaro'] body[data-home] [style*='background:#236CEF'] .text-white,
+[data-tema='chiaro'] body[data-home] [style*='background:#1d4ed8'] .text-white { color: #fff; }
+
+/* Dentro un pannello pieno le gradazioni tornano quelle di partenza:
+   annullano le regole di rialzo scritte sopra per la pagina. */
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello'] [class*='text-foam\/'] {
+  color: rgb(255 255 255 / 0.86);
+}
+/* Gli azzurri dentro i pannelli pieni devono restare chiari, non scurire. */
+[data-tema='chiaro'] body[data-home] [style*='var(--pannello'] [class*='text-primary-'] {
+  color: #dbeafe;
+}
+
+/* ── la testata ───────────────────────────────────────────────────────── */
+[data-tema='chiaro'] body[data-home] .testata::before {
+  background: linear-gradient(180deg, rgb(238 243 253 / 0.92) 0%, rgb(238 243 253 / 0.58) 46%, transparent 100%);
+}
+[data-tema='chiaro'] body[data-home] .testata-marchio { text-shadow: none; }
+
+/* I bagliori delle sezioni velate sono pensati per accendersi sul nero:
+   sul chiaro la stessa intensità sporca invece di illuminare. */
+[data-tema='chiaro'] body[data-home] .velo-banco::before,
+[data-tema='chiaro'] body[data-home] .velo-faq::before,
+[data-tema='chiaro'] body[data-home] .velo-cta::before { opacity: 0.28; }
+
+/* ── invariante: fondo blu pieno, testo bianco ────────────────────────────
+   Va scritta DOPO la regola che scurisce `.text-white`, e con la stessa
+   profondità di selettore: senza `main` la regola che scurisce vinceva di
+   specificità, ed è per quello che «Genera il PDF» restava con il testo
+   nero su fondo blu. È un invariante del disegno, non un'eccezione: se sotto
+   c'è il blu di marca, sopra il testo è bianco, in qualunque tema. */
+[data-tema='chiaro'] body[data-home] main [style*='background:#236CEF'],
+[data-tema='chiaro'] body[data-home] main [style*='background:#1d4ed8'],
+[data-tema='chiaro'] body[data-home] main [style*='var(--pannello'],
+[data-tema='chiaro'] body[data-home] main [style*='var(--voce-on-fondo'],
+[data-tema='chiaro'] body[data-home] main [class*='bg-primary-5'],
+[data-tema='chiaro'] body[data-home] main [class*='bg-primary-6'],
+[data-tema='chiaro'] body[data-home] main [class*='bg-primary-7'],
+[data-tema='chiaro'] body[data-home] main [style*='background:#236CEF'] .text-white,
+[data-tema='chiaro'] body[data-home] main [style*='background:#1d4ed8'] .text-white,
+[data-tema='chiaro'] body[data-home] main [class*='bg-primary-6'] .text-white,
+[data-tema='chiaro'] body[data-home] main [class*='bg-primary-7'] .text-white,
+[data-tema='chiaro'] body[data-home] .testata [class*='bg-primary-'] { color: #fff; }
+
+/* Il verde menta della pillola «Beta gratuita» è tarato sul nero: su fondo
+   chiaro scende sotto 2:1. Stessa famiglia, due gradini più giù. */
+[data-tema='chiaro'] body[data-home] {
+  --beta-fondo: rgb(16 185 129 / 0.14);
+  --beta-filo: rgb(4 120 87 / 0.38);
+  --beta-testo: #046c50;
+}
+
+/* Il tondo del menu è un disco scuro pensato per l'eroe nero. Sul chiaro
+   riusa la stessa soluzione già collaudata sulle pagine di contenuto. */
+[data-tema='chiaro'] body[data-home] .innesco-anello {
+  border-color: rgb(4 6 13 / 0.16);
+  background: rgb(255 255 255 / 0.6);
+}
+[data-tema='chiaro'] body[data-home] .innesco:hover .innesco-anello,
+[data-tema='chiaro'] body[data-home] .innesco:focus-visible .innesco-anello {
+  border-color: rgb(4 6 13 / 0.4);
+  background: rgb(241 245 249 / 0.9);
+}
+/* Ma con il sipario aperto la pagina torna scura: anche l'anello. */
+.sipario-attivo[data-tema='chiaro'] body[data-home] .innesco-anello {
+  border-color: rgb(255 255 255 / 0.16);
+  background: rgb(4 6 13 / 0.55);
+}

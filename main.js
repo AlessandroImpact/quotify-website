@@ -341,11 +341,11 @@ function initBench() {
   function bottone(s, on) {
     return `<button type="button" data-service="${s.id}" aria-pressed="${on}"
       class="w-full flex items-center gap-3 rounded-[14px] px-[1.125rem] py-[0.9375rem] text-left transition-[background,border-color,transform] duration-200 hover:translate-x-[3px]"
-      style="background:${on ? 'rgba(35,108,239,0.14)' : 'rgba(255,255,255,0.025)'};border:1px solid ${on ? 'rgba(96,165,250,0.45)' : 'rgba(255,255,255,0.08)'}">
+      style="background:${on ? 'var(--voce-on-fondo,rgba(35,108,239,0.14))' : 'var(--voce-off-fondo,rgba(255,255,255,0.025))'};border:1px solid ${on ? 'var(--voce-on-filo,rgba(96,165,250,0.45))' : 'var(--voce-off-filo,rgba(255,255,255,0.08))'}">
       <span class="w-[22px] h-[22px] rounded-md grid place-items-center text-[0.75rem] font-bold shrink-0"
-            style="background:${on ? '#236CEF' : 'rgba(255,255,255,0.07)'};color:${on ? '#fff' : 'rgba(232,237,247,0.4)'}">${on ? '✓' : '+'}</span>
-      <span class="flex-1 text-[0.875rem]" style="color:${on ? '#ffffff' : 'rgba(232,237,247,0.65)'}">${s.name}</span>
-      <span class="text-[0.875rem] font-semibold tnum" style="color:${on ? '#ffffff' : 'rgba(232,237,247,0.4)'}">${eur(s.price)}</span>
+            style="background:${on ? '#236CEF' : 'var(--voce-off-segno-fondo,rgba(255,255,255,0.07))'};color:${on ? '#fff' : 'var(--voce-off-segno,rgba(232,237,247,0.4))'}">${on ? '✓' : '+'}</span>
+      <span class="flex-1 text-[0.875rem]" style="color:${on ? 'var(--voce-on-testo,#ffffff)' : 'var(--voce-off-testo,rgba(232,237,247,0.65))'}">${s.name}</span>
+      <span class="text-[0.875rem] font-semibold tnum" style="color:${on ? 'var(--voce-on-testo,#ffffff)' : 'var(--voce-off-cifra,rgba(232,237,247,0.4))'}">${eur(s.price)}</span>
     </button>`
   }
 
