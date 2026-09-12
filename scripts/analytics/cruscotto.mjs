@@ -22,6 +22,7 @@ const RADICE = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const OSPITE = 'quotify.it';
 const GIORNI = Number(process.argv[2]) || 30;
 
+const ZONA = '847d6d3fc9755fa9e34ea0fd4e1d7e0a';  // quotify.it
 const token = process.env.CLOUDFLARE_API_TOKEN;
 const account = process.env.CLOUDFLARE_ACCOUNT_ID;
 if (!token || !account) {
@@ -45,6 +46,41 @@ async function chiedi(selezione, limite = 100) {
   const d = await r.json();
   if (d.errors) throw new Error(d.errors.map((e) => e.message).join('; '));
   return d.data.viewer.accounts[0]?.rumPageloadEventsAdaptiveGroups ?? [];
+}
+
+// Le due interrogazioni di ZONA. Servono a un'altra domanda: non «quanta
+// gente legge» — quella la risponde Web Analytics — ma «quanto di questo
+// dominio è il sito». Il resto è l'applicazione, e i bot.
+async function chiediZona(corpo, variabili = {}) {
+  const query = `query($z:String!${Object.keys(variabili).map((k) => `,$${k}:String!`).join('')}){viewer{zones(filter:{zoneTag:$z}){${corpo}}}}`;
+  const r = await fetch('https://api.cloudflare.com/client/v4/graphql', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, variables: { z: ZONA, ...variabili } }),
+  });
+  const d = await r.json();
+  if (d.errors) throw new Error(d.errors.map((e) => e.message).join('; '));
+  return d.data.viewer.zones[0] ?? {};
+}
+
+// Il piano gratuito non concede finestre più larghe di un giorno sul dataset
+// dettagliato: la divisione per hostname si chiede un giorno per volta.
+async function ospitiPerGiorno(giorni) {
+  const oggiUTC = new Date(Date.UTC(oggi.getUTCFullYear(), oggi.getUTCMonth(), oggi.getUTCDate()));
+  const richieste = Array.from({ length: giorni }, (_, i) => {
+    const d = new Date(oggiUTC.getTime() - (i + 1) * 86400000);
+    const a = d.toISOString().slice(0, 10);
+    return chiediZona(
+      `httpRequestsAdaptiveGroups(limit:40,filter:{datetime_geq:"${a}T00:00:00Z",datetime_lt:"${a}T23:59:59Z"},orderBy:[count_DESC]){count dimensions{clientRequestHTTPHost}}`
+    ).then((z) => z.httpRequestsAdaptiveGroups ?? []).catch(() => []);
+  });
+  const tutti = (await Promise.all(richieste)).flat();
+  const m = new Map();
+  for (const r of tutti) {
+    const h = (r.dimensions.clientRequestHTTPHost || '(vuoto)').replace(/:\d+$/, '');
+    m.set(h, (m.get(h) || 0) + r.count);
+  }
+  return [...m.entries()].sort((a, b) => b[1] - a[1]);
 }
 
 const num = (n) => n.toLocaleString('it-IT');
@@ -108,6 +144,13 @@ const main = async () => {
     chiedi('count sum{visits} dimensions{date requestPath}', 200),
   ]);
 
+  // Il confronto con la zona: opzionale, richiede il permesso analytics.
+  let ospiti = [], zonaTot = 0, erroreZona = null;
+  try {
+    ospiti = await ospitiPerGiorno(7);
+    zonaTot = ospiti.reduce((s, [, v]) => s + v, 0);
+  } catch (e) { erroreZona = e.message; }
+
   // Una visita è una sessione. Una pagina vista senza nessuna visita associata
   // vuol dire che nessuno ha iniziato una sessione: ricarichi automatici,
   // sonde, crawler che eseguono JavaScript. Vanno mostrati a parte, altrimenti
@@ -161,6 +204,8 @@ const main = async () => {
   .nota{background:#236cef14;border:1px solid #236cef3d;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.875rem;color:#cfe0ff}
   .nota b{color:#fff}
   .vuoto{color:var(--tenue);margin:0}
+  .spiega{color:var(--tenue);font-size:.875rem;margin:0 0 1rem}
+  .spiega b{color:var(--testo)}
   .allarme{border-color:#f59e0b4d;background:#f59e0b12}
   .allarme h2{color:#fbbf24}
   .allarme p{color:var(--tenue);font-size:.875rem;margin:0 0 1rem}
@@ -202,6 +247,16 @@ ${sospette.length ? `<section class="allarme"><h2>Traffico che non è navigazion
 <section><h2>Giorno per giorno</h2>${andamento(giorni)}</section>
 
 <section><h2>Pagine più viste</h2>${barre(elencoPagine.slice(0, 15), viste)}</section>
+
+${ospiti.length ? `<section><h2>Il sito dentro il dominio</h2>
+  <p class="spiega">Richieste HTTP a tutta la zona <b>quotify.it</b> negli ultimi 7 giorni, divise
+  per nome. È la scomposizione del numero che vedi nella Panoramica di Cloudflare: la maggior
+  parte non è il sito. Qui dentro ci sono anche i bot e i file (immagini, fogli di stile),
+  mentre il cruscotto qui sopra conta solo le pagine aperte da persone.</p>
+  ${barre(ospiti.slice(0, 8), zonaTot)}
+  <p class="spiega" style="margin-top:1rem">In totale <b>${num(zonaTot)}</b> richieste alla zona,
+  contro <b>${num(viste)}</b> pagine viste sul sito: il rapporto dice quanto del traffico grezzo
+  sia effettivamente lettura.</p></section>` : ''}
 
 <div class="griglia">
   <section><h2>Da dove arrivano</h2>${barre(elencoSorgenti.slice(0, 10), viste)}</section>
