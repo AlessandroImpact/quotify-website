@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "seo": "node scripts/seo/gate.mjs dist",
     "test": "node --test",
-    "gen": "node scripts/content/genera-calcolatore.mjs"
+    "gen": "node scripts/content/genera-calcolatore.mjs",
+    "cruscotto": "node scripts/analytics/cruscotto.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",

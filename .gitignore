@@ -5,3 +5,6 @@ dist/
 .playwright-mcp/
 
 _to_delete/
+
+# Il cruscotto delle visite e' generato e contiene dati, non codice.
+cruscotto/
