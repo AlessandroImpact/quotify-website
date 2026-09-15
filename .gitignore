@@ -8,3 +8,6 @@ _to_delete/
 
 # Il cruscotto delle visite e' generato e contiene dati, non codice.
 cruscotto/
+
+# Segreti per lo sviluppo locale delle Functions.
+.dev.vars
