@@ -9,7 +9,8 @@
     "seo": "node scripts/seo/gate.mjs dist",
     "test": "node --test",
     "gen": "node scripts/content/genera-calcolatore.mjs",
-    "cruscotto": "node scripts/analytics/cruscotto.mjs"
+    "cruscotto": "node scripts/analytics/cruscotto.mjs",
+    "indicizzazione": "node scripts/analytics/indicizzazione.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",
