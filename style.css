@@ -1069,3 +1069,60 @@ footer[role='contentinfo'] { view-transition-name: piede; }
   border-color: rgb(255 255 255 / 0.16);
   background: rgb(4 6 13 / 0.55);
 }
+
+/* ── schemi: i diagrammi in linea nelle guide ─────────────────────────────
+   SVG scritto a mano, dentro la pagina. Nessun file esterno da scaricare,
+   nessuno spazio da riservare che poi cambia (il viewBox fissa il rapporto,
+   quindi niente scatti di layout), e il testo dentro è testo vero: lo
+   selezioni, lo cerchi, Google lo legge.
+
+   I colori NON sono scritti negli SVG: arrivano da questi token, così uno
+   schema segue il tema chiaro e scuro come tutto il resto. Le classi `sk-*`
+   sono volutamente fuori dalla scala Tailwind, perché la regola del gate
+   sui colori non mappati non deve né inseguirle né ignorarle. */
+.schema {
+  --sk-testo: #0f172a;   --sk-tenue: #64748b;
+  --sk-bordo: #cbd5e1;   --sk-superficie: #f8fafc;   --sk-fondo: #ffffff;
+  --sk-acc: #236CEF;     --sk-acc-fondo: #eff6ff;
+  --sk-ok: #059669;      --sk-ok-fondo: #ecfdf5;
+  --sk-no: #dc2626;      --sk-no-fondo: #fef2f2;
+  --sk-attesa: #b45309;  --sk-attesa-fondo: #fffbeb;
+  margin: 1.5rem 0 2rem;
+}
+[data-tema='scuro'] .schema {
+  --sk-testo: var(--testo);          --sk-tenue: var(--testo-tenue);
+  --sk-bordo: var(--bordo-forte);    --sk-superficie: var(--superficie);   --sk-fondo: var(--fondo);
+  --sk-acc: #7fb0ff;                 --sk-acc-fondo: rgb(35 108 239 / 0.2);
+  --sk-ok: #34d399;                  --sk-ok-fondo: rgb(16 185 129 / 0.16);
+  --sk-no: #f87171;                  --sk-no-fondo: rgb(220 38 38 / 0.18);
+  --sk-attesa: #fbbf24;              --sk-attesa-fondo: rgb(245 158 11 / 0.16);
+}
+.schema svg { display: block; width: 100%; height: auto; font-family: inherit; overflow: visible; }
+.schema figcaption { font-size: 0.8125rem; color: var(--sk-tenue); margin-top: 0.75rem; line-height: 1.5; }
+
+.schema .sk-t   { fill: var(--sk-testo); }
+.schema .sk-tt  { fill: var(--sk-tenue); }
+.schema .sk-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+.schema .sk-box   { fill: var(--sk-superficie); stroke: var(--sk-bordo); stroke-width: 1.5; }
+.schema .sk-acc   { fill: var(--sk-acc-fondo);  stroke: var(--sk-acc);  stroke-width: 1.5; }
+.schema .sk-ok    { fill: var(--sk-ok-fondo);   stroke: var(--sk-ok);   stroke-width: 1.5; }
+.schema .sk-no    { fill: var(--sk-no-fondo);   stroke: var(--sk-no);   stroke-width: 1.5; }
+.schema .sk-att   { fill: var(--sk-attesa-fondo); stroke: var(--sk-attesa); stroke-width: 1.5; }
+.schema .sk-acc-t { fill: var(--sk-acc); }  .schema .sk-ok-t { fill: var(--sk-ok); }
+.schema .sk-no-t  { fill: var(--sk-no); }   .schema .sk-att-t { fill: var(--sk-attesa); }
+
+.schema .sk-linea { fill: none; stroke: var(--sk-bordo); stroke-width: 1.75; }
+.schema .sk-linea-acc { fill: none; stroke: var(--sk-acc); stroke-width: 1.75; }
+.schema .sk-linea-no  { fill: none; stroke: var(--sk-no);  stroke-width: 1.75; }
+.schema .sk-tratto { stroke-dasharray: 5 4; }
+.schema .sk-punta  { fill: var(--sk-bordo); }
+.schema .sk-punta-acc { fill: var(--sk-acc); }
+.schema .sk-punta-no  { fill: var(--sk-no); }
+
+/* Sotto i 480px gli schemi larghi si leggono male: si lascia scorrere il
+   contenitore in orizzontale invece di schiacciare il testo. */
+@media (max-width: 480px) {
+  .schema { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .schema svg { min-width: 560px; }
+}

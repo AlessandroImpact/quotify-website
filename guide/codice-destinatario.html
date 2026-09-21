@@ -243,6 +243,47 @@
             più, perché l’ente deve accettarla o rifiutarla.
           </p>
         </div>
+              <figure class="schema" aria-labelledby="schema-dest-dida">
+          <svg viewBox="0 0 760 300" role="img" aria-labelledby="schema-dest-titolo schema-dest-desc">
+            <title id="schema-dest-titolo">Cosa scrivere nel codice destinatario, a seconda di chi è il cliente</title>
+            <desc id="schema-dest-desc">Cinque casi. Se il cliente è una Pubblica Amministrazione, il codice univoco ufficio di sei caratteri. Se è estero, sette X. Se è italiano e ti ha dato un codice, quel codice di sette caratteri. Se è italiano ma non ha un codice, sette zeri: lo SdI mette la fattura a disposizione nel suo cassetto fiscale. Se riceve via PEC, sette zeri e la casella PEC nel campo dedicato.</desc>
+            <g class="sk-linea">
+              <path d="M380 62 V84 M380 84 H80 M380 84 H680 M80 84 V104 M230 84 V104 M380 84 V104 M530 84 V104 M680 84 V104"/>
+            </g>
+            <rect x="255" y="12" width="250" height="50" rx="12" class="sk-acc"/>
+            <text x="380" y="42" font-size="15" font-weight="700" text-anchor="middle" class="sk-acc-t">Chi è il cliente?</text>
+
+            <g font-size="12.5" font-weight="700" text-anchor="middle">
+              <rect x="10"  y="106" width="140" height="48" rx="10" class="sk-box"/>
+              <text x="80"  y="126" class="sk-t">Pubblica</text><text x="80" y="143" class="sk-t">Amministrazione</text>
+              <rect x="160" y="106" width="140" height="48" rx="10" class="sk-box"/>
+              <text x="230" y="134" class="sk-t">Estero</text>
+              <rect x="310" y="106" width="140" height="48" rx="10" class="sk-box"/>
+              <text x="380" y="126" class="sk-t">Italiano</text><text x="380" y="143" class="sk-t">con un codice</text>
+              <rect x="460" y="106" width="140" height="48" rx="10" class="sk-box"/>
+              <text x="530" y="126" class="sk-t">Italiano</text><text x="530" y="143" class="sk-t">senza codice</text>
+              <rect x="610" y="106" width="140" height="48" rx="10" class="sk-box"/>
+              <text x="680" y="126" class="sk-t">Riceve</text><text x="680" y="143" class="sk-t">via PEC</text>
+            </g>
+            <g class="sk-linea sk-tratto"><path d="M80 154 V176 M230 154 V176 M380 154 V176 M530 154 V176 M680 154 V176"/></g>
+            <g font-size="16" font-weight="700" text-anchor="middle" class="sk-mono">
+              <rect x="10"  y="178" width="140" height="44" rx="10" class="sk-acc"/><text x="80"  y="206" class="sk-acc-t">ABC123</text>
+              <rect x="160" y="178" width="140" height="44" rx="10" class="sk-acc"/><text x="230" y="206" class="sk-acc-t">XXXXXXX</text>
+              <rect x="310" y="178" width="140" height="44" rx="10" class="sk-ok"/><text x="380" y="206" class="sk-ok-t">ABC1234</text>
+              <rect x="460" y="178" width="140" height="44" rx="10" class="sk-acc"/><text x="530" y="206" class="sk-acc-t">0000000</text>
+              <rect x="610" y="178" width="140" height="44" rx="10" class="sk-acc"/><text x="680" y="206" class="sk-acc-t">0000000</text>
+            </g>
+            <g font-size="11.5" text-anchor="middle" class="sk-tt">
+              <text x="80"  y="242">6 caratteri, non 7</text><text x="80" y="257">dall’Indice PA</text>
+              <text x="230" y="242">sette X</text><text x="230" y="257">non censito in Italia</text>
+              <text x="380" y="242">sette caratteri</text><text x="380" y="257">il caso normale</text>
+              <text x="530" y="242">sette zeri</text><text x="530" y="257">va nel cassetto fiscale</text>
+              <text x="680" y="242">sette zeri +</text><text x="680" y="257">PEC nel campo dedicato</text>
+            </g>
+            <text x="380" y="288" font-size="12.5" font-weight="600" text-anchor="middle" class="sk-tt">La lunghezza non è un dettaglio: sei caratteri vuol dire PA, sette vuol dire privato o azienda</text>
+          </svg>
+          <figcaption id="schema-dest-dida">Il codice non identifica il cliente — a quello servono partita IVA o codice fiscale — ma il canale su cui vuole ricevere. Ecco perché non averlo non è un errore: 0000000 è una risposta valida, non un buco.</figcaption>
+        </figure>
       </section>
 
       <section aria-labelledby="trovare" class="mb-14">

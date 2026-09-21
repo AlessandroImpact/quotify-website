@@ -238,6 +238,51 @@
           Saltare un mese non spegne niente: il mese dopo l’occorrenza torna. È il caso del cliente
           che per una volta non ha usato il servizio.
         </p>
+              <figure class="schema" aria-labelledby="schema-ricorrenti-dida">
+          <svg viewBox="0 0 760 270" role="img" aria-labelledby="schema-ricorrenti-titolo schema-ricorrenti-desc">
+            <title id="schema-ricorrenti-titolo">Il ciclo di una fattura ricorrente: dal preavviso alla conferma, con le due vie d’uscita</title>
+            <desc id="schema-ricorrenti-desc">Il giorno prima della data prevista l’occorrenza è in Preavviso. Il giorno stesso passa In attesa di conferma. Da lì tre esiti: Confermata, e nasce una fattura in bozza con il suo numero progressivo; Saltata, per questo mese, e la programmazione continua; Scaduta, se passano sette giorni senza decidere. Nessuna fattura viene emessa senza una conferma.</desc>
+            <defs>
+              <marker id="rc-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="sk-punta"/></marker>
+              <marker id="rc-fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="sk-punta-acc"/></marker>
+            </defs>
+            <g font-size="14" font-weight="700" text-anchor="middle">
+              <rect x="10" y="90" width="150" height="56" rx="12" class="sk-box"/>
+              <text x="85" y="114" class="sk-t">Preavviso</text>
+              <text x="85" y="134" font-size="12" font-weight="500" class="sk-tt">il giorno prima</text>
+
+              <rect x="215" y="90" width="185" height="56" rx="12" class="sk-att"/>
+              <text x="307" y="114" class="sk-att-t">In attesa di conferma</text>
+              <text x="307" y="134" font-size="12" font-weight="500" class="sk-tt">il giorno previsto: decidi tu</text>
+
+              <rect x="470" y="14" width="280" height="56" rx="12" class="sk-ok"/>
+              <text x="610" y="38" class="sk-ok-t">Confermata</text>
+              <text x="610" y="58" font-size="12" font-weight="500" class="sk-tt">nasce la fattura, in bozza, col suo numero</text>
+
+              <rect x="470" y="90" width="280" height="56" rx="12" class="sk-box"/>
+              <text x="610" y="114" class="sk-t">Saltata</text>
+              <text x="610" y="134" font-size="12" font-weight="500" class="sk-tt">non questo mese · la programmazione continua</text>
+
+              <rect x="470" y="166" width="280" height="56" rx="12" class="sk-no"/>
+              <text x="610" y="190" class="sk-no-t">Scaduta</text>
+              <text x="610" y="210" font-size="12" font-weight="500" class="sk-tt">7 giorni senza decidere · si emette a mano</text>
+            </g>
+            <g class="sk-linea" marker-end="url(#rc-f)">
+              <path d="M160 118 H213"/>
+              <path d="M400 118 C430 118 440 42 468 42"/>
+              <path d="M400 118 H468"/>
+              <path d="M400 118 C430 118 440 194 468 194"/>
+            </g>
+            <g font-size="12" font-weight="600" text-anchor="middle">
+              <text x="462" y="30" font-size="11.5" text-anchor="end" class="sk-ok-t">tu dici sì</text>
+              <text x="430" y="106" font-size="11.5" class="sk-tt">tu dici no</text>
+              <text x="462" y="224" font-size="11.5" text-anchor="end" class="sk-no-t">nessuno decide</text>
+            </g>
+            <rect x="10" y="238" width="740" height="26" rx="8" class="sk-acc"/>
+            <text x="380" y="256" font-size="12.5" font-weight="700" text-anchor="middle" class="sk-acc-t">Il numero progressivo si assegna solo alla conferma: saltata o scaduta non lasciano buchi nella numerazione</text>
+          </svg>
+          <figcaption id="schema-ricorrenti-dida">Fino alla conferma la fattura non esiste: è un’intenzione. È per questo che il programma può proporre senza rischiare di emettere un atto fiscale sbagliato, e perché una scadenza mancata non consuma un numero.</figcaption>
+        </figure>
       </section>
 
       <section aria-labelledby="niente-automatico" class="mb-14">

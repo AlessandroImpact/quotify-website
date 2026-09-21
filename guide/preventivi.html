@@ -308,6 +308,46 @@
           resta apribile ma i pulsanti non funzionano più. Se ha sbagliato a cliccare, lo stato lo
           correggi tu dall’app: è una tua decisione, non sua.
         </p>
+              <figure class="schema" aria-labelledby="schema-preventivi-dida">
+          <svg viewBox="0 0 760 200" role="img" aria-labelledby="schema-preventivi-titolo schema-preventivi-desc">
+            <title id="schema-preventivi-titolo">Cosa succede quando il cliente accetta il preventivo dal link: quattro effetti in fila</title>
+            <desc id="schema-preventivi-desc">Il cliente preme Accetta sulla pagina del preventivo. Il preventivo passa allo stato accettato. Se è collegato a un progetto, anche la scheda sulla bacheca si sposta nella colonna Accettato. La bacheca genera il promemoria «Richiedi l’anticipo» per il giorno dopo, e a te arriva un’email con l’esito e il totale.</desc>
+            <defs>
+              <marker id="pv-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="sk-punta-acc"/></marker>
+            </defs>
+            <g font-size="13.5" font-weight="700" text-anchor="middle">
+              <rect x="6" y="40" width="160" height="70" rx="12" class="sk-acc"/>
+              <text x="86" y="66" class="sk-acc-t">Il cliente clicca</text>
+              <text x="86" y="86" class="sk-acc-t">«Accetta»</text>
+              <text x="86" y="102" font-size="11.5" font-weight="500" class="sk-tt">dal link, senza registrarsi</text>
+
+              <rect x="204" y="40" width="160" height="70" rx="12" class="sk-box"/>
+              <text x="284" y="66" class="sk-t">Preventivo</text>
+              <text x="284" y="86" class="sk-ok-t">accettato</text>
+              <text x="284" y="102" font-size="11.5" font-weight="500" class="sk-tt">con data e ora</text>
+
+              <rect x="402" y="40" width="160" height="70" rx="12" class="sk-box"/>
+              <text x="482" y="66" class="sk-t">Progetto</text>
+              <text x="482" y="86" class="sk-ok-t">Accettato</text>
+              <text x="482" y="102" font-size="11.5" font-weight="500" class="sk-tt">la scheda si sposta da sola</text>
+
+              <rect x="600" y="40" width="154" height="70" rx="12" class="sk-ok"/>
+              <text x="677" y="66" class="sk-ok-t">Promemoria</text>
+              <text x="677" y="86" class="sk-t">«Richiedi l’anticipo»</text>
+              <text x="677" y="102" font-size="11.5" font-weight="500" class="sk-tt">per domani</text>
+            </g>
+            <g class="sk-linea-acc" marker-end="url(#pv-f)">
+              <path d="M166 75 H202"/><path d="M364 75 H400"/><path d="M562 75 H598"/>
+            </g>
+            <text x="483" y="24" font-size="12" font-weight="600" text-anchor="middle" class="sk-tt">solo se il preventivo è collegato a un progetto</text>
+            <g font-size="12.5" text-anchor="middle">
+              <rect x="6" y="140" width="748" height="44" rx="10" class="sk-box"/>
+              <text x="380" y="158" font-weight="700" class="sk-t">In più: un’email a te con l’esito e il totale</text>
+              <text x="380" y="176" class="sk-tt">Il cliente può rispondere una volta sola. Se ha sbagliato, lo stato lo correggi tu dall’app.</text>
+            </g>
+          </svg>
+          <figcaption id="schema-preventivi-dida">Un clic del cliente attraversa tre moduli — preventivi, bacheca, promemoria — senza che tu tocchi nulla. Il terzo passaggio esiste solo se hai collegato il preventivo a un progetto: è il motivo per farlo.</figcaption>
+        </figure>
       </section>
 
       <section aria-labelledby="faq" class="mb-14">
