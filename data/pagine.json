@@ -44,7 +44,7 @@
       "query_obiettivo": "calcolo tasse forfettario",
       "query_secondarie": "calcolatore regime forfettario, quanto si paga di tasse in forfettario, coefficiente di redditività forfettario",
       "pubblicato": "2026-09-04",
-      "revisionato": "2026-09-04",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata",
       "titoloBreve": "Calcolo tasse e contributi in regime forfettario"
     },
@@ -142,7 +142,7 @@
       "query_obiettivo": "gestire preventivi in corso",
       "query_secondarie": "organizzare preventivi freelance, follow up preventivo cliente, promemoria preventivi partita iva, kanban preventivi",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata"
     },
     {
@@ -161,7 +161,7 @@
       "query_obiettivo": "creare un preventivo",
       "query_secondarie": "preventivo forfettario iva, preventivo online link cliente, template preventivo pdf, preventivo ha valore legale",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata"
     },
     {
@@ -218,7 +218,7 @@
       "query_obiettivo": "fatture ricorrenti",
       "query_secondarie": "canone mensile fattura automatica, fattura ricorrente forfettario, numerazione fatture ricorrenti, principio di cassa canone",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata"
     },
     {
@@ -237,7 +237,7 @@
       "query_obiettivo": "f24 forfettario",
       "query_secondarie": "acconti imposta sostitutiva metodo storico, quanto accantonare forfettario app, massimale inps gestione separata, principio di cassa forfettario",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata"
     },
     {
@@ -370,7 +370,7 @@
       "query_obiettivo": "stati fattura elettronica",
       "query_secondarie": "fattura consegnata sdi significato, non consegnata fattura elettronica, decorrenza termini fattura, esiti sdi",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata"
     },
     {
@@ -389,7 +389,7 @@
       "query_obiettivo": "codice destinatario",
       "query_secondarie": "codice destinatario fattura elettronica dove trovarlo, 0000000 codice destinatario, codice univoco sdi, xxxxxxx cliente estero",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-09-21",
       "verifica_fiscale": "verificata"
     },
     {
