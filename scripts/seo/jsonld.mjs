@@ -34,6 +34,31 @@ function fatale(msg) {
 // home. Un `publisher` che punta a un @id assente dalla pagina è un riferimento
 // che il motore può non risolvere — e l'identità del marchio è l'obiettivo per
 // cui questi dati esistono (docs/console-sito-piano.md §3, query di marca).
+/**
+ * La persona che risponde dei contenuti.
+ *
+ * NON dichiara alcuna qualifica: Alessandro non è un commercialista e il sito
+ * non lo afferma da nessuna parte. `knowsAbout` descrive gli argomenti che
+ * tratta, che è un'altra cosa da un titolo professionale.
+ */
+function persona() {
+  return {
+    '@type': 'Person',
+    '@id': `${O}/#autore`,
+    name: 'Alessandro Terracciano',
+    url: `${O}/chi-siamo`,
+    email: 'info@quotify.it',
+    worksFor: { '@id': `${O}/#organization` },
+    knowsAbout: [
+      'Regime forfettario',
+      'Fatturazione elettronica',
+      'Sistema di Interscambio',
+      'Imposta sostitutiva',
+      'Contributi INPS per lavoratori autonomi',
+    ],
+  };
+}
+
 function organizzazione() {
   return (
   {
@@ -180,6 +205,7 @@ function grafoArticolo(root) {
 
   const grafo = [
     organizzazione(),
+    persona(),
     {
       '@type': 'Article',
       '@id': `${url}#articolo`,
@@ -188,9 +214,15 @@ function grafoArticolo(root) {
       inLanguage: 'it-IT',
       datePublished: pubblicato,
       dateModified: revisionato,
-      // Autore e editore sono l'organizzazione, non una persona: nessuno di noi
-      // ha una qualifica fiscale da rivendicare (decisione del 2026-09-03).
-      author: { '@id': `${O}/#organization` },
+      // L'autore È una persona (cambio del 2026-09-21).
+      //
+      // La decisione del 2026-09-03 era «l'organizzazione, perché nessuno ha
+      // una qualifica fiscale da rivendicare». Confondeva due cose diverse:
+      // dichiarare un AUTORE non è rivendicare una QUALIFICA. Su materia
+      // fiscale Google chiede chi risponde di quello che è scritto, e
+      // un'organizzazione è un'entità senza faccia. La qualifica continuiamo a
+      // non dichiararla, perché non c'è; la responsabilità sì, perché c'è.
+      author: { '@id': `${O}/#autore` },
       publisher: { '@id': `${O}/#organization` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': url },
       isAccessibleForFree: true,
@@ -286,7 +318,28 @@ function grafoGuide(root) {
   return grafo;
 }
 
-const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore, articolo: grafoArticolo, guide: grafoGuide };
+/** La pagina che presenta chi risponde dei contenuti. AboutPage è il tipo
+ *  che Google associa a «chi siamo», e il mainEntity è la persona. */
+function grafoChiSiamo(root) {
+  const url = root.querySelector('link[rel="canonical"]')?.getAttribute('href');
+  if (!url) fatale('chisiamo: manca il canonical');
+  return [
+    organizzazione(),
+    persona(),
+    {
+      '@type': 'AboutPage',
+      '@id': url,
+      url,
+      name: pulisci(root.querySelector('h1')?.structuredText),
+      description: pulisci(root.querySelector('meta[name="description"]')?.getAttribute('content')),
+      inLanguage: 'it-IT',
+      mainEntity: { '@id': `${O}/#autore` },
+      isPartOf: { '@id': `${O}/#website` },
+    },
+  ];
+}
+
+const COSTRUTTORI = { home: grafoHome, calcolatore: grafoCalcolatore, articolo: grafoArticolo, guide: grafoGuide, chisiamo: grafoChiSiamo };
 
 const { pagine } = caricaPagine(distDir);
 let generati = 0;

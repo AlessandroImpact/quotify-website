@@ -12,8 +12,13 @@ const W = 'warn';
 // Tutto il resto è contenuto: una pagina nuova rientra QUI per difetto, così
 // nessuno può pubblicare un articolo dimenticandosi di dire per cosa l'ha
 // scritto. Vedi docs/calcolatore-forfettario-piano.md §9.
+// Pagine che NON esistono per intercettare una ricerca: non devono dichiarare
+// una query obiettivo né passare dalla verifica fiscale, perché non affermano
+// nulla sul fisco. `chi-siamo` sta qui per lo stesso motivo di `assistenza`:
+// serve a chi è già arrivato, non a farlo arrivare.
 const PAGINE_DI_SERVIZIO = new Set([
-  'index.html', 'privacy.html', 'cookie.html', 'termini.html', 'assistenza.html', '404.html',
+  'index.html', 'privacy.html', 'cookie.html', 'termini.html', 'assistenza.html',
+  'chi-siamo.html', '404.html',
 ]);
 
 const DATA_ISO = /^\d{4}-\d{2}-\d{2}$/;

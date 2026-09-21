@@ -1,44 +1,106 @@
 {
   "_nota": "Fonte unica di intestazione, menu e piè di pagina. Prima erano duplicati a mano in otto file HTML, ed erano già divergenti: le pagine di contenuto avevano una testata vecchia mentre la home aveva quella nuova. Ora li genera scripts/content/genera-calcolatore.mjs e il gate blocca il build se una pagina resta indietro.",
-
   "_ancore": "Le voci della home usano indirizzi assoluti (/#sistema, non #sistema): su una pagina di contenuto un'ancora relativa punterebbe a una sezione che non esiste. Sulla home il browser la tratta comunque come navigazione interna — verificato: il gestore in main.js chiude solo il sipario, lo scorrimento lo fa il browser.",
-
   "principale": [
-    { "etichetta": "Il sistema", "href": "/#sistema" },
-    { "etichetta": "Provalo", "href": "/#banco" },
-    { "etichetta": "Guide", "href": "/guide" },
-    { "etichetta": "Prezzi", "href": "/#prezzi" },
-    { "etichetta": "Domande", "href": "/#faq" }
+    {
+      "etichetta": "Il sistema",
+      "href": "/#sistema"
+    },
+    {
+      "etichetta": "Provalo",
+      "href": "/#banco"
+    },
+    {
+      "etichetta": "Guide",
+      "href": "/guide"
+    },
+    {
+      "etichetta": "Prezzi",
+      "href": "/#prezzi"
+    },
+    {
+      "etichetta": "Domande",
+      "href": "/#faq"
+    }
   ],
-
   "altro": [
-    { "etichetta": "Accedi", "href": "https://app.quotify.it/", "esterno": true },
-    { "etichetta": "Assistenza", "href": "/assistenza" },
-    { "etichetta": "Privacy", "href": "/privacy" },
-    { "etichetta": "Termini", "href": "/termini" },
-    { "etichetta": "Cookie", "href": "/cookie" },
-    { "etichetta": "info@quotify.it", "href": "mailto:info@quotify.it" }
+    {
+      "etichetta": "Accedi",
+      "href": "https://app.quotify.it/",
+      "esterno": true
+    },
+    {
+      "etichetta": "Assistenza",
+      "href": "/assistenza"
+    },
+    {
+      "etichetta": "Privacy",
+      "href": "/privacy"
+    },
+    {
+      "etichetta": "Termini",
+      "href": "/termini"
+    },
+    {
+      "etichetta": "Cookie",
+      "href": "/cookie"
+    },
+    {
+      "etichetta": "info@quotify.it",
+      "href": "mailto:info@quotify.it"
+    }
   ],
-
   "piede": {
     "prodotto": [
-      { "etichetta": "Il sistema", "href": "/#sistema" },
-      { "etichetta": "Provalo", "href": "/#banco" },
-      { "etichetta": "Prezzi", "href": "/#prezzi" },
-      { "etichetta": "FAQ", "href": "/#faq" },
-      { "etichetta": "Guide", "href": "/guide" }
+      {
+        "etichetta": "Il sistema",
+        "href": "/#sistema"
+      },
+      {
+        "etichetta": "Provalo",
+        "href": "/#banco"
+      },
+      {
+        "etichetta": "Prezzi",
+        "href": "/#prezzi"
+      },
+      {
+        "etichetta": "FAQ",
+        "href": "/#faq"
+      },
+      {
+        "etichetta": "Guide",
+        "href": "/guide"
+      }
     ],
     "legale": [
-      { "etichetta": "Privacy Policy", "href": "/privacy" },
-      { "etichetta": "Termini di Servizio", "href": "/termini" },
-      { "etichetta": "Cookie Policy", "href": "/cookie" },
-      { "etichetta": "Assistenza", "href": "/assistenza" },
-      { "etichetta": "info@quotify.it", "href": "mailto:info@quotify.it" }
+      {
+        "etichetta": "Chi siamo",
+        "href": "/chi-siamo"
+      },
+      {
+        "etichetta": "Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "etichetta": "Termini di Servizio",
+        "href": "/termini"
+      },
+      {
+        "etichetta": "Cookie Policy",
+        "href": "/cookie"
+      },
+      {
+        "etichetta": "Assistenza",
+        "href": "/assistenza"
+      },
+      {
+        "etichetta": "info@quotify.it",
+        "href": "mailto:info@quotify.it"
+      }
     ]
   },
-
   "_categorie": "Le guide si dividono per pubblico, non per data: chi cerca su Google e chi usa già l'app sono due persone diverse con due bisogni diversi. La categoria sta nei metadati della pagina (quotify:categoria) e non nell'URL, perché la struttura a cartelle non e' un fattore di posizionamento e spostare pagine gia' indicizzate costa piu' di quanto renda.",
-
   "categorie": [
     {
       "id": "fisco",

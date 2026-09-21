@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <!-- generato:testa:inizio -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
+         venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
+    <script src="/tema.js"></script>
+    <meta name="description" content="Quotify è nato da un problema mio: sono in regime forfettario e non avevo un posto solo per gestire tutto. Chi scrive queste guide, e come sono fatte." />
+    <title>Chi scrive le guide fiscali di Quotify</title>
+
+    <link rel="canonical" href="https://quotify.it/chi-siamo" />
+
+    <meta name="quotify:tipo" content="servizio" />
+    <meta name="quotify:pubblicato" content="2026-09-21" />
+    <meta name="quotify:revisionato" content="2026-09-21" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Quotify" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://quotify.it/chi-siamo" />
+    <meta property="og:title" content="Chi scrive le guide fiscali di Quotify" />
+    <meta property="og:description" content="Sono un forfettario. Non trovavo un posto dove tenere insieme preventivi, fatture e tasse, così me lo sono costruito." />
+    <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quotify — gestionale per freelance in Regime Forfettario" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chi scrive le guide fiscali di Quotify" />
+    <meta name="twitter:description" content="Sono un forfettario. Non trovavo un posto dove tenere insieme preventivi, fatture e tasse, così me lo sono costruito." />
+    <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Cloudflare Web Analytics — nessun cookie, dichiarato in cookie.html -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "79477fa210384cf8a3a70c2055e44b56"}'></script>
+  
+      <!-- generato:testa:fine -->
+  </head>
+  <body class="bg-white antialiased" data-jsonld="chisiamo">
+
+    <!-- generato:testata:inizio -->
+      <header class="testata testata-pagina top-0 inset-x-0 z-[100] h-16" role="banner">
+        <nav class="relative max-w-[1320px] mx-auto h-full px-[clamp(1.25rem,5vw,3rem)] flex items-center justify-between" aria-label="Navigazione principale">
+          <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Quotify — torna alla home">
+            <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+            <span class="marchio-pagina text-[1.0625rem] font-bold tracking-[-0.02em]">Quotify</span>
+          </a>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button type="button" data-tema-tasto class="tema-tasto" aria-label="Passa al tema chiaro" title="Cambia tema">
+              <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+            <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="testata-cta bg-primary-600 hover:bg-primary-700 text-white text-[0.8125rem] font-semibold px-4 py-2 rounded-[10px] shadow-[0_8px_24px_-8px_rgba(35,108,239,0.9)] transition-[background-color,opacity] duration-300">Prova gratis</a>
+            <button type="button" id="sipario-innesco" class="innesco text-ink-900" aria-expanded="false" aria-controls="sipario" aria-label="Apri il menu">
+              <span class="innesco-anello" aria-hidden="true"></span>
+              <span class="innesco-tratti" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- generato:testata:fine -->
+
+    <!-- generato:sipario:inizio -->
+      <div id="sipario" class="sipario" role="dialog" aria-modal="true" aria-label="Menu di navigazione" hidden>
+        <div class="sipario-fondo" aria-hidden="true"></div>
+
+        <div class="relative h-full max-w-[1320px] mx-auto px-[clamp(1.25rem,5vw,3rem)] flex flex-col justify-center py-24 overflow-y-auto">
+          <nav aria-label="Sezioni del sito">
+            <ul role="list" class="space-y-[clamp(0.5rem,2vh,1.25rem)]">
+              <li style="--ritardo: 0.16s">
+                <a href="/#sistema" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">01</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Il sistema</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.22s">
+                <a href="/#banco" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">02</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Provalo</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.28s">
+                <a href="/guide" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">03</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Guide</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.34s">
+                <a href="/#prezzi" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">04</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Prezzi</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+              <li style="--ritardo: 0.40s">
+                <a href="/#faq" class="sipario-link group flex items-baseline gap-[clamp(0.75rem,3vw,2rem)]" data-sipario-link>
+                  <span class="sipario-num font-mono text-[0.75rem] text-primary-300/45 shrink-0">05</span>
+                  <span class="flex-1 min-w-0">
+                    <span class="sipario-voce"><em class="font-extrabold" style="font-size:clamp(2rem,8vw,4.5rem);letter-spacing:-0.04em;line-height:1.05">Domande</em></span>
+                    <span class="sipario-filo"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sipario-piede mt-[clamp(2.5rem,7vh,4.5rem)]">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+              <div>
+                <div class="text-[0.625rem] font-bold tracking-[0.18em] uppercase text-foam/35 mb-4">Altro</div>
+                <ul role="list" class="flex flex-wrap gap-x-6 gap-y-2.5">
+                  <li><a href="https://app.quotify.it/" target="_blank" rel="noopener noreferrer" class="text-sm text-foam/60 hover:text-foam transition-colors">Accedi</a></li>
+                  <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                  <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy</a></li>
+                  <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini</a></li>
+                  <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie</a></li>
+                  <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+                </ul>
+              </div>
+              <a href="https://app.quotify.it/register" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-[14px] shadow-[0_16px_36px_-16px_rgba(35,108,239,0.95)] transition-colors">
+                Inizia gratis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- generato:sipario:fine -->
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        Chi scrive queste guide
+      </h1>
+      <p class="text-lg text-slate-600 mb-4">
+        Su un sito che parla di tasse, la prima cosa che ha diritto di sapere chi legge è chi
+        risponde di quello che c'è scritto. Qui non c'è una redazione: c'è una persona.
+      </p>
+      <p class="text-lg text-slate-900 font-semibold mb-10">
+        Mi chiamo Alessandro Terracciano. Sono un forfettario, ho costruito Quotify perché mi
+        serviva, e di queste pagine rispondo io.
+      </p>
+
+      <section aria-labelledby="perche" class="mb-14">
+        <h2 id="perche" class="text-2xl font-bold text-slate-900 mb-4">Quotify è nato da un problema mio</h2>
+        <p class="text-slate-700 mb-4">
+          <strong>Sono in regime forfettario anch'io.</strong> E come chiunque ci sia dentro, mi
+          sono ritrovato a tenere i preventivi in un posto, le fatture in un altro, le scadenze a
+          memoria, e la domanda «quanto mi resta davvero di questi soldi» senza una risposta fino a
+          quando non la chiedevo al commercialista.
+        </p>
+        <p class="text-slate-700 mb-4">
+          Non esisteva un posto solo dove tenere tutto insieme e vedere il quadro. Ho cercato, e
+          quello che trovavo o era pensato per aziende vere — con l'IVA, i registri, cose che a un
+          forfettario non servono — oppure risolveva un pezzo e ti lasciava gli altri tre.
+          Così ho costruito <strong>Quotify</strong>.
+        </p>
+        <p class="text-slate-700 mb-4">
+          Non sono un commercialista, e questo sito non fa consulenza. Ma per far funzionare un
+          programma che calcola le tasse — le mie, prima che quelle di altri — bisogna capire le
+          regole fino in fondo. Non per sommi capi: fino al singolo coefficiente, alla singola
+          causale dell'F24, al perché una fattura viene scartata con il codice 00400.
+        </p>
+        <p class="text-slate-700">
+          Queste guide sono quelle risposte. Le ho dovute trovare per scrivere il software, e mi
+          sono accorto che erano le stesse domande che si fa chiunque apra una partita IVA in
+          forfettario — con la differenza che io avevo il tempo di andare a leggere la Gazzetta
+          Ufficiale, e la maggior parte delle persone giustamente no.
+        </p>
+      </section>
+
+      <section aria-labelledby="come" class="mb-14">
+        <h2 id="come" class="text-2xl font-bold text-slate-900 mb-4">Come sono fatte queste pagine</h2>
+        <p class="text-slate-700 mb-6">
+          Non è una dichiarazione d'intenti: sono quattro regole che puoi verificare tu, aprendo le
+          pagine.
+        </p>
+
+        <div class="space-y-5">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Ogni numero ha una fonte, e ha una data</p>
+            <p class="text-slate-700 mt-1">
+              I coefficienti di redditività vengono dall'allegato della legge, non da un altro blog.
+              I codici di scarto dall'elenco ufficiale dell'Agenzia delle Entrate. Le soglie del
+              bollo dalla guida dell'Agenzia. In fondo a ogni pagina c'è da dove viene ogni cosa e
+              a quando è aggiornata.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Quando le fonti si contraddicono, vince quella ufficiale</p>
+            <p class="text-slate-700 mt-1">
+              È successo davvero, sui coefficienti di redditività: tre siti di settore riportavano un
+              valore, il testo in Gazzetta Ufficiale ne riportava un altro. Ha vinto la Gazzetta, e
+              l'esempio che avevo scritto è stato corretto. Succede più spesso di quanto sembri, ed è
+              il motivo per cui non copiamo da chi ha già scritto sull'argomento.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Le guide all'app descrivono il software vero</p>
+            <p class="text-slate-700 mt-1">
+              Quando scrivo che un promemoria arriva dopo tre giorni, o che una fattura scartata
+              torna modificabile, non l'ho dedotto usando l'app: l'ho letto nel codice che la fa
+              funzionare. Se il programma cambia e la guida non è più esatta, è un errore da
+              correggere, non una sfumatura.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="font-semibold text-slate-900">Se il nostro prodotto ha un limite, lo scriviamo</p>
+            <p class="text-slate-700 mt-1">
+              Nella guida che spiega come trasformare un preventivo in fattura c'è scritto che la
+              voce «altri costi» <em>non</em> viene riportata, e che rischi di fatturare meno di
+              quanto avevi preventivato. Nella pagina sull'F24 c'è scritto che le stime si basano
+              sulle fatture emesse e non sugli incassi, quindi divergono dal reddito vero per cassa.
+              Sono difetti del nostro software, scritti sul nostro sito, perché a chi legge servono
+              più a lui che a noi.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="limiti" class="mb-14">
+        <h2 id="limiti" class="text-2xl font-bold text-slate-900 mb-4">Cosa questo sito non è</h2>
+        <p class="text-slate-700 mb-4">
+          <strong>Non è consulenza fiscale e non sostituisce un commercialista.</strong> Lo trovi
+          scritto in fondo a ogni guida e lo ripeto qui, perché è la cosa più importante di questa
+          pagina.
+        </p>
+        <p class="text-slate-700 mb-4">
+          Queste pagine spiegano regole generali. Il tuo caso ha dettagli che una regola generale non
+          conosce: più attività con codici diversi, redditi da lavoro dipendente, quote di
+          partecipazione, situazioni che cambiano il risultato. Un commercialista guarda la tua
+          situazione; una guida no.
+        </p>
+        <div class="rounded-2xl bg-amber-50 border border-amber-200 p-5">
+          <p class="text-slate-800">
+            Il posto dove questa differenza pesa di più è la <strong>soglia degli 85.000 €</strong>:
+            avvicinandosi a quel numero, e ancor più superandolo, nessuno strumento automatico
+            basta. Lì si va da una persona.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="errori" class="mb-14">
+        <h2 id="errori" class="text-2xl font-bold text-slate-900 mb-4">Se trovi un errore</h2>
+        <p class="text-slate-700 mb-4">
+          Scrivimi a <a href="mailto:info@quotify.it" class="text-primary-700 underline underline-offset-4 hover:text-primary-800">info@quotify.it</a>.
+          Se qualcosa è sbagliato lo correggo e aggiorno la data della pagina: preferisco una
+          segnalazione oggi che un lettore in meno domani.
+        </p>
+        <p class="text-slate-700">
+          Vale anche per le regole che cambiano. Il fisco italiano si muove, e una pagina giusta a
+          settembre può non esserlo a marzo: se ne trovi una rimasta indietro, dimmelo.
+        </p>
+      </section>
+
+      <section aria-labelledby="cta" class="rounded-2xl bg-primary-900 text-white p-6 sm:p-8">
+        <h2 id="cta" class="text-xl sm:text-2xl font-bold mb-3">Il software da cui nasce tutto questo</h2>
+        <p class="text-white/80 mb-6">
+          Quotify tiene insieme preventivi, fatture elettroniche, scadenze e stime delle imposte per
+          chi è in regime forfettario. Le guide sono quello che ho imparato costruendolo.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/guide" class="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/25 text-white font-semibold px-6 py-3 hover:bg-white/20 transition-colors">Tutte le guide</a>
+          <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=chi-siamo&utm_campaign=chi-siamo" class="inline-flex items-center justify-center rounded-xl bg-white text-primary-900 font-semibold px-6 py-3 hover:bg-primary-50 transition-colors">Prova Quotify gratis</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- generato:piede:inizio -->
+      <footer class="velo velo-footer bg-ink-900 text-foam px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(3rem,8vh,5rem)] pb-10" role="contentinfo">
+        <div class="max-w-[1320px] mx-auto">
+          <div class="grid gap-[clamp(2rem,5vw,3rem)]" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div>
+              <a href="/" class="flex items-center gap-2.5 mb-4" aria-label="Quotify — torna alla home">
+                <img src="/pwa-192x192.png" alt="" aria-hidden="true" width="28" height="28" class="w-7 h-7 rounded-lg" />
+                <span class="text-[1.0625rem] font-bold">Quotify</span>
+              </a>
+              <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
+              <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Prodotto</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/#sistema" class="text-sm text-foam/60 hover:text-foam transition-colors">Il sistema</a></li>
+                <li><a href="/#banco" class="text-sm text-foam/60 hover:text-foam transition-colors">Provalo</a></li>
+                <li><a href="/#prezzi" class="text-sm text-foam/60 hover:text-foam transition-colors">Prezzi</a></li>
+                <li><a href="/#faq" class="text-sm text-foam/60 hover:text-foam transition-colors">FAQ</a></li>
+                <li><a href="/guide" class="text-sm text-foam/60 hover:text-foam transition-colors">Guide</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.12em] uppercase text-foam/35 mb-4">Legale e contatti</h3>
+              <ul class="space-y-3" role="list">
+                <li><a href="/chi-siamo" class="text-sm text-foam/60 hover:text-foam transition-colors">Chi siamo</a></li>
+                <li><a href="/privacy" class="text-sm text-foam/60 hover:text-foam transition-colors">Privacy Policy</a></li>
+                <li><a href="/termini" class="text-sm text-foam/60 hover:text-foam transition-colors">Termini di Servizio</a></li>
+                <li><a href="/cookie" class="text-sm text-foam/60 hover:text-foam transition-colors">Cookie Policy</a></li>
+                <li><a href="/assistenza" class="text-sm text-foam/60 hover:text-foam transition-colors">Assistenza</a></li>
+                <li><a href="mailto:info@quotify.it" class="text-sm text-foam/60 hover:text-foam transition-colors">info@quotify.it</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
+            <p class="text-xs text-foam/30">© 2026 Quotify. Tutti i diritti riservati.</p>
+            <p class="text-xs text-foam/30">Fatto con cura per i freelance italiani</p>
+          </div>
+        </div>
+      </footer>
+      <!-- generato:piede:fine -->
+
+  </body>
+</html>

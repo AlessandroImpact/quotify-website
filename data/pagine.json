@@ -393,6 +393,19 @@
       "verifica_fiscale": "verificata"
     },
     {
+      "file": "chi-siamo.html",
+      "url": "/chi-siamo",
+      "titolo": "Chi scrive le guide fiscali di Quotify",
+      "titoloBreve": "Chi scrive queste guide",
+      "descrizione": "Quotify è nato da un problema mio: sono in regime forfettario e non avevo un posto solo per gestire tutto. Chi scrive queste guide, e come sono fatte.",
+      "descrizioneSocial": "Sono un forfettario. Non trovavo un posto dove tenere insieme preventivi, fatture e tasse, così me lo sono costruito.",
+      "ogTipo": "website",
+      "grafo": "chisiamo",
+      "tipo": "servizio",
+      "pubblicato": "2026-09-21",
+      "revisionato": "2026-09-21"
+    },
+    {
       "file": "assistenza.html",
       "url": "/assistenza",
       "titolo": "Assistenza Quotify — scrivici, rispondiamo noi",
