@@ -24,7 +24,7 @@ if (!existsSync(distDir)) {
 }
 
 const { pagine, tuttiIFile } = caricaPagine(distDir);
-const ctx = { linkInterni: [], immaginiSocial: [] };
+const ctx = { linkInterni: [], immaginiSocial: [], registro: REGISTRO_PAGINE };
 
 // Le regole sui parametri fiscali guardano il SORGENTE, non dist/, e valgono
 // solo se la pagina che pubblica quei numeri è davvero nel build: finché il

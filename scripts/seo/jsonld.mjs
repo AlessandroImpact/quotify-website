@@ -293,7 +293,9 @@ let generati = 0;
 
 for (const pag of pagine) {
   const dichiarato = pag.root.querySelector('body')?.getAttribute('data-jsonld');
-  const nome = dichiarato ?? (pag.file === 'index.html' ? 'home' : null);
+  // Nessuna eccezione per la home: dichiara anche lei, come tutte. Un caso
+  // speciale nel codice è un caso che il gate non può controllare.
+  const nome = dichiarato ?? null;
   if (!nome) continue;
 
   const costruttore = COSTRUTTORI[nome];

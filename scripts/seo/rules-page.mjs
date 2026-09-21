@@ -184,6 +184,35 @@ export function controllaPagina(pag, ctx) {
   // ── meta di misurazione ───────────────────────────────────────────────────
   // Perché fra sei mesi si possa rispondere a "questa pagina si posiziona per
   // quello per cui l'ho scritta, e da quando?" senza ricostruirlo a memoria.
+  // ── dati strutturati ──────────────────────────────────────────────────────
+  // Il blocco JSON-LD viene applicato solo alle pagine che lo DICHIARANO con
+  // `data-jsonld` sul body: chi non lo dichiara non riceve niente, e non
+  // riceve nemmeno un avviso. È così che tredici guide sono state pubblicate
+  // senza Article, senza FAQPage e senza BreadcrumbList senza che nessuno se
+  // ne accorgesse — il generatore faceva il suo lavoro, semplicemente non
+  // veniva invitato. Il registro sa già che tipo di pagina è: se lo sa lui e
+  // non lo dice il markup, è una svista, non una scelta.
+  // Niente optional chaining sul registro: se non arriva è un guasto del
+  // gate, e deve farsi sentire. La prima stesura di questa regola usava `?.`
+  // e per questo non controllava nulla senza dirlo — lo stesso difetto che
+  // sta correggendo.
+  if (!Array.isArray(ctx.registro)) {
+    throw new Error('rules-page: il registro non è nel contesto del gate');
+  }
+  const vocePagina = ctx.registro.find((v) => v.file === file);
+  if (!isNoindex && vocePagina?.grafo) {
+    const dichiarato = root.querySelector('body')?.getAttribute('data-jsonld');
+    if (!dichiarato) {
+      f.push(esito(E, 'dati-strutturati-non-dichiarati', file, null,
+        `il registro dice grafo="${vocePagina.grafo}" ma il body non dichiara data-jsonld`,
+        `Aggiungere data-jsonld="${vocePagina.grafo}" al tag <body>.`));
+    } else if (dichiarato !== vocePagina.grafo) {
+      f.push(esito(E, 'dati-strutturati-incoerenti', file, null,
+        `il body dichiara data-jsonld="${dichiarato}" ma il registro dice grafo="${vocePagina.grafo}"`,
+        'I due valori devono coincidere: è il registro la fonte.'));
+    }
+  }
+
   if (!isNoindex && !PAGINE_DI_SERVIZIO.has(file)) {
     const dichiarato = (nome) => (meta(`quotify:${nome}`)?.getAttribute('content') || '').trim();
 
