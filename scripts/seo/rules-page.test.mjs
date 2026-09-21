@@ -37,7 +37,7 @@ ${tag}</head><body><h1>Calcolo tasse forfettario</h1></body></html>`;
 }
 
 const regole = (pag) =>
-  controllaPagina(pag, { linkInterni: [], immaginiSocial: [] })
+  controllaPagina(pag, { linkInterni: [], immaginiSocial: [], registro: [] })
     .filter((f) => MISURAZIONE.has(f.rule))
     .map((f) => f.rule);
 
@@ -65,7 +65,7 @@ test('senza data di pubblicazione non si potrà mai dire "da quando"', () => {
 
 test('una query obiettivo che non compare nel titolo è un avviso, non un blocco', () => {
   const f = controllaPagina(pagina({ 'quotify:query-obiettivo': 'fattura elettronica forfettario' }),
-    { linkInterni: [], immaginiSocial: [] });
+    { linkInterni: [], immaginiSocial: [], registro: [] });
   const incoerente = f.find((x) => x.rule === 'query-obiettivo-incoerente');
 
   assert.ok(incoerente, 'la regola non è scattata');
@@ -96,7 +96,7 @@ function paginaConDate(revisionato, inEvoluzione) {
 }
 
 const avvisiScadenza = (pag) =>
-  controllaPagina(pag, { linkInterni: [], immaginiSocial: [], oggi: OGGI })
+  controllaPagina(pag, { linkInterni: [], immaginiSocial: [], registro: [], oggi: OGGI })
     .filter((f) => f.rule === 'contenuto-in-evoluzione-fermo');
 
 test('un contenuto in evoluzione rivisto di recente non ha rilievi', () => {
@@ -117,4 +117,39 @@ test('una pagina non marcata come in evoluzione può restare ferma', () => {
   // Un articolo su una norma stabile non ha bisogno di essere ritoccato per
   // sembrare fresco: chiederlo produrrebbe revisioni finte.
   assert.deepEqual(avvisiScadenza(paginaConDate('2025-01-01', false)), []);
+});
+
+// I dati strutturati: il registro sa che grafo spetta alla pagina, il body
+// deve dichiararlo. Tredici guide sono uscite senza per mesi.
+const strutturati = (pag, registro) =>
+  controllaPagina(pag, { linkInterni: [], immaginiSocial: [], registro })
+    .filter((f) => f.rule.startsWith('dati-strutturati'))
+    .map((f) => f.rule);
+
+function paginaConBody(attributo) {
+  const pag = pagina();
+  pag.html = pag.html.replace('<body>', `<body ${attributo}>`);
+  pag.root = parse(pag.html, { comment: false });
+  return pag;
+}
+
+test('un grafo previsto dal registro e non dichiarato nel body è un errore', () => {
+  const registro = [{ file: 'guida-qualcosa.html', grafo: 'articolo' }];
+  assert.deepEqual(strutturati(pagina(), registro), ['dati-strutturati-non-dichiarati']);
+});
+
+test('un grafo dichiarato diverso da quello del registro è un errore', () => {
+  const registro = [{ file: 'guida-qualcosa.html', grafo: 'articolo' }];
+  assert.deepEqual(strutturati(paginaConBody('data-jsonld="home"'), registro),
+    ['dati-strutturati-incoerenti']);
+});
+
+test('grafo dichiarato uguale a quello del registro: nessun rilievo', () => {
+  const registro = [{ file: 'guida-qualcosa.html', grafo: 'articolo' }];
+  assert.deepEqual(strutturati(paginaConBody('data-jsonld="articolo"'), registro), []);
+});
+
+test('senza registro nel contesto il gate deve fermarsi, non tacere', () => {
+  assert.throws(() => controllaPagina(pagina(), { linkInterni: [], immaginiSocial: [] }),
+    /registro non è nel contesto/);
 });

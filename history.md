@@ -10,13 +10,35 @@
 
 ---
 
-## Dove siamo oggi (8 settembre 2026)
+## Dove siamo oggi (21 settembre 2026)
 
-**Il sito**: 6 pagine di contenuto + home + 3 legali. Tutte indicizzate tranne le ultime
-pubblicate. Circa 8.400 parole di contenuto dove il 25 agosto ce n'erano zero.
+**Il sito**: 5 pagine fiscali + 15 guide all'app + hub + chi siamo + home + 4 di servizio.
+Su 26 URL in sitemap, **19 indicizzati**; fuori restano le legali (che vanno bene così),
+`/guide/app-su-telefono` (sconosciuta a Google, richiesta di nuovo il 21/09) e
+`/guide/fattura-scartata-sdi` (scansionata ma non indicizzata: si aspetta). `/chi-siamo` è
+appena stata richiesta. Le impressioni in ricerca sono ancora vicine a zero: dominio nuovo.
 
 | | |
 |---|---|
+| Pagine in sitemap | 26 |
+| Test | 70, verdi |
+| Regole di gate | ~37, bloccano il deploy |
+| Core Web Vitals (Cloudflare RUM) | LCP 308 ms · CLS 0 · INP 16 ms · TTFB 201 ms — tutti buoni |
+| Schemi SVG nelle guide | 7 |
+| Misura | `npm run cruscotto` (Cloudflare + Search Console), `npm run indicizzazione` (stato per URL) |
+
+**Le pagine fiscali** (le guide all'app sono elencate più sotto)
+
+| URL | Cosa | Query obiettivo |
+|---|---|---|
+| `/guide` | Hub e pilastro, 1.890 parole | regime forfettario |
+| `/calcolo-tasse-forfettario` | Calcolatore interattivo + schema del calcolo | calcolo tasse forfettario |
+| `/scadenze-fiscali-forfettario` | Calendario con filtro per cassa | scadenze fiscali forfettario 2026 |
+| `/quanto-accantonare-tasse-partita-iva` | Percentuale da accantonare | quanto accantonare tasse partita iva |
+| `/ateco-2025-forfettario` | Il transitorio ATECO | ateco 2025 forfettario |
+| `/chi-siamo` | Chi risponde delle guide, e con che regole | — (pagina di fiducia, non di ricerca) |
+
+---|---|
 | Pagine in sitemap | 10 |
 | Test | 66, verdi |
 | Regole di gate | ~35, bloccano il deploy |
@@ -103,6 +125,29 @@ anglofoni, quindi in Italia vincibile.
   il markup esistente, lo scuro è uno strato di rimappatura. Regola `colore-non-mappato` per
   impedire che una pagina nuova sia rotta sul tema scuro.
 
+### 8 settembre 2026 — Le guide ai moduli dell'app
+Sei guide scritte e pubblicate leggendo il codice dell'app, non l'interfaccia: profilo fiscale,
+bacheca, preventivi, conversione in fattura, anagrafica clienti, fatture ricorrenti. Ogni
+affermazione ha una fonte in `file:riga`, e le sole cose girate ad Alessandro sono quelle
+fiscali, che dal codice non si deducono.
+
+Cose emerse leggendo, che nell'app non sono scritte da nessuna parte:
+- **Difetto vero**: gli «altri costi» del preventivo non passano in fattura — la conversione
+  costruisce le righe solo dai servizi. Chi ci mette trasferte fattura meno di quanto ha
+  preventivato. Documentato in evidenza sul sito; l'app non è stata toccata.
+- Spostare una scheda sulla bacheca e rimetterla dov'era **fa ripartire il follow-up da zero**:
+  i promemoria precedenti sono già stati chiusi.
+- «Scaduto» non è uno stato salvato ma calcolato a ogni lettura, e solo per bozza e inviato:
+  accettati e rifiutati non scadono mai.
+- I valori predefiniti del profilo (78 / 15 / 26,07) descrivono un consulente in Gestione
+  Separata: plausibili, quindi non sembrano un errore, e sbagliati per tutti gli altri.
+
+Il gate ha fatto il suo lavoro due volte: ha bloccato una guida per `bg-slate-100` non mappato
+sul tema scuro, e ha segnalato due query obiettivo incoerenti con il titolo. Emerso però che
+la regola `colore-non-mappato` **non copre emerald e rosa**: usate in due riquadri, sarebbero
+rimaste chiare sul tema scuro senza alcuna segnalazione. Sostituite con palette mappate; la
+regola resta da allargare.
+
 ### 9 settembre 2026 — Il gruppo A, e una guida non scritta
 Quattro guide del gruppo A pubblicate: fattura scartata, natura N2.2 e diciture, marca da bollo,
 nota di credito. Per queste i fatti fiscali sono stati presi dalle fonti primarie e non dalla
@@ -128,28 +173,58 @@ Nato `docs/segnalazioni-app.md`: tutto ciò che è emerso leggendo il codice del
 `file:riga`, impatto e possibili direzioni. Otto voci, due domande aperte e — per equilibrio —
 l'elenco delle cose che sembravano buchi e non lo erano. Va verificato nella chat dell'app.
 
-### 8 settembre 2026 — Le guide ai moduli dell'app
-Sei guide scritte e pubblicate leggendo il codice dell'app, non l'interfaccia: profilo fiscale,
-bacheca, preventivi, conversione in fattura, anagrafica clienti, fatture ricorrenti. Ogni
-affermazione ha una fonte in `file:riga`, e le sole cose girate ad Alessandro sono quelle
-fiscali, che dal codice non si deducono.
+### 12–16 settembre 2026 — Tema chiaro in home, misura, Search Console
 
-Cose emerse leggendo, che nell'app non sono scritte da nessuna parte:
-- **Difetto vero**: gli «altri costi» del preventivo non passano in fattura — la conversione
-  costruisce le righe solo dai servizi. Chi ci mette trasferte fattura meno di quanto ha
-  preventivato. Documentato in evidenza sul sito; l'app non è stata toccata.
-- Spostare una scheda sulla bacheca e rimetterla dov'era **fa ripartire il follow-up da zero**:
-  i promemoria precedenti sono già stati chiusi.
-- «Scaduto» non è uno stato salvato ma calcolato a ogni lettura, e solo per bozza e inviato:
-  accettati e rifiutati non scadono mai.
-- I valori predefiniti del profilo (78 / 15 / 26,07) descrivono un consulente in Gestione
-  Separata: plausibili, quindi non sembrano un errore, e sbagliati per tutti gli altri.
+- **Home anche in chiaro** e passaggio animato fra pagine (View Transitions). Ha richiesto
+  diversi giri: il blu doveva essere quello di Quotify (`#236CEF`), i pulsanti blu sempre con
+  testo bianco, le schermate citate restano scure. Modello a tre superfici, invariante
+  bianco-su-blu con specificità sufficiente. Verificato con screenshot e calcolo dei contrasti.
+- **`npm run cruscotto`**: Cloudflare Web Analytics (solo sito, ~30 giorni, campionato) +
+  Core Web Vitals + Search Console. Le visite sono la cifra guida, non le pagine viste: c'era
+  una riga da 480 viste e zero visite che da sola faceva l'86% del mese.
+- **Search Console via service account** (chiave in `~/.config/quotify/`, mai nel repo) e
+  `/api/metriche`, la prima Pages Function del sito: espone rendimento e stato sitemap all'app
+  con un segreto condiviso. Decisione: **Cloudflare dentro l'app, Google fuori**, così l'app
+  non si appesantisce. Il piano per la sezione admin è in `Quotify App/docs/`.
+- **`npm run indicizzazione`**: stato di ogni URL della sitemap via URL Inspection API, con
+  storico e delta. È la misura che conta finché le impressioni restano a zero.
+- Token Cloudflare del deploy ruotato con permessi di sola lettura sulle analytics.
 
-Il gate ha fatto il suo lavoro due volte: ha bloccato una guida per `bg-slate-100` non mappato
-sul tema scuro, e ha segnalato due query obiettivo incoerenti con il titolo. Emerso però che
-la regola `colore-non-mappato` **non copre emerald e rosa**: usate in due riquadri, sarebbero
-rimaste chiare sul tema scuro senza alcuna segnalazione. Sostituite con palette mappate; la
-regola resta da allargare.
+### 21 settembre 2026 — Dati strutturati, chi siamo, schemi
+
+Tre lavori distinti, tutti pubblicati.
+
+**Una regressione seria, trovata per caso.** Tredici guide erano online **senza dati
+strutturati**: il generatore costruisce Article, FAQPage e BreadcrumbList solo se il body
+dichiara `data-jsonld`, e le tredici non lo dichiaravano. Nessuna regola se ne accorgeva.
+Aggiunto l'attributo e due regole di gate (`dati-strutturati-non-dichiarati`,
+`dati-strutturati-incoerenti`) che confrontano il registro col markup. La prima stesura usava
+`?.` sul registro e per questo controllava nulla senza dirlo — lo stesso difetto che doveva
+correggere; ora se il registro manca il gate si ferma. In serata è emerso che quel `throw`
+rompeva tre test che costruivano il contesto senza registro: sistemati, e aggiunti quattro
+test sulla regola stessa.
+
+**`/chi-siamo`.** Su materia fiscale una pagina che dice chi c'è dietro è un segnale di
+fiducia che mancava. Decisioni: nessuna credenziale inventata, nessun commercialista citato
+(l'amico che ha fatto il controllo non vuole comparire), l'esigenza raccontata com'è — un
+forfettario che non aveva un posto dove tenere tutto. Le quattro regole con cui sono fatte le
+pagine sono verificabili, inclusa quella di dichiarare i limiti del proprio prodotto. Aggiunto
+`Person` (`/#autore`) come `author` di ogni Article: rovescia la scelta del 3 settembre, e il
+perché sta nel commento in `jsonld.mjs`.
+
+**Sette schemi SVG.** Dove un flusso a stati, un albero di decisione o un calcolo a passaggi si
+capisce meglio guardandolo: calcolo tasse, stati della fattura, colonne della bacheca, ciclo
+delle ricorrenti, risposta al preventivo, scelta del codice destinatario, bacheca contro F24.
+SVG inline con testo vero, `title`/`desc`, `figcaption` che aggiunge invece di ripetere, colori
+dai token `.schema` così seguono i due temi; sotto 480px scorrono in orizzontale. Le altre otto
+guide sono rimaste senza: erano procedure lineari, un disegno avrebbe solo ripetuto il testo.
+Verificati con render headless in entrambi i temi, a 390px e sulle pagine pubblicate. Poi
+`revisionato` portato a oggi per le sette pagine (il `lastmod` in sitemap era fermo all'8) e
+sitemap reinviata via API.
+
+**Indicizzazione.** Le richieste manuali funzionano: da 6 a 19 pagine indicizzate in quattro
+giorni. Le tre sitemap fantasma del 2014 in Search Console le ha tolte Alessandro. La «1
+impressione su 10 pagine» del 20 settembre era una nostra ricerca `site:`, non domanda vera.
 
 ---
 
@@ -205,18 +280,16 @@ Traffico atteso vicino a zero. Servono a chi c'è già e a chi sta valutando.
 
 ### Non contenuto, ma manca
 
-- [ ] Pagina **chi siamo** — su materia YMYL l'assenza di una pagina che dica chi c'è dietro è un segnale di fiducia mancante
-- [ ] Almeno **un'immagine di contenuto** — un diagramma «dove finiscono i 100 € che fatturi»
+- [x] `/chi-siamo` — chi risponde delle guide, senza credenziali inventate; Person come autore degli Article (21 set 2026)
+- [x] Schemi SVG in sette guide, a partire dal calcolo «dai ricavi al netto» (21 set 2026)
 - [ ] `assistenza.html` è magra (167 parole)
 
 ---
 
 ## Cosa viene dopo
 
-**In corso**: le guide all'app. Sedici pagine pianificate, divise in due gruppi —
-quelle che rispondono a una ricerca vera (stati della fattura, codice destinatario, fattura
-scartata) e la documentazione dei moduli. Le nuove vanno sotto `/guide/<slug>`, così sono
-segmentabili in Search Console.
+**Guide**: fatte 15 su 16. La sedicesima (cliente estero) aspetta che l'app gestisca la
+nazione del cliente — voce 0 di `docs/segnalazioni-app.md`.
 
 ⚠️ **`~/Developer/Quotify App/docs/guida-utente.md` è dell'11 marzo 2026 e NON va usata come
 fonte**: descrive sei stati del progetto quando il codice ne ha cinque, con nomi diversi, e
@@ -224,20 +297,25 @@ non copre clienti, fatture, ricorrenti, F24, abbonamento e onboarding. La fonte 
 `src/pages/` per le schermate, `src/types/index.ts` per gli stati.
 
 **Appuntamenti**
-- **21 settembre**: primo export Search Console con dati sufficienti. Guardare impressioni
-  totali, quante dall'Italia, se compaiono tutte le pagine, se le query smettono di essere
-  anonimizzate.
+- **Fine settembre**: `npm run indicizzazione` — devono entrare `/chi-siamo`,
+  `/guide/app-su-telefono` e, se Google cambia idea, `/guide/fattura-scartata-sdi`. Se
+  quest'ultima resta fuori dopo 2-3 settimane, ha troppo testo preso dalla tabella ufficiale:
+  va riscritta con più del nostro.
+- **Quando Search Console mostra query non anonimizzate**: scegliere le code lunghe da
+  coprire. Non prima — senza dati è tirare a indovinare.
 - **Metà ottobre**: rivedere le scadenze prima del picco di novembre. La pagina è marcata
   `in-evoluzione` e il gate avvisa da solo dopo 90 giorni.
 - **1 marzo 2027**: il gate blocca il build se i parametri fiscali sono ancora del 2026.
 
 **Aperto, non urgente**
-- Il sito non ha **una sola immagine di contenuto**: Google Immagini è un canale inutilizzato,
-  e un diagramma è l'unica cosa che qualcuno rilancerebbe spontaneamente.
-- **Zero backlink legittimi**. È il vincolo che nessuna ottimizzazione supera.
-- `assistenza.html` è magra (167 parole).
-
----
+- **Zero backlink legittimi.** È il vincolo che nessuna ottimizzazione supera. Per l'Italia i
+  gruppi Facebook dei forfettari valgono più di Reddit; niente link comprati, mai.
+- Nella chat dell'app: il piano `admin-sito-google-piano.md` (consumare `/api/metriche`,
+  CWV) e le otto voci di `segnalazioni-app.md`.
+- Le due chiavi Firebase Admin trovate in `~/Downloads` vanno **revocate** dalla console.
+- Regola di gate per `revisionato` mancante nel registro (oggi ripiega in silenzio su una
+  data fissa): proposta, non fatta.
+- `assistenza.html` è magra (169 parole).
 
 ## Trappole già incontrate
 
@@ -250,5 +328,12 @@ non copre clienti, fatture, ricorrenti, F24, abbonamento e onboarding. La fonte 
 - **`source ~/vault/bin/cf-env.sh` va eseguito nella stessa chiamata del deploy**: in una pipe
   esporta in una subshell e il token non arriva.
 - **Search Console ha 2-3 giorni di ritardo.** Nessuna misura è immediata.
-- **Le richieste di indicizzazione si fanno a mano**, una per URL, e non sono automatizzabili
-  finché non arrivano le API.
+- **Le richieste di indicizzazione si fanno a mano**, una per URL: la URL Inspection API
+  legge lo stato ma non chiede la scansione. Il reinvio della sitemap invece si fa via API
+  (`PUT .../sitemaps/<url>`, scope `webmasters` pieno — il modulo condiviso ha solo quello
+  in lettura, apposta).
+- **Chrome headless non scende sotto ~500px di finestra**: uno screenshot a 390px è un ritaglio
+  di una pagina più larga e sembra rotto. Per il telefono si usa un iframe da 390px dentro una
+  finestra normale.
+- **Cambiare `revisionato` nel registro richiede `npm run gen`**: i blocchi generati portano
+  la data, e il gate blocca finché non sono allineati.
