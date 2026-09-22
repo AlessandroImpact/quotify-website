@@ -176,6 +176,33 @@ elencate nell'ordine sbagliato.
 
 ---
 
+## 8. Gestione Admin → Sito web: il confronto fra settimane conta i giorni sbagliati
+
+**Dove**: `functions/lib/cloudflareAnalytics.ts:355-358`, `confrontoSettimane`.
+
+**Cosa succede**: la funzione ordina la serie giornaliera e prende `slice(-7)` come «ultimi 7
+giorni» e `slice(-14, -7)` come «7 precedenti». Ma Cloudflare **non restituisce righe per i
+giorni a zero**: la serie ha una riga solo nei giorni con traffico. Con otto giorni di dati in
+un mese, `slice(-7)` copre dal 26 agosto al 21 settembre e `slice(-14, -7)` resta il solo 25
+agosto.
+
+**Effetto visto il 22 settembre 2026**: il pannello dice «Ultimi 7 giorni: 550 pagine viste
+contro 30 dei 7 precedenti». Le cifre vere di calendario sono **30 contro 20**. I 550
+includono le 480 viste del 4 settembre (una pagina, zero sessioni: la riga già isolata come
+non-navigazione), che è di tre settimane fa.
+
+**Correzione**: prima di tagliare, costruire i 14 giorni di calendario che finiscono ieri e
+riempire con zero quelli assenti; poi sommare. La stessa cosa vale per qualunque altra
+finestra ricavata per `slice` da quella serie.
+
+**Non è un difetto**: il «▲1733%» sulla card «Pagine viste» confronta i 30 giorni con i 30
+precedenti, quando il sito non esisteva: la percentuale è corretta e insignificante insieme.
+Se serve, la card potrebbe tacere la variazione quando il periodo precedente ha meno di N
+giorni di storico — è la stessa logica del `null` già usato quando il termine di paragone è
+zero.
+
+---
+
 ## Domande aperte, non difetti
 
 Due cose notate sulla nota di credito che **non** risultano sbagliate: sono punti su cui la
