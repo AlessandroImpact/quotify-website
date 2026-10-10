@@ -17,6 +17,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import * as gsc from './searchconsole.mjs';
 import { famiglia } from '../../lib/attribuzione.mjs';
+import { cliente } from '../../lib/cloudflare.mjs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -37,34 +38,12 @@ const oggi = new Date();
 const inizio = new Date(oggi.getTime() - GIORNI * 86400000);
 const iso = (d) => d.toISOString().slice(0, 19) + 'Z';
 
-// I Core Web Vitals stanno in un dataset PROPRIO, non in quello dei pageload:
-// e' per questo che i nomi dei campi sembravano inesistenti finche' li si
-// cercava nel posto sbagliato.
-async function chiediVitals(selezione) {
-  const query = `query($a:String!,$da:Time!,$b:Time!){viewer{accounts(filter:{accountTag:$a}){
-    rumWebVitalsEventsAdaptiveGroups(limit:1,filter:{datetime_geq:$da,datetime_lt:$b,requestHost:"${OSPITE}"}){${selezione}}}}}`;
-  const r = await fetch('https://api.cloudflare.com/client/v4/graphql', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, variables: { a: account, da: iso(inizio), b: iso(oggi) } }),
-  });
-  const d = await r.json();
-  if (d.errors) throw new Error(d.errors.map((e) => e.message).join('; '));
-  return d.data.viewer.accounts[0]?.rumWebVitalsEventsAdaptiveGroups?.[0] ?? null;
-}
-
-async function chiedi(selezione, limite = 100) {
-  const query = `query($a:String!,$da:Time!,$b:Time!){viewer{accounts(filter:{accountTag:$a}){
-    rumPageloadEventsAdaptiveGroups(limit:${limite},filter:{datetime_geq:$da,datetime_lt:$b,requestHost:"${OSPITE}"},orderBy:[count_DESC]){${selezione}}}}}`;
-  const r = await fetch('https://api.cloudflare.com/client/v4/graphql', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, variables: { a: account, da: iso(inizio), b: iso(oggi) } }),
-  });
-  const d = await r.json();
-  if (d.errors) throw new Error(d.errors.map((e) => e.message).join('; '));
-  return d.data.viewer.accounts[0]?.rumPageloadEventsAdaptiveGroups ?? [];
-}
+// Le query vivono in lib/cloudflare.mjs, condivise col Worker dell'archiviatore.
+// I Core Web Vitals stanno in un dataset PROPRIO, non in quello dei pageload.
+const cf = cliente({ token, account });
+const finestra = { da: iso(inizio), fino: iso(oggi) };
+const chiediVitals = (selezione) => cf.vitals({ ...finestra, selezione });
+const chiedi = (selezione, limite = 100) => cf.pageload({ ...finestra, selezione, limite });
 
 // Le due interrogazioni di ZONA. Servono a un'altra domanda: non «quanta
 // gente legge» — quella la risponde Web Analytics — ma «quanto di questo
