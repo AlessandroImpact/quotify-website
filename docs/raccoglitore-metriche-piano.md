@@ -477,9 +477,10 @@ Il modulo Google non va scritto: `lib/searchconsole.mjs` espone già `rendimento
 commento dichiara che *«la logica sta nel modulo condiviso, che gira anche sul Worker»*. Questo
 piano usa quella porta, com'era previsto.
 
-Il token Cloudflare per questo Worker va creato **nuovo e di sola lettura**, con due soli
-permessi — `Account → Analisi account → Leggi` e `Zona → Analytics → Leggi` — limitato alla zona
-quotify.it. Il token di deploy, che pubblica Pages e tocca DNS e D1, non entra in un Worker.
+Il token Cloudflare per questo Worker va creato **nuovo e di sola lettura**, con **un solo**
+permesso: `Account → Analisi account → Leggi`. (Prima versione di questo piano: due permessi, anche
+`Zona → Analytics`. Rivisto scrivendo l'implementazione: le query di zona restano nel cruscotto
+locale, l'archiviatore legge solo Web Analytics, che sta a livello di account.) Il token di deploy, che pubblica Pages e tocca DNS e D1, non entra in un Worker.
 
 ---
 
