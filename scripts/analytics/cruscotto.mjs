@@ -16,6 +16,7 @@
 
 import { writeFileSync, mkdirSync } from 'node:fs';
 import * as gsc from './searchconsole.mjs';
+import { famiglia } from '../../lib/attribuzione.mjs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -113,18 +114,6 @@ const SOGLIE = {
 };
 const giudizio = (v, s) => (v <= s.buono ? 'buono' : v <= s.medio ? 'migliorabile' : 'scarso');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-
-// Le sorgenti grezze sono host: si raggruppano in famiglie, perché
-// "google.com" e "www.google.it" sono la stessa risposta alla domanda
-// «da dove arriva la gente».
-function famiglia(host) {
-  if (!host || host === '' || host === OSPITE) return 'Diretto o interno';
-  if (/google\./.test(host)) return 'Ricerca Google';
-  if (/bing\.|duckduckgo|ecosia|yahoo/.test(host)) return 'Altri motori';
-  if (/facebook|instagram|linkedin|twitter|x\.com|t\.co|reddit/.test(host)) return 'Social';
-  if (/chatgpt|openai|claude|perplexity|gemini/.test(host)) return 'Assistenti AI';
-  return host;
-}
 
 function barre(righe, totale) {
   if (!righe.length) return '<p class="vuoto">Nessun dato nel periodo.</p>';
