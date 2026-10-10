@@ -10,7 +10,7 @@
 
 import { lettore } from '../lib/searchconsole.mjs';
 import { cliente } from '../lib/cloudflare.mjs';
-import { mestiere, lavoroCloudflare, lavoroGoogle, lavoroIndicizzazione } from '../lib/archiviatore.mjs';
+import { mestiere, lavoroCloudflare, lavoroGoogle, lavoroIndicizzazione, chiaveGoogle } from '../lib/archiviatore.mjs';
 
 export default {
   async scheduled(controller, env) {
@@ -25,9 +25,9 @@ export default {
       const cf = cliente({ token: env.CF_ANALYTICS_TOKEN, account: env.CF_ACCOUNT_ID });
       await lavoroCloudflare({ db, cf, oggi, presoIl });
     } else if (lavoro === 'google') {
-      await lavoroGoogle({ db, g: lettore(JSON.parse(env.GSC_CHIAVE)), oggi, presoIl });
+      await lavoroGoogle({ db, g: lettore(chiaveGoogle(env.GSC_CHIAVE)), oggi, presoIl });
     } else {
-      await lavoroIndicizzazione({ db, g: lettore(JSON.parse(env.GSC_CHIAVE)), oggi, presoIl });
+      await lavoroIndicizzazione({ db, g: lettore(chiaveGoogle(env.GSC_CHIAVE)), oggi, presoIl });
     }
   },
 };

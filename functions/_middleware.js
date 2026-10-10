@@ -10,7 +10,7 @@
 // Qui non c'è logica: chi registrare lo decide lib/attribuzione.mjs, come
 // scriverlo lib/archivio.mjs.
 
-import { ePagina, attribuisci } from '../lib/attribuzione.mjs';
+import { ePagina, eNavigazione, attribuisci } from '../lib/attribuzione.mjs';
 import { registraVisita } from '../lib/archivio.mjs';
 
 export const onRequest = async (context) => {
@@ -28,6 +28,7 @@ export const onRequest = async (context) => {
       referer: request.headers.get('Referer'),
       userAgent: request.headers.get('User-Agent'),
       paese: request.cf?.country ?? null,
+      navigazione: eNavigazione(request.headers),
       botVerificato: Boolean(request.cf?.verifiedBotCategory),
     });
     if (visita) {

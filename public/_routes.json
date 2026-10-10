@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "description": "Il middleware del raccoglitore serve solo sulle pagine: i file statici si servono senza invocare Functions (docs/raccoglitore-metriche-piano.md).",
+  "include": ["/*"],
+  "exclude": [
+    "/assets/*",
+    "/fonts/*",
+    "/tema.js",
+    "/assistenza.js",
+    "/favicon.ico",
+    "/apple-touch-icon.png",
+    "/pwa-192x192.png",
+    "/pwa-512x512.png",
+    "/og-quotify.jpg",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/llms.txt"
+  ]
+}
