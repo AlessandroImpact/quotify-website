@@ -394,7 +394,17 @@ Un middleware minimo che aggiunge un'intestazione di risposta, un deploy, un `cu
 statica e uno su `/api/metriche`. **Se l'assunto cade, il disegno cambia: fermarsi e chiedere, non
 arrangiare.**
 
-Non proseguire senza questa verifica fatta e il risultato incollato qui sotto.
+**✅ Verificata il 2026-10-10.** Distribuzione di anteprima `prova-middleware` (`https://prova-middleware.quotify-website-970.pages.dev` — il sottodominio Pages del progetto è `quotify-website-970`, non `quotify-website`), richieste HEAD:
+
+```
+/                    HTTP/2 200  x-prova-middleware: scattato 
+/guide/preventivi    HTTP/2 200  x-prova-middleware: scattato 
+/privacy             HTTP/2 200  x-prova-middleware: scattato 
+/style.css           HTTP/2 404  x-prova-middleware: scattato 
+/api/metriche        HTTP/2 404  x-prova-middleware: scattato
+```
+
+Il middleware scatta su ogni pagina HTML statica. Il 404 di `/api/metriche` è dovuto al metodo: quella funzione definisce solo `onRequestGet`, e `curl -I` manda HEAD. Non riguarda il raccoglitore, che registra solo GET.
 
 ### Fase 1 — Il database
 
