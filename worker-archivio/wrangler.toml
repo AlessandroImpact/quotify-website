@@ -1,0 +1,23 @@
+# Archiviatore delle metriche di quotify.it — docs/raccoglitore-metriche-piano.md
+name = "quotify-archivio"
+main = "indice.mjs"
+compatibility_date = "2026-09-01"
+# Nessun indirizzo pubblico: il Worker ha solo scheduled(), niente da servire.
+workers_dev = false
+
+[triggers]
+# UNO solo, ogni ora (§5.7): l'ora sceglie il lavoro.
+crons = ["0 * * * *"]
+
+[limits]
+# Sotto il limite di 50 del piano gratuito, con margine.
+subrequests = 45
+
+[vars]
+CF_ACCOUNT_ID = "9293958902c961a60201936782d4c1c9"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "quotify-metriche"
+database_id = "7cb79a31-8c7c-49bf-9d7f-00d5731072fe"
+migrations_dir = "migrazioni"
