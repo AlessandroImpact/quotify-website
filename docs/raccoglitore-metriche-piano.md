@@ -245,9 +245,33 @@ sottorichieste**. Oltre il limite, e al primo recupero di storia sarebbero centi
 
 Risolto dal §4.6 e dallo sdoppiamento del cron (§7, Fase 5), **senza** cambiare piano.
 
-Resta un'incognita che si misura, non si deduce: i **10 ms di CPU**. L'attesa di rete non conta,
-ma interpretare una risposta Google da 480 righe sì. Se sfora, la via d'uscita è nota e costa 5
-dollari al mese — Workers Paid porta la CPU a 5 minuti. Va misurato alla Fase 5, non assunto.
+**Misurato il 2026-10-10, e Workers Paid è escluso per scelta.** Un Worker usa e getta
+(`quotify-prova-cpu`, cancellato subito dopo) ha eseguito ogni minuto il caso peggiore: firma del
+token Google, due chiamate reali a Search Console, interpretazione di due risposte da 480 righe e
+di 30 giorni di Cloudflare.
+
+```
+esecuzioni 9 · esito success 9/9 · CPU da 6,81 a 8,55 ms su 10
+```
+
+Tre lezioni:
+
+- **In locale la stima era 4 ms, sul Worker vero il doppio.** Node non è un sostituto della misura.
+- **Il costo che domina è la firma RSA del token Google**, non i dati. Non cresce con gli anni di
+  storia: il caso a 480 righe era già dentro la prova.
+- **Una prima versione della prova ha toccato 11,59 ms** e non è stata interrotta: Cloudflare
+  tollera sforamenti occasionali, ma termina chi sfora con costanza. Quella versione fabbricava i
+  dati a ogni giro, quindi non era il lavoro vero — però mostra quanto il margine sia stretto se
+  si accumula tutto in un'unica esecuzione.
+
+Da qui la decisione del §7, Fase 5: **un mestiere per esecuzione**. La firma del token non si somma
+mai al resto.
+
+### 5.7 I trigger cron sono 5 per account, non per Worker, e 3 sono occupati
+
+Rilevato il 2026-10-10 sull'account Personale: `maison-sisters` (`0 8 * * *`), `myperiod-api`
+(`0 9 * * *`), `quotify-cron` (`0 * * * *`). **Liberi: 2.** Un disegno a due cron riempirebbe
+l'account e lascerebbe gli altri progetti senza posto. L'archiviatore ne usa **uno**.
 
 ### 5.6 Un `wrangler.toml` nel repository del sito può rompere il deploy
 
@@ -420,17 +444,26 @@ torni verde.
 name = "quotify-archivio"
 main = "indice.mjs"
 [triggers]
-crons = [
-  "0 4 * * *",    # metriche: ogni notte alle 04:00 UTC, dopo l'aggiornamento di Google
-  "30 4 * * 1",   # indicizzazione: il lunedì, 26 controlli in un'invocazione a sé
-]
+crons = ["0 * * * *"]   # UNO solo, ogni ora: §5.7
 [limits]
-subrequests = 45  # tetto di sicurezza sotto il limite di 50 del piano gratuito
+subrequests = 45        # tetto di sicurezza sotto il limite di 50 del piano gratuito
 ```
 
-**Due mestieri, due invocazioni**, per il §5.5: le metriche costano poche sottorichieste e girano
-ogni notte; l'indicizzazione ne costa 26 e gira una volta a settimana, che è più della velocità
-con cui Google cambia idea. `controller.cron` distingue quale dei due sta girando.
+**Un cron, tre mestieri, uno per esecuzione.** Il Worker legge l'ora da
+`controller.scheduledTime` e decide:
+
+| Ora UTC | Mestiere | Costo |
+|---|---|---|
+| 04 | Cloudflare: fotografie dei giorni mancanti o da rifare | nessuna firma RSA, CPU minima |
+| 05 | Search Console: rendimento, storia per data | una firma, la parte pesante del §5.5 |
+| 06 del lunedì | Indicizzazione: 26 controlli | una firma, 26 sottorichieste |
+| tutte le altre | niente: esce subito | trascurabile |
+
+Separare Google da Cloudflare è ciò che allarga il margine di CPU misurato al §5.5. Le 21
+esecuzioni vuote al giorno sono irrilevanti rispetto alle 100.000 concesse.
+
+Una conseguenza da sapere: se un'esecuzione fallisce, il suo mestiere riprova **il giorno dopo**
+alla stessa ora, non un'ora dopo. Il riempimento dei buchi (§6.3) rende la cosa innocua.
 
 Solo `scheduled()`, **nessun gestore `fetch`**: niente superficie HTTP, niente da proteggere.
 Si prova in locale con `wrangler dev --test-scheduled`.
@@ -511,5 +544,6 @@ giorni, con `/guide/fattura-scartata-sdi` scansionata ma non indicizzata e `/ass
 | Qualcuno si aspetta di vedere una schermata | §1: questo progetto non ha interfaccia, e il §2 dice quando arriva |
 | Qualcuno si aspetta di riconoscere i visitatori di ritorno | §4.1 lo esclude per scelta, e dice il prezzo |
 | L'archiviatore sfora le 50 sottorichieste del piano gratuito | §4.6 le riduce a ~7 in crociera, i due cron separano i mestieri, `[limits] subrequests = 45` ferma il resto; verifica 9 lo misura |
-| L'archiviatore sfora i 10 ms di CPU del piano gratuito | Misurato alla verifica 9. Via d'uscita nota: Workers Paid, 5 $/mese, CPU a 5 minuti |
+| L'archiviatore sfora i 10 ms di CPU del piano gratuito | Misurato: 6,8–8,6 ms nel caso peggiore con tutto insieme. Un mestiere per esecuzione allarga il margine; verifica 9 lo rimisura. Workers Paid escluso per scelta |
+| L'archiviatore occupa i posti cron di altri progetti | §5.7: un solo trigger, ne restano liberi 1 su 5 |
 | Un `wrangler.toml` nuovo rompe il deploy del sito | §5.6: collegamento dalla console, nessun file nuovo nella radice; verifica 10 |
