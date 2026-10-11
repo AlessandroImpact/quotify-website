@@ -136,7 +136,8 @@ settimanali in una tabella nel lavoro notturno.
 
 ### 4.3 Scheda Marketing
 
-1. **Canali** (famiglie di `famiglia()`): visite totali (Cloudflare, `storico.dati.provenienze`),
+1. **Canali** (famiglie di `famiglia()`): pagine viste per provenienza (Cloudflare,
+   `storico.dati.cloudflare.provenienze` — Cloudflare non dà le visite per provenienza),
    visite con UTM (D1 `visite`), iscritti, paganti (app). Le ultime due colonne dicono «in attesa
    dell'app» finché il riassunto non risponde.
 2. **Campagne UTM**: sorgente, mezzo, campagna, contenuto, visite. Toccare una riga filtra la
@@ -316,15 +317,18 @@ il consenso.
 Quindi la provenienza viaggia **solo nel salto diretto**: sulla pagina d'arrivo, uno script
 aggiunge ai link verso `app.quotify.it` i parametri della visita corrente:
 
-Il percorso della pagina di iscrizione dell'app va verificato scrivendo il documento di §7.2;
-`/registrati` qui sotto è un esempio.
+La pagina di iscrizione dell'app è `/register` (`src/App.tsx:261` dell'app). I link del sito
+portano già UTM **interni** (`utm_source=sito&utm_medium=guida&utm_campaign=clienti`): dicono
+quale bottone, non quale canale.
 
 ```
-https://app.quotify.it/registrati?utm_source=linkedin&utm_medium=social&utm_campaign=lancio&rif=www.linkedin.com
+https://app.quotify.it/register?utm_source=linkedin&utm_medium=social&utm_campaign=lancio&rif=www.linkedin.com
 ```
 
-- Gli `utm_*` vengono dall'URL della pagina corrente; `rif` è l'host di `document.referrer`
-  se esterno. Niente se non c'è niente.
+- Se la pagina corrente ha `utm_*` (il visitatore è arrivato da una campagna), **sostituiscono**
+  quelli interni del link. Altrimenti gli UTM interni restano.
+- `rif` è l'host di `document.referrer` se esterno; si aggiunge in entrambi i casi.
+- Il canale lo decide il sito: `rif` se c'è, altrimenti `sorgente` (§7.2, punto 3).
 - Se la persona naviga prima su un'altra pagina del sito, la provenienza si perde e l'iscritto
   finisce in «sconosciuta». È il prezzo, dichiarato, di non usare cookie.
 - Stessa pulizia dei valori di `lib/attribuzione.mjs`: minuscole, niente caratteri di controllo,
@@ -347,9 +351,9 @@ Va scritto in `Quotify App/docs/cruscotto-riassunto.md` e implementato da quella
   versione: 1,
   generato: ISO,
   giorni:     [{ giorno, iscritti, attivati, nuoviPro, nuoviPaganti }],
-  coorte:     [{ sorgente, mezzo, campagna, iscritti, attivati, pro, paganti }],  // iscritti in [da, a]
+  coorte:     [{ sorgente, mezzo, campagna, rif, iscritti, attivati, pro, paganti }],  // iscritti in [da, a]
   totali:     { utenti, pro, paganti, ricavoMensileCentesimi },
-  eventi:     [{ id, tipo: 'iscritto' | 'pagante', quando, sorgente, campagna }], // ultimi 7 giorni
+  eventi:     [{ id, tipo: 'iscritto' | 'pagante', quando, sorgente, campagna, rif }], // ultimi 7 giorni
   medianaGiorniAlPagamento: number | null
 }
 ```
