@@ -9,7 +9,7 @@
 // Sta a parte dal cruscotto perché è un lavoro a LOTTI: circa due secondi per
 // URL e una quota giornaliera. Non si può chiamare a ogni apertura di pagina.
 //
-// Ogni esecuzione aggiunge una fotografia a cruscotto/indicizzazione.json, così
+// Ogni esecuzione aggiunge una fotografia a cruscotto-locale/indicizzazione.json, così
 // si vede il movimento nel tempo invece di un singolo istante.
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { statoUrl, chiaveDisponibile } from './searchconsole.mjs';
 
 const RADICE = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const STORICO = resolve(RADICE, 'cruscotto/indicizzazione.json');
+const STORICO = resolve(RADICE, 'cruscotto-locale/indicizzazione.json');
 
 if (!chiaveDisponibile()) {
   console.error('\n  Chiave di Search Console non trovata in ~/.config/quotify/\n');

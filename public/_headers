@@ -104,6 +104,11 @@
 
       <!-- generato:cache:fine -->
 
+# ── Cruscotto: privato, mai in cache, mai nell'indice ──
+/cruscotto
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+
 # ── Asset con hash nel nome: immutabili ──
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

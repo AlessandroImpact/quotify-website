@@ -367,8 +367,8 @@ ${ospiti.length ? `<section><h2>Il sito dentro il dominio</h2>
 </footer>
 </div></body></html>`;
 
-  mkdirSync(resolve(RADICE, 'cruscotto'), { recursive: true });
-  const dove = resolve(RADICE, 'cruscotto/index.html');
+  mkdirSync(resolve(RADICE, 'cruscotto-locale'), { recursive: true });
+  const dove = resolve(RADICE, 'cruscotto-locale/index.html');
   writeFileSync(dove, html);
   console.log(`\n  Visite ${num(visite)} · pagine viste ${num(viste)} · da ricerca ${num(daRicerca)}`);
   console.log(`  Scritto in ${dove}\n`);

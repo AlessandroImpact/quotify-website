@@ -1,0 +1,118 @@
+/* Cruscotto — docs/cruscotto-piano.md §4.6. Prima il telefono.
+   I colori sono token: il tema scuro è il predefinito del sito (tema.js),
+   il chiaro si attiva con data-tema="chiaro". */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-v20.woff2') format('woff2');
+}
+
+:root {
+  --sfondo: #0b1120;
+  --carta: #111a2e;
+  --bordo: #1f2b45;
+  --testo: #e6eaf3;
+  --tenue: #8c98b2;
+  --primario: #5b93ff;
+  --confronto: #4b5670;
+  --su: #3ccf6e;
+  --giu: #ff7a6b;
+  --avviso: #f5b13d;
+  color-scheme: dark;
+}
+html[data-tema='chiaro'] {
+  --sfondo: #f5f7fb;
+  --carta: #ffffff;
+  --bordo: #e2e7f0;
+  --testo: #0f172a;
+  --tenue: #5a6479;
+  --primario: #236cef;
+  --confronto: #b7c0d0;
+  --su: #15803d;
+  --giu: #c2410c;
+  --avviso: #b45309;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--sfondo);
+  color: var(--testo);
+  font: 15px/1.45 Inter, system-ui, -apple-system, sans-serif;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+}
+h1 { font-size: 1.15rem; margin: 0; }
+h2 { font-size: 0.95rem; margin: 0 0 0.6rem; color: var(--tenue); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+a { color: var(--primario); }
+button { font: inherit; color: inherit; }
+
+.testa { position: sticky; top: 0; z-index: 5; background: var(--sfondo); border-bottom: 1px solid var(--bordo); padding: 10px 16px 8px; }
+.testa-riga { display: flex; align-items: center; gap: 10px; }
+.aggiornato { color: var(--tenue); font-size: 0.8rem; margin-left: auto; }
+.tasto-tema { background: none; border: 1px solid var(--bordo); border-radius: 8px; padding: 2px 8px; cursor: pointer; }
+.comandi { display: flex; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.periodi { display: flex; gap: 4px; overflow-x: auto; }
+.periodi button { background: var(--carta); border: 1px solid var(--bordo); border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; white-space: nowrap; cursor: pointer; }
+.periodi button[aria-pressed='true'] { background: var(--primario); border-color: var(--primario); color: #fff; }
+.confronto { font-size: 0.85rem; color: var(--tenue); display: flex; align-items: center; gap: 4px; }
+.filtro { margin-top: 8px; font-size: 0.85rem; }
+.filtro button { background: var(--carta); border: 1px solid var(--primario); border-radius: 999px; padding: 2px 10px; cursor: pointer; }
+
+main { padding: 12px 16px; max-width: 1100px; margin: 0 auto; }
+.stato { color: var(--tenue); }
+.stato.errore { color: var(--giu); }
+section { display: grid; gap: 14px; }
+/* `hidden` da solo perde contro display: grid. */
+section[hidden] { display: none; }
+
+.riquadro { background: var(--carta); border: 1px solid var(--bordo); border-radius: 14px; padding: 14px; min-width: 0; }
+.cifre { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 760px) { .cifre { grid-template-columns: repeat(4, minmax(0, 1fr)); } .due { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } }
+.cifra .nome { color: var(--tenue); font-size: 0.8rem; }
+.cifra .valore { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+.cifra .delta { font-size: 0.8rem; color: var(--tenue); }
+.delta.su { color: var(--su); }
+.delta.giu { color: var(--giu); }
+.nota { color: var(--tenue); font-size: 0.8rem; margin: 6px 0 0; }
+.attesa { color: var(--avviso); font-size: 0.85rem; }
+
+.frasi { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.frasi a { color: var(--testo); text-decoration: none; display: block; padding: 8px 10px; border-radius: 10px; background: color-mix(in srgb, var(--primario) 10%, transparent); }
+
+.grafico { width: 100%; max-width: 640px; height: auto; display: block; }
+.g-linea { fill: none; stroke: var(--primario); stroke-width: 2; stroke-linejoin: round; }
+.g-confronto { fill: none; stroke: var(--confronto); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.g-punto { fill: var(--primario); }
+.g-base { stroke: var(--bordo); }
+.g-asse, .g-vuoto { fill: var(--tenue); font-size: 13px; }
+.g-zona { fill: transparent; cursor: crosshair; }
+.g-zona:hover { fill: color-mix(in srgb, var(--primario) 10%, transparent); }
+.g-barra { fill: var(--primario); }
+.g-nome, .g-valore, .g-passaggio { fill: var(--testo); font-size: 15px; }
+.g-passaggio { fill: var(--tenue); }
+.minilinea { width: 96px; height: 24px; display: block; margin-top: 4px; }
+.minilinea .g-linea { stroke-width: 1.5; }
+.lettura { font-size: 0.85rem; color: var(--tenue); min-height: 1.3em; margin-top: 4px; }
+
+.tabella { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--bordo); white-space: nowrap; }
+th { color: var(--tenue); font-weight: 600; font-size: 0.78rem; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+tr[data-canale], tr[data-campagna] { cursor: pointer; }
+tr[data-canale]:hover, tr[data-campagna]:hover { background: color-mix(in srgb, var(--primario) 8%, transparent); }
+.si { color: var(--su); }
+.no { color: var(--giu); }
+
+.salute { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 0.85rem; }
+.chip { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.chip button { background: var(--carta); border: 1px solid var(--bordo); border-radius: 999px; padding: 3px 10px; font-size: 0.85rem; cursor: pointer; }
+.chip button[aria-pressed='true'] { border-color: var(--primario); color: var(--primario); }
+
+.schede { position: fixed; inset: auto 0 0 0; display: flex; background: var(--carta); border-top: 1px solid var(--bordo); padding-bottom: env(safe-area-inset-bottom); z-index: 6; }
+.schede a { flex: 1; text-align: center; padding: 14px 0; color: var(--tenue); text-decoration: none; font-weight: 600; }
+.schede a[aria-current='page'] { color: var(--primario); }
