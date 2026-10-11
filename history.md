@@ -241,6 +241,27 @@ produzione di Pages (segreti `GSC_CHIAVE` e `METRICHE_CHIAVE` intatti). Prove re
 solo la visita con UTM; senza UTM, LinkedInBot e richiesta non-navigazione scartate. Riga di
 prova cancellata. Da controllare il 12 ottobre dopo le 06 UTC: prime righe in `storico`.
 
+### 11 ottobre 2026 (sera) — il cruscotto unico
+
+Spec `docs/cruscotto-piano.md`, piano `docs/cruscotto-implementazione.md`. Pagina `quotify.it/cruscotto`
+(tre schede: Oggi, Marketing, Imbuto), un solo endpoint `/api/cruscotto` che verifica il JWT di
+Cloudflare Access PRIMA di tutto (anche della cache: `*.pages.dev` non è coperto da Access), legge
+D1 con le somme in SQL, Cloudflare solo per le ore di oggi, e dall'app solo aggregati
+(`/api/interno/riassunto`, ancora da fare nell'app: istruzioni in `Quotify App/docs/cruscotto-riassunto.md`).
+Il Worker `quotify-archivio` ora archivia anche query e pagine di Search Console (tabella `ricerca`,
+storia a tranche di 60 giorni per notte) e manda avvisi su Telegram (tabella `avvisi`, riassunto il
+lunedì). `public/provenienza.js` porta UTM e `rif` sui link di iscrizione, senza cookie; privacy
+aggiornata. Revisione finale indipendente: 4 correzioni importanti, 299 test.
+
+In produzione dall'11 ottobre: migrazione `0002`, Worker, sito. Segreti su Pages (solo produzione):
+`CRUSCOTTO_EMAIL`, `CF_ACCOUNT_ID`, `CF_ANALYTICS_TOKEN`, `RIASSUNTO_CHIAVE` (più i due di prima).
+Sul Worker: `RIASSUNTO_CHIAVE`. Chiave condivisa in `~/vault/secrets/quotify/riassunto-chiave`.
+
+**Manca, da fare con Alessandro:** applicazione Cloudflare Access (poi `ACCESS_TEAM` e `ACCESS_AUD`
+su Pages: finché mancano l'API risponde 403 a tutti e il guscio di `/cruscotto` è pubblico ma
+vuoto); bot Telegram (`TELEGRAM_TOKEN`, `TELEGRAM_CHAT` sul Worker: finché mancano niente avvisi).
+Dopo la prima notte: righe in `ricerca`, CPU di Function e Worker sotto 10 ms.
+
 ---
 
 ## Segnalazioni sull'app
@@ -344,6 +365,10 @@ non copre clienti, fatture, ricorrenti, F24, abbonamento e onboarding. La fonte 
   esporta in una subshell e il token non arriva.
 - **Niente `[limits]` nel `wrangler.toml` di un Worker**: il piano gratuito rifiuta il deploy
   (errore 100328). Il tetto di 50 sottorichieste c'è comunque.
+- **`section[hidden]` non nasconde se il CSS dà `display: grid` alle sezioni**: serve la regola
+  esplicita `[hidden] { display: none }`.
+- **Grafici SVG in viewBox larghi diventano illeggibili sul telefono**: il testo scala col riquadro.
+  Riquadro da 480 unità e grafici con `max-width`.
 - **Un PATCH al progetto Pages può azzerare i segreti**: fotografare `wrangler pages secret
   list` prima e dopo.
 - **Search Console ha 2-3 giorni di ritardo.** Nessuna misura è immediata.
