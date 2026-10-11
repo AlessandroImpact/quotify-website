@@ -9,9 +9,9 @@ workers_dev = false
 # UNO solo, ogni ora (§5.7): l'ora sceglie il lavoro.
 crons = ["0 * * * *"]
 
-[limits]
-# Sotto il limite di 50 del piano gratuito, con margine.
-subrequests = 45
+# Niente [limits]: il piano gratuito rifiuta il blocco (errore 100328).
+# Il tetto di 50 sottorichieste lo impone già Cloudflare; il codice resta
+# sotto da solo (al massimo 42: 40 URL + sitemap + token Google).
 
 [vars]
 CF_ACCOUNT_ID = "9293958902c961a60201936782d4c1c9"

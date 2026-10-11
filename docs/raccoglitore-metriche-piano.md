@@ -455,9 +455,11 @@ name = "quotify-archivio"
 main = "indice.mjs"
 [triggers]
 crons = ["0 * * * *"]   # UNO solo, ogni ora: §5.7
-[limits]
-subrequests = 45        # tetto di sicurezza sotto il limite di 50 del piano gratuito
 ```
+
+Niente `[limits]`: il piano gratuito rifiuta il blocco al deploy (errore 100328,
+«CPU limits are not supported for the Free plan»). Il tetto di 50 lo impone già
+Cloudflare; il codice resta sotto da solo, al massimo 42 (indicizzazione).
 
 **Un cron, tre mestieri, uno per esecuzione.** Il Worker legge l'ora da
 `controller.scheduledTime` e decide:
@@ -554,7 +556,7 @@ giorni, con `/guide/fattura-scartata-sdi` scansionata ma non indicizzata e `/ass
 | Si archiviano stime invece di numeri esatti | Interrogare un giorno per volta (§5.2); verifica 8 confronta con `npm run cruscotto` |
 | Qualcuno si aspetta di vedere una schermata | §1: questo progetto non ha interfaccia, e il §2 dice quando arriva |
 | Qualcuno si aspetta di riconoscere i visitatori di ritorno | §4.1 lo esclude per scelta, e dice il prezzo |
-| L'archiviatore sfora le 50 sottorichieste del piano gratuito | §4.6 le riduce a ~7 in crociera, i due cron separano i mestieri, `[limits] subrequests = 45` ferma il resto; verifica 9 lo misura |
+| L'archiviatore sfora le 50 sottorichieste del piano gratuito | §4.6 le riduce a ~7 in crociera, i due cron separano i mestieri, il tetto di 50 di Cloudflare ferma il resto (il codice ne usa al massimo 42); verifica 9 lo misura |
 | L'archiviatore sfora i 10 ms di CPU del piano gratuito | Misurato: 6,8–8,6 ms nel caso peggiore con tutto insieme. Un mestiere per esecuzione allarga il margine; verifica 9 lo rimisura. Workers Paid escluso per scelta |
 | L'archiviatore occupa i posti cron di altri progetti | §5.7: un solo trigger, ne restano liberi 1 su 5 |
 | Un `wrangler.toml` nuovo rompe il deploy del sito | §5.6: collegamento dalla console, nessun file nuovo nella radice; verifica 10 |
