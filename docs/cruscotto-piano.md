@@ -76,7 +76,7 @@ Telegram — più un riassunto ogni lunedì.
       ├─ 05 UTC  Search Console → storico + ricerca           (esteso: §5.1)
       ├─ 06 UTC  lunedì: indicizzazione                       (esiste)
       ├─ 07 UTC  avvisi del giorno; lunedì anche il riassunto (nuovo)
-      └─ ogni ora tranne le 05: eventi dell'app → avvisi      (nuovo)
+      └─ ogni ora tranne le 05 e il lunedì alle 06: eventi dell'app → avvisi (nuovo)
 ```
 
 ### 3.1 I pezzi
@@ -284,8 +284,8 @@ link alla vista che la spiega. Le frasi si generano dal server (`/api/cruscotto`
 
 | Quando (UTC) | Avviso | Chiave di deduplica |
 |---|---|---|
-| Ogni ora tranne le 05 | **Nuovo pagante**, col canale se noto | `pagante:<id opaco>` |
-| Ogni ora tranne le 05 | **Primo iscritto da un canale o una campagna mai visti** | `primo-iscritto:<sorgente>:<campagna>` |
+| Ogni ora tranne le 05 e il lunedì alle 06 | **Nuovo pagante**, col canale se noto | `pagante:<id opaco>` |
+| Ogni ora tranne le 05 e il lunedì alle 06 | **Primo iscritto da un canale o una campagna mai visti** | `primo-iscritto:<canale>:<campagna>` |
 | 07, ogni giorno | **Visite a zero ieri** con media dei 7 giorni prima ≥ 10 | `zero:<giorno>` |
 | 07, ogni giorno | **Picco**: ieri ≥ 3 × mediana dei 28 giorni e ≥ 30 visite | `picco:<giorno>` |
 | 07, ogni giorno | **Archivio fermo**: una fonte in errore due notti di fila | `fermo:<fonte>:<giorno>` |
