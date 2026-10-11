@@ -226,6 +226,21 @@ sitemap reinviata via API.
 giorni. Le tre sitemap fantasma del 2014 in Search Console le ha tolte Alessandro. La «1
 impressione su 10 pagine» del 20 settembre era una nostra ricerca `site:`, non domanda vera.
 
+### 11 ottobre 2026 — il raccoglitore delle metriche in produzione
+
+Spec in `docs/raccoglitore-metriche-piano.md`, piano in `docs/raccoglitore-metriche-implementazione.md`.
+Due pezzi: il middleware Pages (`functions/_middleware.js`) registra in D1 `quotify-metriche`
+le sole visite con UTM o referrer esterno, senza cookie, IP né User-Agent; il Worker
+`quotify-archivio` (un cron orario, 4 su 5 dell'account) archivia ogni notte Web Analytics
+(04 UTC), Search Console (05 UTC) e il lunedì l'indicizzazione (06 UTC). Revisione finale:
+sette correzioni, 176 test. CPU misurata 6,8-8,6 ms sul piano gratuito.
+
+Pubblicazione: token nuovo `quotify-archivio-sola-lettura` (solo Analisi account → Lettura,
+token di account, in `~/vault/secrets/quotify/cf-analytics-token`), D1 legato **solo** alla
+produzione di Pages (segreti `GSC_CHIAVE` e `METRICHE_CHIAVE` intatti). Prove reali: registrata
+solo la visita con UTM; senza UTM, LinkedInBot e richiesta non-navigazione scartate. Riga di
+prova cancellata. Da controllare il 12 ottobre dopo le 06 UTC: prime righe in `storico`.
+
 ---
 
 ## Segnalazioni sull'app
@@ -327,6 +342,10 @@ non copre clienti, fatture, ricorrenti, F24, abbonamento e onboarding. La fonte 
   permesso di svuotare la cache: si aspetta o si usa il dashboard.
 - **`source ~/vault/bin/cf-env.sh` va eseguito nella stessa chiamata del deploy**: in una pipe
   esporta in una subshell e il token non arriva.
+- **Niente `[limits]` nel `wrangler.toml` di un Worker**: il piano gratuito rifiuta il deploy
+  (errore 100328). Il tetto di 50 sottorichieste c'è comunque.
+- **Un PATCH al progetto Pages può azzerare i segreti**: fotografare `wrangler pages secret
+  list` prima e dopo.
 - **Search Console ha 2-3 giorni di ritardo.** Nessuna misura è immediata.
 - **Le richieste di indicizzazione si fanno a mano**, una per URL: la URL Inspection API
   legge lo stato ma non chiede la scansione. Il reinvio della sitemap invece si fa via API
