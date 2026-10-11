@@ -62,8 +62,11 @@ async function carica() {
 
 // ── scheda Oggi ───────────────────────────────────────────────────────────
 function cifra(nome, valore, formato, campo, d, soglia, conLinea = true) {
-  const att = d.totali[campo];
-  const prec = d.totaliPrecedente?.[campo] ?? null;
+  // Visite, pagine viste, clic e impressioni si confrontano solo sui giorni
+  // che hanno un dato in entrambi i periodi (lib/composizione.mjs, confrontabili).
+  const cfr = d.confrontabili && campo in d.confrontabili ? d.confrontabili[campo] : undefined;
+  const att = cfr !== undefined ? cfr?.attuale ?? null : d.totali[campo];
+  const prec = cfr !== undefined ? cfr?.precedente ?? null : d.totaliPrecedente?.[campo] ?? null;
   const assente = att == null && ['iscritti', 'nuoviPro', 'ricavoMensileCentesimi'].includes(campo);
   return `<div class="riquadro cifra"><div class="nome">${esc(nome)}</div>
     <div class="valore">${assente ? '—' : formato(valore)}</div>
@@ -145,7 +148,8 @@ function disegnaMarketing(d) {
     }))}</div>`;
   }
 
-  const appNota = d.fonti.app === 'ok' ? '' : `<p class="nota">Iscritti e paganti: ${MESSAGGI_APP[d.fonti.app]}.</p>`;
+  const appNota = (d.fonti.app === 'ok' ? '' : `<p class="nota">Iscritti e paganti: ${MESSAGGI_APP[d.fonti.app]}.</p>`)
+    + (d.visiteUtmTroncate ? '<p class="attesa">Troppe visite attribuite per questo periodo: i giorni più vecchi sono esclusi dalle colonne UTM. Scegli un periodo più breve.</p>' : '');
   const canali = `<div class="riquadro"><h2>Canali</h2>${tabella(
     [['Canale'], ['Pagine viste', 1], ['Visite con UTM', 1], ['Iscritti', 1], ['Paganti', 1]],
     d.canali.map((c) => `<tr data-canale="${esc(c.famiglia)}">${cella(esc(c.famiglia))}${cella(numero(c.pagineViste), 1)}${cella(numero(c.visiteUtm), 1)}${cella(numero(c.iscritti), 1)}${cella(numero(c.paganti), 1)}</tr>`),
@@ -175,7 +179,7 @@ function disegnaMarketing(d) {
     punti: d.serie.map((s) => ({ x: giornoBreve(s.giorno), y: s.clic })),
     confronto: vista.confronto && d.seriePrecedente ? d.seriePrecedente.map((s) => ({ x: giornoBreve(s.giorno), y: s.clic })) : null,
     titolo: 'Clic da Google per giorno', formato: numero,
-  }))}<p class="nota">Clic ${numero(d.totali.clic)} · impressioni ${numero(d.totali.impressioni)} ${delta(d.totali.clic, d.totaliPrecedente?.clic ?? null, SOGLIE.clic)}.
+  }))}<p class="nota">Clic ${numero(d.totali.clic)} · impressioni ${numero(d.totali.impressioni)} ${delta(d.confrontabili?.clic?.attuale ?? null, d.confrontabili?.clic?.precedente ?? null, SOGLIE.clic)}.
     I giorni di Search Console sono in ora del Pacifico, quelli di Cloudflare in UTC. Google nasconde le ricerche rare: le righe sommano meno del totale.</p>
     <div class="due"><div>${tabella([['Ricerca'], ['Clic', 1], ['Impr.', 1], ['Pos.', 1]],
       r.query.map((q) => `<tr>${cella(esc(q.chiave))}${cella(numero(q.clic), 1)}${cella(numero(q.impressioni), 1)}${cella(numero(q.posizione), 1)}</tr>`))}</div>

@@ -208,8 +208,14 @@ CREATE TABLE avvisi (
 
 - Il lavoro Google delle 05 aggiunge due richieste (`dimensions: [date, query]` e
   `[date, page]`, `rowLimit` 25000) sugli stessi giorni che già rifà, e scrive con upsert.
-  Alla prima esecuzione recupera i 16 mesi in un colpo: sono due richieste, non 970. Se una
-  risposta arriva con 25000 righe esatte si pagina con `startRow`, entro il tetto di sottorichieste.
+  La storia arriva **a tranche di 60 giorni per notte** (~8 notti per 16 mesi), fino al primo
+  giorno con impressioni: tutta insieme rischierebbe i 10 ms di CPU, e un isolato ucciso per CPU
+  non annota nemmeno l'errore (revisione finale, punto 2). Il fronte raggiunto è il giorno più
+  vecchio con `storico.dati.fonti.ricerca = 'ok'`. Se una risposta arriva con 25000 righe esatte
+  si pagina con `startRow`.
+- Solo le pagine di `quotify.it`/`www.quotify.it`: la proprietà di dominio comprende anche
+  `app.quotify.it`, che ridotta al percorso si scontrerebbe col sito. Varianti dello stesso
+  percorso si sommano (posizione pesata sulle impressioni).
 - Google nasconde le query sotto una soglia di volume: la somma delle righe di `ricerca` è
   **minore** dei totali di `storico`. Il cruscotto mostra i totali da `storico` e le righe da
   `ricerca`, mai la somma delle righe come totale.
@@ -247,8 +253,13 @@ CREATE TABLE avvisi (
 
 ### 5.3 Cache
 
-`caches.default`, chiave sull'URL senza intestazioni. 5 minuti se tutte le fonti sono `ok`,
-1 minuto altrimenti. L'URL della cache include periodo e confronto; il filtro per canale e
+`caches.default`, chiave sull'URL senza intestazioni. 5 minuti se Cloudflare è `ok` e l'app è
+`ok` o `in-attesa` (finché l'app non c'è non serve riprovare ogni minuto), 1 minuto altrimenti.
+
+**Confronti onesti.** Le variazioni di visite, pagine viste, clic e impressioni si calcolano solo
+sui giorni che hanno un dato in **entrambi** i periodi (`confrontabili` nella risposta): Search
+Console arriva con 2-3 giorni di ritardo e l'archivio Cloudflare comincia il 13 settembre 2026.
+Le frasi sui canali escono solo se entrambi i periodi sono coperti per intero. L'URL della cache include periodo e confronto; il filtro per canale e
 campagna si applica nel client sui dati già scaricati, così toccare una riga non fa richieste.
 
 ---
@@ -302,7 +313,8 @@ link alla vista che la spiega. Le frasi si generano dal server (`/api/cruscotto`
 Segreti del Worker: `TELEGRAM_TOKEN` (segreto), `TELEGRAM_CHAT` (variabile), `RIASSUNTO_CHIAVE`
 (segreto). Il bot lo crea Alessandro con @BotFather.
 
-Costo in sottorichieste: ≤ 2 in più all'ora (riassunto dell'app, Telegram), ≤ 4 alle 07 il lunedì.
+Costo in sottorichieste: ≤ 11 in più all'ora (riassunto dell'app, al più 10 messaggi), ≤ 13 alle
+07 il lunedì (tre chiamate all'app). Il lunedì alle 06 gli eventi saltano: c'è l'indicizzazione.
 
 ---
 
@@ -328,7 +340,8 @@ https://app.quotify.it/register?utm_source=linkedin&utm_medium=social&utm_campai
 - Se la pagina corrente ha `utm_*` (il visitatore è arrivato da una campagna), **sostituiscono**
   quelli interni del link. Altrimenti gli UTM interni restano.
 - `rif` è l'host di `document.referrer` se esterno; si aggiunge in entrambi i casi.
-- Il canale lo decide il sito: `rif` se c'è, altrimenti `sorgente` (§7.2, punto 3).
+- Il canale lo decide il sito: la `sorgente` se è un UTM vero (non `sito`), altrimenti `rif`,
+  come per le visite (`sorgente = utm ?? host`).
 - Se la persona naviga prima su un'altra pagina del sito, la provenienza si perde e l'iscritto
   finisce in «sconosciuta». È il prezzo, dichiarato, di non usare cookie.
 - Stessa pulizia dei valori di `lib/attribuzione.mjs`: minuscole, niente caratteri di controllo,
