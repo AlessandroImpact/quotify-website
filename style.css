@@ -163,6 +163,30 @@
     inset 0 -1px 0 rgba(4, 12, 40, 0.4);
 }
 
+/* Il riquadro finale delle guide e delle pagine fiscali: blu di marca, testo
+   bianco, in qualunque tema. Classi proprie e non `bg-white` & co., perché il
+   tema scuro riscrive `.bg-white` con `!important` e il pulsante diventava nero
+   su blu. Stesso gradiente di `.chip-blu`, che parte da #236CEF. */
+.riquadro-cta {
+  color: #ffffff;
+  background: linear-gradient(168deg, #236CEF 0%, #2060d8 55%, #1b46c4 100%);
+  box-shadow:
+    0 24px 60px -28px rgba(35, 108, 239, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.riquadro-cta .cta-primario {
+  color: #236CEF;
+  background: #ffffff;
+  box-shadow: 0 10px 24px -12px rgba(4, 12, 40, 0.55);
+}
+.riquadro-cta .cta-primario:hover { background: #eff6ff; }
+.riquadro-cta .cta-secondario {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+.riquadro-cta .cta-secondario:hover { background: rgba(255, 255, 255, 0.2); }
+
 /* ═══════════════════════════════════════════════════════════════
    SUPERFICIE CONTINUA
 
