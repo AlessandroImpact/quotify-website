@@ -70,7 +70,7 @@ function cifra(nome, valore, formato, campo, d, soglia, conLinea = true) {
   const assente = att == null && ['iscritti', 'nuoviPro', 'ricavoMensileCentesimi'].includes(campo);
   return `<div class="riquadro cifra"><div class="nome">${esc(nome)}</div>
     <div class="valore">${assente ? '—' : formato(valore)}</div>
-    ${assente ? `<div class="attesa">${MESSAGGI_APP[d.fonti.app] ?? ''}</div>` : (soglia != null ? delta(att, prec, soglia) : '')}
+    ${assente ? `<div class="attesa">${MESSAGGI_APP[d.fonti.app] ?? 'non ancora misurato'}</div>` : (soglia != null ? delta(att, prec, soglia) : '')}
     ${conLinea && !assente ? minilinea(d.serie.map((s) => s[campo] ?? null)) : ''}</div>`;
 }
 
