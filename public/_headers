@@ -102,6 +102,9 @@
 /cookie
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/elimina-account
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
       <!-- generato:cache:fine -->
 
 # ── Cruscotto: privato, mai in cache, mai nell'indice ──

@@ -433,6 +433,13 @@
       "descrizione": "Quali cookie usa Quotify, a cosa servono e come revocare il consenso in qualsiasi momento. Informativa aggiornata sull'utilizzo dei cookie.",
       "descrizioneSocial": "Cookie Policy di Quotify — Informativa sull&#x27;utilizzo dei cookie.",
       "ogTipo": "article"
+    },
+    {
+      "file": "elimina-account.html",
+      "url": "/elimina-account",
+      "titolo": "Eliminare l'account Quotify — come fare, cosa si cancella",
+      "descrizione": "Come eliminare l'account Quotify dall'app in pochi secondi, o via email se non riesci ad accedere. Cosa viene cancellato e cosa resta.",
+      "ogTipo": "article"
     }
   ],
   "_ordine": "L'ordine di questo elenco è l'ordine in cui le guide compaiono nell'hub e nella sitemap: è una scelta editoriale, non alfabetica."

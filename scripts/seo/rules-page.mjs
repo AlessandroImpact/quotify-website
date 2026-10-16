@@ -18,7 +18,7 @@ const W = 'warn';
 // serve a chi è già arrivato, non a farlo arrivare.
 const PAGINE_DI_SERVIZIO = new Set([
   'index.html', 'privacy.html', 'cookie.html', 'termini.html', 'assistenza.html',
-  'chi-siamo.html', '404.html',
+  'chi-siamo.html', '404.html', 'elimina-account.html',
 ]);
 
 const DATA_ISO = /^\d{4}-\d{2}-\d{2}$/;

@@ -76,7 +76,7 @@ test('le pagine di servizio non devono dichiarare niente', () => {
   // Privacy, cookie e termini non sono contenuto scritto per posizionarsi:
   // chiedergli una query obiettivo sarebbe un falso positivo, e i falsi
   // positivi sono ciò che fa spegnere i gate.
-  for (const file of ['index.html', 'privacy.html', 'cookie.html', 'termini.html', 'assistenza.html', '404.html']) {
+  for (const file of ['index.html', 'privacy.html', 'cookie.html', 'termini.html', 'assistenza.html', '404.html', 'elimina-account.html']) {
     const nuda = pagina(
       { 'quotify:query-obiettivo': null, 'quotify:pubblicato': null,
         'quotify:revisionato': null, 'quotify:verifica-fiscale': null },
