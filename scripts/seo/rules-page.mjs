@@ -176,6 +176,28 @@ export function controllaPagina(pag, ctx) {
         pag.jsonldTypes.push(...[].concat(n['@type']));
       }
     }
+
+    // Un riferimento è un oggetto che ha solo `@id`; un nodo con altri campi
+    // (anche annidato) è una dichiarazione. Ogni riferimento deve trovare la
+    // sua dichiarazione nello stesso blocco, o il legame non si risolve.
+    const dichiarati = new Set();
+    const citati = new Set();
+    const visita = (x) => {
+      if (Array.isArray(x)) return x.forEach(visita);
+      if (!x || typeof x !== 'object') return;
+      const chiavi = Object.keys(x);
+      if (x['@id'] && chiavi.length === 1) citati.add(x['@id']);
+      else if (x['@id']) dichiarati.add(x['@id']);
+      chiavi.forEach((k) => visita(x[k]));
+    };
+    visita(nodi);
+    for (const id of citati) {
+      if (!dichiarati.has(id)) {
+        f.push(esito(E, 'jsonld-riferimento-irrisolto', file, at(s),
+          `JSON-LD cita ${id} ma nessun nodo del grafo lo dichiara`,
+          'Aggiungere il nodo al grafo della pagina o togliere il riferimento.'));
+      }
+    }
   }
 
   // ── volume di contenuto ───────────────────────────────────────────────────

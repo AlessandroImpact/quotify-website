@@ -49,6 +49,15 @@ function persona() {
     url: `${O}/chi-siamo`,
     email: 'info@quotify.it',
     worksFor: { '@id': `${O}/#organization` },
+    // La stessa persona altrove: il sito da freelance (stessa partita IVA
+    // dell'Organization), LinkedIn e GitHub. Il ponte fra le due identità
+    // passa da qui e da `founder`, non dal sameAs dell'Organization: il sito
+    // personale non è un profilo di Quotify.
+    sameAs: [
+      'https://www.alessandroterracciano.com/',
+      'https://www.linkedin.com/in/alessandro-terracciano-web/',
+      'https://github.com/AlessandroImpact',
+    ],
     knowsAbout: [
       'Regime forfettario',
       'Fatturazione elettronica',
@@ -71,6 +80,7 @@ function organizzazione() {
     email: 'info@quotify.it',
     address: { '@type': 'PostalAddress', addressLocality: 'Milano', addressCountry: 'IT' },
     areaServed: { '@type': 'Country', name: 'Italia' },
+    founder: { '@id': `${O}/#autore` },
     // sameAs lega il dominio ai profili ufficiali: è il segnale con cui Google
     // capisce QUALE Quotify siamo, fra gli otto prodotti omonimi che esistono.
     // Verificati raggiungibili il 2026-09-03 prima di dichiararli.
@@ -81,6 +91,23 @@ function organizzazione() {
   }
   );
 }
+
+function sito() {
+  return {
+    '@type': 'WebSite',
+    '@id': `${O}/#website`,
+    url: `${O}/`,
+    name: 'Quotify',
+    inLanguage: 'it-IT',
+    publisher: { '@id': `${O}/#organization` },
+  };
+}
+
+/** Il nucleo che sta su OGNI grafo: chi è Quotify, il sito e la persona che
+ *  lo ha fondato. Su ogni pagina, perché `founder`, `author` e `isPartOf`
+ *  citano questi @id e un riferimento si risolve solo nello stesso grafo
+ *  (il gate lo controlla: jsonld-riferimento-irrisolto). */
+const identita = () => [organizzazione(), sito(), persona()];
 
 function grafoHome(root) {
 // ── FAQ ──────────────────────────────────────────────────────────────────────
@@ -98,15 +125,7 @@ if (!piani.length || piani.some((p) => !p.nome || p.prezzo === null)) fatale('pr
 
 // ── Grafo ────────────────────────────────────────────────────────────────────
 const grafo = [
-  organizzazione(),
-  {
-    '@type': 'WebSite',
-    '@id': `${O}/#website`,
-    url: `${O}/`,
-    name: 'Quotify',
-    inLanguage: 'it-IT',
-    publisher: { '@id': `${O}/#organization` },
-  },
+  ...identita(),
   {
     '@type': 'SoftwareApplication',
     '@id': `${O}/#software`,
@@ -116,6 +135,7 @@ const grafo = [
     operatingSystem: 'Web, iOS, Android',
     inLanguage: 'it-IT',
     url: `${O}/`,
+    author: { '@id': `${O}/#autore` },
     publisher: { '@id': `${O}/#organization` },
     description: pulisci(root.querySelector('meta[name="description"]')?.getAttribute('content')),
     offers: piani.map((p) => ({
@@ -155,7 +175,7 @@ function grafoCalcolatore(root) {
   // Quotify in home, e due entità dello stesso tipo sullo stesso sito
   // confondono l'associazione. Lo strumento è una cosa, il prodotto un'altra.
   return [
-    organizzazione(),
+    ...identita(),
     {
       '@type': 'WebApplication',
       '@id': `${url}#strumento`,
@@ -204,8 +224,7 @@ function grafoArticolo(root) {
     pulisci(root.querySelector('title')?.structuredText);
 
   const grafo = [
-    organizzazione(),
-    persona(),
+    ...identita(),
     {
       '@type': 'Article',
       '@id': `${url}#articolo`,
@@ -239,7 +258,7 @@ function grafoArticolo(root) {
 
   if (faq.length) {
     if (faq.some((f) => !f.domanda || !f.risposta)) fatale('articolo: FAQ incomplete in [data-faq]');
-    grafo.splice(2, 0, {
+    grafo.splice(grafo.findIndex((n) => n['@type'] === 'Article'), 0, {
       '@type': 'FAQPage',
       '@id': `${url}#faq`,
       inLanguage: 'it-IT',
@@ -271,7 +290,7 @@ function grafoGuide(root) {
   if (!voci.length) fatale('guide: nessuna voce estraibile da .voce-a');
 
   const grafo = [
-    organizzazione(),
+    ...identita(),
     {
       '@type': 'CollectionPage',
       '@id': `${url}#raccolta`,
@@ -324,8 +343,7 @@ function grafoChiSiamo(root) {
   const url = root.querySelector('link[rel="canonical"]')?.getAttribute('href');
   if (!url) fatale('chisiamo: manca il canonical');
   return [
-    organizzazione(),
-    persona(),
+    ...identita(),
     {
       '@type': 'AboutPage',
       '@id': url,

@@ -153,3 +153,33 @@ test('senza registro nel contesto il gate deve fermarsi, non tacere', () => {
   assert.throws(() => controllaPagina(pagina(), { linkInterni: [], immaginiSocial: [] }),
     /registro non è nel contesto/);
 });
+
+// I riferimenti fra nodi: un `founder` o un `author` che punta a un @id che
+// nel grafo della pagina non c'è è un legame che il motore non può risolvere.
+// Il caso vero: la persona dichiarata solo su /chi-siamo e citata ovunque.
+const riferimenti = (grafo) => {
+  const pag = pagina();
+  pag.html = pag.html.replace('</head>',
+    `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': grafo })}</script></head>`);
+  pag.root = parse(pag.html, { comment: false });
+  return controllaPagina(pag, { linkInterni: [], immaginiSocial: [], registro: [] })
+    .filter((f) => f.rule === 'jsonld-riferimento-irrisolto')
+    .map((f) => f.message);
+};
+
+test('un @id citato e non dichiarato nel grafo della pagina è un errore', () => {
+  const grafo = [{ '@type': 'Organization', '@id': 'https://q.it/#org', founder: { '@id': 'https://q.it/#autore' } }];
+  const r = riferimenti(grafo);
+  assert.equal(r.length, 1);
+  assert.match(r[0], /#autore/);
+});
+
+test('riferimenti che si risolvono, anche dentro liste e nodi annidati: nessun rilievo', () => {
+  const grafo = [
+    { '@type': 'Organization', '@id': 'https://q.it/#org', founder: { '@id': 'https://q.it/#autore' } },
+    { '@type': 'Person', '@id': 'https://q.it/#autore', worksFor: { '@id': 'https://q.it/#org' } },
+    { '@type': 'Article', '@id': 'https://q.it/a#articolo', author: [{ '@id': 'https://q.it/#autore' }],
+      mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://q.it/a' } },
+  ];
+  assert.deepEqual(riferimenti(grafo), []);
+});

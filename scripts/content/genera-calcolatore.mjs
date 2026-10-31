@@ -499,6 +499,7 @@ function bloccoPiede({ navigazione: n }) {
               </a>
               <p class="text-sm text-foam/50 leading-relaxed mb-4" style="max-width:32ch">La piattaforma per freelance italiani in Regime Forfettario.</p>
               <p class="text-xs text-foam/30 tnum">P.IVA 10838411212 — Milano, Italia</p>
+              <p class="text-xs text-foam/30 mt-1.5">Sviluppato da <a href="https://www.alessandroterracciano.com/" class="text-foam/50 hover:text-foam underline underline-offset-2 transition-colors">Alessandro Terracciano</a></p>
             </div>
 ${colonna('Prodotto', n.piede.prodotto)}
 ${colonna('Legale e contatti', n.piede.legale)}
