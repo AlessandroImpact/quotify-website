@@ -131,3 +131,23 @@ test('la barra ha i tre segmenti proporzionati già senza JavaScript', () => {
   // Le larghezze iniziali sono nell'HTML: a JS spento la barra resta veritiera.
   assert.match(html, /data-segmento="netto"[^>]*style="width:\s*\d+(\.\d+)?%/);
 });
+
+test('il blocco "altre professioni" elenca le altre pagine della serie, non quella corrente', async () => {
+  const { bloccoProfessioni } = await import('./genera-calcolatore.mjs');
+  const contenuti = [
+    { url: '/forfettario-a', titolo: 'A', categoria: 'professioni', cifra: '67%' },
+    { url: '/forfettario-b', titolo: 'B', categoria: 'professioni', cifra: '78%' },
+    { url: '/calcolo', titolo: 'Calcolo', categoria: 'fisco', cifra: '75%' },
+  ];
+  const html = bloccoProfessioni({ contenuti }, { url: '/forfettario-a' });
+  assert.match(html, /href="\/forfettario-b"/);
+  assert.doesNotMatch(html, /href="\/forfettario-a"/, 'una pagina non linka sé stessa');
+  assert.doesNotMatch(html, /href="\/calcolo"/, 'solo la serie per professione');
+});
+
+test('ogni pagina per professione riceve il blocco, le altre no', async () => {
+  const { PAGINE } = await import('./genera-calcolatore.mjs');
+  for (const { voce, blocchi } of PAGINE) {
+    assert.equal('professioni' in blocchi, voce.categoria === 'professioni', voce.file);
+  }
+});

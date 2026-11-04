@@ -704,6 +704,26 @@ function sostituisci(html, nome, contenuto) {
   return html.slice(0, i + inizio.length) + contenuto + '\n      ' + html.slice(j);
 }
 
+// In fondo a ogni pagina per professione, le altre della serie. Generato dal
+// registro come l’hub: una professione nuova compare da sola su tutte le altre,
+// e nessuna resta raggiungibile solo dalla pagina delle guide.
+export function bloccoProfessioni({ contenuti }, voce) {
+  const altre = contenuti.filter((c) => c.categoria === 'professioni' && c.url !== voce.url);
+  return `
+      <section aria-labelledby="altre-professioni" class="mb-12">
+        <h2 id="altre-professioni" class="text-xl font-bold text-slate-900 mb-4">Il forfettario per altre professioni</h2>
+        <ul class="grid gap-3 sm:grid-cols-2" role="list">${altre.map((c) => `
+          <li>
+            <a href="${c.url}" class="flex items-baseline gap-3 rounded-xl border border-slate-200 px-4 py-3 hover:border-slate-400 transition-colors">
+              <span class="font-mono text-sm text-primary-600 shrink-0">${c.cifra}</span>
+              <span class="text-slate-800">${c.titolo}</span>
+            </a>
+          </li>`).join('')}
+        </ul>
+      </section>
+      `;
+}
+
 // Registro delle pagine generate. Ogni pagina dichiara quali blocchi vuole:
 // aggiungerne una è una riga qui, non un secondo script che diverge dal primo.
 // Gruppi di blocchi con un nome, invece che posizioni in un elenco: il valore
@@ -740,6 +760,7 @@ export const PAGINE = REGISTRO_PAGINE.map((voce) => ({
   blocchi: {
     testa: (d) => bloccoTesta(d, voce),
     ...(CONTENUTO_PER_URL[voce.url] ?? BLOCCHI.telaioChiaro),
+    ...(voce.categoria === 'professioni' ? { professioni: (d) => bloccoProfessioni(d, voce) } : {}),
   },
 }));
 
