@@ -361,8 +361,9 @@ function initBench() {
 
     const tot = scelti.reduce((a, s) => a + s.price, 0)
     const reddito = tot * 0.78
-    const imposta = reddito * 0.05
-    const inps = reddito * 0.2623
+    // Come il calcolatore: i contributi si deducono prima dell’imposta.
+    const inps = reddito * 0.2607
+    const imposta = (reddito - inps) * 0.05
     const netto = tot - imposta - inps
     const pct = Math.min(100, (tot / 85000) * 100)
 

@@ -208,7 +208,7 @@
                    style="width:min(84vw,400px);height:min(112vw,530px);margin-left:calc(min(84vw,400px) / -2);margin-top:calc(min(112vw,530px) / -2);transform-style:preserve-3d">
 
                 <!-- faccia A — preventivo -->
-                <div class="absolute inset-0 rounded-[18px] p-6 flex flex-col"
+                <div data-carta class="absolute inset-0 rounded-[18px] p-6 flex flex-col"
                      style="background:#fbfcfe;backface-visibility:hidden;box-shadow:0 40px 100px -30px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.12)">
                   <div class="flex items-start justify-between mb-5">
                     <div>
@@ -561,17 +561,17 @@
               </div>
               <div class="flex items-center justify-between py-3.5" style="border-bottom:1px solid rgba(255,255,255,0.06)">
                 <span class="text-[0.8125rem] text-foam/50">Imposta sostitutiva <span class="text-foam/[0.28]">— 5%</span></span>
-                <span class="text-[1.0625rem] font-semibold tnum" data-bench-imposta>€ 98</span>
+                <span class="text-[1.0625rem] font-semibold tnum" data-bench-imposta>€ 72</span>
               </div>
               <div class="flex items-center justify-between py-3.5" style="border-bottom:1px solid rgba(255,255,255,0.06)">
-                <span class="text-[0.8125rem] text-foam/50">Contributi INPS <span class="text-foam/[0.28]">— 26,23%</span></span>
-                <span class="text-[1.0625rem] font-semibold tnum" data-bench-inps>€ 511</span>
+                <span class="text-[0.8125rem] text-foam/50">Contributi INPS <span class="text-foam/[0.28]">— 26,07%</span></span>
+                <span class="text-[1.0625rem] font-semibold tnum" data-bench-inps>€ 508</span>
               </div>
             </div>
 
             <div class="mt-8">
               <div class="text-[0.6875rem] font-bold tracking-[0.18em] uppercase mb-2" style="color:rgba(110,231,183,0.7)">Ti resta in tasca</div>
-              <div class="font-extrabold tnum" style="font-size:clamp(2.5rem,9vw,4rem);letter-spacing:-0.04em" data-bench-netto>€ 1.891</div>
+              <div class="font-extrabold tnum" style="font-size:clamp(2.5rem,9vw,4rem);letter-spacing:-0.04em" data-bench-netto>€ 1.920</div>
               <div class="mt-5 h-1.5 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.07)">
                 <div class="h-full rounded-full transition-[width] duration-[550ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style="width:2.9%;background:linear-gradient(90deg,#236CEF,#60a5fa)" data-bench-bar></div>
               </div>
@@ -581,7 +581,7 @@
 
           <!-- ── il documento ── -->
           <div class="banco-doc reveal" style="perspective:1500px;perspective-origin:50% 40%">
-            <div data-bench-doc class="rounded-[22px] overflow-hidden" style="background:#fbfcfe;transform-style:preserve-3d;box-shadow:0 70px 120px -50px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.14), 0 0 90px -30px rgba(35,108,239,0.5)">
+            <div data-bench-doc data-carta class="rounded-[22px] overflow-hidden" style="background:#fbfcfe;transform-style:preserve-3d;box-shadow:0 70px 120px -50px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.14), 0 0 90px -30px rgba(35,108,239,0.5)">
 
               <!-- stepper -->
               <div class="flex items-center gap-1 px-5 py-4" style="border-bottom:1px solid #eef2f8">
@@ -700,8 +700,8 @@
           </div>
           <div class="bg-ink-900 hover:bg-ink-700 transition-colors duration-[350ms] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(1.75rem,4vw,2.5rem)]">
             <div class="flex items-center gap-2 mb-4"><span class="font-mono text-[0.6875rem] text-white/25">04</span><span class="text-[0.625rem] font-bold tracking-[0.16em] uppercase text-foam/35">Contributi</span></div>
-            <div class="font-extrabold tnum" style="font-size:clamp(2.25rem,7vw,3.375rem);letter-spacing:-0.04em" data-num data-target="26.23" data-format="pct2">26,23%</div>
-            <div class="h-[3px] rounded-full mt-4 mb-4" style="background:rgba(255,255,255,0.08)"><div class="h-full rounded-full" style="width:26.23%;background:#236CEF" data-num-bar data-bar="26.23"></div></div>
+            <div class="font-extrabold tnum" style="font-size:clamp(2.25rem,7vw,3.375rem);letter-spacing:-0.04em" data-num data-target="26.07" data-format="pct2">26,07%</div>
+            <div class="h-[3px] rounded-full mt-4 mb-4" style="background:rgba(255,255,255,0.08)"><div class="h-full rounded-full" style="width:26.07%;background:#236CEF" data-num-bar data-bar="26.07"></div></div>
             <p class="text-[0.8125rem] text-foam/45">INPS gestione separata, accantonati fattura per fattura.</p>
           </div>
         </div>

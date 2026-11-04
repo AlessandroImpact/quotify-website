@@ -713,6 +713,17 @@ html.lenis, html.lenis body { height: auto; }
 [data-tema='scuro'] .text-slate-600  { color: var(--testo-medio) !important; }
 [data-tema='scuro'] .text-slate-500  { color: var(--testo-tenue) !important; }
 [data-tema='scuro'] .text-slate-400  { color: var(--testo-tenue) !important; }
+/* Un foglio di carta resta bianco in entrambi i temi (il preventivo dell'hero,
+   il documento del banco): dentro, il testo deve restare scuro, altrimenti la
+   rimappatura qui sopra lo rende chiaro su bianco e il foglio sembra vuoto. */
+[data-tema='scuro'] [data-carta] .text-slate-900 { color: var(--color-slate-900) !important; }
+[data-tema='scuro'] [data-carta] .text-slate-800 { color: var(--color-slate-800) !important; }
+[data-tema='scuro'] [data-carta] .text-slate-700 { color: var(--color-slate-700) !important; }
+[data-tema='scuro'] [data-carta] .text-slate-600 { color: var(--color-slate-600) !important; }
+[data-tema='scuro'] [data-carta] .text-slate-500 { color: var(--color-slate-500) !important; }
+[data-tema='scuro'] [data-carta] .text-slate-400 { color: var(--color-slate-400) !important; }
+[data-tema='scuro'] [data-carta] .text-primary-600 { color: var(--color-primary-600) !important; }
+[data-tema='scuro'] [data-carta] .text-primary-700 { color: var(--color-primary-700) !important; }
 [data-tema='scuro'] .hover\:text-slate-700:hover,
 [data-tema='scuro'] .hover\:text-slate-900:hover { color: var(--testo) !important; }
 
