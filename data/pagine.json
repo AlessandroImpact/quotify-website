@@ -146,6 +146,25 @@
       "titoloBreve": "Social media manager in regime forfettario"
     },
     {
+      "file": "forfettario-traduttore.html",
+      "url": "/forfettario-traduttore",
+      "titolo": "Traduttore in regime forfettario: ATECO, tasse, estero",
+      "descrizione": "Codice ATECO 74.30.00, coefficiente del 78%, fatture alle agenzie estere e bollo sulle traduzioni giurate: cosa sapere da traduttore in regime forfettario.",
+      "descrizioneSocial": "Il codice, il 78%, come si fattura a un’agenzia estera e quante marche servono per una traduzione giurata.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "professioni",
+      "tipo": "guida",
+      "cifra": "N2.1",
+      "cifra_nota": "la natura delle fatture alle agenzie estere",
+      "query_obiettivo": "traduttore regime forfettario",
+      "query_secondarie": "partita iva traduttore forfettario, codice ateco traduttore, ateco 74.30.00, fattura traduttore cliente estero forfettario, marca da bollo traduzione giurata, tasse traduttore partita iva",
+      "pubblicato": "2026-11-04",
+      "revisionato": "2026-11-04",
+      "verifica_fiscale": "verificata",
+      "titoloBreve": "Traduttore in regime forfettario"
+    },
+    {
       "file": "guide/primo-accesso-profilo-fiscale.html",
       "url": "/guide/primo-accesso-profilo-fiscale",
       "titolo": "Primo accesso: impostare il profilo fiscale forfettario",
