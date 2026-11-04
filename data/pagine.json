@@ -165,6 +165,25 @@
       "titoloBreve": "Traduttore in regime forfettario"
     },
     {
+      "file": "forfettario-consulente-marketing.html",
+      "url": "/forfettario-consulente-marketing",
+      "titolo": "Consulente marketing in forfettario: ATECO e tasse 2026",
+      "descrizione": "Codice ATECO 70.20.09, coefficiente del 78% e le regole per chi arriva da dipendente: limite dei 35.000 €, l’ex datore di lavoro e l’imposta al 5%.",
+      "descrizioneSocial": "Il codice, il 78%, e le tre regole che decidono il forfettario di chi lascia un lavoro dipendente per fare consulenza.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "professioni",
+      "tipo": "guida",
+      "cifra": "35.000",
+      "cifra_nota": "euro di stipendio, il limite per il 2026",
+      "query_obiettivo": "consulente marketing regime forfettario",
+      "query_secondarie": "partita iva consulente marketing, codice ateco consulente marketing, ateco 70.20.09 forfettario, forfettario dipendente 35000, consulenza ex datore di lavoro forfettario, forfettario 5% mera prosecuzione",
+      "pubblicato": "2026-11-04",
+      "revisionato": "2026-11-04",
+      "verifica_fiscale": "verificata",
+      "titoloBreve": "Consulente di marketing in regime forfettario"
+    },
+    {
       "file": "guide/primo-accesso-profilo-fiscale.html",
       "url": "/guide/primo-accesso-profilo-fiscale",
       "titolo": "Primo accesso: impostare il profilo fiscale forfettario",
