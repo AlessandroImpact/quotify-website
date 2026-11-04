@@ -203,6 +203,33 @@ zero.
 
 ---
 
+## 9. «QuotifAI illimitato» nella pagina dell'abbonamento
+
+**Dove**: `src/pages/SubscriptionPage.tsx:368`.
+
+**Cosa succede**: la lista delle funzioni Pro scrive «QuotifAI illimitato», ma il Pro ha un
+limite di 30 messaggi l'ora (`functions/api/ai/chat.ts:10`). Il sito il 4 novembre 2026 è stato
+corretto in «fino a 30 messaggi l'ora»: l'app è rimasta l'unico posto che promette di più.
+
+---
+
+## 10. La fattura non ha la cassa previdenziale
+
+**Dove**: `functions/lib/fatturaPA.ts` (nessun blocco `DatiCassaPrevidenziale`),
+`src/lib/f24.ts:10`.
+
+**Cosa succede**: chi è iscritto a una cassa con albo (avvocati, ingegneri, architetti,
+geometri) deve addebitare in fattura il contributo integrativo (4%, 5% per i geometri), che
+nella FatturaPA va in `DatiCassaPrevidenziale`. Quotify oggi non lo prevede, quindi questi
+professionisti non possono fatturare correttamente con l'app. Lo stesso blocco servirebbe per
+la rivalsa INPS facoltativa del 4% della Gestione Separata.
+
+**Perché conta**: è l'unico ostacolo tecnico che tiene fuori le professioni ordinistiche. Le
+pagine del sito per avvocati, ingegneri e geometri sono scritte come solo informative per
+questo motivo. **Decisione del 4 novembre 2026**: tenuta come possibile espansione, da valutare.
+
+---
+
 ## Domande aperte, non difetti
 
 Due cose notate sulla nota di credito che **non** risultano sbagliate: sono punti su cui la

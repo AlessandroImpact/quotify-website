@@ -60,6 +60,12 @@
 /forfettario-copywriter
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/forfettario-artigiano-edile
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
+/forfettario-agente-di-commercio
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/primo-accesso-profilo-fiscale
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
