@@ -125,3 +125,10 @@ Letti direttamente da `Corrispondenza-bidirezionale-2025-vs-2022-IT.xlsx`, fogli
 | 70.20.09 | Consulenza imprenditoriale e altre attività di consulenza gestionale n.c.a. | 70.22.09 | TOTALE |
 
 Il titolo di 73.11.02 non è più in conflitto: è quello sopra, letto sulla fonte.
+
+## Divisione 90 al 67%: verificato sul file ISTAT [V]
+
+- 90.11.09 «Altre attività di creazione letteraria e composizione musicale» (ex 90.03.09, parziale). Note ISTAT: scrittori individuali, composizioni musicali, **stesura di testi e composizioni per conto di terzi**, sceneggiatura, **stesura di manuali tecnici**.
+- 90.11.02 «Attività di blogger indipendenti» (ex 90.03.09, parziale).
+- 90.12.00 «Attività di creazione di arti visive» (ex 90.03.09, parziale). Note ISTAT: scultori, pittori, **fumettisti**, caricaturisti, calligrafi, **lettering digitale**, **creazione di arti visive in forme digitali**.
+- La divisione 90 è nel gruppo «altre attività economiche» al 67% (All. 2 L. 145/2018), contro il 78% di 73.11.01 e 74.12.09.

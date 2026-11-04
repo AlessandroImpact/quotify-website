@@ -63,6 +63,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://quotify.it/forfettario-grafico</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://quotify.it/forfettario-copywriter</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://quotify.it/guide/primo-accesso-profilo-fiscale</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
