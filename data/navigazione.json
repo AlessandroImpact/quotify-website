@@ -109,6 +109,12 @@
       "per": "Per chi ha una partita IVA in forfettario, o sta per aprirla."
     },
     {
+      "id": "professioni",
+      "etichetta": "Per professione",
+      "sommario": "Coefficiente, contributi e fatture, mestiere per mestiere: i numeri del tuo lavoro, non quelli medi.",
+      "per": "Per chi vuole sapere cosa cambia per la propria attività."
+    },
+    {
       "id": "app",
       "etichetta": "Usare Quotify",
       "sommario": "Come si fanno le cose dentro l’app: preventivi, fatture, progetti, scadenze.",

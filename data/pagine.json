@@ -108,6 +108,25 @@
       "titoloBreve": "ATECO 2025 e regime forfettario: cosa è cambiato"
     },
     {
+      "file": "forfettario-sviluppatore-software.html",
+      "url": "/forfettario-sviluppatore-software",
+      "titolo": "Forfettario sviluppatore software 2026: ATECO e tasse",
+      "descrizione": "Codice ATECO 62.10.00, coefficiente del 67% e Gestione Separata: quanto paga uno sviluppatore software in regime forfettario, con un esempio su 40.000 €.",
+      "descrizioneSocial": "Il codice giusto, il 67% e la Gestione Separata senza minimo. Su 40.000 € incassati ne restano circa 30.000.",
+      "ogTipo": "article",
+      "grafo": "articolo",
+      "categoria": "professioni",
+      "tipo": "guida",
+      "cifra": "67%",
+      "cifra_nota": "il coefficiente di chi programma",
+      "query_obiettivo": "regime forfettario sviluppatore software",
+      "query_secondarie": "partita iva programmatore forfettario, codice ateco sviluppatore software, ateco 62.10.00 forfettario, consulente informatico forfettario, tasse sviluppatore partita iva",
+      "pubblicato": "2026-11-04",
+      "revisionato": "2026-11-04",
+      "verifica_fiscale": "verificata",
+      "titoloBreve": "Regime forfettario per sviluppatori software"
+    },
+    {
       "file": "guide/primo-accesso-profilo-fiscale.html",
       "url": "/guide/primo-accesso-profilo-fiscale",
       "titolo": "Primo accesso: impostare il profilo fiscale forfettario",
