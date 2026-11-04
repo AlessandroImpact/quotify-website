@@ -45,6 +45,9 @@
 /forfettario-sviluppatore-software
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/forfettario-social-media-manager
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/primo-accesso-profilo-fiscale
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
