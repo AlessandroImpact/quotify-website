@@ -183,3 +183,15 @@ test('riferimenti che si risolvono, anche dentro liste e nodi annidati: nessun r
   ];
   assert.deepEqual(riferimenti(grafo), []);
 });
+
+test('un indirizzo email lasciato all’offuscamento di Cloudflare blocca il deploy', () => {
+  const base = pagina();
+  const html = base.html.replace('<h1>', '<p>info@quotify.it</p><h1>');
+  const rilievi = controllaPagina({ ...base, html, root: parse(html, { comment: false }) },
+    { linkInterni: [], immaginiSocial: [], registro: [] });
+  assert.ok(rilievi.some((r) => r.rule === 'email-offuscata' && r.level === 'error'));
+  const protetto = `<!--email_off-->${html}<!--/email_off-->`;
+  const puliti = controllaPagina({ ...base, html: protetto, root: parse(protetto, { comment: false }) },
+    { linkInterni: [], immaginiSocial: [], registro: [] });
+  assert.ok(!puliti.some((r) => r.rule === 'email-offuscata'));
+});

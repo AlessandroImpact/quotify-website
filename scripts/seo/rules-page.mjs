@@ -2,6 +2,7 @@
 // `error` blocca il deploy, `warn` viene stampato e basta (docs/console-sito-piano.md §5.2).
 
 import { CONFIG, riga, contaParole, assoluto, esito } from './lib.mjs';
+import { emailScoperte } from './email.mjs';
 
 const E = 'error';
 const W = 'warn';
@@ -45,6 +46,15 @@ export function controllaPagina(pag, ctx) {
   if (!htmlEl?.getAttribute('lang')) {
     f.push(esito(E, 'lang-mancante', file, at(htmlEl), '<html> senza attributo lang',
       'Aggiungere lang="it": il mercato è solo italiano.'));
+  }
+
+  // ── email lasciate all’offuscamento di Cloudflare ───────────────────────
+  // Diventerebbero link a /cdn-cgi/l/email-protection, 404 per i crawler.
+  const scoperte = emailScoperte(html);
+  if (scoperte) {
+    f.push(esito(E, 'email-offuscata', file, null,
+      `${scoperte} indirizzi email fuori da <!--email_off-->`,
+      'Il build li protegge con scripts/seo/email.mjs: controllare che sia nel comando di build.'));
   }
 
   // ── title ─────────────────────────────────────────────────────────────────
