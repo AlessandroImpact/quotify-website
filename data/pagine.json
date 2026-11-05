@@ -414,10 +414,10 @@
     {
       "file": "guide/app-su-telefono.html",
       "url": "/guide/app-su-telefono",
-      "titolo": "Installare Quotify sul telefono: due strade",
+      "titolo": "Installare Quotify sul telefono: app e browser",
       "titoloBreve": "L’app sul telefono: iPhone, Android e le notifiche",
-      "descrizione": "L'app iOS ufficiale con il widget, l'installazione dal browser su Android, e le tre notifiche che Quotify può mandarti sul telefono.",
-      "descrizioneSocial": "App ufficiale su iPhone, dal browser su Android. Il motivo per averla non è l'icona: sono le notifiche.",
+      "descrizione": "L’app ufficiale su iPhone e Android, il widget su iPhone, l’installazione dal browser e le tre notifiche che Quotify può mandarti sul telefono.",
+      "descrizioneSocial": "App ufficiale su iPhone e Android, o dal browser. Il motivo per averla non è l’icona: sono le notifiche.",
       "ogTipo": "article",
       "grafo": "articolo",
       "categoria": "app",
@@ -425,9 +425,9 @@
       "cifra": "3",
       "cifra_nota": "i tipi di notifica che può mandarti",
       "query_obiettivo": "installare Quotify sul telefono",
-      "query_secondarie": "app ios forfettario, widget fatturato iphone, pwa android installa app, notifiche scadenze fiscali telefono",
+      "query_secondarie": "app quotify android, app ios forfettario, widget fatturato iphone, app fatturazione forfettario android, notifiche scadenze fiscali telefono",
       "pubblicato": "2026-09-08",
-      "revisionato": "2026-09-08",
+      "revisionato": "2026-11-05",
       "verifica_fiscale": "verificata"
     },
     {

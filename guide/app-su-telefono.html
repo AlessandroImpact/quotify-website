@@ -7,8 +7,8 @@
     <!-- Bloccante e per primo: applica il tema salvato prima che la pagina
          venga disegnata. Non può essere inline, la CSP è script-src 'self'. -->
     <script src="/tema.js"></script>
-    <meta name="description" content="L'app iOS ufficiale con il widget, l'installazione dal browser su Android, e le tre notifiche che Quotify può mandarti sul telefono." />
-    <title>Installare Quotify sul telefono: due strade</title>
+    <meta name="description" content="L’app ufficiale su iPhone e Android, il widget su iPhone, l’installazione dal browser e le tre notifiche che Quotify può mandarti sul telefono." />
+    <title>Installare Quotify sul telefono: app e browser</title>
 
     <link rel="canonical" href="https://quotify.it/guide/app-su-telefono" />
 
@@ -19,9 +19,9 @@
     <meta name="quotify:cifra" content="3" />
     <meta name="quotify:cifra-nota" content="i tipi di notifica che può mandarti" />
     <meta name="quotify:query-obiettivo" content="installare Quotify sul telefono" />
-    <meta name="quotify:query-secondarie" content="app ios forfettario, widget fatturato iphone, pwa android installa app, notifiche scadenze fiscali telefono" />
+    <meta name="quotify:query-secondarie" content="app quotify android, app ios forfettario, widget fatturato iphone, app fatturazione forfettario android, notifiche scadenze fiscali telefono" />
     <meta name="quotify:pubblicato" content="2026-09-08" />
-    <meta name="quotify:revisionato" content="2026-09-08" />
+    <meta name="quotify:revisionato" content="2026-11-05" />
     <meta name="quotify:verifica-fiscale" content="verificata" />
 
     <!-- Open Graph -->
@@ -29,8 +29,8 @@
     <meta property="og:site_name" content="Quotify" />
     <meta property="og:locale" content="it_IT" />
     <meta property="og:url" content="https://quotify.it/guide/app-su-telefono" />
-    <meta property="og:title" content="Installare Quotify sul telefono: due strade" />
-    <meta property="og:description" content="App ufficiale su iPhone, dal browser su Android. Il motivo per averla non è l'icona: sono le notifiche." />
+    <meta property="og:title" content="Installare Quotify sul telefono: app e browser" />
+    <meta property="og:description" content="App ufficiale su iPhone e Android, o dal browser. Il motivo per averla non è l’icona: sono le notifiche." />
     <meta property="og:image" content="https://quotify.it/og-quotify.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
@@ -39,8 +39,8 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Installare Quotify sul telefono: due strade" />
-    <meta name="twitter:description" content="App ufficiale su iPhone, dal browser su Android. Il motivo per averla non è l'icona: sono le notifiche." />
+    <meta name="twitter:title" content="Installare Quotify sul telefono: app e browser" />
+    <meta name="twitter:description" content="App ufficiale su iPhone e Android, o dal browser. Il motivo per averla non è l’icona: sono le notifiche." />
     <meta name="twitter:image" content="https://quotify.it/og-quotify.jpg" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -171,9 +171,9 @@
         Quotify sul telefono: l’app, il browser e le notifiche
       </h1>
       <p class="text-lg text-slate-600 mb-4">
-        Su iPhone c’è l’<strong>app ufficiale</strong>, con il widget che tiene fatturato e prossima
-        scadenza sulla schermata home. Su qualunque telefono, in alternativa, Quotify si
-        <strong>installa direttamente dal browser</strong> in pochi secondi.
+        Su iPhone e su Android c’è l’<strong>app ufficiale</strong>, e su iPhone ha anche il widget che
+        tiene fatturato e prossima scadenza sulla schermata home. Se non vuoi passare dallo store,
+        Quotify si <strong>installa direttamente dal browser</strong> in pochi secondi.
       </p>
       <p class="text-lg text-slate-900 font-semibold mb-10">
         In entrambi i casi il motivo per averla sul telefono non è l’icona: sono le notifiche. Un
@@ -181,19 +181,20 @@
         fatta.
       </p>
 
-      <section aria-labelledby="ios" class="mb-14">
-        <h2 id="ios" class="text-2xl font-bold text-slate-900 mb-4">Su iPhone: l’app ufficiale</h2>
+      <section aria-labelledby="app" class="mb-14">
+        <h2 id="app" class="text-2xl font-bold text-slate-900 mb-4">L’app ufficiale, su iPhone e Android</h2>
         <p class="text-slate-700 mb-4">
-          Su iPhone e iPad c’è l’applicazione Quotify vera e propria, scaricabile dall’<a href="https://apps.apple.com/it/app/quotify/id6761126847" class="text-primary-700 underline underline-offset-4 hover:text-primary-800" rel="noopener">App Store</a>.
-          È la strada consigliata, perché ha una cosa che l’installazione dal browser non può
-          avere: il <strong>widget</strong>.
+          Quotify è un’applicazione vera e propria, da scaricare dall’<a href="https://apps.apple.com/it/app/quotify/id6761126847" class="text-primary-700 underline underline-offset-4 hover:text-primary-800" rel="noopener">App Store</a>
+          su iPhone e iPad, o da <a href="https://play.google.com/store/apps/details?id=com.alessandroterracciano.quotify" class="text-primary-700 underline underline-offset-4 hover:text-primary-800" rel="noopener">Google Play</a> su Android. È la strada consigliata: si
+          aggiorna da sola, ti avvisa con le notifiche e l’accedi con lo stesso account del computer.
         </p>
         <div class="rounded-2xl bg-primary-50 border border-primary-200 p-5 mb-4">
           <p class="text-slate-800">
-            <strong>Il widget sulla schermata home.</strong> Esiste in due misure. Quello piccolo
-            tiene sott’occhio <strong>fatturato dell’anno e prossima scadenza fiscale</strong>;
+            <strong>Su iPhone, il widget sulla schermata home.</strong> Esiste in due misure. Quello
+            piccolo tiene sott’occhio <strong>fatturato dell’anno e prossima scadenza fiscale</strong>;
             quello medio mostra il riepilogo della dashboard. Sono i due numeri che di solito si
-            guardano di sfuggita — e averli senza aprire niente cambia quante volte li guardi.
+            guardano di sfuggita — e averli senza aprire niente cambia quante volte li guardi. Su
+            Android, per ora, il widget non c’è.
           </p>
         </div>
         <p class="text-slate-700">
@@ -203,15 +204,15 @@
       </section>
 
       <section aria-labelledby="browser" class="mb-14">
-        <h2 id="browser" class="text-2xl font-bold text-slate-900 mb-4">Dal browser, su qualunque telefono</h2>
+        <h2 id="browser" class="text-2xl font-bold text-slate-900 mb-4">Dal browser, senza passare dallo store</h2>
         <p class="text-slate-700 mb-6">
           Quotify è anche una <strong>Progressive Web App</strong>: apri <strong>app.quotify.it</strong>
           nel browser del telefono e la aggiungi alla schermata home. Nessun download, nessun account
-          dello store. È la strada su Android, ed è una scelta valida anche su iPhone se preferisci.
+          dello store: è l’alternativa per chi preferisce non installare app.
         </p>
         <div class="space-y-4">
           <div class="rounded-2xl border border-slate-200 p-5">
-            <p class="font-semibold text-slate-900">Su Android</p>
+            <p class="font-semibold text-slate-900">Su Android, se non vuoi passare da Google Play</p>
             <p class="text-slate-700 mt-1">
               In Chrome compare spesso da sola una richiesta di installazione. Se non la vedi, apri
               il menu con i tre puntini e scegli <strong>«Installa app»</strong> o «Aggiungi a
@@ -301,11 +302,11 @@
         <div class="space-y-6">
 
           <div data-faq>
-            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Meglio l’app dall’App Store o quella dal browser?</h3>
+            <h3 data-faq-q class="font-semibold text-slate-900 mb-2">Meglio l’app dallo store o quella dal browser?</h3>
             <div data-faq-a class="text-slate-700">
-              Su iPhone, l’app ufficiale: fa tutto quello che fa l’altra e in più ha il widget. La
-              versione dal browser resta utile su Android, e su iPhone se preferisci non passare
-              dallo store — le funzioni sono le stesse, manca solo il widget.
+              L’app ufficiale, sia su iPhone sia su Android: fa tutto quello che fa l’altra, e su
+              iPhone ha in più il widget. La versione dal browser resta utile se preferisci non
+              passare dallo store: le funzioni sono le stesse.
             </div>
           </div>
 
@@ -351,9 +352,10 @@
 
       <section aria-labelledby="fonti" class="mb-14 text-sm text-slate-600">
         <h2 id="fonti" class="text-base font-semibold text-slate-900 mb-3">Fonti e aggiornamento</h2>
-        <p class="mb-2">Aggiornato all’<strong>8 settembre 2026</strong>.</p>
+        <p class="mb-2">Aggiornato al <strong>5 novembre 2026</strong>.</p>
         <ul class="space-y-1 list-disc pl-5">
           <li>Esistenza dell’app iOS ufficiale, widget in due misure con fatturato e prossima scadenza, installazione come Progressive Web App, tipi di notifica, anticipo di sette giorni e di un giorno sulle scadenze fiscali, ora di invio scelta dall’utente con valore predefinito alle 9 e gestione dell’ora legale italiana: verificati sulla versione dell’app pubblicata a settembre 2026.</li>
+          <li>App Android ufficiale: pubblicata su Google Play il 2 novembre 2026, senza widget.</li>
           <li>Riserva degli avvisi sulle scadenze fiscali al piano Pro: verificata sulla logica di invio delle notifiche.</li>
         </ul>
       </section>
@@ -366,6 +368,7 @@
         </p>
         <div class="flex flex-wrap gap-3">
           <a href="https://apps.apple.com/it/app/quotify/id6761126847" rel="noopener" class="inline-flex items-center justify-center rounded-xl cta-secondario font-semibold px-6 py-3 transition-colors">Scarica su iPhone</a>
+          <a href="https://play.google.com/store/apps/details?id=com.alessandroterracciano.quotify" rel="noopener" class="inline-flex items-center justify-center rounded-xl cta-secondario font-semibold px-6 py-3 transition-colors">Scarica su Android</a>
           <a href="https://app.quotify.it/register?utm_source=sito&utm_medium=guida&utm_campaign=app-su-telefono" class="inline-flex items-center justify-center rounded-xl cta-primario font-semibold px-6 py-3 transition-colors">Prova Quotify gratis</a>
         </div>
       </section>
