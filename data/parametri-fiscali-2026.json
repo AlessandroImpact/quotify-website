@@ -136,5 +136,58 @@
       "fonteConsultata": "secondaria",
       "nota": "Le aliquote superiori a quelle degli artigiani includono lo 0,48% di contributo aggiuntivo. Stessa struttura a due scaglioni e stessa riduzione facoltativa del 35%."
     }
+  },
+  "casseProfessionali": {
+    "_nota": "Solo soggettivo e integrativo. Esclusi: contributo di maternità (piccolo e fisso, per Cassa Forense 2026 ancora da definire), riduzioni per giovani e neoiscritti, aliquote oltre il tetto (il tetto supera il massimo reddito lordo del regime, 100.000 × 0,78 = 78.000). L'integrativo lo paga il cliente e non è reddito: è un costo solo per la parte di minimo non coperta dal fatturato. Ricerca completa in docs/ricerca-casse-2026.md.",
+    "inarcassa": {
+      "nome": "Inarcassa",
+      "professioni": "ingegneri e architetti",
+      "soggettivo": {
+        "aliquota": 0.145,
+        "minimo": 2785,
+        "tetto": 145550
+      },
+      "integrativo": {
+        "aliquota": 0.04,
+        "minimo": 850
+      },
+      "fonte": "Inarcassa, contributi 2026",
+      "url": "https://www.inarcassa.it/articoli/contributi-gli-iscritti",
+      "fonteConsultata": "primaria"
+    },
+    "cassaForense": {
+      "nome": "Cassa Forense",
+      "professioni": "avvocati",
+      "soggettivo": {
+        "aliquota": 0.17,
+        "minimo": 2790,
+        "tetto": 131800
+      },
+      "integrativo": {
+        "aliquota": 0.04,
+        "minimo": 355
+      },
+      "fonte": "Cassa Forense, tabella dei contributi minimi (riga 2026)",
+      "url": "https://www.cassaforense.it/media/pkxmzmvw/tabella-contributi-minimi.pdf",
+      "fonteConsultata": "primaria",
+      "nota": "Il minimo integrativo di 350 € citato nelle note al Modello 5/2026 è quello del 2025: il Modello 5 dichiara i redditi dell'anno prima."
+    },
+    "cipag": {
+      "nome": "Cassa Geometri (CIPAG)",
+      "professioni": "geometri",
+      "soggettivo": {
+        "aliquota": 0.2,
+        "minimo": 4240,
+        "tetto": 183550
+      },
+      "integrativo": {
+        "aliquota": 0.05,
+        "minimo": 1955
+      },
+      "fonte": "CIPAG, contribuzione 2026: modalità e termini",
+      "url": "https://www.cassageometri.it/dettaglionotizie/-/asset_publisher/atokTJ1vRGEQ/content/contribuzione-2026-modalita-e-termini",
+      "fonteConsultata": "primaria",
+      "nota": "Dal 2027 il soggettivo passa al 22% (FAQ CIPAG): da aggiornare con i parametri 2027."
+    }
   }
 }

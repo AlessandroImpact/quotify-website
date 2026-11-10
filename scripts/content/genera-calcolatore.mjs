@@ -32,6 +32,9 @@ const CASSE = [
   ['gestioneSeparata', 'Gestione Separata INPS'],
   ['artigiani', 'Artigiani'],
   ['commercianti', 'Commercianti'],
+  ['inarcassa', 'Inarcassa (ingegneri, architetti)'],
+  ['cassaForense', 'Cassa Forense (avvocati)'],
+  ['cipag', 'Cassa Geometri'],
 ];
 
 const REGIMI = [
@@ -114,7 +117,7 @@ function bloccoBarra(r, ricavi) {
         <div class="flex h-12 rounded-xl overflow-hidden bg-slate-200" role="img"
           aria-label="Ripartizione del fatturato fra netto, contributi e imposta">${seg(
             'netto', r.netto, 'bg-primary-600 text-white', 'netto',
-          )}${seg('contributi', r.contributi, 'bg-amber-400 text-amber-950', 'INPS')}${seg(
+          )}${seg('contributi', r.contributi, 'bg-amber-400 text-amber-950', 'contributi')}${seg(
             'imposta', r.impostaSostitutiva, 'bg-slate-500 text-white', 'imposta',
           )}
         </div>
@@ -147,7 +150,7 @@ function bloccoEsempio({ parametri: p }) {
           eur(r.redditoLordo),
           `fatturato × ${pct(coefficiente)} di coefficiente di redditività`,
         )}${riga(
-          'Contributi INPS',
+          'Contributi previdenziali',
           'contributi',
           eur(r.contributi),
           `Gestione Separata, ${pct(p.inps.gestioneSeparata.aliquota)} sul reddito lordo`,
@@ -232,7 +235,7 @@ function bloccoAccantonamento({ parametri: p }) {
         <caption class="sr-only">Da cosa è composta la quota da accantonare</caption>
         <tbody class="divide-y divide-slate-200" data-risultato aria-live="polite">
           <tr class="text-slate-700">
-            <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi INPS
+            <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi previdenziali
               <span class="block text-sm text-slate-500" data-nota="contributi"></span></th>
             <td class="py-3 text-right"><span data-campo="contributi" class="tabular-nums whitespace-nowrap">${eur(r.contributi)}</span></td>
           </tr>

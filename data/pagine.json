@@ -44,8 +44,8 @@
       "query_obiettivo": "calcolo tasse forfettario",
       "query_secondarie": "calcolatore regime forfettario, quanto si paga di tasse in forfettario, coefficiente di redditività forfettario",
       "pubblicato": "2026-09-04",
-      "revisionato": "2026-09-21",
-      "verifica_fiscale": "verificata",
+      "revisionato": "2026-11-10",
+      "verifica_fiscale": "da-verificare",
       "titoloBreve": "Calcolo tasse e contributi in regime forfettario"
     },
     {
@@ -83,8 +83,8 @@
       "query_obiettivo": "quanto accantonare tasse partita iva",
       "query_secondarie": "quanto mettere da parte per le tasse forfettario, percentuale da accantonare partita iva, quanto risparmiare per le tasse freelance",
       "pubblicato": "2026-09-04",
-      "revisionato": "2026-09-04",
-      "verifica_fiscale": "verificata",
+      "revisionato": "2026-11-10",
+      "verifica_fiscale": "da-verificare",
       "titoloBreve": "Quanto accantonare per le tasse con la partita IVA"
     },
     {
