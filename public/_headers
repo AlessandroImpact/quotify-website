@@ -66,6 +66,15 @@
 /forfettario-agente-di-commercio
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
+/forfettario-avvocato
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
+/forfettario-ingegnere-architetto
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
+/forfettario-geometra
+  Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
+
 /guide/primo-accesso-profilo-fiscale
   Cache-Control: public, max-age=0, s-maxage=300, must-revalidate
 
