@@ -7,10 +7,27 @@
 #
 # /beta è il link della BIO INSTAGRAM: è l'unico punto in cui l'URL è visibile
 # all'utente, quindi ha il path che si legge meglio.
+#
+# CONVENZIONE UTM (06/11/2026)
+#   utm_source   = la piattaforma (instagram, facebook, linkedin, tiktok, youtube)
+#   utm_medium   = DOVE sta il link (bio, post, profilo, pagina, cta, descrizione)
+#   utm_campaign = organico per tutto ciò che non è a pagamento; le campagne ads
+#                  avranno il loro nome (es. ads-lancio-2027)
+# Il valore "beta" non si usa più: Quotify non è più in beta.
+#
+# LINKEDIN atterra sul SITO, non sull'app: così il raccoglitore registra la
+# visita (functions/_middleware.js) e provenienza.js porta gli stessi UTM sul
+# bottone di iscrizione. Il cruscotto vede tutto il percorso: visita → iscritto → pagante.
+#   /in   testo dei post della Pagina Quotify
+#   /ale  primo commento dei post dal profilo personale di Alessandro
+#   /li   pulsante "Visita il sito web" e sezione Informazioni della Pagina
 
-/beta   https://app.quotify.it/register?utm_source=instagram&utm_medium=bio&utm_campaign=beta        302
-/ig     https://app.quotify.it/register?utm_source=instagram&utm_medium=bio&utm_campaign=beta        302
-/fb     https://app.quotify.it/register?utm_source=facebook&utm_medium=cta&utm_campaign=beta         302
-/tt     https://app.quotify.it/register?utm_source=tiktok&utm_medium=bio&utm_campaign=beta           302
-/li     https://app.quotify.it/register?utm_source=linkedin&utm_medium=bio&utm_campaign=beta         302
-/yt     https://app.quotify.it/register?utm_source=youtube&utm_medium=descrizione&utm_campaign=beta  302
+/beta   https://app.quotify.it/register?utm_source=instagram&utm_medium=bio&utm_campaign=organico        302
+/ig     https://app.quotify.it/register?utm_source=instagram&utm_medium=bio&utm_campaign=organico        302
+/fb     https://app.quotify.it/register?utm_source=facebook&utm_medium=cta&utm_campaign=organico         302
+/tt     https://app.quotify.it/register?utm_source=tiktok&utm_medium=bio&utm_campaign=organico           302
+/yt     https://app.quotify.it/register?utm_source=youtube&utm_medium=descrizione&utm_campaign=organico  302
+
+/in     https://quotify.it/?utm_source=linkedin&utm_medium=post&utm_campaign=organico      302
+/ale    https://quotify.it/?utm_source=linkedin&utm_medium=profilo&utm_campaign=organico   302
+/li     https://quotify.it/?utm_source=linkedin&utm_medium=pagina&utm_campaign=organico    302
