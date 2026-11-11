@@ -25,7 +25,13 @@ if (radice) {
     gestioneSeparata: 'Gestione Separata',
     artigiani: 'Artigiani',
     commercianti: 'Commercianti',
+    inarcassa: 'Inarcassa',
+    cassaForense: 'Cassa Forense',
+    cipag: 'Cassa Geometri',
   };
+  // La riduzione del 35% è un'agevolazione INPS per artigiani e commercianti:
+  // non esiste per la Gestione Separata né per le casse degli ordini.
+  const conRiduzione = (cassa) => cassa === 'artigiani' || cassa === 'commercianti';
 
   const AVVISI = {
     'uscita-anno-successivo':
@@ -63,7 +69,7 @@ if (radice) {
     if (!gruppi.includes(valido.gruppo)) valido.gruppo = iniziale.gruppo;
     if (!(valido.cassa in CASSE)) valido.cassa = iniziale.cassa;
     if (!['ordinaria', 'startup'].includes(valido.regime)) valido.regime = iniziale.regime;
-    valido.riduzione35 = Boolean(valido.riduzione35) && valido.cassa !== 'gestioneSeparata';
+    valido.riduzione35 = Boolean(valido.riduzione35) && conRiduzione(valido.cassa);
     return valido;
   }
 
@@ -116,6 +122,7 @@ if (radice) {
     const coefficiente = coefficientePerGruppo(stato.gruppo, parametri);
     const r = calcola({ ...stato, coefficiente }, parametri);
     const inps = parametri.inps[stato.cassa];
+    const professionale = parametri.casseProfessionali[stato.cassa];
 
     // Si aggiornano i campi che la pagina ESPONE, non una lista scritta qui:
     // così lo stesso script serve il calcolatore e la pagina
@@ -130,8 +137,13 @@ if (radice) {
         `fatturato × ${pct(coefficiente)} di coefficiente di redditività`;
     }
     if (nota('contributi')) {
-      nota('contributi').textContent =
-        stato.cassa === 'gestioneSeparata'
+      nota('contributi').textContent = professionale
+        ? `${CASSE[stato.cassa]}: soggettivo ${pct(professionale.soggettivo.aliquota)} sul reddito lordo, ` +
+          `minimo ${eur(professionale.soggettivo.minimo)}` +
+          (stato.ricavi * professionale.integrativo.aliquota < professionale.integrativo.minimo
+            ? `, più la parte di integrativo minimo (${eur(professionale.integrativo.minimo)}) che il fatturato non copre`
+            : '; l’integrativo lo paga il cliente')
+        : stato.cassa === 'gestioneSeparata'
           ? `Gestione Separata, ${pct(inps.aliquota)} sul reddito lordo`
           : `${CASSE[stato.cassa]}: ${eur(inps.fisso)} fissi più ${pct(inps.aliquota)} sull’eccedenza` +
             (stato.riduzione35 ? ', ridotti del 35%' : '');
@@ -158,7 +170,7 @@ if (radice) {
     }
 
     const riduzione = $('[data-riduzione]');
-    if (riduzione) riduzione.hidden = stato.cassa === 'gestioneSeparata';
+    if (riduzione) riduzione.hidden = !conRiduzione(stato.cassa);
 
     const avviso = $('[data-avviso-regime]');
     if (avviso) {

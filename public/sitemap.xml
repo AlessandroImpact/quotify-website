@@ -16,7 +16,7 @@
   </url>
   <url>
     <loc>https://quotify.it/calcolo-tasse-forfettario</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -28,7 +28,7 @@
   </url>
   <url>
     <loc>https://quotify.it/quanto-accantonare-tasse-partita-iva</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -83,6 +83,24 @@
   <url>
     <loc>https://quotify.it/forfettario-agente-di-commercio</loc>
     <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://quotify.it/forfettario-avvocato</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://quotify.it/forfettario-ingegnere-architetto</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://quotify.it/forfettario-geometra</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

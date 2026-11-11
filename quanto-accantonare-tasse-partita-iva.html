@@ -21,7 +21,7 @@
     <meta name="quotify:query-obiettivo" content="quanto accantonare tasse partita iva" />
     <meta name="quotify:query-secondarie" content="quanto mettere da parte per le tasse forfettario, percentuale da accantonare partita iva, quanto risparmiare per le tasse freelance" />
     <meta name="quotify:pubblicato" content="2026-09-04" />
-    <meta name="quotify:revisionato" content="2026-09-04" />
+    <meta name="quotify:revisionato" content="2026-11-10" />
     <meta name="quotify:verifica-fiscale" content="verificata" />
 
     <!-- Open Graph -->
@@ -199,7 +199,7 @@
           </div>
           <div>
             <label for="c-cassa" class="block text-sm font-medium text-slate-700 mb-2">Dove versi i contributi</label>
-            <select id="c-cassa" data-controllo="cassa" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600"><option value="gestioneSeparata" selected>Gestione Separata INPS</option><option value="artigiani">Artigiani</option><option value="commercianti">Commercianti</option></select>
+            <select id="c-cassa" data-controllo="cassa" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600"><option value="gestioneSeparata" selected>Gestione Separata INPS</option><option value="artigiani">Artigiani</option><option value="commercianti">Commercianti</option><option value="inarcassa">Inarcassa (ingegneri, architetti)</option><option value="cassaForense">Cassa Forense (avvocati)</option><option value="cipag">Cassa Geometri</option></select>
           </div>
           <div>
             <label for="c-regime" class="block text-sm font-medium text-slate-700 mb-2">Da quanto hai la partita IVA</label>
@@ -230,7 +230,7 @@
         <caption class="sr-only">Da cosa è composta la quota da accantonare</caption>
         <tbody class="divide-y divide-slate-200" data-risultato aria-live="polite">
           <tr class="text-slate-700">
-            <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi INPS
+            <th scope="row" class="py-3 pr-4 text-left font-normal">Contributi previdenziali
               <span class="block text-sm text-slate-500" data-nota="contributi"></span></th>
             <td class="py-3 text-right"><span data-campo="contributi" class="tabular-nums whitespace-nowrap">5.240,07 €</span></td>
           </tr>
@@ -334,8 +334,10 @@
             accantona meno di quanto indicato qui.
           </li>
           <li>
-            <strong class="text-slate-900">Non copre le casse professionali private.</strong>
-            Avvocati, ingegneri, architetti e medici versano alla propria cassa, con regole sue.
+            <strong class="text-slate-900">Delle casse professionali copre solo tre, in modo semplificato.</strong>
+            Per Inarcassa, Cassa Forense e Cassa Geometri conta il contributo soggettivo con il suo
+            minimo, più la parte di integrativo minimo non coperta dal fatturato. Restano fuori la
+            maternità, le riduzioni per giovani e neoiscritti e tutte le altre casse.
           </li>
           <li>
             <strong class="text-slate-900">Con i contributi fissi la percentuale non è costante.</strong>
@@ -403,7 +405,8 @@
         <p class="mb-2">
           Calcolo riferito all’anno d’imposta <strong>2026</strong>, sugli stessi parametri del
           calcolatore delle tasse: coefficienti dell’Allegato 4 alla L. 190/2014, aliquote INPS
-          dalle circolari 2026. Valori verificati il <strong>4 settembre 2026</strong>.
+          dalle circolari 2026, minimi e aliquote 2026 pubblicati da Inarcassa, Cassa Forense e
+          Cassa Geometri. Valori verificati il <strong>4 settembre 2026</strong>.
         </p>
         <p>
           Questa pagina è una stima informativa e non sostituisce il parere di un commercialista.
