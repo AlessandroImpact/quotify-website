@@ -45,7 +45,7 @@
       "query_secondarie": "calcolatore regime forfettario, quanto si paga di tasse in forfettario, coefficiente di redditività forfettario",
       "pubblicato": "2026-09-04",
       "revisionato": "2026-11-10",
-      "verifica_fiscale": "da-verificare",
+      "verifica_fiscale": "verificata",
       "titoloBreve": "Calcolo tasse e contributi in regime forfettario"
     },
     {
@@ -84,7 +84,7 @@
       "query_secondarie": "quanto mettere da parte per le tasse forfettario, percentuale da accantonare partita iva, quanto risparmiare per le tasse freelance",
       "pubblicato": "2026-09-04",
       "revisionato": "2026-11-10",
-      "verifica_fiscale": "da-verificare",
+      "verifica_fiscale": "verificata",
       "titoloBreve": "Quanto accantonare per le tasse con la partita IVA"
     },
     {
@@ -275,7 +275,7 @@
       "query_secondarie": "avvocato forfettario cassa forense, contributi cassa forense forfettario, contributo integrativo 4% forfettario, minimi cassa forense 2026, codice ateco avvocato, fattura avvocato forfettario",
       "pubblicato": "2026-11-10",
       "revisionato": "2026-11-10",
-      "verifica_fiscale": "da-verificare",
+      "verifica_fiscale": "verificata",
       "titoloBreve": "Avvocato in regime forfettario"
     },
     {
@@ -294,7 +294,7 @@
       "query_secondarie": "architetto regime forfettario, inarcassa forfettario, contributo integrativo inarcassa forfettario, minimi inarcassa 2026, codice ateco ingegnere, codice ateco architetto",
       "pubblicato": "2026-11-10",
       "revisionato": "2026-11-10",
-      "verifica_fiscale": "da-verificare",
+      "verifica_fiscale": "verificata",
       "titoloBreve": "Ingegnere e architetto in regime forfettario"
     },
     {
@@ -313,7 +313,7 @@
       "query_secondarie": "cipag forfettario, contributi cassa geometri forfettario, geometra forfettario contributo integrativo, minimi cassa geometri 2026, codice ateco geometra, coefficiente redditività geometra",
       "pubblicato": "2026-11-10",
       "revisionato": "2026-11-10",
-      "verifica_fiscale": "da-verificare",
+      "verifica_fiscale": "verificata",
       "titoloBreve": "Geometra in regime forfettario"
     },
     {
