@@ -151,7 +151,7 @@
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">Privacy Policy</h1>
-      <p class="text-sm text-slate-500 mb-10">Ultimo aggiornamento: 16 ottobre 2026</p>
+      <p class="text-sm text-slate-500 mb-10">Ultimo aggiornamento: 12 novembre 2026</p>
 
       <div class="prose prose-slate max-w-none space-y-8 text-slate-700 leading-relaxed">
 
@@ -170,6 +170,7 @@
           <ul class="list-disc pl-6 space-y-1">
             <li><strong>Dati di registrazione:</strong> nome, cognome, indirizzo email, partita IVA, codice fiscale, coefficiente di redditività.</li>
             <li><strong>Dati di fatturazione:</strong> dati dei clienti (ragione sociale, P.IVA, indirizzo, codice SDI/PEC), importi e descrizioni delle prestazioni.</li>
+            <li><strong>Dati dell'abbonamento:</strong> se passi al piano Pro, il piano scelto, la data di scadenza e gli identificativi dell'abbonamento forniti da Stripe, Apple o Google. Non riceviamo né conserviamo i dati della carta di pagamento: li gestisce direttamente chi incassa.</li>
             <li><strong>Dati di navigazione:</strong> indirizzo IP, tipo di browser, sistema operativo, pagine visitate, durata della sessione.</li>
             <li><strong>Dati tecnici:</strong> cookie tecnici e analitici (vedi Cookie Policy).</li>
             <li><strong>Registro di provenienza del sito:</strong> quando una pagina di quotify.it viene aperta da un link esterno o da un link con parametri di campagna (UTM), registriamo data e ora, la pagina d'arrivo, i parametri di campagna, il sito di provenienza e il paese. Non registriamo l'indirizzo IP, il browser, né alcun identificativo, e non usiamo cookie per questo scopo: non è possibile ricollegare due visite alla stessa persona. Serve solo a capire quali canali portano visitatori al sito.</li>
@@ -208,6 +209,7 @@
             <li><strong>Fatture già trasmesse allo SDI:</strong> restano conservate dall'Agenzia delle Entrate secondo la legge, indipendentemente dall'account Quotify. La conservazione decennale ai fini fiscali spetta a te: prima di eliminare l'account salvane una copia.</li>
             <li><strong>Dati di navigazione e registro di provenienza:</strong> massimo 26 mesi, poi cancellati automaticamente.</li>
             <li><strong>Provenienza dell'iscrizione:</strong> per la durata dell'account, e cancellata con esso.</li>
+            <li><strong>Pagamenti:</strong> le ricevute e le fatture dell'abbonamento restano presso Stripe, Apple o Google per i tempi previsti dalla legge, anche dopo l'eliminazione dell'account Quotify.</li>
           </ul>
         </section>
 
@@ -216,8 +218,13 @@
           <p>I dati possono essere comunicati a:</p>
           <ul class="list-disc pl-6 space-y-1">
             <li><strong>Agenzia delle Entrate / SDI:</strong> per la trasmissione delle fatture elettroniche.</li>
+            <li><strong>Openapi S.p.A.:</strong> intermediario con cui le fatture elettroniche vengono trasmesse al Sistema di Interscambio e ne vengono ricevuti gli esiti; lo stesso fornitore serve anche per cercare i dati di un'azienda cliente a partire dalla partita IVA.</li>
             <li><strong>Provider di hosting e infrastruttura:</strong> Cloudflare (CDN e hosting), con server ubicati nell'UE.</li>
             <li><strong>Sentry (Functional Software, Inc.):</strong> per la segnalazione degli errori tecnici del servizio. Le segnalazioni non contengono email, indirizzo IP né il tuo identificativo, e dall'indirizzo della richiesta vengono tolti i parametri. Il trasferimento negli Stati Uniti si fonda sulle Clausole Contrattuali Standard.</li>
+            <li><strong>Pagamenti:</strong> se ti abboni dal sito, Stripe, che gestisce il pagamento e a cui comunichiamo il tuo indirizzo email e un identificativo interno dell'account; se ti abboni dall'app, Apple (App Store) o Google (Google Play), con cui hai già un rapporto diretto e che ci comunicano solo lo stato dell'abbonamento. Ciascuno tratta i dati di pagamento come titolare autonomo, secondo la propria informativa.</li>
+            <li><strong>Resend:</strong> per l'invio delle email di servizio (per esempio conferma dell'indirizzo, recupero della password, promemoria).</li>
+            <li><strong>Google e Apple, per l'accesso:</strong> solo se scegli "Accedi con Google" o "Accedi con Apple", per verificare la tua identità; riceviamo il tuo indirizzo email e, se lo condividi, il nome.</li>
+            <li><strong>Notifiche push:</strong> se le attivi, il testo della notifica passa dal servizio push del tuo browser o del tuo dispositivo (Google Firebase Cloud Messaging, Apple Push Notification service o equivalenti) per essere recapitato.</li>
             <li><strong>Servizi di AI:</strong> Anthropic (Claude), per l'elaborazione delle richieste all'assistente AI. I dati inviati non vengono utilizzati per l'addestramento dei modelli.</li>
             <li><strong>Meta Platforms Ireland Ltd.:</strong> solo se hai acconsentito ai cookie di marketing, per la
             misurazione delle campagne pubblicitarie su Facebook e Instagram tramite Meta Pixel. Il trattamento avviene
@@ -225,6 +232,7 @@
             fonda sulle Clausole Contrattuali Standard e sul Data Privacy Framework UE-USA. Vedi la
             <a href="/cookie" class="text-primary-600 hover:underline">Cookie Policy</a> per revocare il consenso.</li>
           </ul>
+          <p>Quando un fornitore tratta dati fuori dall'Unione Europea, il trasferimento avviene con le garanzie previste dagli artt. 44-49 del GDPR, come le Clausole Contrattuali Standard o il Data Privacy Framework UE-USA.</p>
           <p>I dati personali non vengono venduti a terzi.</p>
         </section>
 
